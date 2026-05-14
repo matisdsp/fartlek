@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI Coach</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { color-scheme: dark; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; }
+    .bubble-user { background: #1d4ed8; color: white; }
+    .bubble-assistant { background: #1f2937; color: #f3f4f6; border: 1px solid #374151; }
+    .bubble-tool { background: #111827; color: #9ca3af; border: 1px solid #1f2937; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.75rem; }
+    .typing-dot { animation: pulse 1.4s infinite; }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes pulse { 0%, 60%, 100% { opacity: 0.3; } 30% { opacity: 1; } }
+    pre { white-space: pre-wrap; word-break: break-word; }
+  </style>
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen flex flex-col">
+  <header class="border-b border-gray-800 px-6 py-3 flex items-center justify-between">
+    <div>
+      <h1 class="text-lg font-semibold">AI Coach</h1>
+      <p class="text-xs text-gray-400">Connecté à tes données Garmin via Claude</p>
+    </div>
+    <button id="reset-btn" class="text-xs text-gray-400 hover:text-gray-200 border border-gray-700 hover:border-gray-500 rounded px-3 py-1.5">
+      Nouvelle conversation
+    </button>
+  </header>
+
+  <main class="flex-1 overflow-y-auto px-6 py-4" id="chat-log">
+    <div id="messages" class="max-w-3xl mx-auto space-y-3"></div>
+    <div id="empty-state" class="max-w-3xl mx-auto text-gray-500 text-sm italic">
+      Pose une question à ton coach. Quelques idées :
+      <ul class="list-disc pl-6 mt-2 space-y-1">
+        <li>Comment était mon sommeil cette nuit ?</li>
+        <li>Quelle est ma forme du jour ?</li>
+        <li>Analyse ma dernière course à pied</li>
+        <li>Je peux taper fort aujourd'hui ou je dois récupérer ?</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer class="border-t border-gray-800 px-6 py-3">
+    <form id="chat-form" class="max-w-3xl mx-auto flex gap-2">
+      <textarea
+        id="user-input"
+        rows="2"
+        placeholder="Saisis ton message… (Cmd/Ctrl+Enter pour envoyer)"
+        class="flex-1 bg-gray-900 border border-gray-700 rounded px-3 py-2 text-sm resize-none focus:outline-none focus:border-blue-500"
+      ></textarea>
+      <button
+        type="submit"
+        id="send-btn"
+        class="bg-blue-600 hover:bg-blue-500 disabled:bg-gray-700 disabled:cursor-not-allowed text-white rounded px-4 py-2 text-sm font-medium"
+      >
+        Envoyer
+      </button>
+    </form>
+    <p class="max-w-3xl mx-auto text-xs text-gray-500 mt-2" id="status">Prêt.</p>
+  </footer>
+
+  <script>
+    const STORAGE_KEY = "coach-conversation-v1";
+    const messagesEl = document.getElementById("messages");
+    const emptyEl = document.getElementById("empty-state");
+    const inputEl = document.getElementById("user-input");
+    const sendBtn = document.getElementById("send-btn");
+    const statusEl = document.getElementById("status");
+    const formEl = document.getElementById("chat-form");
+    const resetBtn = document.getElementById("reset-btn");
+    const chatLog = document.getElementById("chat-log");
+
+    let conversation = loadConversation();
+
+    function loadConversation() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveConversation() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(conversation));
+    }
+
+    function renderConversation() {
+      messagesEl.innerHTML = "";
+      let visibleCount = 0;
+      for (const msg of conversation) {
+        const rendered = renderMessage(msg);
+        if (rendered) {
+          messagesEl.appendChild(rendered);
+          visibleCount++;
+        }
+      }
+      emptyEl.style.display = visibleCount === 0 ? "block" : "none";
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+
+    function renderMessage(msg) {
+      // user (string content) → user bubble
+      // user (list content with tool_result) → tool bubble (condensed)
+      // assistant (string content) → assistant bubble
+      // assistant (list content) → text blocks as assistant, tool_use blocks as tool calls
+      if (msg.role === "user") {
+        if (typeof msg.content === "string") {
+          return bubble("user", msg.content);
+        }
+        // tool_result message — render condensed
+        const results = msg.content.filter(b => b.type === "tool_result");
+        if (results.length === 0) return null;
+        const summary = results.map(r => {
+          let preview = r.content;
+          try {
+            const parsed = JSON.parse(r.content);
+            preview = JSON.stringify(parsed, null, 2);
+            if (preview.length > 400) preview = preview.slice(0, 400) + "…";
+          } catch {}
+          return `← tool_result\n${preview}`;
+        }).join("\n\n");
+        return bubble("tool", summary);
+      }
+      if (msg.role === "assistant") {
+        if (typeof msg.content === "string") {
+          return bubble("assistant", msg.content);
+        }
+        const wrap = document.createElement("div");
+        wrap.className = "space-y-2";
+        for (const block of msg.content) {
+          if (block.type === "text" && block.text) {
+            wrap.appendChild(bubble("assistant", block.text));
+          } else if (block.type === "tool_use") {
+            const args = JSON.stringify(block.input || {}, null, 2);
+            wrap.appendChild(bubble("tool", `→ ${block.name}(${args === "{}" ? "" : args})`));
+          }
+        }
+        return wrap.children.length > 0 ? wrap : null;
+      }
+      return null;
+    }
+
+    function bubble(variant, text) {
+      const div = document.createElement("div");
+      const cls =
+        variant === "user" ? "bubble-user ml-auto" :
+        variant === "tool" ? "bubble-tool" :
+        "bubble-assistant";
+      const align = variant === "user" ? "items-end" : "items-start";
+      div.className = `flex flex-col ${align}`;
+      const inner = document.createElement("div");
+      inner.className = `${cls} rounded-lg px-4 py-2 max-w-[85%]`;
+      const pre = document.createElement("pre");
+      pre.textContent = text;
+      pre.className = "text-sm";
+      inner.appendChild(pre);
+      div.appendChild(inner);
+      return div;
+    }
+
+    function setBusy(busy) {
+      sendBtn.disabled = busy;
+      inputEl.disabled = busy;
+      sendBtn.textContent = busy ? "..." : "Envoyer";
+      if (busy) {
+        statusEl.innerHTML = `Le coach analyse tes données <span class="typing-dot">·</span><span class="typing-dot">·</span><span class="typing-dot">·</span>`;
+      } else {
+        statusEl.textContent = "Prêt.";
+      }
+    }
+
+    async function send(userText) {
+      conversation.push({ role: "user", content: userText });
+      saveConversation();
+      renderConversation();
+      setBusy(true);
+
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: conversation }),
+        });
+        if (!res.ok) {
+          const errText = await res.text();
+          throw new Error(`${res.status}: ${errText}`);
+        }
+        const data = await res.json();
+        conversation = data.messages;
+        saveConversation();
+        renderConversation();
+      } catch (err) {
+        conversation.push({
+          role: "assistant",
+          content: `❌ Erreur : ${err.message}`,
+        });
+        saveConversation();
+        renderConversation();
+      } finally {
+        setBusy(false);
+        inputEl.focus();
+      }
+    }
+
+    formEl.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const text = inputEl.value.trim();
+      if (!text) return;
+      inputEl.value = "";
+      send(text);
+    });
+
+    inputEl.addEventListener("keydown", (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+        e.preventDefault();
+        formEl.requestSubmit();
+      }
+    });
+
+    resetBtn.addEventListener("click", () => {
+      if (!confirm("Effacer la conversation ?")) return;
+      conversation = [];
+      saveConversation();
+      renderConversation();
+    });
+
+    renderConversation();
+    inputEl.focus();
+  </script>
+</body>
+</html>
