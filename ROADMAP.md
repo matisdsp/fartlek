@@ -13,14 +13,14 @@
 
 ## Phase 0 — Foundation (~2 weeks) · nothing user-visible, half the real effort
 
-- [ ] Rename: package `ai-coach` → `fartlek`, CLI → `fartlek auth`, repo restructure around the MCP server (FastAPI demoted to example or dropped)
-- [ ] Per-account SQLite store (`~/.fartlek/<account>/store.db`, WAL, sync lock, lifecycle commands)
-- [ ] Sync engine: staleness checks, 429 backoff, resumable cursor, capability probes (plans, goals, running tolerance, native RPE)
-- [ ] Cold start Tier 0+1; daily-load ledger with calibration + terminal fallback
-- [ ] Core metrics: PMC (CTL/ATL/TSB), form ratio, ACWR, monotony/strain; baseline engine; alerts table
-- [ ] Planned-vs-executed workout matcher
-- [ ] Shared response renderer: verdict grammar, token budgets, drop order, safety banner
-- [ ] CI guardrails incl. real-tokenizer budget regression gate
+- [x] Rename: package `ai-coach` → `fartlek`, CLI → `fartlek auth`, repo restructure around the MCP server (FastAPI dropped, recoverable from git history)
+- [x] Per-account SQLite store (`~/.fartlek/<account>/store.db`, WAL, sync lock, lifecycle commands)
+- [x] Sync engine: staleness checks, 429 backoff, resumable cursor, capability probes (plans, goals, running tolerance, native RPE)
+- [x] Cold start Tier 0+1; daily-load ledger with calibration + terminal fallback
+- [x] Core metrics: PMC (CTL/ATL/TSB), form ratio, ACWR, monotony/strain; baseline engine; alerts table
+- [x] Planned-vs-executed workout matcher
+- [x] Shared response renderer: verdict grammar, token budgets, drop order, safety banner
+- [ ] CI guardrails incl. real-tokenizer budget regression gate *(basic CI — ruff + 244 tests — in place; tokenizer budget gate lands with the Phase-1 tools that have golden renders)*
 
 ## Phase 1 — Core read surface (3–4 weeks) · **ships v0.1**
 
