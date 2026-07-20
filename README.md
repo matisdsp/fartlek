@@ -1,107 +1,57 @@
-# AI Coach SaaS — Prototype
+# Fartlek
 
-Coach IA personnel avec accès aux données Garmin réelles de l'utilisateur via tool use.
+*A coach's morning report from your Garmin data, for any LLM via MCP.*
 
-## Architecture
+Every other Garmin MCP server hands the LLM a filing cabinet of raw JSON — one night of sleep is ~52K tokens, one activity stream ~155K. The model can't read it, so it skims and improvises. Fartlek is an MCP server that does the synthesis server-side: computed sports-science metrics (PMC, ACWR, monotony, aerobic decoupling…), personal baselines, significance-tested trends, safety flags — delivered as compact, verdict-first reports the model can actually reason about.
 
-Modular monolith avec DDD-lite — un dossier par bounded context.
+> **Status: pre-release (Phase 0 — foundation).** The full design is in [`docs/DESIGN.md`](docs/DESIGN.md), the phase plan in [`ROADMAP.md`](ROADMAP.md). The current interim surface exposes 12 field-filtered Garmin tools; the synthesis tool surface (`garmin_brief` & co.) ships with v0.1.
 
-```
-src/
-├── health/         # bounded context — données Garmin (port + adapter garminconnect)
-├── coaching/       # bounded context — chat + LLM (port + adapter Anthropic)
-└── mcp_server/     # serveur MCP exposant les 12 outils Garmin à un client externe
-```
+## Quickstart
 
----
-
-## Deux façons d'utiliser le coach
-
-### Option A — Via Claude Code + MCP (recommandé pour démarrer)
-
-Aucune clé API Anthropic nécessaire — Claude Code (déjà installé localement) sert de LLM et appelle nos 12 outils Garmin via MCP.
-
-**Setup :**
+Requires Python ≥ 3.12 and [uv](https://docs.astral.sh/uv/).
 
 ```bash
-# 1. Install (une fois)
+git clone <this-repo> && cd fartlek
 uv sync
 
-# 2. Se connecter à Garmin (une fois — email/mot de passe + MFA éventuel)
-uv run ai-coach-login
-# → tokens stockés dans ~/.garminconnect/garmin_tokens.json
+# One-time Garmin login (email/password + MFA if enabled).
+# Credentials are never stored; OAuth tokens go to ~/.fartlek/tokens/.
+uv run fartlek auth
 
-# 3. Lancer Claude Code depuis ce dossier
-claude
+# Check everything is healthy
+uv run fartlek doctor
 ```
 
-Claude Code détecte `.mcp.json` à la racine et lance automatiquement le serveur `ai-coach-garmin` en sous-processus. Tu peux ensuite chatter normalement :
+Then point any MCP client at the server. From this directory, Claude Code picks up `.mcp.json` automatically; for other clients:
 
-> "Comment était mon sommeil cette nuit ?"
-> "Analyse ma dernière course à pied"
-> "Je peux taper fort aujourd'hui ou je dois récupérer ?"
-> "Fais-moi un plan d'entraînement running pour les 4 prochaines semaines en fonction de mon niveau actuel"
-
-**Test rapide du serveur MCP en standalone :**
-
-```bash
-# Lister les 12 outils exposés
-printf '%s\n' \
-  '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"t","version":"0"}}}' \
-  '{"jsonrpc":"2.0","method":"notifications/initialized"}' \
-  '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' \
-  | (cat; sleep 2) | uv run ai-coach-mcp 2>/dev/null
+```json
+{
+  "mcpServers": {
+    "fartlek": {
+      "command": "uv",
+      "args": ["run", "--directory", "/path/to/fartlek", "fartlek-mcp"]
+    }
+  }
+}
 ```
 
-### Option B — Via l'API FastAPI + UI HTML (nécessite clé Anthropic)
+Ask things like *"how did I sleep?"*, *"analyze my last run"*, *"can I go hard today or should I recover?"*.
 
-Pour avoir l'UI chat custom dans le navigateur (avec ta propre clé API Anthropic).
+## CLI
 
-```bash
-cp .env.example .env
-# Remplir ANTHROPIC_API_KEY dans .env
-uv run uvicorn src.main:app --reload --port 8000
-open http://localhost:8000
-```
-
----
-
-## 12 outils Garmin exposés
-
-| Outil | Description |
+| Command | What it does |
 |---|---|
-| `get_daily_health` | Pas, calories, FC repos/min/max, stress, body battery, intensité, étages, SpO2 |
-| `get_sleep` | Score, qualité, durée, phases (deep/light/REM/awake), respiration |
-| `get_recent_activities` | Liste des activités récentes (type, durée, FC, vitesse, training effect) |
-| `get_activity_details` | Détail d'une activité (zones FC, splits, puissance, TSS, cadence) |
-| `get_training_readiness` | Score 0-100, niveau, facteurs (sommeil/récup/HRV/charge/stress) |
-| `get_training_status` | Statut (productive/peaking/recovery/...), VO2max, charge aiguë/chronique |
-| `get_hrv` | HRV nuit dernière, moyenne 7j, statut, baseline |
-| `get_body_battery` | Évolution énergie corporelle sur N jours |
-| `get_stress` | Stress journalier détaillé (réparti par niveaux) |
-| `get_user_profile` | Profil (âge, poids, VO2max, FTP) |
-| `get_morning_readiness` | Score morning check-in |
-| `get_personal_records` | Records personnels (5k, 10k, marathon, FTP...) |
+| `fartlek auth` | one-time Garmin Connect login (MFA supported), tokens stored locally |
+| `fartlek doctor` | check tokens, Garmin connectivity, local store health |
+| `fartlek accounts` | list local accounts |
+| `fartlek reset` | wipe all local tokens and data (asks confirmation) |
 
----
+Environment: `GARMINTOKENS` overrides the token location, `FARTLEK_HOME` the data directory (default `~/.fartlek`).
 
-## Stack
+## Privacy
 
-- **Backend** : FastAPI + Python 3.12 (async)
-- **LLM** : Anthropic Claude (option B) ou Claude Code via MCP (option A)
-- **Garmin** : `garminconnect` (login intégré `ai-coach-login`, tokens dans `~/.garminconnect/`)
-- **Frontend** : HTML + Tailwind CDN + vanilla JS (option B)
+Local-first: stdio transport, your credentials and health data never leave your machine. The server only talks to Garmin's API with your own tokens.
 
-## Limites prototype
+## License & trademark
 
-- Pas d'auth utilisateur (mono-tenant local)
-- Pas de DB (conversation en mémoire)
-- Pas de streaming SSE
-- Auth Garmin = tokens locaux créés par `uv run ai-coach-login` (auto-refresh)
-
-## Roadmap
-
-Voir le plan complet. Priorités phase 2 :
-1. Persistence conversations (SQLite + Alembic)
-2. Contexte `users/` (auth + multi-tenant)
-3. Contexte `training/` (plans d'entraînement structurés + tracking progression)
+MIT. Fartlek is an independent open-source project, **not affiliated with, endorsed by, or sponsored by Garmin Ltd.** "Garmin" is used only to describe compatibility with Garmin Connect data.

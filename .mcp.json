@@ -1,8 +1,8 @@
 {
   "mcpServers": {
-    "ai-coach-garmin": {
+    "fartlek": {
       "command": "uv",
-      "args": ["run", "ai-coach-mcp"]
+      "args": ["run", "fartlek-mcp"]
     }
   }
 }
