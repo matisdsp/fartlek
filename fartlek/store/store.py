@@ -277,6 +277,18 @@ class Store:
             "ORDER BY date, id"
         )
 
+    def open_flags(self, kind: str | None = None) -> list[dict[str, Any]]:
+        """Unresolved flagged log rows (illness/injury), oldest first;
+        kind=None returns both."""
+        where = "flag IS NOT NULL" if kind is None else "flag = ?"
+        return self._all(
+            f"SELECT * FROM wellness_log WHERE {where} AND resolved = 0 ORDER BY date, id",
+            () if kind is None else (kind,),
+        )
+
+    def resolve_log(self, row_id: int) -> None:
+        self._upsert("wellness_log", {"id": row_id, "resolved": 1})
+
     # --- profile / plan / capabilities / sync state ---
     def set_profile(self, key: str, value: str) -> None:
         self._upsert("athlete_profile", {"key": key, "value": value})
