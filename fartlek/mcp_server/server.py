@@ -6,33 +6,34 @@ instead of an Anthropic-format tool registry. Both consumers call HealthService
 
 Run via stdio (Claude Code spawns the subprocess and pipes JSON-RPC over
 stdin/stdout). Environment variables read at startup:
-  GARMINTOKENS : path to Garmin tokens (default: ~/.garminconnect),
-                 created by `ai-coach-login`
+  GARMINTOKENS : path to Garmin tokens (default: ~/.fartlek/tokens),
+                 created by `fartlek auth`
+  FARTLEK_HOME : base data directory (default: ~/.fartlek)
 """
 from __future__ import annotations
 
 import logging
 import os
-from pathlib import Path
 from typing import Any
 
 from mcp.server.fastmcp import FastMCP
 
-from src.health.adapters.garmin_connect import GarminConnectAdapter
-from src.health.service import HealthService
+from fartlek.health.adapters.garmin_connect import GarminConnectAdapter
+from fartlek.health.service import HealthService
+from fartlek.paths import default_tokenstore
 
 # Log to stderr — stdout is reserved for the MCP JSON-RPC channel
 logging.basicConfig(
     level=os.environ.get("LOG_LEVEL", "WARNING"),
     format="%(asctime)s %(levelname)s %(name)s :: %(message)s",
 )
-log = logging.getLogger("ai-coach-mcp")
+log = logging.getLogger("fartlek-mcp")
 
-_tokenstore = Path(os.environ.get("GARMINTOKENS") or (Path.home() / ".garminconnect"))
+_tokenstore = default_tokenstore()
 _adapter = GarminConnectAdapter(tokenstore=_tokenstore)
 _health = HealthService(garmin=_adapter)
 
-mcp = FastMCP("ai-coach-garmin")
+mcp = FastMCP("fartlek")
 
 
 @mcp.tool(

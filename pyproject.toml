@@ -1,29 +1,30 @@
 [project]
-name = "ai-coach"
-version = "0.1.0"
-description = "AI coaching assistant with Garmin integration and Claude tool use"
+name = "fartlek-mcp"
+version = "0.1.0.dev0"
+description = "Fartlek — a coach's morning report from your Garmin data, for any LLM via MCP"
+readme = "README.md"
 requires-python = ">=3.12"
+license = "MIT"
+keywords = ["garmin", "mcp", "coaching", "running", "training", "llm"]
 dependencies = [
-    "anthropic>=0.49.0",
-    "fastapi>=0.115.0",
-    "uvicorn[standard]>=0.32.0",
-    "pydantic>=2.9.0",
-    "pydantic-settings>=2.6.0",
-    "python-dotenv>=1.0.0",
-    "mcp[cli]>=1.27.1",
     "garminconnect>=0.3.6",
+    "mcp[cli]>=1.27.1",
 ]
 
 [project.scripts]
-ai-coach-mcp = "src.mcp_server.server:main"
-ai-coach-login = "src.login:main"
+fartlek = "fartlek.cli:main"
+fartlek-mcp = "fartlek.mcp_server.server:main"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src"]
+packages = ["fartlek"]
 
 [dependency-groups]
-dev = []
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+    "ruff>=0.8",
+]

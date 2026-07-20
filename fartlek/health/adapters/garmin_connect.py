@@ -3,7 +3,7 @@
 Replaces the deprecated `garth` adapter (garth's login broke when Garmin
 added TLS fingerprinting in March 2026; garminconnect ships a multi-strategy
 login that survives it). Tokens live at `tokenstore` (default
-~/.garminconnect/garmin_tokens.json), created by the `ai-coach-login` CLI.
+~/.fartlek/tokens/garmin_tokens.json), created by the `fartlek auth` CLI.
 
 Concurrency model:
 - the library is sync — every call runs in `asyncio.to_thread`, serialized
@@ -42,16 +42,16 @@ from garminconnect import (
     GarminConnectTooManyRequestsError,
 )
 
-from src.health.exceptions import GarminApiError, GarminAuthError
+from fartlek.health.exceptions import GarminApiError, GarminAuthError
 
 log = logging.getLogger(__name__)
 
-_LOGIN_HINT = "Run `uv run ai-coach-login` to (re)connect your Garmin account, then retry."
+_LOGIN_HINT = "Run `fartlek auth` to (re)connect your Garmin account, then retry."
 _CONNECT_RETRY_TTL = 60.0  # seconds before re-attempting a failed connect
 
 
 class GarminConnectAdapter:
-    """Implements GarminPort using tokens from the `ai-coach-login` CLI."""
+    """Implements GarminPort using tokens from the `fartlek auth` CLI."""
 
     def __init__(self, tokenstore: Path):
         self._tokenstore = tokenstore

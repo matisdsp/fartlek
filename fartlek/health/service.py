@@ -10,9 +10,9 @@ import logging
 from datetime import date, timedelta
 from typing import Any
 
-from src.health.domain import DateRange
-from src.health.exceptions import GarminApiError
-from src.health.ports import GarminPort
+from fartlek.health.domain import DateRange
+from fartlek.health.exceptions import GarminApiError
+from fartlek.health.ports import GarminPort
 
 log = logging.getLogger(__name__)
 
