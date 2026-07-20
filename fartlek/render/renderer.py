@@ -234,12 +234,14 @@ def render(report: Report, cap_tokens: int) -> str:
     if fits():
         return st.build()
 
-    # ① detail rows beyond the 6 most recent
-    for ws in st.sections:
-        if ws.sec.header is not None:
-            st.trim_rows(ws, 6)
-            if fits():
-                return st.build()
+    # ① detail rows beyond the 6 most recent — secondary sections first so
+    # primary evidence tables are only touched if the cap still overflows
+    for priority in ("secondary", "primary"):
+        for ws in st.sections:
+            if ws.sec.header is not None and ws.sec.priority == priority:
+                st.trim_rows(ws, 6)
+                if fits():
+                    return st.build()
 
     # ② whole secondary sections, last first
     for ws in reversed(st.sections):

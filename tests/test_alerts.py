@@ -114,8 +114,9 @@ def test_two_metrics_different_since_dates_stay_watch():
     alerts = scan(
         {
             "resting_hr": make_series(END, BASE + [55.0]),  # since END
-            # z(78) ≈ -1.35: 4-day out-of-band streak, since END-3, never severe
-            "sleep_score": make_series(END, SLEEP_BASE + [78.0, 78.0, 78.0, 78.0]),
+            # mad_sd floors at 2.0 (resolution floor) → z(76) = -2.0:
+            # 4-day out-of-band streak, since END-3, never severe (needs >2)
+            "sleep_score": make_series(END, SLEEP_BASE + [76.0, 76.0, 76.0, 76.0]),
         },
         END,
     )

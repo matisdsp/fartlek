@@ -43,7 +43,9 @@ class Store:
         if not parent.exists():
             parent.mkdir(parents=True, exist_ok=True)
             parent.chmod(0o700)
-        self._conn = sqlite3.connect(db_path)
+        # check_same_thread=False: the MCP layer calls Store methods from
+        # asyncio.to_thread worker threads; callers serialize access.
+        self._conn = sqlite3.connect(db_path, check_same_thread=False)
         self._conn.row_factory = _dict_row
         self._conn.execute("PRAGMA journal_mode = WAL")
         self._conn.execute("PRAGMA busy_timeout = 5000")

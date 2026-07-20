@@ -201,9 +201,12 @@ def base_routes():
         "/weight-service/weight/dateRange": {
             "dateWeightList": [{"calendarDate": "2026-07-01", "weight": 70500.0}]
         },
+        # Real shape: no startBattery/endBattery — high/low come from the
+        # [epoch-ms, value] pairs of bodyBatteryValuesArray.
         "/wellness-service/wellness/bodyBattery/reports/daily": [
             {"date": "2026-07-19", "charged": 60, "drained": 55,
-             "startBattery": 90, "endBattery": 30},
+             "bodyBatteryValuesArray": [[1789000000000, 42], [1789010000000, 90],
+                                        [1789020000000, 30], [1789030000000, 55]]},
         ],
         "/fitnessstats-service/activity": [{"countOfActivities": 42}],
     }
@@ -583,21 +586,26 @@ def test_429_backoff_ladder_and_reset_between_endpoints(store, tmp_path):
 
 # --- incremental -------------------------------------------------------------
 
-def test_incremental_fetches_today_and_new_activities_only(store, tmp_path):
+def test_incremental_fetches_new_and_backdated_activities(store, tmp_path):
+    """New-ness is by activityId (not date): a backdated late upload on the
+    page is picked up; already-stored activities are not re-counted."""
     store.set_sync_state("last_activity_start", "2026-07-19 07:00:00")
+    store.upsert_activity(
+        {"activity_id": 302, "date": "2026-07-19", "sport": "running",
+         "load": 60.0, "load_source": "garmin", "synced_at": "x"}
+    )
     routes = base_routes()
     routes["/activitylist-service/activities/search/activities"] = [
         activity_entry(301, "2026-07-20 06:30:00", load=70.0),   # new
-        activity_entry(302, "2026-07-19 07:00:00", load=60.0),   # == cursor: not new
-        activity_entry(303, "2026-07-18 08:00:00", load=50.0),   # old
+        activity_entry(302, "2026-07-19 07:00:00", load=60.0),   # already stored
+        activity_entry(303, "2026-07-18 08:00:00", load=50.0),   # backdated late upload
     ]
     engine, _ = make_engine(store, tmp_path, routes)
     result = engine.incremental()
 
-    assert result["new_activities"] == 1
+    assert result["new_activities"] == 2
     assert store.get_activity(301) is not None
-    assert store.get_activity(302) is None
-    assert store.get_activity(303) is None
+    assert store.get_activity(303) is not None                   # not skipped
     assert store.get_sync_state("last_activity_start") == "2026-07-20 06:30:00"
     day = store.get_day(TODAY)
     assert day["steps"] == 9000 and day["sleep_score"] == 78

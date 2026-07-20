@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import json
 import os
+import statistics
 import time
 from collections.abc import Callable
 from datetime import UTC, date, datetime, timedelta
@@ -91,10 +92,13 @@ class SyncLock:
     a stale or own-pid lock is taken over. Corrupt lock files count as stale.
     """
 
+    REFRESH_INTERVAL_S = 60.0
+
     def __init__(self, account_dir: Path, stale_after_s: int = 600):
         self.path = Path(account_dir) / "sync.lock"
         self.stale_after_s = stale_after_s
         self._held = False
+        self._last_write = 0.0
 
     def _read_holder(self) -> tuple[int, datetime] | None:
         try:
@@ -103,20 +107,36 @@ class SyncLock:
         except (OSError, ValueError, KeyError, TypeError):
             return None
 
-    def acquire(self) -> bool:
-        holder = self._read_holder()
-        if holder is not None:
-            pid, ts = holder
-            age_s = (datetime.now() - ts).total_seconds()
-            if age_s < self.stale_after_s and pid != os.getpid():
-                return False
-        self.path.parent.mkdir(parents=True, exist_ok=True)
+    def _write(self) -> None:
         self.path.write_text(
             json.dumps({"pid": os.getpid(), "timestamp": datetime.now().isoformat()}),
             encoding="utf-8",
         )
+        self._last_write = time.monotonic()
+
+    def acquire(self) -> bool:
+        self.path.parent.mkdir(parents=True, exist_ok=True)
+        # O_EXCL first: two processes racing on a missing lock cannot both win.
+        try:
+            fd = os.open(self.path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+            os.close(fd)
+        except FileExistsError:
+            holder = self._read_holder()
+            if holder is not None:
+                pid, ts = holder
+                age_s = (datetime.now() - ts).total_seconds()
+                if age_s < self.stale_after_s and pid != os.getpid():
+                    return False
+            # stale, corrupt, or our own leftover — take it over
+        self._write()
         self._held = True
         return True
+
+    def refresh(self) -> None:
+        """Re-stamp the lock so a long tier (many calls + backoffs) is not
+        mistaken for stale by a second process. No-op unless held."""
+        if self._held and time.monotonic() - self._last_write >= self.REFRESH_INTERVAL_S:
+            self._write()
 
     def release(self) -> None:
         if self._held:
@@ -276,6 +296,28 @@ def digest_sleep(raw: dict[str, Any], date: str) -> tuple[dict[str, Any], str | 
     return row, intervals_json
 
 
+def digest_body_battery_day(e: Any) -> dict[str, Any] | None:
+    """One entry of the bodyBattery/reports/daily payload → days-row partial.
+
+    The real payload carries `date`, `charged`, `drained` and a
+    `bodyBatteryValuesArray` of [epoch-ms, value] pairs — high/low are the
+    max/min of that series (there are no startBattery/endBattery fields).
+    Returns None when the entry has no date or no usable values.
+    """
+    if not isinstance(e, dict) or not e.get("date"):
+        return None
+    row: dict[str, Any] = {"date": e["date"]}
+    values = [
+        pair[1]
+        for pair in e.get("bodyBatteryValuesArray") or []
+        if isinstance(pair, (list, tuple)) and len(pair) >= 2 and pair[1] is not None
+    ]
+    if values:
+        row["body_battery_high"] = max(values)
+        row["body_battery_low"] = min(values)
+    return row if len(row) > 1 else None
+
+
 def digest_hrv(raw: dict[str, Any], date: str) -> dict[str, Any]:
     """HRV daily payload (hrvSummary) → days-row partial."""
     summary = (raw or {}).get("hrvSummary") or {}
@@ -365,15 +407,24 @@ class SyncEngine:
     def _now_iso() -> str:
         return datetime.now().isoformat(timespec="seconds")
 
+    MAX_429_RETRIES = 6  # ~30 min of ladder — beyond that it's a lockout, not a limit
+
     def _call(self, path: str, **params: Any) -> Any:
-        """One rate-limited fetch; retries through the 429 backoff ladder."""
+        """One rate-limited fetch; retries through the 429 backoff ladder,
+        giving up after MAX_429_RETRIES so a Garmin lockout fails loudly
+        instead of hanging the sync forever."""
+        attempts = 0
         while True:
             self.limiter.wait()
+            self.lock.refresh()
             self._calls += 1
             try:
                 result = self.fetch(path, **params)
             except Exception as exc:
                 if getattr(exc, "status", None) == 429:
+                    attempts += 1
+                    if attempts > self.MAX_429_RETRIES:
+                        raise
                     self.limiter.backoff_429()
                     continue
                 raise
@@ -509,6 +560,21 @@ class SyncEngine:
 
     # --- tiers ---
 
+
+    def _digest_activities(self, page: list, errors: list[str] | None = None) -> int:
+        """Digest+store every entry of an activities page; one malformed entry
+        is recorded (or logged) and skipped, never fatal to the tier."""
+        n = 0
+        for a in page:
+            try:
+                self._upsert_activity(digest_activity(a))
+                n += 1
+            except Exception as exc:
+                msg = f"activity digest failed (id={a.get('activityId') if isinstance(a, dict) else '?'}): {type(exc).__name__}: {exc}"
+                if errors is not None:
+                    errors.append(msg)
+        return n
+
     def tier0(self) -> dict[str, Any]:
         """First-minute snapshot (~17 calls); every probe records capability_map.
 
@@ -565,9 +631,7 @@ class SyncEngine:
         )
         n_acts = 0
         if activities:
-            for a in activities:
-                self._upsert_activity(digest_activity(a))
-                n_acts += 1
+            n_acts = self._digest_activities(activities)
             self._record_activity_capabilities(activities)
             self._advance_activity_cursor(activities)
 
@@ -608,6 +672,7 @@ class SyncEngine:
         start_calls = self._calls
         today_d = date.fromisoformat(t)
         history_start = (today_d - timedelta(days=ACTIVITY_HISTORY_DAYS)).isoformat()
+        errors: list[str] = []
 
         # Activities-by-date, paginated until a short page or the start date.
         n_acts = 0
@@ -622,9 +687,7 @@ class SyncEngine:
                 )
                 or []
             )
-            for a in page:
-                self._upsert_activity(digest_activity(a))
-                n_acts += 1
+            n_acts += self._digest_activities(page, errors)
             self._advance_activity_cursor(page)
             if len(page) < self.page_limit:
                 break
@@ -678,7 +741,6 @@ class SyncEngine:
             self.store.set_capability("weight_range", False, f"{type(exc).__name__}: {exc}")
 
         # Body battery, 90d back in 30d chunks.
-        errors: list[str] = []
         for chunk in range(3):
             chunk_end = today_d - timedelta(days=30 * chunk)
             chunk_start = chunk_end - timedelta(days=29)
@@ -689,16 +751,8 @@ class SyncEngine:
                 endDate=chunk_end.isoformat(),
             )
             for e in payload or []:
-                if not isinstance(e, dict) or not e.get("date"):
-                    continue
-                row: dict[str, Any] = {"date": e["date"]}
-                high = e.get("bodyBatteryHighestValue", e.get("startBattery"))
-                low = e.get("bodyBatteryLowestValue", e.get("endBattery"))
-                if high is not None:
-                    row["body_battery_high"] = high
-                if low is not None:
-                    row["body_battery_low"] = low
-                if len(row) > 1:
+                row = digest_body_battery_day(e)
+                if row is not None:
                     self._upsert_day(row)
 
         self._probe("weekly_stress", f"/usersummary-service/stats/stress/weekly/{t}/52")
@@ -752,7 +806,7 @@ class SyncEngine:
                 next_d = date.fromisoformat(prev_end) - timedelta(days=1)
                 end_date = default_end
             else:
-                return {"calls": 0, "nights": 0, "done": True}
+                return self._tier2_heal_gap(start_calls)
         else:
             next_d = today_d - timedelta(days=1)
             end_date = default_end
@@ -794,6 +848,46 @@ class SyncEngine:
         self.recompute_derived()
         return {"calls": self._calls - start_calls, "nights": nights, "done": next_d < end_d}
 
+    _HEAL_CAP = 14  # nights re-fetched per run when healing a sync hiatus
+
+    def _tier2_heal_gap(self, start_calls: int) -> dict[str, Any]:
+        """Backfill is done — heal nights missed since (e.g. a week without
+        any sync): fetch sleep for dates after the newest stored night up to
+        yesterday, capped per run. tier2_healed_until stops re-fetching
+        nights that legitimately have no data (watch not worn)."""
+        today_d = date.fromisoformat(self._today())
+        yesterday = today_d - timedelta(days=1)
+        healed_until = self.store.get_sync_state("tier2_healed_until")
+        series = self.store.get_series("sleep_score", yesterday.isoformat(), 365)
+        newest = max(
+            ([series[-1][0]] if series else []) + ([healed_until] if healed_until else []),
+            default=None,
+        )
+        if newest is None or newest >= yesterday.isoformat():
+            return {"calls": 0, "nights": 0, "done": True}
+        gap_start = date.fromisoformat(newest) + timedelta(days=1)
+        nights = 0
+        d = gap_start
+        old_interval = self.limiter.min_interval_s
+        self.limiter.min_interval_s = max(old_interval, 2.0)
+        try:
+            while d <= yesterday and nights < self._HEAL_CAP:
+                raw = self._call(
+                    f"/wellness-service/wellness/dailySleepData/{self.display_name}",
+                    date=d.isoformat(),
+                    nonSleepBufferMinutes=60,
+                )
+                self._store_sleep(raw or {}, d.isoformat())
+                self.store.set_sync_state("tier2_healed_until", d.isoformat())
+                nights += 1
+                d += timedelta(days=1)
+        finally:
+            self.limiter.min_interval_s = old_interval
+        if nights:
+            self.store.set_sync_state("last_sync", self._now_iso())
+            self.recompute_derived()
+        return {"calls": self._calls - start_calls, "nights": nights, "done": d > yesterday}
+
     def incremental(self) -> dict[str, Any]:
         """Daily steady state: today's summary/sleep/HRV + activities newer
         than sync_state['last_activity_start']. Individual endpoint failures
@@ -825,7 +919,6 @@ class SyncEngine:
         if hrv_raw:
             self._upsert_day(digest_hrv(hrv_raw, t))
 
-        cursor = self.store.get_sync_state("last_activity_start")
         page = (
             self._try_call(
                 "/activitylist-service/activities/search/activities",
@@ -835,7 +928,14 @@ class SyncEngine:
             )
             or []
         )
-        new = [a for a in page if not cursor or str(a.get("startTimeLocal") or "") > cursor]
+        # Upsert anything on the page the store doesn't have yet (by id, not by
+        # date) — a late-uploaded backdated activity must not be skipped forever.
+        new = [
+            a
+            for a in page
+            if a.get("activityId") is not None
+            and self.store.get_activity(int(a["activityId"])) is None
+        ]
         for a in new:
             self._upsert_activity(digest_activity(a))
         self._advance_activity_cursor(page)
@@ -859,7 +959,9 @@ class SyncEngine:
             if store.get_day(d) is None:
                 self._upsert_day({"date": d})
 
-        # §3.1 fallback ladder over activities still missing a load.
+        # §3.1 fallback ladder over every non-Garmin-load activity — fallback
+        # loads are re-resolved each pass so they pick up improving calibration
+        # as more overlap pairs accumulate (not frozen at first sight).
         calibration = load_mod.fit_calibration(all_acts)
         lpm_by_sport: dict[str, list[float]] = {}
         for a in all_acts:
@@ -868,12 +970,18 @@ class SyncEngine:
                     float(a["load"]) / (float(a["duration_s"]) / 60.0)
                 )
         sport_median_lpm = {
-            sport: sorted(vals)[len(vals) // 2] for sport, vals in lpm_by_sport.items()
+            sport: statistics.median(vals) for sport, vals in lpm_by_sport.items()
         }
-        for act in store.activities_missing_load():
-            load_val, source = load_mod.resolve_load(act, calibration, sport_median_lpm)
-            act.update({"load": load_val, "load_source": source})
-            store.upsert_activity(act)
+        for act in all_acts:
+            if act.get("load_source") == "garmin":
+                continue
+            # Strip the previously resolved value so the ladder re-runs instead
+            # of mistaking it for a native Garmin load.
+            candidate = {**act, "load": None}
+            load_val, source = load_mod.resolve_load(candidate, calibration, sport_median_lpm)
+            if load_val != act.get("load") or source != act.get("load_source"):
+                act.update({"load": load_val, "load_source": source})
+                store.upsert_activity(act)
 
         store.recompute_daily_loads()
 

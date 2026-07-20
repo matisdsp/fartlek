@@ -4,22 +4,26 @@ scan(...) is pure: given per-metric [(date, value)] series it emits the
 desired alert state; the sync engine diffs it against the alerts table.
 
 Per tracked metric (robust z vs the 90d baseline ending end_date;
-mad_sd = 1.4826×MAD, floor 1e-9):
+mad_sd = 1.4826×MAD, floored at the metric's measurement resolution so a
+degenerate MAD=0 window — e.g. weeks of identical integer RHR — cannot
+turn a ±1-unit wiggle into a |z|>2 alert):
 - trip when |z today| > 2 OR the trailing out-of-band streak (|z| > 1 over
-  dates present) is ≥3 days. daily_load trips on the HIGH side only
+  consecutive CALENDAR days — a missing day breaks the streak, matching
+  baselines.streak) is ≥3 days. daily_load trips on the HIGH side only
   (z > 2 spike / z > 1 streak); a load collapse never alerts.
 - at most one alert per metric — the most severe applicable.
-- severity: WATCH by default; AMBER when the last ≥3 consecutive dates are
-  all beyond |z| > 2, or when two metrics trip with the same since_date
-  (deviations that started the same day). Phase 0 never emits RED.
+- severity: WATCH by default; AMBER when the last ≥3 consecutive calendar
+  days are all beyond |z| > 2, or when two metrics trip with the same
+  since_date (deviations that started the same day). Phase 0 never emits RED.
 - message: '<metric> <direction> — <value> vs <median> (90d), <n>d streak'
   with values %g-formatted; since_date = first day of the current
   out-of-band streak.
 
-resolution_dates: an active metric resolves when the last 2 consecutive
-dates present (≤ end_date) are back in band — |z| ≤ 1, except daily_load
-where the band is one-sided (z ≤ 1: a rest day resolves a load spike).
-The resolved date is the second in-band day.
+resolution_dates: an active metric resolves when the last 2 dates present
+are back in band (|z| ≤ 1; daily_load one-sided z ≤ 1) AND are consecutive
+calendar days ending at most one day before end_date — two isolated in-band
+points weeks apart never clear an alert. The resolved date is the second
+in-band day.
 """
 from __future__ import annotations
 
@@ -30,6 +34,19 @@ from typing import Any
 _BASELINE_WINDOW = 90
 _MAD_SCALE = 1.4826
 _MAD_FLOOR = 1e-9
+
+# Measurement-resolution floors for mad_sd (units of the metric). DESIGN §3.2 #7
+# names floors only for trend significance; the scanner needs them for the same
+# reason — below these, a deviation is instrument noise, not signal.
+_RESOLUTION_FLOOR = {
+    "resting_hr": 1.0,        # bpm
+    "hrv_last_night": 2.0,    # ms
+    "sleep_score": 2.0,
+    "sleep_duration_h": 0.25,
+    "body_battery_wake": 2.0,
+    "avg_stress": 2.0,
+    "daily_load": 5.0,
+}
 
 _TRACKED = [
     "resting_hr",
@@ -53,7 +70,9 @@ def _points(series: list[tuple[str, float]], end_date: str) -> list[tuple[str, f
     return sorted((d, float(v)) for d, v in series if d <= end_date)
 
 
-def _baseline90(points: list[tuple[str, float]], end_date: str) -> tuple[float, float, int] | None:
+def _baseline90(
+    points: list[tuple[str, float]], end_date: str, metric: str = ""
+) -> tuple[float, float, int] | None:
     """(median, mad_sd, n) over the 90 calendar days ending end_date, or None if empty."""
     start = (date.fromisoformat(end_date) - timedelta(days=_BASELINE_WINDOW - 1)).isoformat()
     values = [v for d, v in points if start <= d <= end_date]
@@ -61,7 +80,8 @@ def _baseline90(points: list[tuple[str, float]], end_date: str) -> tuple[float, 
         return None
     med = statistics.median(values)
     mad = statistics.median(abs(v - med) for v in values)
-    return med, max(_MAD_SCALE * mad, _MAD_FLOOR), len(values)
+    floor = _RESOLUTION_FLOOR.get(metric, _MAD_FLOOR)
+    return med, max(_MAD_SCALE * mad, floor, _MAD_FLOOR), len(values)
 
 
 def _out_of_band(metric: str, z: float) -> bool:
@@ -76,15 +96,23 @@ def _severe(metric: str, z: float) -> bool:
     return abs(z) > 2
 
 
-def _trailing_streak(metric: str, zs: list[float], severe: bool) -> int:
-    """Consecutive most-recent points beyond the band (severe → beyond |z|>2)."""
+def _trailing_streak(metric: str, dated_zs: list[tuple[str, float]], severe: bool) -> int:
+    """Consecutive most-recent CALENDAR days beyond the band (severe → |z|>2).
+
+    A missing calendar day breaks the streak, mirroring baselines.streak —
+    three isolated deviations weeks apart are not a '3d streak'.
+    """
     check = _severe if severe else _out_of_band
     n = 0
-    for z in reversed(zs):
-        if check(metric, z):
-            n += 1
-        else:
+    next_d: date | None = None
+    for d_str, z in reversed(dated_zs):
+        d = date.fromisoformat(d_str)
+        if next_d is not None and d != next_d - timedelta(days=1):
             break
+        if not check(metric, z):
+            break
+        n += 1
+        next_d = d
     return n
 
 
@@ -98,16 +126,16 @@ def scan(
         points = _points(series_by_metric.get(metric) or [], end_date)
         if not points:
             continue
-        base = _baseline90(points, end_date)
+        base = _baseline90(points, end_date, metric)
         if base is None:
             continue
         median, mad_sd, _n = base
-        zs = [(v - median) / mad_sd for _d, v in points]
-        z_today = zs[-1]
-        streak = _trailing_streak(metric, zs, severe=False)
+        dated_zs = [(d, (v - median) / mad_sd) for d, v in points]
+        z_today = dated_zs[-1][1]
+        streak = _trailing_streak(metric, dated_zs, severe=False)
         if not (_severe(metric, z_today) or streak >= 3):
             continue
-        hard_streak = _trailing_streak(metric, zs, severe=True)
+        hard_streak = _trailing_streak(metric, dated_zs, severe=True)
         severity = "AMBER" if hard_streak >= 3 else "WATCH"
         direction = "high" if z_today > 0 else "low"
         value = points[-1][1]
@@ -143,15 +171,22 @@ def resolution_dates(
     """{metric: resolved_date} for active alerts whose metric has been back
     in band for the last 2 consecutive dates present."""
     resolved: dict[str, str] = {}
+    end_d = date.fromisoformat(end_date)
     for metric in active_alert_metrics:
         points = _points(series_by_metric.get(metric) or [], end_date)
         if len(points) < 2:
             continue
-        base = _baseline90(points, end_date)
+        base = _baseline90(points, end_date, metric)
         if base is None:
             continue
         median, mad_sd, _n = base
-        last_two = points[-2:]
-        if all(not _out_of_band(metric, (v - median) / mad_sd) for _d, v in last_two):
-            resolved[metric] = last_two[-1][0]
+        (d1, v1), (d2, v2) = points[-2:]
+        # The two in-band days must be consecutive and current, not two
+        # isolated points weeks apart.
+        if date.fromisoformat(d2) - date.fromisoformat(d1) != timedelta(days=1):
+            continue
+        if end_d - date.fromisoformat(d2) > timedelta(days=1):
+            continue
+        if all(not _out_of_band(metric, (v - median) / mad_sd) for v in (v1, v2)):
+            resolved[metric] = d2
     return resolved

@@ -134,18 +134,23 @@ def cmd_sync(args: argparse.Namespace) -> int:
             name,
             account_dir(name),
         )
-        for tier_name, run in (
-            ("tier0 (snapshot)", engine.tier0),
-            ("tier1 (180d history)", engine.tier1),
-        ):
-            result = run()
+        def _report(tier_name: str, result: dict) -> bool:
             if result.get("skipped"):
                 print(f"✗ {tier_name}: {result['reason']}")
-                return 1
+                return False
             print(f"✓ {tier_name}: {result.get('calls', '?')} calls")
-        if args.nights:
-            result = engine.tier2(backfill_days=args.nights)
-            print(f"✓ tier2 ({args.nights} nights backfill): {result.get('calls', '?')} calls")
+            for err in result.get("errors") or []:
+                print(f"  ⚠ {err}", file=sys.stderr)
+            return True
+
+        if not _report("tier0 (snapshot)", engine.tier0()):
+            return 1
+        if not _report("tier1 (180d history)", engine.tier1()):
+            return 1
+        if args.nights and not _report(
+            f"tier2 ({args.nights} nights backfill)", engine.tier2(backfill_days=args.nights)
+        ):
+            return 1
         pmc = store.get_pmc(end_date=engine._today(), days=1)
         if pmc:
             p = pmc[-1]
@@ -161,15 +166,22 @@ def cmd_export(args: argparse.Namespace) -> int:
     if not stores:
         print("No local store yet — run `fartlek sync` first.", file=sys.stderr)
         return 1
+    import sqlite3
+
     out = Path(args.out or "fartlek-export")
     for db in stores:
         target = out / db.parent.name
         target.mkdir(parents=True, exist_ok=True)
         with Store(db) as s:
             written = s.export_csv(target)
-        import shutil as _shutil
-
-        _shutil.copy(db, target / "store.db")
+        # sqlite backup API, not a file copy: a live WAL would make the
+        # copied .db stale or torn while another process writes.
+        src = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
+        dst = sqlite3.connect(target / "store.db")
+        with dst:
+            src.backup(dst)
+        src.close()
+        dst.close()
         print(f"✓ {db.parent.name}: store.db + {len(written)} CSV files → {target}")
     return 0
 
