@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import json
 import os
-from datetime import date, datetime, timedelta
+from datetime import UTC, date, datetime, timedelta
 
 import pytest
 from conftest import make_days
@@ -82,7 +82,11 @@ def daily_summary_payload(**over):
 
 
 def sleep_payload(d: str, *, hrv=52.0, resting_hr=None, score=78):
+    """Real account shape: avgOvernightHrv + restingHeartRate at the payload
+    TOP level, GMT/local ms-epoch anchors in the DTO (+2h local offset here),
+    sleepLevels timestamps in GMT (2h behind local)."""
     prev = (date.fromisoformat(d) - timedelta(days=1)).isoformat()
+    local_ms = int(datetime.fromisoformat(f"{prev}T23:00:00").replace(tzinfo=UTC).timestamp() * 1000)
     dto = {
         "sleepScores": {"overall": {"value": score, "qualifierKey": "GOOD"}},
         "sleepTimeSeconds": 27000,
@@ -90,22 +94,24 @@ def sleep_payload(d: str, *, hrv=52.0, resting_hr=None, score=78):
         "lightSleepSeconds": 14400,
         "remSleepSeconds": 5400,
         "awakeSleepSeconds": 1800,
-        "sleepStartTimestampLocal": f"{prev}T23:00:00",
-        "sleepEndTimestampLocal": f"{d}T06:30:00",
-        "avgOvernightHrv": hrv,
+        "sleepStartTimestampLocal": local_ms,
+        "sleepEndTimestampLocal": local_ms + 27_000_000,
+        "sleepStartTimestampGMT": local_ms - 7_200_000,  # +2h local offset
         "sleepNeed": {"actual": 480, "baseline": 480},
     }
-    if resting_hr is not None:
-        dto["restingHeartRate"] = resting_hr
-    return {
+    payload = {
         "dailySleepDTO": dto,
+        "avgOvernightHrv": hrv,
         "sleepLevels": [
-            {"startGMT": f"{prev}T23:00:00.0", "endGMT": f"{prev}T23:45:00.0", "activityLevel": 1.0},
-            {"startGMT": f"{prev}T23:45:00.0", "endGMT": f"{d}T01:15:00.0", "activityLevel": 0.0},
-            {"startGMT": f"{d}T01:15:00.0", "endGMT": f"{d}T01:30:00.0", "activityLevel": 3.0},
-            {"startGMT": f"{d}T01:30:00.0", "endGMT": f"{d}T06:30:00.0", "activityLevel": 2.0},
+            {"startGMT": f"{prev}T21:00:00.0", "endGMT": f"{prev}T21:45:00.0", "activityLevel": 1.0},
+            {"startGMT": f"{prev}T21:45:00.0", "endGMT": f"{prev}T23:15:00.0", "activityLevel": 0.0},
+            {"startGMT": f"{prev}T23:15:00.0", "endGMT": f"{prev}T23:30:00.0", "activityLevel": 3.0},
+            {"startGMT": f"{prev}T23:30:00.0", "endGMT": f"{d}T04:30:00.0", "activityLevel": 2.0},
         ],
     }
+    if resting_hr is not None:
+        payload["restingHeartRate"] = resting_hr
+    return payload
 
 
 def hrv_payload():
@@ -317,15 +323,28 @@ def test_digest_sleep_row_timeline_and_hrv():
     assert row["sleep_duration_h"] == 7.5
     assert row["sleep_deep_h"] == 1.5
     assert row["sleep_need_h"] == 8.0        # sleepNeed dict is minutes
-    assert row["hrv_last_night"] == 52.0     # avgOvernightHrv rides in the DTO
-    assert row["resting_hr"] == 46
+    assert row["hrv_last_night"] == 52.0     # avgOvernightHrv at payload TOP level
+    assert row["resting_hr"] == 46           # restingHeartRate at payload TOP level
     assert row["sleep_start_ts"] == "2026-07-19T23:00:00"
     intervals = json.loads(intervals_json)
     assert [i[0] for i in intervals] == ["light", "deep", "awake", "rem"]
-    assert intervals[0][1] == "2026-07-19T23:00:00.0"
+    # GMT levels shifted to athlete-local via the DTO anchor pair (+2h)
+    assert intervals[0][1] == "2026-07-19T23:00:00"
+    assert intervals[-1][2] == "2026-07-20T06:30:00"
     # empty night: partial row is just the date, no timeline
     row, tl = digest_sleep({}, TODAY)
     assert row == {"date": TODAY} and tl is None
+
+
+def test_digest_sleep_no_anchor_keeps_gmt_and_dto_hrv_fallback():
+    p = sleep_payload(TODAY)
+    del p["dailySleepDTO"]["sleepStartTimestampGMT"]      # no offset derivable
+    p["dailySleepDTO"]["avgOvernightHrv"] = 61.0          # legacy in-DTO shape
+    del p["avgOvernightHrv"]
+    row, intervals_json = digest_sleep(p, TODAY)
+    assert row["hrv_last_night"] == 61.0
+    intervals = json.loads(intervals_json)
+    assert intervals[0][1] == "2026-07-19T21:00:00.0"     # raw GMT kept as-is
 
 
 def test_digest_sleep_epoch_millis_timestamps():
