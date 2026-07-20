@@ -161,6 +161,14 @@ class GarminConnectAdapter:
                 self._client = None
                 raise
 
+    # --- blocking access for the sync engine / CLI (same error translation) ---
+
+    def connect_sync(self) -> Garmin:
+        return self._connect()
+
+    def fetch_sync(self, client: Garmin, path: str, **params: Any) -> Any:
+        return self._do(client, path, params)
+
     async def _display_name(self) -> str:
         async with self._lock:
             client = await self._ensure_client()
