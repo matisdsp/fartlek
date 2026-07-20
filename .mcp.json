@@ -2,12 +2,7 @@
   "mcpServers": {
     "ai-coach-garmin": {
       "command": "uv",
-      "args": [
-        "run",
-        "--directory",
-        "/Users/matisdespujols/Desktop/TW3/AI_coach_SAS",
-        "ai-coach-mcp"
-      ]
+      "args": ["run", "ai-coach-mcp"]
     }
   }
 }

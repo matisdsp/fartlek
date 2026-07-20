@@ -21,20 +21,20 @@ from src.coaching.adapters.tools.registry import ToolRegistry
 from src.coaching.ports import LLMPort
 from src.coaching.service import CoachingService
 from src.config import Settings, get_settings
-from src.health.adapters.garmin_garth import GarminGarthAdapter
+from src.health.adapters.garmin_connect import GarminConnectAdapter
 from src.health.ports import GarminPort
 from src.health.service import HealthService
 
 
 @lru_cache(maxsize=1)
-def _build_garmin_adapter(garth_home_str: str) -> GarminGarthAdapter:
-    return GarminGarthAdapter(garth_home=Path(garth_home_str))
+def _build_garmin_adapter(tokenstore_str: str) -> GarminConnectAdapter:
+    return GarminConnectAdapter(tokenstore=Path(tokenstore_str))
 
 
 def get_garmin_port(
     settings: Annotated[Settings, Depends(get_settings)],
 ) -> GarminPort:
-    return _build_garmin_adapter(str(settings.garth_home))
+    return _build_garmin_adapter(str(settings.garmin_tokens))
 
 
 def get_health_service(

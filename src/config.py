@@ -7,13 +7,17 @@ from __future__ import annotations
 from functools import lru_cache
 from pathlib import Path
 
-from pydantic import SecretStr
+from pydantic import AliasChoices, Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
     anthropic_api_key: SecretStr
-    garth_home: Path = Path.home() / ".garth"
+    # GARMINTOKENS is the env var the garminconnect library itself honors
+    garmin_tokens: Path = Field(
+        default=Path.home() / ".garminconnect",
+        validation_alias=AliasChoices("GARMINTOKENS", "GARMIN_TOKENS"),
+    )
     log_level: str = "INFO"
 
     model_config = SettingsConfigDict(

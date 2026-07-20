@@ -13,8 +13,6 @@ src/
 └── mcp_server/     # serveur MCP exposant les 12 outils Garmin à un client externe
 ```
 
-Détails dans `/Users/matisdespujols/.claude/plans/fais-un-plan-pliutot-joyful-meadow.md`.
-
 ---
 
 ## Deux façons d'utiliser le coach
@@ -29,12 +27,11 @@ Aucune clé API Anthropic nécessaire — Claude Code (déjà installé localeme
 # 1. Install (une fois)
 uv sync
 
-# 2. Vérifier les tokens Garmin
-ls ~/.garth/   # doit contenir oauth1_token.json et oauth2_token.json
-# (créés par `gc login` dans le projet proper_bases)
+# 2. Se connecter à Garmin (une fois — email/mot de passe + MFA éventuel)
+uv run ai-coach-login
+# → tokens stockés dans ~/.garminconnect/garmin_tokens.json
 
 # 3. Lancer Claude Code depuis ce dossier
-cd /Users/matisdespujols/Desktop/TW3/AI_coach_SAS
 claude
 ```
 
@@ -90,9 +87,9 @@ open http://localhost:8000
 
 ## Stack
 
-- **Backend** : FastAPI + Python 3.11 (async)
-- **LLM** : Anthropic Claude Opus 4.7 (option B) ou Claude Code via MCP (option A)
-- **Garmin** : `garth` (réutilise les tokens OAuth de `~/.garth/`)
+- **Backend** : FastAPI + Python 3.12 (async)
+- **LLM** : Anthropic Claude (option B) ou Claude Code via MCP (option A)
+- **Garmin** : `garminconnect` (login intégré `ai-coach-login`, tokens dans `~/.garminconnect/`)
 - **Frontend** : HTML + Tailwind CDN + vanilla JS (option B)
 
 ## Limites prototype
@@ -100,7 +97,7 @@ open http://localhost:8000
 - Pas d'auth utilisateur (mono-tenant local)
 - Pas de DB (conversation en mémoire)
 - Pas de streaming SSE
-- Auth Garmin = celle qui a fait `gc login` localement (refresh token valide jusqu'à juin 2027)
+- Auth Garmin = tokens locaux créés par `uv run ai-coach-login` (auto-refresh)
 
 ## Roadmap
 

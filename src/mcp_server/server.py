@@ -6,7 +6,8 @@ instead of an Anthropic-format tool registry. Both consumers call HealthService
 
 Run via stdio (Claude Code spawns the subprocess and pipes JSON-RPC over
 stdin/stdout). Environment variables read at startup:
-  GARTH_HOME  : path to garth tokens (default: ~/.garth)
+  GARMINTOKENS : path to Garmin tokens (default: ~/.garminconnect),
+                 created by `ai-coach-login`
 """
 from __future__ import annotations
 
@@ -17,7 +18,7 @@ from typing import Any
 
 from mcp.server.fastmcp import FastMCP
 
-from src.health.adapters.garmin_garth import GarminGarthAdapter
+from src.health.adapters.garmin_connect import GarminConnectAdapter
 from src.health.service import HealthService
 
 # Log to stderr — stdout is reserved for the MCP JSON-RPC channel
@@ -27,8 +28,8 @@ logging.basicConfig(
 )
 log = logging.getLogger("ai-coach-mcp")
 
-_garth_home = Path(os.environ.get("GARTH_HOME") or (Path.home() / ".garth"))
-_adapter = GarminGarthAdapter(garth_home=_garth_home)
+_tokenstore = Path(os.environ.get("GARMINTOKENS") or (Path.home() / ".garminconnect"))
+_adapter = GarminConnectAdapter(tokenstore=_tokenstore)
 _health = HealthService(garmin=_adapter)
 
 mcp = FastMCP("ai-coach-garmin")
@@ -158,7 +159,7 @@ async def get_personal_records() -> list[dict[str, Any]]:
 
 
 def main() -> None:
-    log.info("Starting AI Coach MCP server (garth_home=%s)", _garth_home)
+    log.info("Starting AI Coach MCP server (tokenstore=%s)", _tokenstore)
     mcp.run()
 
 
