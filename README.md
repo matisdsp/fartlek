@@ -8,7 +8,7 @@ Modular monolith avec DDD-lite — un dossier par bounded context.
 
 ```
 src/
-├── health/         # bounded context — données Garmin (port + adapter garth)
+├── health/         # bounded context — données Garmin (port + adapter garminconnect)
 ├── coaching/       # bounded context — chat + LLM (port + adapter Anthropic)
 └── mcp_server/     # serveur MCP exposant les 12 outils Garmin à un client externe
 ```

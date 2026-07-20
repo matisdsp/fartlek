@@ -13,10 +13,11 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     anthropic_api_key: SecretStr
-    # GARMINTOKENS is the env var the garminconnect library itself honors
+    # GARMINTOKENS is the single canonical env var (same one the
+    # garminconnect library and the login CLI honor)
     garmin_tokens: Path = Field(
         default=Path.home() / ".garminconnect",
-        validation_alias=AliasChoices("GARMINTOKENS", "GARMIN_TOKENS"),
+        validation_alias=AliasChoices("GARMINTOKENS"),
     )
     log_level: str = "INFO"
 
