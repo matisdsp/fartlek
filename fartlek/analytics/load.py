@@ -45,32 +45,46 @@ def fit_calibration(activities: list[dict[str, Any]]) -> dict[str, dict[str, Any
     """Per-sport TRIMP→Garmin-load calibration from overlap activities.
 
     Pairs are activities with BOTH a Garmin load (load present and, if given,
-    load_source == 'garmin') and a positive TRIMP. Returns
-    {sport: {"method": "regression"|"median_ratio", "factor": float, "n": int}}.
-    regression = least squares through origin, factor = Σ(load·trimp)/Σ(trimp²),
-    used when n ≥ MIN_REGRESSION_PAIRS; below that the median of per-pair
-    load/trimp ratios. Sports with zero pairs get no entry (uncalibrated).
+    load_source == 'garmin') and a positive internal measure. TRIMP and sRPE
+    are calibrated SEPARATELY — their unit scales differ systematically (a
+    60-min RPE-5 session is sRPE=300 AU but only ~180 Edwards-TRIMP AU), so
+    one factor cannot serve both. Returns
+    {sport: {"method", "factor", "n", "srpe_method", "srpe_factor", "srpe_n"}}
+    where the srpe_* keys are absent when the sport has no (load, sRPE)
+    overlap. Each fit: least squares through origin Σ(load·x)/Σ(x²) when
+    n ≥ MIN_REGRESSION_PAIRS, else median of per-pair load/x ratios. Sports
+    with zero TRIMP pairs but some sRPE pairs still get an entry.
     """
-    pairs_by_sport: dict[str, list[tuple[float, float]]] = {}
+    trimp_pairs: dict[str, list[tuple[float, float]]] = {}
+    srpe_pairs: dict[str, list[tuple[float, float]]] = {}
     for a in activities:
         load = a.get("load")
         if load is None or a.get("load_source", "garmin") != "garmin":
             continue
         trimp = _pair_trimp(a)
-        if trimp is None or trimp <= 0:
-            continue
-        pairs_by_sport.setdefault(a["sport"], []).append((float(load), float(trimp)))
+        if trimp is not None and trimp > 0:
+            trimp_pairs.setdefault(a["sport"], []).append((float(load), float(trimp)))
+        rpe, duration_s = a.get("rpe"), a.get("duration_s")
+        if rpe is not None and duration_s:
+            srpe = float(rpe) * float(duration_s) / 60.0
+            if srpe > 0:
+                srpe_pairs.setdefault(a["sport"], []).append((float(load), srpe))
+
+    def _fit(pairs: list[tuple[float, float]]) -> tuple[str, float]:
+        if len(pairs) >= MIN_REGRESSION_PAIRS:
+            return "regression", sum(ld * x for ld, x in pairs) / sum(x * x for _, x in pairs)
+        return "median_ratio", median(ld / x for ld, x in pairs)
 
     calibration: dict[str, dict[str, Any]] = {}
-    for sport, pairs in pairs_by_sport.items():
-        n = len(pairs)
-        if n >= MIN_REGRESSION_PAIRS:
-            factor = sum(ld * t for ld, t in pairs) / sum(t * t for _, t in pairs)
-            method = "regression"
-        else:
-            factor = median(ld / t for ld, t in pairs)
-            method = "median_ratio"
-        calibration[sport] = {"method": method, "factor": factor, "n": n}
+    for sport in trimp_pairs.keys() | srpe_pairs.keys():
+        entry: dict[str, Any] = {}
+        if sport in trimp_pairs:
+            method, factor = _fit(trimp_pairs[sport])
+            entry.update(method=method, factor=factor, n=len(trimp_pairs[sport]))
+        if sport in srpe_pairs:
+            method, factor = _fit(srpe_pairs[sport])
+            entry.update(srpe_method=method, srpe_factor=factor, srpe_n=len(srpe_pairs[sport]))
+        calibration[sport] = entry
     return calibration
 
 
@@ -85,9 +99,9 @@ def resolve_load(
     2. HR zones → Edwards TRIMP × per-sport factor ('trimp_calibrated'), or raw
        TRIMP when the sport has no calibration entry ('trimp_uncalibrated').
     3. RPE (precedence already resolved at sync into activity['rpe']) →
-       sRPE = rpe × minutes, through the same per-sport factor. The factor maps
-       TRIMP-units→Garmin-units; sRPE reuses it as an approximation, per design
-       ('srpe_calibrated' / 'srpe_uncalibrated').
+       sRPE = rpe × minutes, through the sport's dedicated sRPE factor
+       ('srpe_calibrated' / 'srpe_uncalibrated') — never the TRIMP factor,
+       whose unit scale differs.
     4. Per-sport median load-per-minute × minutes → 'estimated'.
     5. No history in the sport → (0.0, 'none').
 
@@ -98,21 +112,22 @@ def resolve_load(
         return float(garmin_load), "garmin"
 
     sport = activity.get("sport")
-    entry = calibration.get(sport)
-    factor = entry["factor"] if entry else None
+    entry = calibration.get(sport) or {}
+    trimp_factor = entry.get("factor")
+    srpe_factor = entry.get("srpe_factor")
 
     trimp = edwards_trimp(activity)
     if trimp is not None:
-        if factor is not None:
-            return trimp * factor, "trimp_calibrated"
+        if trimp_factor is not None:
+            return trimp * trimp_factor, "trimp_calibrated"
         return trimp, "trimp_uncalibrated"
 
     duration_s = activity.get("duration_s")
     rpe = activity.get("rpe")
     if rpe is not None and duration_s is not None:
         srpe = float(rpe) * float(duration_s) / 60.0
-        if factor is not None:
-            return srpe * factor, "srpe_calibrated"
+        if srpe_factor is not None:
+            return srpe * srpe_factor, "srpe_calibrated"
         return srpe, "srpe_uncalibrated"
 
     median_lpm = sport_median_load_per_min.get(sport)

@@ -146,8 +146,10 @@ def _week_strain(week: list[float]) -> tuple[float | None, float | None]:
 
 def monotony_strain(daily_loads: list[tuple[str, float]]) -> dict[str, Any]:
     """Foster over the trailing 7 days (rest days count as 0):
-    monotony = mean/SD (population SD; SD<1e-9 → monotony/strain None + flag),
-    strain = weekly_total × monotony; flag also when monotony > 2.0.
+    monotony = mean/SD (population SD; SD<1e-9 → monotony/strain None; that
+    degenerate case flags ONLY when the week had training — an all-rest week
+    is not monotonous, it's rest), strain = weekly_total × monotony; flag
+    also when monotony > 2.0.
     strain_percentile (0-100) = share of the athlete's trailing ≤12
     non-overlapping weekly strains ≤ current (SD~0 weeks excluded); None
     unless ≥4 such weeks exist and the current week is computable.
@@ -165,7 +167,9 @@ def monotony_strain(daily_loads: list[tuple[str, float]]) -> dict[str, Any]:
         }
     weekly_load = sum(window)
     monotony, strain = _week_strain(window)
-    flag = monotony is None or monotony > 2.0
+    # SD≈0 with zero load = a full rest week — nothing to flag. SD≈0 with
+    # identical non-zero loads = the pathological monotony case.
+    flag = (monotony is None and weekly_load > 0) or (monotony is not None and monotony > 2.0)
 
     weekly_strains: list[float] = []
     full_weeks = min(n // 7, 12)

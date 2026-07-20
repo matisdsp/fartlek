@@ -118,7 +118,13 @@ class TestFitCalibration:
 
 # --- resolve_load ladder -----------------------------------------------------
 
-CAL = {"running": {"method": "regression", "factor": 2.0, "n": 12}}
+CAL = {
+    "running": {
+        "method": "regression", "factor": 2.0, "n": 12,
+        # sRPE is calibrated separately from TRIMP (different unit scales)
+        "srpe_method": "regression", "srpe_factor": 2.0, "srpe_n": 12,
+    }
+}
 MEDIANS = {"running": 5.0}  # load-per-minute
 
 
