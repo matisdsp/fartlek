@@ -215,12 +215,16 @@ def digest_daily_summary(raw: dict[str, Any], date: str) -> dict[str, Any]:
 def digest_sleep(raw: dict[str, Any], date: str) -> tuple[dict[str, Any], str | None]:
     """Sleep payload → (days-row partial, intervals_json or None).
 
-    hrv_last_night rides in the DTO as avgOvernightHrv; sleepNeed is minutes
-    when a dict ({"actual": ...}), seconds when a bare number. The timeline is
-    the compact [["deep"|"light"|"rem"|"awake", start, end], ...] from
-    sleepLevels (activityLevel 0-3); unknown levels are skipped.
+    hrv_last_night (avgOvernightHrv) and restingHeartRate ride at the payload
+    TOP level on real accounts (DTO fallback kept for older shapes); sleepNeed
+    is minutes when a dict ({"actual": ...}), seconds when a bare number. The
+    timeline is the compact [["deep"|"light"|"rem"|"awake", start, end], ...]
+    from sleepLevels (activityLevel 0-3), shifted from GMT to athlete-local
+    time using the DTO's GMT/local anchor pair (raw GMT kept when the anchors
+    are absent); unknown levels are skipped.
     """
-    dto = (raw or {}).get("dailySleepDTO") or {}
+    raw = raw or {}
+    dto = raw.get("dailySleepDTO") or {}
     row: dict[str, Any] = {"date": date}
     overall = ((dto.get("sleepScores") or {}).get("overall") or {}).get("value")
     if overall is not None:
@@ -241,16 +245,33 @@ def digest_sleep(raw: dict[str, Any], date: str) -> tuple[dict[str, Any], str | 
     end = _local_iso(dto.get("sleepEndTimestampLocal"))
     if end:
         row["sleep_end_ts"] = end
-    if dto.get("avgOvernightHrv") is not None:
-        row["hrv_last_night"] = dto["avgOvernightHrv"]
-    if dto.get("restingHeartRate") is not None:  # RHR fallback source (§3.2 #9)
-        row["resting_hr"] = dto["restingHeartRate"]
+    hrv = raw.get("avgOvernightHrv")
+    if hrv is None:
+        hrv = dto.get("avgOvernightHrv")
+    if hrv is not None:
+        row["hrv_last_night"] = hrv
+    rhr = raw.get("restingHeartRate")  # RHR fallback source (§3.2 #9)
+    if rhr is None:
+        rhr = dto.get("restingHeartRate")
+    if rhr is not None:
+        row["resting_hr"] = rhr
+
+    # GMT → athlete-local shift for the timeline (SRI/jetlag depend on local time).
+    offset = None
+    gmt_anchor, local_anchor = dto.get("sleepStartTimestampGMT"), dto.get("sleepStartTimestampLocal")
+    if isinstance(gmt_anchor, (int, float)) and isinstance(local_anchor, (int, float)):
+        offset = timedelta(milliseconds=local_anchor - gmt_anchor)
+
+    def _to_local(ts_gmt: str) -> str:
+        if offset is None:
+            return ts_gmt
+        return (datetime.fromisoformat(ts_gmt) + offset).isoformat()
 
     intervals = []
-    for level in (raw or {}).get("sleepLevels") or []:
+    for level in raw.get("sleepLevels") or []:
         name = _SLEEP_LEVEL_NAMES.get(int(level.get("activityLevel", -1)))
         if name and level.get("startGMT") and level.get("endGMT"):
-            intervals.append([name, level["startGMT"], level["endGMT"]])
+            intervals.append([name, _to_local(level["startGMT"]), _to_local(level["endGMT"])])
     intervals_json = json.dumps(intervals, separators=(",", ":")) if intervals else None
     return row, intervals_json
 
