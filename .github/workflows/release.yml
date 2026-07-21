@@ -1,0 +1,27 @@
+name: release
+
+# Publish to PyPI via trusted publishing (OIDC) on version tags.
+# Requires a one-time PyPI trusted-publisher setup — see README.
+# No API tokens: identity is proven by GitHub Actions to PyPI directly.
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: pypi  # must match the environment name configured on PyPI
+    permissions:
+      id-token: write  # required for trusted publishing (OIDC)
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      # Gate the release on the same checks as CI — a bad version can't be
+      # re-uploaded, so don't ship one that fails its own tests.
+      - run: uv sync --frozen
+      - run: uv run ruff check fartlek/ tests/
+      - run: uv run pytest -q
+      - run: uv build
+      - run: uv publish

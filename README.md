@@ -116,6 +116,21 @@ docker run -it --rm -v "$PWD/fartlek-data:/data" --entrypoint fartlek fartlek-mc
 
 Environment: `GARMINTOKENS` overrides the token location, `FARTLEK_HOME` the data directory (default `~/.fartlek`).
 
+### Releasing to PyPI (maintainers)
+
+Releases are published via **trusted publishing** (OIDC) — no API tokens anywhere.
+
+1. On pypi.org → Account settings → Publishing → add a GitHub publisher:
+   - PyPI project name: `fartlek-mcp` · owner: `PushToJail` · repo: `AI_SPORT_COACH`
+   - Workflow: `release.yml` · environment: `pypi`
+2. Bump `version` in `pyproject.toml`, commit, then tag and push:
+
+```bash
+git tag v0.1.0 && git push origin v0.1.0
+```
+
+The `release` workflow builds, runs tests, and uploads to PyPI. A published version can't be overwritten — to fix a mistake, bump to the next patch (`0.1.1`).
+
 ## Privacy
 
 Local-first: stdio transport, your credentials and health data never leave your machine. The server only talks to Garmin's API with your own tokens, sequentially and rate-limited. `fartlek export` gives you everything; `fartlek reset` removes everything.
