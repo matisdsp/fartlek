@@ -21,12 +21,6 @@ authors = [
     {name = "Fartlek contributors"},
 ]
 
-[project.urls]
-Homepage = "https://github.com/PushToJail/AI_SPORT_COACH"
-Repository = "https://github.com/PushToJail/AI_SPORT_COACH"
-Documentation = "https://github.com/PushToJail/AI_SPORT_COACH/blob/main/docs/DESIGN.md"
-Issues = "https://github.com/PushToJail/AI_SPORT_COACH/issues"
-
 dependencies = [
     "garminconnect>=0.3.6",
     "mcp[cli]>=1.27.1",
@@ -35,6 +29,12 @@ dependencies = [
 [project.scripts]
 fartlek = "fartlek.cli:main"
 fartlek-mcp = "fartlek.mcp_server.server:main"
+
+[project.urls]
+Homepage = "https://github.com/PushToJail/AI_SPORT_COACH"
+Repository = "https://github.com/PushToJail/AI_SPORT_COACH"
+Documentation = "https://github.com/PushToJail/AI_SPORT_COACH/blob/main/docs/DESIGN.md"
+Issues = "https://github.com/PushToJail/AI_SPORT_COACH/issues"
 
 [build-system]
 requires = ["hatchling"]
