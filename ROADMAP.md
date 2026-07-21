@@ -24,8 +24,8 @@
 
 ## Phase 1 — Core read surface (3–4 weeks) · **ships v0.1**
 
-- [ ] Tools: `garmin_brief`, `garmin_activities`, `garmin_activity`, `garmin_athlete`, `garmin_set_profile`, `garmin_log`, `garmin_sync`, `garmin_raw`
-- [ ] Readiness fusion with subjective gate + acute override; corrective error messages
+- [x] Tools: `garmin_brief`, `garmin_activities`, `garmin_activity`, `garmin_athlete`, `garmin_set_profile`, `garmin_log`, `garmin_sync`, `garmin_raw`
+- [x] Readiness fusion with subjective gate + acute override; corrective error messages
 - [ ] README publishes the token-budget contract
 
 ### Distribution workstream (parallel, lands with v0.1) — not optional polish
