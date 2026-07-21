@@ -79,12 +79,12 @@ _WIDE_START, _WIDE_END = "1900-01-01", "2100-12-31"
 # ---------------------------------------------------------------------------
 
 def _dur(seconds: float | None) -> str:
-    """h:mm for ≥1h, else mm:ss (§2.3)."""
+    """'XhMM' for ≥1h (unambiguous vs mm:ss), else mm:ss (§2.3)."""
     if seconds is None:
         return "—"
     s = int(round(float(seconds)))
     if s >= 3600:
-        return f"{s // 3600}:{(s % 3600) // 60:02d}"
+        return f"{s // 3600}h{(s % 3600) // 60:02d}"
     return f"{s // 60}:{s % 60:02d}"
 
 
@@ -234,7 +234,7 @@ def _stats_line(act: dict[str, Any]) -> str:
     load, source = act.get("load"), act.get("load_source") or "garmin"
     if load is not None and source != "none":
         label = _LOAD_SOURCE_LABEL.get(source)
-        parts.append(f"load {load:g} ({label})" if label else f"load {load:g}")
+        parts.append(f"load {round(load)} ({label})" if label else f"load {round(load)}")
     if not strength and act.get("aerobic_te") is not None:
         parts.append(f"aerobic TE {act['aerobic_te']:.1f}")
     if strength:
@@ -298,8 +298,8 @@ def _comparison_verdict(act: dict[str, Any], comp: dict[str, Any] | None) -> str
     if l_sel is not None and l_cmp is not None:
         shape = "a higher" if l_sel > l_cmp else "a lower" if l_sel < l_cmp else "the same"
         return (
-            f"vs {when} ({_dur(comp.get('duration_s'))}): load {l_sel:g} vs "
-            f"{l_cmp:g} — {shape} dose than the most similar past session."
+            f"vs {when} ({_dur(comp.get('duration_s'))}): load {round(l_sel)} vs "
+            f"{round(l_cmp)} — {shape} dose than the most similar past session."
         )
     return f"closest comparable session: {when}, {_dur(comp.get('duration_s'))}."
 
