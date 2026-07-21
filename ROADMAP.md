@@ -30,9 +30,9 @@
 
 ### Distribution workstream (parallel, lands with v0.1) — not optional polish
 
-- [ ] `fartlek auth` (full MFA flow, error taxonomy) + `fartlek doctor` + `accounts/switch/export/reset`
-- [ ] Install paths: `uvx`/`pipx` one-liner, Docker image, one-click `.mcpb`/`.dxt` Desktop extension
-- [ ] Client config snippets: Claude Code, Claude Desktop, Cursor
+- [x] `fartlek auth` (full MFA flow, error taxonomy) + `fartlek doctor` + `accounts/switch/export/reset`
+- [x] Install paths: `uvx`/`pipx` one-liner, Docker image (`.mcpb`/`.dxt` Desktop extension packaging TBD)
+- [x] Client config snippets: Claude Code, Claude Desktop, Cursor
 - [ ] Open-sourcing basics: MIT LICENSE, English README with "not affiliated with Garmin Ltd." disclaimer, PyPI `fartlek-mcp` publish, MCP registry submissions
 
 ## Phase 2 — Trend suite & engine completion (4–5 weeks) · **ships v0.2, the flagship**
