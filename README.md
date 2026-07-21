@@ -38,7 +38,7 @@ pipx install fartlek-mcp
 Or clone and run from source (requires Python ≥ 3.12 and [uv](https://docs.astral.sh/uv/)):
 
 ```bash
-git clone <this-repo> && cd fartlek
+git clone https://github.com/matisdsp/fartlek && cd fartlek
 uv sync
 
 # One-time Garmin login (email/password + MFA if enabled).
@@ -121,7 +121,7 @@ Environment: `GARMINTOKENS` overrides the token location, `FARTLEK_HOME` the dat
 Releases are published via **trusted publishing** (OIDC) — no API tokens anywhere.
 
 1. On pypi.org → Account settings → Publishing → add a GitHub publisher:
-   - PyPI project name: `fartlek-mcp` · owner: `PushToJail` · repo: `AI_SPORT_COACH`
+   - PyPI project name: `fartlek-mcp` · owner: `matisdsp` · repo: `fartlek`
    - Workflow: `release.yml` · environment: `pypi`
 2. Bump `version` in `pyproject.toml`, commit, then tag and push:
 

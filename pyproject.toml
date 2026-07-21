@@ -31,10 +31,10 @@ fartlek = "fartlek.cli:main"
 fartlek-mcp = "fartlek.mcp_server.server:main"
 
 [project.urls]
-Homepage = "https://github.com/PushToJail/AI_SPORT_COACH"
-Repository = "https://github.com/PushToJail/AI_SPORT_COACH"
-Documentation = "https://github.com/PushToJail/AI_SPORT_COACH/blob/main/docs/DESIGN.md"
-Issues = "https://github.com/PushToJail/AI_SPORT_COACH/issues"
+Homepage = "https://github.com/matisdsp/fartlek"
+Repository = "https://github.com/matisdsp/fartlek"
+Documentation = "https://github.com/matisdsp/fartlek/blob/main/docs/DESIGN.md"
+Issues = "https://github.com/matisdsp/fartlek/issues"
 
 [build-system]
 requires = ["hatchling"]
