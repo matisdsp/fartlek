@@ -6,6 +6,27 @@ readme = "README.md"
 requires-python = ">=3.12"
 license = "MIT"
 keywords = ["garmin", "mcp", "coaching", "running", "training", "llm"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Utilities",
+]
+authors = [
+    {name = "Fartlek contributors"},
+]
+
+[project.urls]
+Homepage = "https://github.com/PushToJail/AI_SPORT_COACH"
+Repository = "https://github.com/PushToJail/AI_SPORT_COACH"
+Documentation = "https://github.com/PushToJail/AI_SPORT_COACH/blob/main/docs/DESIGN.md"
+Issues = "https://github.com/PushToJail/AI_SPORT_COACH/issues"
+
 dependencies = [
     "garminconnect>=0.3.6",
     "mcp[cli]>=1.27.1",

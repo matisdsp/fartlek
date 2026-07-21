@@ -25,7 +25,17 @@ First call on a fresh install runs the cold start automatically (~30 API calls, 
 
 ## Quickstart
 
-Requires Python ≥ 3.12 and [uv](https://docs.astral.sh/uv/).
+Install with either:
+
+```bash
+# uv (recommended) — runs without cloning
+uvx fartlek-mcp
+
+# or pipx
+pipx install fartlek-mcp
+```
+
+Or clone and run from source (requires Python ≥ 3.12 and [uv](https://docs.astral.sh/uv/)):
 
 ```bash
 git clone <this-repo> && cd fartlek
@@ -46,7 +56,7 @@ Then point your MCP client at the server:
 **Claude Code** — from this directory, `.mcp.json` is picked up automatically. From anywhere else:
 
 ```bash
-claude mcp add fartlek -- uv run --directory /path/to/fartlek fartlek-mcp
+claude mcp add fartlek -- uvx fartlek-mcp
 ```
 
 **Claude Desktop** — `claude_desktop_config.json`:
@@ -55,8 +65,8 @@ claude mcp add fartlek -- uv run --directory /path/to/fartlek fartlek-mcp
 {
   "mcpServers": {
     "fartlek": {
-      "command": "uv",
-      "args": ["run", "--directory", "/path/to/fartlek", "fartlek-mcp"]
+      "command": "uvx",
+      "args": ["fartlek-mcp"]
     }
   }
 }
