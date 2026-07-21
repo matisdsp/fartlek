@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "fartlek": {
+      "command": "uvx",
+      "args": ["fartlek-mcp"]
+    }
+  }
+}

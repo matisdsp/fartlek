@@ -76,6 +76,23 @@ claude mcp add fartlek -- uvx fartlek-mcp
 
 Ask things like *"can I go hard today?"*, *"analyze my last run"*, *"how did I sleep this week?"* — and tell it how sessions felt: your reported RPE and illness notes gate the readiness verdict.
 
+## Docker
+
+Build and run locally:
+
+```bash
+docker build -t fartlek-mcp .
+# Tokens and store are persisted in ./fartlek-data on the host
+mkdir -p fartlek-data
+docker run -i --rm -v "$PWD/fartlek-data:/data" fartlek-mcp
+```
+
+For `fartlek auth`, run it interactively once to populate the volume, then use the image as the MCP server:
+
+```bash
+docker run -it --rm -v "$PWD/fartlek-data:/data" --entrypoint fartlek fartlek-mcp auth
+```
+
 ## CLI
 
 | Command | What it does |
