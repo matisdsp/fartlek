@@ -135,13 +135,22 @@ async def run(
             "Example: garmin_set_profile(availability_days=6)",
         )
     if phase_week is not None and phase_week < 1:
-        return _finish(banner, f"phase_week must be ≥1 (got {phase_week}).")
+        return _finish(
+            banner,
+            f"phase_week must be ≥1 (got {phase_week}). "
+            "Example: garmin_set_profile(phase='build', phase_week=2, phase_total_weeks=6)",
+        )
     if phase_total_weeks is not None and phase_total_weeks < 1:
-        return _finish(banner, f"phase_total_weeks must be ≥1 (got {phase_total_weeks}).")
+        return _finish(
+            banner,
+            f"phase_total_weeks must be ≥1 (got {phase_total_weeks}). "
+            "Example: garmin_set_profile(phase='build', phase_week=2, phase_total_weeks=6)",
+        )
     if lt1_hr_override is not None and not 80 <= lt1_hr_override <= 220:
         return _finish(
             banner,
-            f"lt1_hr_override must be a plausible HR in bpm, 80-220 (got {lt1_hr_override}).",
+            f"lt1_hr_override must be a plausible HR in bpm, 80-220 (got {lt1_hr_override}). "
+            "Example: garmin_set_profile(lt1_hr_override=155)",
         )
 
     # --- write only the provided fields, plus set-date stamps ---

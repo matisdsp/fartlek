@@ -172,7 +172,10 @@ async def run(
     try:
         datetime.strptime(date, "%Y-%m-%d")
     except ValueError:
-        return _error(ctx, f"Invalid date '{date}' — use YYYY-MM-DD (today is {today}).")
+        return _error(ctx, (
+            f"Invalid date '{date}' — use YYYY-MM-DD (today is {today}). "
+            f"Example: garmin_raw(source='daily_summary', date='{today}')."
+        ))
 
     clamp_note = None
     points = max(1, min(MAX_POINTS_CEILING, max_points))
@@ -212,9 +215,12 @@ async def run(
     except GarminAuthError:
         raise
     except Exception as exc:  # noqa: BLE001 — every live-fetch failure becomes corrective text
+        if "429" in str(exc) or "Too Many" in str(exc):
+            hint = "rate-limited by Garmin — wait a minute, then retry."
+        else:
+            hint = "try garmin_sync() to refresh the connection, then retry."
         return _error(ctx, (
-            f"Garmin fetch failed for {source} ({type(exc).__name__}: {exc}). "
-            f"Run garmin_sync() to refresh the connection, then retry."
+            f"Garmin fetch failed for {source} ({type(exc).__name__}). {hint}"
         ))
 
     if not payload:

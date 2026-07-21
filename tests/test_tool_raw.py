@@ -236,8 +236,9 @@ def test_fetch_failure_corrective():
     ctx = FakeContext(fail=RuntimeError("connection reset"))
     out = run(ctx, source="training_status")
     assert "Garmin fetch failed for training_status" in out
-    assert "connection reset" in out
+    assert "RuntimeError" in out
     assert "garmin_sync()" in out
+    assert "connection reset" not in out  # raw exception text stays out of the model prompt
 
 
 def test_empty_payload_corrective_names_today():

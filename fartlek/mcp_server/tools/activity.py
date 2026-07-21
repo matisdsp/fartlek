@@ -598,7 +598,10 @@ async def run(
             sections.append(
                 Section(
                     None, None,
-                    prose="splits unavailable (fetch failed) — standard analysis above.",
+                    prose=(
+                        "splits unavailable (live fetch failed — try garmin_sync() "
+                        "or retry in a minute if rate-limited)."
+                    ),
                 )
             )
         else:
@@ -615,7 +618,10 @@ async def run(
             sections.append(
                 Section(
                     None, None,
-                    prose="HR/pace curve unavailable (fetch failed) — splits analysis above.",
+                    prose=(
+                        "HR/pace curve unavailable (live fetch failed — try garmin_sync() "
+                        "or retry in a minute if rate-limited)."
+                    ),
                 )
             )
         else:
