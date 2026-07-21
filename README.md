@@ -51,7 +51,9 @@ uv run fartlek sync --nights 60
 uv run fartlek doctor   # check everything is healthy
 ```
 
-Then point your MCP client at the server:
+Then point your MCP client at the server.
+
+> **Any MCP-compatible client works** — the server speaks standard JSON-RPC over stdio, so it is client-agnostic. The snippets below are just the per-client config formats; Claude Desktop, Claude Code, Cursor, Continue, Cline, Windsurf, Zed, VS Code (Copilot Chat), and Gemini CLI all work. The universal invocation is `uvx fartlek-mcp`.
 
 **Claude Code** — from this directory, `.mcp.json` is picked up automatically. From anywhere else:
 
@@ -73,6 +75,14 @@ claude mcp add fartlek -- uvx fartlek-mcp
 ```
 
 **Cursor** — `.cursor/mcp.json`, same `command`/`args` block as above.
+
+**Continue / Cline / Windsurf / Zed** — same pattern: wherever the client keeps its MCP server list, add a `fartlek` entry with `command: "uvx"`, `args: ["fartlek-mcp"]`. Most editors adopt the Claude Desktop format verbatim.
+
+**Any other stdio MCP client** — invoke the server binary directly:
+
+```bash
+fartlek-mcp          # speaks JSON-RPC over stdin/stdout
+```
 
 Ask things like *"can I go hard today?"*, *"analyze my last run"*, *"how did I sleep this week?"* — and tell it how sessions felt: your reported RPE and illness notes gate the readiness verdict.
 
