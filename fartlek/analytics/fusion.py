@@ -184,9 +184,20 @@ def marker_inputs(store: Any, date: str) -> dict[str, Any]:
         except (TypeError, ValueError):
             ceiling = None
     if ceiling is None:
-        max_hrs = store.get_series("max_hr", date, 90)
-        if max_hrs:
-            ceiling = round(EASY_CEILING_FRACTION * max(v for _, v in max_hrs))
+        # Activity max HR, not the days column: after a cold start the days
+        # table only has a few (possibly easy) days, and 80% of an easy-day
+        # max is dangerously low advice. Activities carry real session maxima.
+        start = (_date.fromisoformat(date) - timedelta(days=90)).isoformat()
+        session_max = [
+            a["max_hr"]
+            for a in store.list_activities(start, date)
+            if a.get("max_hr") is not None
+        ]
+        if not session_max:
+            series = store.get_series("max_hr", date, 90)
+            session_max = [v for _, v in series]
+        if session_max:
+            ceiling = round(EASY_CEILING_FRACTION * max(session_max))
     out["easy_ceiling"] = ceiling
     return out
 

@@ -47,14 +47,15 @@ def _short(date_str: str) -> str:
 
 
 def _fmt_duration(seconds: float | None) -> str:
-    """mm:ss under 100 minutes (matches the §2.4 example's '62:24'), h:mm above."""
+    """mm:ss under 100 minutes (matches the §2.4 example's '62:24'), 'XhMM'
+    above — '5h00' cannot be misread as five minutes, '5:00' can."""
     if seconds is None:
         return "—"
     minutes, secs = divmod(int(round(seconds)), 60)
     if minutes < 100:
         return f"{minutes}:{secs:02d}"
     hours, minutes = divmod(minutes, 60)
-    return f"{hours}:{minutes:02d}"
+    return f"{hours}h{minutes:02d}"
 
 
 def _fmt_pace(avg_speed: float | None) -> str:
@@ -167,7 +168,7 @@ def _row(a: dict[str, Any]) -> Row:
             _fmt_duration(a.get("duration_s")),
             _fmt_pace(a.get("avg_speed")) if fam == "running" else "—",
             str(a["avg_hr"]) if a.get("avg_hr") is not None else "—",
-            f"{a['load']:g}" if a.get("load") is not None else "—",
+            f"{round(a['load'])}" if a.get("load") is not None else "—",
             rpe_cell,
         ]
     )
