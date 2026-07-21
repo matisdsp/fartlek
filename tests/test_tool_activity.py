@@ -298,7 +298,8 @@ def test_splits_fetch_failure_graceful(store):
     seed_default(store)
     ctx = FakeContext(store, raw={})  # any fetch raises
     out = run(ctx, activity_id=A_ID, detail="splits")
-    assert "splits unavailable (fetch failed) — standard analysis above." in out
+    assert "splits unavailable (live fetch failed" in out
+    assert "garmin_sync()" in out
     assert "8.4 km" in out  # standard content still rendered
 
 
@@ -317,7 +318,8 @@ def test_full_details_fetch_failure_graceful(store):
     seed_default(store)
     ctx = FakeContext(store, raw={SPLITS_PATH: TYPED_SPLITS})
     out = run(ctx, activity_id=A_ID, detail="full")
-    assert "HR/pace curve unavailable (fetch failed)" in out
+    assert "HR/pace curve unavailable (live fetch failed" in out
+    assert "garmin_sync()" in out
     assert "| Rep | Pace | avgHR | vs rep 1 |" in out
 
 
