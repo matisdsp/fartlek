@@ -14,6 +14,7 @@ import pytest
 from conftest import make_days
 
 from fartlek.sync.engine import (
+    USERSTATS_DAILY_METRICS,
     RateLimiter,
     SyncEngine,
     SyncLock,
@@ -158,6 +159,31 @@ def activity_entry(aid, start_local, *, load=80.0, sport="running", duration=360
     return e
 
 
+def userstats_range(path, params):
+    """Userstats dispatches on metricId — a fixture that ignores it would let
+    every metric backfill land in every column."""
+    series = {
+        60: ("WELLNESS_RESTING_HEART_RATE", [46, 48]),
+        29: ("WELLNESS_TOTAL_STEPS", [12000, 15000]),
+        63: ("WELLNESS_AVERAGE_STRESS", [30, 25]),
+        82: ("WELLNESS_MIN_AVG_HEART_RATE", [41, 42]),
+        28: ("WELLNESS_TOTAL_CALORIES", [2800, 3000]),
+        22: ("WELLNESS_ACTIVE_CALORIES", [900, 1100]),
+        39: ("WELLNESS_TOTAL_DISTANCE", [12000.0, 15000.0]),
+        53: ("WELLNESS_FLOORS_ASCENDED", [10.0, 12.0]),
+        51: ("WELLNESS_MODERATE_INTENSITY_MINUTES", [20, 25]),
+        52: ("WELLNESS_VIGOROUS_INTENSITY_MINUTES", [60, 70]),
+    }
+    entry = series.get(params.get("metricId"))
+    if entry is None:
+        return {"allMetrics": {"metricsMap": {}}}
+    key, values = entry
+    return {"allMetrics": {"metricsMap": {key: [
+        {"calendarDate": "2026-07-18", "value": values[0]},
+        {"calendarDate": "2026-07-19", "value": values[1]},
+    ]}}}
+
+
 def base_routes():
     """Every endpoint the engine can hit, with realistic canned payloads."""
     return {
@@ -188,16 +214,7 @@ def base_routes():
         "/device-service/deviceregistration/devices": [{"deviceId": 123}],
         "/usersummary-service/stats/stress/weekly/": [{"calendarDate": "2026-07-13", "value": 30}],
         "/metrics-service/metrics/maxmet/daily/": [{"generic": {"vo2MaxPreciseValue": 52.3}}],
-        "/userstats-service/wellness/daily/": {
-            "allMetrics": {
-                "metricsMap": {
-                    "WELLNESS_RESTING_HEART_RATE": [
-                        {"calendarDate": "2026-07-18", "value": 46},
-                        {"calendarDate": "2026-07-19", "value": 48},
-                    ]
-                }
-            }
-        },
+        "/userstats-service/wellness/daily/": userstats_range,
         "/weight-service/weight/dateRange": {
             "dateWeightList": [{"calendarDate": "2026-07-01", "weight": 70500.0}]
         },
@@ -458,7 +475,9 @@ def test_tier1_pagination_terminates_on_short_page(store, tmp_path):
     assert [kw["start"] for _, kw in searches] == [0, 5]  # stopped after short page
     assert result["activities"] == 8
     assert store.get_activity(207) is not None
-    assert result["calls"] == 11  # 2 pages + rhr + weight + 3 bb chunks + stress + 2 maxmet + progress
+    # 2 pages + weight + 3 bb chunks + stress + 2 maxmet + progress
+    # + one userstats range call per daily wellness metric (incl. RHR).
+    assert result["calls"] == 10 + len(USERSTATS_DAILY_METRICS) + 1
 
     # RHR range landed in days
     assert store.get_day("2026-07-18")["resting_hr"] == 46
@@ -470,6 +489,61 @@ def test_tier1_pagination_terminates_on_short_page(store, tmp_path):
     assert store.get_day("2026-07-01")["weight_g"] == 70500
     # body battery chunk landed
     assert store.get_day("2026-07-19")["body_battery_high"] == 90
+
+
+def test_tier1_backfills_daily_wellness_scalars(store, tmp_path):
+    """Without the userstats range calls these columns hold TODAY only: the
+    daily summary is fetched for one date, so readiness fusion loses markers
+    and no trend over them is possible."""
+    routes = base_routes()
+    routes["/activitylist-service/activities/search/activities"] = lambda p, kw: []
+    engine, fetch = make_engine(store, tmp_path, routes)
+    engine.tier1()
+
+    day = store.get_day("2026-07-19")
+    assert day["steps"] == 15000
+    assert day["avg_stress"] == 25
+    assert day["min_hr"] == 42
+    assert day["calories_total"] == 3000
+    assert day["calories_active"] == 1100
+    assert day["distance_m"] == 15000.0
+    assert day["floors"] == 12.0
+    assert day["intensity_mod_min"] == 25
+    assert day["intensity_vig_min"] == 70
+    assert day["resting_hr"] == 48          # still mapped, unchanged
+
+    # One range call per metric, not one call per day.
+    calls = fetch.paths("/userstats-service/wellness/daily/")
+    assert len(calls) == len(USERSTATS_DAILY_METRICS) + 1
+    assert {kw["metricId"] for _, kw in calls} == set(USERSTATS_DAILY_METRICS) | {60}
+
+
+def test_tier1_does_not_write_max_hr_from_userstats(store, tmp_path):
+    """metricId 83 is a max of AVERAGED heart rate, not the instantaneous daily
+    max the daily summary reports. Writing it into days.max_hr would mix two
+    definitions in one column."""
+    assert 83 not in USERSTATS_DAILY_METRICS
+    assert all(col != "max_hr" for col, _ in USERSTATS_DAILY_METRICS.values())
+
+
+def test_tier1_survives_a_metric_the_account_does_not_serve(store, tmp_path):
+    """Garmin answers 500 for metricIds an account has no data for; one dead
+    metric must not abort the whole history warm-up."""
+    def flaky(path, params):
+        if params.get("metricId") == 29:
+            raise RuntimeError("API Error 500")
+        return userstats_range(path, params)
+
+    routes = base_routes()
+    routes["/activitylist-service/activities/search/activities"] = lambda p, kw: []
+    routes["/userstats-service/wellness/daily/"] = flaky
+    engine, _ = make_engine(store, tmp_path, routes)
+    result = engine.tier1()
+
+    assert result["errors"]
+    day = store.get_day("2026-07-19")
+    assert day["steps"] is None          # the one that failed
+    assert day["avg_stress"] == 25       # the others still landed
 
 
 def test_tier1_rhr_capability_fallback_recorded(store, tmp_path):
