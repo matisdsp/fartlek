@@ -8,7 +8,7 @@ Every other Garmin MCP server hands the LLM a filing cabinet of raw JSON — one
 
 **The token contract (v0.1):** calling every tool in the catalog once, at default arguments, costs **under 9K tokens** — a sixth of one raw Garmin sleep payload. Excluding the `garmin_raw` escape hatch, the whole synthesis surface sums to **under 4K**. Hard caps are enforced per response by the renderer, with disclosed truncation.
 
-> **Status: v0.1 (Phase 1).** 8 synthesis tools; the trend suite (weekly review, multi-week load, fitness/race outlook, recovery audit) ships with v0.2. Design: [`docs/DESIGN.md`](docs/DESIGN.md) · plan: [`ROADMAP.md`](ROADMAP.md).
+> **Status: v0.1 (Phase 1).** 8 synthesis tools; the trend suite (weekly review, multi-week load, fitness/race outlook, recovery audit) ships with v0.2. Design: [`docs/DESIGN.md`](docs/DESIGN.md) · plan: [`ROADMAP.md`](ROADMAP.md) · contributors: [`docs/HANDOFF.md`](docs/HANDOFF.md).
 
 ## The tools
 
