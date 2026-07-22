@@ -34,6 +34,20 @@ def _assert_contiguous(daily_loads: list[tuple[str, float]]) -> None:
         prev = d
 
 
+def advance(ctl: float, atl: float, load: float) -> tuple[float, float, float]:
+    """One PMC day-step. Returns (ctl_after, atl_after, tsb_for_that_day).
+
+    TSB is taken BEFORE the step because today's form reflects yesterday's
+    fitness and fatigue. The forward projection (analytics.projection) runs
+    this same function, so the historical and projected series can never drift
+    apart through a duplicated formula.
+    """
+    tsb = ctl - atl
+    return (ctl + (load - ctl) * _ALPHA_CTL,
+            atl + (load - atl) * _ALPHA_ATL,
+            tsb)
+
+
 def compute_pmc(daily_loads: list[tuple[str, float]]) -> list[dict[str, Any]]:
     """CTL += (L−CTL)·(1−e^(−1/42)); ATL += (L−ATL)·(1−e^(−1/7));
     TSB_today = CTL_yesterday − ATL_yesterday (first day TSB = 0). Seeds
@@ -43,9 +57,7 @@ def compute_pmc(daily_loads: list[tuple[str, float]]) -> list[dict[str, Any]]:
     out: list[dict[str, Any]] = []
     ctl = atl = 0.0
     for d, load in daily_loads:
-        tsb = ctl - atl  # yesterday's values; 0.0 on the first day
-        ctl += (load - ctl) * _ALPHA_CTL
-        atl += (load - atl) * _ALPHA_ATL
+        ctl, atl, tsb = advance(ctl, atl, load)
         out.append({"date": d, "load": float(load), "ctl": ctl, "atl": atl, "tsb": tsb})
     return out
 
