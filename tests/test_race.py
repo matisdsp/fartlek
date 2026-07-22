@@ -166,3 +166,35 @@ def test_a_winning_projection_ranks_first():
 def test_empty_field_is_not_an_error():
     res = race.compare_to_field(200_000.0, [])
     assert res["rank"] is None and res["n"] == 0
+
+
+# --- reported by the fitness-tool build (2026-07-22) ------------------------
+
+def test_exponent_fit_always_returns_raw_b():
+    """Both early returns omitted the key, so any caller inspecting the raw
+    (pre-clamp) exponent hit a KeyError on the degenerate paths."""
+    for fit in (race.fit_riegel_exponent([]),
+                race.fit_riegel_exponent([(10_000.0, 2400.0)]),
+                race.fit_riegel_exponent([(10_000.0, 2400.0), (10_000.0, 2500.0)])):
+        assert "raw_b" in fit
+        assert fit["quality"] == "default"
+
+
+def test_unknown_stoppage_is_not_silently_zero():
+    """Assuming 24h of unbroken movement — which no fixed-time race achieves —
+    inflates the distance and dresses the optimism up as a measurement."""
+    unknown = _project(stoppage=None)
+    assert unknown["stoppage_modelled"] is False
+    assert unknown["stoppage"] is None
+    assert unknown["confidence"] == "low"
+    assert any("NOT modelled" in a for a in unknown["assumptions"])
+    assert not any("assumed stopped" in a for a in unknown["assumptions"])
+
+
+def test_explicit_zero_stoppage_is_a_real_claim():
+    """Passing 0.0 deliberately is different from not knowing."""
+    zero = _project(stoppage=0.0)
+    assert zero["stoppage_modelled"] is True
+    assert zero["stoppage"] == 0.0
+    assert any("0.0% of race time assumed stopped" in a for a in zero["assumptions"])
+    assert zero["high_m"] > _project(stoppage=0.10)["high_m"]

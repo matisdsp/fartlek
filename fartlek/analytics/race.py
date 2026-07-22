@@ -71,7 +71,7 @@ def fit_riegel_exponent(performances: list[tuple[float, float]]) -> dict[str, An
     """
     pts = [(d, t) for d, t in performances if d > 0 and t > 0]
     if len(pts) < 2:
-        return {"b": RIEGEL_DEFAULT_B, "n": len(pts), "r2": None,
+        return {"b": RIEGEL_DEFAULT_B, "n": len(pts), "r2": None, "raw_b": None,
                 "clamped": False, "quality": "default"}
 
     xs = [math.log(d) for d, _ in pts]
@@ -80,7 +80,7 @@ def fit_riegel_exponent(performances: list[tuple[float, float]]) -> dict[str, An
     mx, my = sum(xs) / n, sum(ys) / n
     sxx = sum((x - mx) ** 2 for x in xs)
     if sxx < 1e-12:
-        return {"b": RIEGEL_DEFAULT_B, "n": n, "r2": None,
+        return {"b": RIEGEL_DEFAULT_B, "n": n, "r2": None, "raw_b": None,
                 "clamped": False, "quality": "default"}
     raw_b = sum((x - mx) * (y - my) for x, y in zip(xs, ys, strict=True)) / sxx
 
@@ -136,7 +136,11 @@ def fixed_time_projection(
         return {"error": f"reference effort under {MIN_REFERENCE_HOURS}h is too short "
                          f"to project a fixed-time event", "reference_hours": ref_hours}
 
-    stop = 0.0 if stoppage is None else max(0.0, min(stoppage, 0.9))
+    # An unknown stoppage is NOT zero stoppage. Silently modelling 24h of
+    # unbroken movement — which no fixed-time race achieves — would inflate the
+    # distance and present the optimism as a measurement.
+    modelled = stoppage is not None
+    stop = max(0.0, min(stoppage, 0.9)) if modelled else 0.0
     moving_hours = target_hours * (1.0 - stop)
     ratio = moving_hours / ref_hours
 
@@ -148,9 +152,16 @@ def fixed_time_projection(
     assumptions = [
         f"reference: {reference_distance_m / 1000:.1f} km in {ref_hours:.2f}h moving",
         f"exponent band {lo_b}-{hi_b} is a population default, not personally fitted",
-        f"{stop:.1%} of race time assumed stopped ({moving_hours:.1f}h moving)",
     ]
     confidence = "moderate"
+    if modelled:
+        assumptions.append(
+            f"{stop:.1%} of race time assumed stopped ({moving_hours:.1f}h moving)")
+    else:
+        assumptions.append(
+            "stoppage NOT modelled — this assumes continuous movement for the whole "
+            "event, which no fixed-time race achieves, so the distance is optimistic")
+        confidence = "low"
     if not reference_was_maximal:
         assumptions.append("reference effort was sub-maximal — a race effort would start faster, "
                            "but degrade differently; treat as a floor-ish estimate, not a ceiling")
@@ -160,7 +171,8 @@ def fixed_time_projection(
         confidence = "low"
 
     return {"low_m": low, "high_m": high, "mid_m": (low + high) / 2.0,
-            "band": (lo_b, hi_b), "moving_hours": moving_hours, "stoppage": stop,
+            "band": (lo_b, hi_b), "moving_hours": moving_hours,
+            "stoppage": stop if modelled else None, "stoppage_modelled": modelled,
             "extrapolation_ratio": ratio, "assumptions": assumptions,
             "confidence": confidence}
 

@@ -30,6 +30,9 @@ from fartlek.mcp_server.tools import (
     brief as t_brief,
 )
 from fartlek.mcp_server.tools import (
+    fitness as t_fitness,
+)
+from fartlek.mcp_server.tools import (
     log_tool as t_log,
 )
 from fartlek.mcp_server.tools import (
@@ -247,6 +250,24 @@ async def garmin_sync(
     backfill_days: Annotated[int, Field(ge=0, le=365)] = 0,
 ) -> str:
     return await _guard(t_sync.run(_ctx, backfill_days=backfill_days))
+
+
+@mcp.tool(
+    annotations=READ,
+    description=(
+        "Fitness outcomes and race feasibility: VO2max and efficiency trends, heart rate at "
+        "a fixed pace, long-run durability, a race projection against the athlete's stored "
+        "goal, and a form projection to race day with taper guidance. Call for 'am I getting "
+        "fitter', 'is training working', race planning, taper timing, or goal-feasibility "
+        "questions. The goal race comes from the athlete profile — set it with "
+        "garmin_set_profile."
+    ),
+)
+async def garmin_fitness(
+    weeks: Annotated[int, Field(ge=4, le=52, description="window length, default 12")] = 12,
+    anchor_date: Annotated[str | None, Field(description="YYYY-MM-DD, default today")] = None,
+) -> str:
+    return await _guard(t_fitness.run(_ctx, weeks=weeks, anchor_date=anchor_date))
 
 
 @mcp.tool(
