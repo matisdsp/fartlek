@@ -36,6 +36,9 @@ from fartlek.mcp_server.tools import (
     raw as t_raw,
 )
 from fartlek.mcp_server.tools import (
+    recovery as t_recovery,
+)
+from fartlek.mcp_server.tools import (
     set_profile as t_set_profile,
 )
 from fartlek.mcp_server.tools import (
@@ -244,6 +247,24 @@ async def garmin_sync(
     backfill_days: Annotated[int, Field(ge=0, le=365)] = 0,
 ) -> str:
     return await _guard(t_sync.run(_ctx, backfill_days=backfill_days))
+
+
+@mcp.tool(
+    annotations=READ,
+    description=(
+        "Recovery physiology over time: sleep, HRV, resting HR and load structure compared "
+        "to this athlete's personal baselines, plus the multi-marker overtraining audit. "
+        "Call when the user asks why they feel tired, how they are sleeping, whether they "
+        "are overtraining or getting sick, or when another tool flags a recovery signal. "
+        "This tool OWNS overtraining questions. Not for a single day's go/no-go — that is "
+        "garmin_brief."
+    ),
+)
+async def garmin_recovery(
+    days: Annotated[int, Field(ge=7, le=90, description="window length, default 28")] = 28,
+    anchor_date: Annotated[str | None, Field(description="YYYY-MM-DD, default today")] = None,
+) -> str:
+    return await _guard(t_recovery.run(_ctx, days=days, anchor_date=anchor_date))
 
 
 @mcp.tool(

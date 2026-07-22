@@ -28,13 +28,13 @@ REGISTRY = {
     "garmin_log",
     "garmin_sync",
     "garmin_raw",
+    "garmin_recovery",
 }
 
 PHASE2_NAMES = {
     "garmin_week",
     "garmin_load",
     "garmin_fitness",
-    "garmin_recovery",
     "garmin_whats_changed",
     "garmin_reference",
     "garmin_apply_plan",
