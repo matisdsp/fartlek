@@ -240,8 +240,14 @@ async def run(ctx: Any, since_days: int = DEFAULT_SINCE_DAYS) -> str:
             priority="secondary",
         ))
 
+    # The title must name the window the trends were actually TESTED over, not
+    # only the one that was asked for. A header reading "last 7d" above a row
+    # reading "over 4 wk" invites the reader to date a change to the wrong week.
+    span = (f"last {since_days}d"
+            if window_days == since_days
+            else f"last {since_days}d asked, {window_days}d tested")
     report = Report(
-        title=f"Changes — last {since_days}d ({n_scanned} metrics checked)",
+        title=f"Changes — {span} ({n_scanned} metrics checked)",
         date=end,
         data_as_of=ctx.data_as_of(),
         verdict=verdict,
