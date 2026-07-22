@@ -508,9 +508,24 @@ One deterministic Python engine (`src/analytics/`), pure functions over the loca
 | 23 | **Garmin-computed depth metrics (capability-gated consume-and-trend)** | per principle 2: **running tolerance** (Garmin's impact-load-vs-capacity injury guard) — current vs. capacity + 4-wk trend, rendered in `garmin_load` and as a WATCH input to #21 when over capacity; **endurance score** — trend line in `garmin_fitness`. Both probed at first sync (§3.3); absent capability → absent line, recorded in the coverage block, never fabricated | tolerance/endurance endpoints | A | day 0 where device supports |
 | 24 | **Enum phrase table** | static translation of Garmin feedback enums (`NEGATIVE_LONG_BUT_LIGHT` → "long but light — duration fine, depth poor"; `AEROBIC_HIGH_SHORTAGE` → "not enough high-aerobic work this month"; …). Unknown keys pass through humanized (`SNAKE_CASE` → sentence case) so new enums never break rendering | — | — | — |
 
+#### Amendment (2026-07-22, Phase 2) — HR-at-pace bands are the primary efficiency measure
+
+Metric #12's steady-state session qualifier (≥40 min, lap-pace CV <8%, ≥80% of laps under the Z2 ceiling) turns out to be too restrictive to carry a trend on a real high-variety athlete. Measured on the maintainer's account, 201 backfilled runs over six months yielded **21 qualifying steady sessions in total and only 20 inside the 180-day window** — below the 21-point floor metric #7 requires before it will claim anything. The measure was, in practice, permanently suppressed.
+
+The same laps analysed by **pace band** — every lap whose grade-adjusted pace falls in a requested window, regardless of the session it belongs to — yielded **1,348 qualifying laps across 201 sessions**. Same evidence, two orders of magnitude more of it, because a band does not require the *session* to have been steady, only the *lap*.
+
+So the engine computes both, and the ordering is:
+
+1. **Primary: HR-at-pace over a band** (`analytics/efficiency.hr_at_pace`). Duration-weighted, grade-adjusted where the device provides GAP. Rejects laps whose HR does not belong to their pace — marked interval recoveries, laps following one >15% faster (HR lags effort by a minute or more), laps under 400 m — and reports every rejection count so responses disclose coverage rather than implying it.
+2. **Secondary: steady-session EF** (unchanged §3.2 #12) where sessions qualify — a cleaner but rarer signal, and the one comparable to outside sources.
+
+Both feed metric #7 through the same SWC machinery. The heat guard governs both: laps at or above 24 °C are flagged and excluded from trend series, never deleted. This matters more than it looks — on the sampled account **96% of July laps were run at ≥24 °C versus 11% in March**, and the measured heat penalty (≈1–2% EF) fully accounts for the apparent summer regression. Without the guard the engine would have reported a fitness loss during a genuine improvement, violating principle "never fabricate" in the most damaging direction.
+
+Storage consequence: `activity_laps` (per-lap digest, ~1 KB/session on the wire) joins the table list below. Laps are already a digest — the per-second streams remain discarded.
+
 ### 3.3 Store, sync, rate limits, cold start
 
-**Store:** SQLite at `~/.fartlek/<garmin-user-id>/store.db` — **keyed per Garmin account**, so multiple accounts on one machine never share a store or a baseline. Tables: `days` (~25 digested scalars/day, incl. weight), `activities` (summary digest + computed metrics + RPE with source), `sleep_timeline` (compact per-night intervals for SRI), `activity_digests` (EF/decoupling/interval results — raw streams discarded after digest), `baselines`, `pmc`, `alerts`, `wellness_log`, `athlete_profile`, `plan_calendar` (scheduled/enrolled-plan workouts + match results), `capability_map`, `sync_state`.
+**Store:** SQLite at `~/.fartlek/<garmin-user-id>/store.db` — **keyed per Garmin account**, so multiple accounts on one machine never share a store or a baseline. Tables: `days` (~25 digested scalars/day, incl. weight), `activities` (summary digest + computed metrics + RPE with source), `sleep_timeline` (compact per-night intervals for SRI), `activity_laps` (per-lap digest: distance/time/HR/speed + grade-adjusted speed + temperature — the substrate for HR-at-pace), `activity_digests` (EF/decoupling/interval results — raw streams discarded after digest), `baselines`, `pmc`, `alerts`, `wellness_log`, `athlete_profile`, `plan_calendar` (scheduled/enrolled-plan workouts + match results), `capability_map`, `sync_state`.
 
 **Lifecycle (table stakes for the local-first position):** `fartlek accounts` lists stored accounts; `fartlek switch <account>` selects; `fartlek export` dumps the store (SQLite copy + CSV per table); `fartlek reset [--account]` wipes tokens and data after confirmation. All documented in the README next to the privacy claim.
 
