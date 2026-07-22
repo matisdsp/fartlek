@@ -18,9 +18,9 @@ Scope decisions taken 2026-07-22: engine before tools · live Garmin probing all
 | Forward PMC projection + taper window | §3.2 #17 | ✅ `analytics/projection.py` — weekday-shaped pattern, basis disclosed |
 | Race triangulation (Garmin / Tanda / Riegel) | §3.2 #16 | 🟡 Riegel + exponent fit done in `analytics/race.py`; Tanda and the 3-model triangulation still to write |
 | **Fixed-time race model** (24h events) | amendment | ✅ `race.fixed_time_projection` + `compare_to_field` — range, explicit stoppage, population exponent labelled |
-| Intensity distribution (TID) mapping + auto target | §3.2 #11 | ⬜ next |
-| Attribution rules (closed set) | §3.2 #22 | ⬜ |
-| Retroactive precedent mining | §3.2 #5 | ⬜ |
+| Intensity distribution (TID) mapping + auto target | §3.2 #11 | ✅ `analytics/tid.py` — pro-rated zone mapping, own-norm target, creep detection |
+| Attribution rules (closed set) | §3.2 #22 | ✅ `analytics/attribution.py` — 5 rules, silent when evidence cannot discriminate |
+| Retroactive precedent mining | §3.2 #5 | ⬜ next |
 | Capability-gated running-tolerance / endurance-score trends | §3.2 #23 | ⬜ |
 
 ## 2. Tools
@@ -76,6 +76,7 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 |---|---|---|
 | D1 | Daily wellness scalars (`steps`, `avg_stress`, `min_hr`, calories, distance, floors, intensity minutes) held 1 day each — the daily summary is only fetched for today, and the spec provided no backfill for them | ✅ fixed — userstats range call per metric, 2 → 181 days for 9 extra calls |
 | D6 | Rows written by a mid-day sync stayed frozen at their mid-day values forever (2026-07-20 held 6,847 steps vs an actual 18,664) | ✅ fixed by the same range backfill, which rewrites completed days |
+| D8 | HR zone boundaries and body weight are fetched by tier 0 but never persisted — zone floors [101,121,142,164,183], LTHR 183, max HR 195, weight 78 kg all live only in the API response. TID falls back to approximate mapping without them, and `weight_range` is recorded as 'no weight entries' although user-settings carries one | ⬜ |
 | D7 | `body_battery_wake` still has 1 day: it is not in userstats and the dedicated body-battery endpoint only yields high/low. Readiness fusion weights it 0.10 | ⬜ |
 | D2 | `ACTIVITY_HISTORY_DAYS = 180` is not parameterisable — a long-cycle athlete cannot see their full season | ⬜ |
 | D3 | First `fartlek auth` persisted `di_refresh_token: null`, so the session died after ~20h and forced a full re-login. Re-auth stored one correctly; watch whether refresh rewrites the file | ⬜ monitor |
