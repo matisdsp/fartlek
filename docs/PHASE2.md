@@ -20,8 +20,8 @@ Scope decisions taken 2026-07-22: engine before tools · live Garmin probing all
 | **Fixed-time race model** (24h events) | amendment | ✅ `race.fixed_time_projection` + `compare_to_field` — range, explicit stoppage, population exponent labelled |
 | Intensity distribution (TID) mapping + auto target | §3.2 #11 | ✅ `analytics/tid.py` — pro-rated zone mapping, own-norm target, creep detection |
 | Attribution rules (closed set) | §3.2 #22 | ✅ `analytics/attribution.py` — 5 rules, silent when evidence cannot discriminate |
-| Retroactive precedent mining | §3.2 #5 | ⬜ next |
-| Capability-gated running-tolerance / endurance-score trends | §3.2 #23 | ⬜ |
+| Retroactive precedent mining | §3.2 #5 | ✅ `analytics/precedent.py` — cross-source merge; external episodes excludable. Athlete's own levels: weekly load 974, strain 1817, monotony 1.87 |
+| Capability-gated running-tolerance / endurance-score trends | §3.2 #23 | ⬜ minor |
 
 ## 2. Tools
 
@@ -33,6 +33,8 @@ Scope decisions taken 2026-07-22: engine before tools · live Garmin probing all
 | `garmin_week` | 1,200 | ⬜ |
 | `garmin_whats_changed` | 700 | ⬜ |
 | `garmin_reference` (metrics glossary) | — | ⬜ |
+
+**Engine complete enough to start tools (2026-07-22).** Remaining engine items (Tanda triangulation, capability-gated trends) are minor and not blocking.
 
 Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `tests/test_guardrails.py` as it lands — that set is the progress counter.
 
