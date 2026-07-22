@@ -1,6 +1,8 @@
 # Fartlek — Garmin MCP server
 
-*A coach's morning report from your Garmin data, for any LLM via MCP.* Open-source project. The authoritative spec is `docs/DESIGN.md`; the phase plan is `ROADMAP.md`. Currently in Phase 0 (foundation).
+*A coach's morning report from your Garmin data, for any LLM via MCP.* Open-source project. The authoritative spec is `docs/DESIGN.md`; the phase plan is `ROADMAP.md`.
+
+**Picking up the project? Start with [`docs/HANDOFF.md`](docs/HANDOFF.md)** — current state, verified facts, invariants, and the traps that cost time. Phases 0 and 1 are done (v0.1.1 on PyPI); Phase 2 is next.
 
 ## Git discipline — commit as you go
 
