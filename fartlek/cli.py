@@ -25,11 +25,32 @@ def _token_file(tokenstore: Path) -> Path:
     return tokenstore if tokenstore.suffix == ".json" else tokenstore / "garmin_tokens.json"
 
 
+_NEEDS_TTY = (
+    "This command asks a question and stdin is not a terminal. Run it directly in "
+    "a shell — not through a pipe, a CI job or an agent's command runner. "
+    "(`fartlek auth --replace` and `fartlek reset --yes` skip the confirmation, but "
+    "auth still needs a terminal for the password and MFA code.)"
+)
+
+
+def _ask(prompt: str, *, secret: bool = False) -> str:
+    """input()/getpass() that fails with a usable message instead of a traceback
+    when stdin is not a terminal (piped, CI, agent shell)."""
+    try:
+        return (getpass.getpass(prompt) if secret else input(prompt)).strip()
+    except EOFError:
+        print(f"\n{_NEEDS_TTY}", file=sys.stderr)
+        raise SystemExit(1) from None
+    except KeyboardInterrupt:
+        print("\nAborted.", file=sys.stderr)
+        raise SystemExit(1) from None
+
+
 def _prompt_mfa() -> str:
-    return input("MFA code (check your email/authenticator app): ").strip()
+    return _ask("MFA code (check your email/authenticator app): ")
 
 
-def cmd_auth(_args: argparse.Namespace) -> int:
+def cmd_auth(args: argparse.Namespace) -> int:
     tokenstore = default_tokenstore()
     token_file = _token_file(tokenstore)
     print("Garmin Connect login")
@@ -38,14 +59,17 @@ def cmd_auth(_args: argparse.Namespace) -> int:
     # The library resumes silently from an existing tokenstore, which would
     # ignore the credentials typed below — make replacement explicit instead.
     if token_file.exists():
-        answer = input("Existing tokens found. Replace with a new login? [y/N] ").strip().lower()
-        if answer not in ("y", "yes"):
-            print("Keeping existing tokens. Nothing to do.")
-            return 0
+        if getattr(args, "replace", False):
+            print("Replacing existing tokens (--replace).")
+        else:
+            answer = _ask("Existing tokens found. Replace with a new login? [y/N] ").lower()
+            if answer not in ("y", "yes"):
+                print("Keeping existing tokens. Nothing to do.")
+                return 0
         token_file.unlink()
 
-    email = input("Garmin email: ").strip()
-    password = getpass.getpass("Garmin password: ")
+    email = _ask("Garmin email: ")
+    password = _ask("Garmin password: ", secret=True)
     if not email or not password:
         print("Email and password are required.", file=sys.stderr)
         return 1
@@ -191,10 +215,11 @@ def cmd_reset(args: argparse.Namespace) -> int:
     if not home.exists():
         print("Nothing to reset.")
         return 0
-    answer = input(f"Delete ALL Fartlek tokens and local data under {home}? [y/N] ").strip().lower()
-    if answer not in ("y", "yes"):
-        print("Aborted.")
-        return 0
+    if not getattr(args, "yes", False):
+        answer = _ask(f"Delete ALL Fartlek tokens and local data under {home}? [y/N] ").lower()
+        if answer not in ("y", "yes"):
+            print("Aborted.")
+            return 0
     shutil.rmtree(home)
     print(f"✓ removed {home}")
     return 0
@@ -206,7 +231,11 @@ def main() -> None:
         description="Fartlek — a coach's morning report from your Garmin data, for any LLM via MCP.",
     )
     sub = parser.add_subparsers(dest="command", required=True)
-    sub.add_parser("auth", help="log in to Garmin Connect (one-time; MFA supported)").set_defaults(func=cmd_auth)
+    p_auth = sub.add_parser("auth", help="log in to Garmin Connect (one-time; MFA supported)")
+    p_auth.add_argument(
+        "--replace", action="store_true", help="replace existing tokens without asking"
+    )
+    p_auth.set_defaults(func=cmd_auth)
     sub.add_parser("doctor", help="check tokens, Garmin connectivity and local store health").set_defaults(func=cmd_doctor)
     sub.add_parser("accounts", help="list local accounts").set_defaults(func=cmd_accounts)
     p_sync = sub.add_parser("sync", help="fetch Garmin data into the local store (tier 0 + 1)")
@@ -215,7 +244,9 @@ def main() -> None:
     p_export = sub.add_parser("export", help="export the local store (SQLite copy + CSV per table)")
     p_export.add_argument("out", nargs="?", help="output directory (default: ./fartlek-export)")
     p_export.set_defaults(func=cmd_export)
-    sub.add_parser("reset", help="wipe all local tokens and data (asks confirmation)").set_defaults(func=cmd_reset)
+    p_reset = sub.add_parser("reset", help="wipe all local tokens and data (asks confirmation)")
+    p_reset.add_argument("-y", "--yes", action="store_true", help="skip the confirmation prompt")
+    p_reset.set_defaults(func=cmd_reset)
 
     args = parser.parse_args()
     sys.exit(args.func(args))
