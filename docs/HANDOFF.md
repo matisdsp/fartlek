@@ -24,7 +24,8 @@ Corollaire structurant : **le LLM ne doit jamais avoir à re-dériver une statis
 | Lint | ✅ `uv run ruff check fartlek/ tests/` |
 | PyPI | ✅ `fartlek-mcp` **0.1.1** en ligne |
 | GitHub | `matisdsp/fartlek`, public, CI verte |
-| Registre MCP officiel | ⏳ **en cours** — voir §5, une étape manuelle reste |
+| Registre MCP officiel | ✅ `io.github.matisdsp/fartlek` v0.1.1, statut `active` |
+| Annuaires tiers | ⬜ Glama / mcp.so / PulseMCP — voir §5 |
 | Phase 2 | ⬜ pas commencée |
 
 Vérifications réellement effectuées (pas supposées) :
@@ -114,21 +115,28 @@ Le tag déclenche : `ruff` → `pytest` → `uv build` → `uv publish`. Le job 
 
 ⚠️ **Une version PyPI est immuable.** Pas d'écrasement possible : pour corriger, on bumpe. (C'est exactement pourquoi la 0.1.0 a dû être suivie d'une 0.1.1, cf. §7.)
 
-### Registre MCP officiel : une étape manuelle reste
+### Registre MCP officiel : ✅ publié
 
-Prérequis déjà remplis :
+Entrée `io.github.matisdsp/fartlek` v0.1.1, statut `active`, publiée le 2026-07-22. Vérifiable :
+
+```bash
+curl -s "https://registry.modelcontextprotocol.io/v0/servers?search=io.github.matisdsp/fartlek"
+```
+
+Ce qui a rendu la publication possible :
 - `server.json` à la racine, **validé** (`mcp-publisher validate server.json`).
 - Le token d'ownership `<!-- mcp-name: io.github.matisdsp/fartlek -->` est en tête du `README.md`, donc **publié sur la page PyPI** de la 0.1.1. C'est **le** mécanisme par lequel le registre vérifie qu'on possède bien le package PyPI (pas de champ de métadonnée structuré pour PyPI, contrairement à npm).
 - CLI installé : `brew install mcp-publisher` (v1.8.0).
 
-Il reste :
+**Pour publier une version suivante au registre** (à refaire à chaque release, le registre ne suit pas PyPI automatiquement) :
 
 ```bash
-mcp-publisher login github      # ⚠️ OAuth interactif — nécessite un humain
+# mettre à jour "version" ET packages[0].version dans server.json, puis :
+mcp-publisher login github      # ⚠️ OAuth par device code — nécessite un humain
 mcp-publisher publish
 ```
 
-`login github` ouvre un flux navigateur, **un agent ne peut pas l'exécuter seul**. Alternative automatisable : `mcp-publisher login github-oidc` dans un workflow GitHub Actions avec `permissions: id-token: write` — à faire si on veut que le registre se mette à jour à chaque release.
+`login github` affiche un code à saisir sur github.com/login/device : **un agent ne peut pas l'exécuter seul**. Pour automatiser, utiliser `mcp-publisher login github-oidc` dans un job GitHub Actions avec `permissions: id-token: write` — à ajouter au workflow de release si on veut que le registre suive chaque tag.
 
 Namespace : `io.github.matisdsp/fartlek` (dérivé du compte GitHub, obtenu automatiquement par l'auth GitHub).
 
