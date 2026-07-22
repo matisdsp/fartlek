@@ -56,7 +56,7 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 | Token + calls-per-task regression gates | ⬜ |
 | Transcript audits (every LLM-re-derived number = missing pre-computation) | ⬜ |
 | French-language eval tasks (server renders English, client translates) | ⬜ |
-| Engine validation vs intervals.icu golden data | 🟡 account created (athlete i649595), API key in .env, Garmin import running. NOTE: their CTL is TSS-scaled (15.6) vs ours Garmin-load-scaled (104.8) — only ratios (form %, ramp %) and per-activity EF/decoupling are comparable |
+| Engine validation vs intervals.icu golden data | ✅ decoupling validated against raw streams on 8 long runs: median diff 1.0 pt, 7/8 within 3 pts. Their derived fields (decoupling/EF) come back empty on this account, so the streams were used directly — a stronger check. NOTE: their CTL is TSS-scaled (15.6) vs ours Garmin-load-scaled (104.8); only ratios are comparable |
 | Anomaly-scanner threshold tuning on real multi-month data | ✅ 75 → 27 alerts, AMBER 27 → 4, anchored by the certified salmonella positive (2026-04-19..22) |
 
 ## 5. Open questions (§7)
