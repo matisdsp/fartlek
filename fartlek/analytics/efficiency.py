@@ -27,6 +27,28 @@ A fourth confounder is structural: HR lags effort by a minute or more, so the
 recovery lap of an interval carries the previous rep's HR. Such laps are
 dropped by the qualifier rather than corrected.
 
+**Validated against second-by-second streams (2026-07-22).** The lap method is
+an approximation of the stream-exact computation §3.2 #12 allows it to stand
+in for. Measured on 8 real long runs (2.3h-7.2h) by recomputing decoupling
+from the raw streams held by intervals.icu under identical rules:
+
+    median difference 1.0 percentage point, 7 of 8 within 3 points,
+    worst case 3.45 points.
+
+That is well inside the decision thresholds decoupling feeds (the classic line
+is 5%), for ~1 KB per session instead of megabytes of stream.
+
+The worst case is informative rather than random: it was the session with 9.6%
+stopped time. A lap containing a long pause has its average speed distorted,
+while a stream computation simply drops the stationary samples. **So this
+method degrades exactly where an athlete stops a lot — which is the norm in a
+fixed-time ultra**, and a drill-down on such a session should prefer streams.
+
+The absolute EF level also runs ~6% below the stream figure, because laps
+include stopped time and prefer grade-adjusted speed. It is a systematic
+offset, so it cancels in trends (what EF is used for) but the two numbers are
+not interchangeable in isolation.
+
 Pure functions over lap dicts as stored by the store (`activity_laps` columns
 plus `date`/`sport` when they come from `laps_in_range`).
 """
