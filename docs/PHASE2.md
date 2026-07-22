@@ -16,9 +16,9 @@ Scope decisions taken 2026-07-22: engine before tools · live Garmin probing all
 | Sleep debt / SRI / social jetlag | §3.2 #10 | ✅ `analytics/sleep.py` |
 | Overtraining convergence audit (two-sided RHR, HR-response corroboration) | §3.2 #20 | ✅ `analytics/convergence.py` — end-to-end on real data: WATCH (sleep group only) |
 | Forward PMC projection + taper window | §3.2 #17 | ✅ `analytics/projection.py` — weekday-shaped pattern, basis disclosed |
-| Race triangulation (Garmin / Tanda / Riegel) | §3.2 #16 | ⬜ |
-| **Fixed-time race model** (24h events — Riegel/Tanda structurally inapplicable) | amendment needed | ⬜ next |
-| Intensity distribution (TID) mapping + auto target | §3.2 #11 | ⬜ |
+| Race triangulation (Garmin / Tanda / Riegel) | §3.2 #16 | 🟡 Riegel + exponent fit done in `analytics/race.py`; Tanda and the 3-model triangulation still to write |
+| **Fixed-time race model** (24h events) | amendment | ✅ `race.fixed_time_projection` + `compare_to_field` — range, explicit stoppage, population exponent labelled |
+| Intensity distribution (TID) mapping + auto target | §3.2 #11 | ⬜ next |
 | Attribution rules (closed set) | §3.2 #22 | ⬜ |
 | Retroactive precedent mining | §3.2 #5 | ⬜ |
 | Capability-gated running-tolerance / endurance-score trends | §3.2 #23 | ⬜ |
