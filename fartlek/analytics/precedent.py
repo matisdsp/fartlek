@@ -20,6 +20,20 @@ Two properties make this honest rather than superstitious:
 
 Mining runs retroactively over the full backfilled window at Tier-2
 completion, then extends forward as new episodes occur.
+
+**Known limitation, found on real data (2026-07-22).** Not every episode is
+about training. The maintainer's April episode was food poisoning: monotony in
+the preceding fortnight was 1.13, i.e. unremarkable, because the cause had
+nothing to do with load. Feeding such an episode into load trigger levels
+drags them *down*, so ordinary training later reads as "above your own
+pre-episode level" — a false alarm manufactured by an illness the athlete
+caught from a meal.
+
+There is no way to infer cause from the data, so `trigger_levels` accepts
+`exclude`: episodes the athlete knows were externally caused are left out of
+LOAD trigger levels. They remain precedents for everything else. Callers that
+cannot ask the athlete should prefer reporting the episode count over reading
+much into the level.
 """
 from __future__ import annotations
 
@@ -82,6 +96,24 @@ def episodes_from_log(log_rows: list[dict[str, Any]]) -> list[str]:
     return merged
 
 
+def merge_episodes(*sources: list[str]) -> list[str]:
+    """Merge episode dates from every source into distinct events.
+
+    Essential, not tidying: on the maintainer's account the HRV series dipped
+    on 2026-04-18 and the athlete logged illness on 04-19 — one bout of
+    salmonella, detected by sensor a day before it was reported. Counting it
+    twice would double-weight a single event when trigger levels are computed.
+    """
+    days = sorted({d for src in sources for d in src if d})
+    merged: list[str] = []
+    for d in days:
+        if merged and (date.fromisoformat(d)
+                       - date.fromisoformat(merged[-1])).days < MIN_EPISODE_GAP_DAYS:
+            continue
+        merged.append(d)
+    return merged
+
+
 def _window_stats(
     series: list[tuple[str, float]], end_date: str, days: int = LOOKBACK_DAYS
 ) -> dict[str, float] | None:
@@ -118,17 +150,27 @@ def mine(
     return out
 
 
-def trigger_levels(precedents: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+def trigger_levels(
+    precedents: list[dict[str, Any]], *, exclude: list[str] | None = None
+) -> dict[str, dict[str, Any]]:
     """{metric: {level, n, episodes}} — the athlete's own historical trigger
     level per metric, taken as the MEDIAN peak across episodes.
 
     Median rather than minimum: one unusually calm fortnight before an illness
     (which happens — people catch things at rest) would otherwise drag the
     trigger level down until everything looks alarming.
+
+    `exclude` drops episodes with a known external cause (food poisoning, a
+    crash, a family illness). Their pre-episode load says nothing about this
+    athlete's tolerance, and including them manufactures false alarms — see
+    the module docstring for the case that revealed it.
     """
+    skip = set(exclude or ())
     by_metric: dict[str, list[float]] = {}
     episodes: dict[str, list[str]] = {}
     for p in precedents:
+        if p["episode"] in skip:
+            continue
         for name, stats in p["metrics"].items():
             by_metric.setdefault(name, []).append(stats["max"])
             episodes.setdefault(name, []).append(p["episode"])

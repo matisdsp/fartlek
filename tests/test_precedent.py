@@ -148,3 +148,40 @@ def test_no_statement_claims_causation():
     for s in res["statements"]:
         assert "because" not in s.lower()
         assert "caused" not in s.lower()
+
+
+# --- found on real data (2026-07-22) ---------------------------------------
+
+def test_episodes_from_different_sources_merge_into_one_event():
+    """The real case: HRV dipped 2026-04-18 and the athlete logged illness on
+    04-19 — one bout of salmonella, sensed a day before it was reported.
+    Counting it twice double-weights a single event in the trigger levels."""
+    hrv = ["2026-04-18"]
+    logged = ["2026-04-19"]
+    assert pr.merge_episodes(hrv, logged) == ["2026-04-18"]
+
+
+def test_distant_episodes_from_different_sources_stay_separate():
+    assert pr.merge_episodes(["2026-01-05"], ["2026-06-01"]) == ["2026-01-05", "2026-06-01"]
+
+
+def test_externally_caused_episodes_can_be_excluded_from_load_levels():
+    """Food poisoning tells you nothing about load tolerance. Left in, its calm
+    pre-episode fortnight drags the trigger level down until ordinary training
+    reads as 'above your own level' — a false alarm manufactured by a bad meal.
+    """
+    precedents = [
+        {"episode": "2026-01-10", "metrics": {"monotony": {"max": 2.2, "mean": 1.8, "n": 14}}},
+        {"episode": "2026-04-19", "metrics": {"monotony": {"max": 1.1, "mean": 0.9, "n": 14}}},
+    ]
+    with_food_poisoning = pr.trigger_levels(precedents)
+    without = pr.trigger_levels(precedents, exclude=["2026-04-19"])
+
+    assert without["monotony"]["level"] > with_food_poisoning["monotony"]["level"]
+    assert without["monotony"]["n"] == 1
+
+    # Levels: 1.65 with the food poisoning averaged in, 2.2 without it.
+    # A monotony of 1.8 — ordinary training — is alarming under the first and
+    # clear under the second. That gap is the false alarm being removed.
+    assert pr.compare({"monotony": 1.8}, with_food_poisoning)["exceeded"] == ["monotony"]
+    assert pr.compare({"monotony": 1.8}, without)["exceeded"] == []
