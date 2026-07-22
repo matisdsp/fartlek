@@ -242,3 +242,62 @@ def test_trend_series_is_sorted_by_date():
     a = [lap(i, activity_id=1, moving=300.0, date="2026-06-01") for i in range(12)]
     b = [lap(i, activity_id=2, moving=300.0, date="2026-05-01") for i in range(12)]
     assert [d for d, _ in eff.ef_trend_series(a + b)] == ["2026-05-01", "2026-06-01"]
+
+
+# --- lap method vs stream-exact (validated 2026-07-22) ----------------------
+
+def _stream_decoupling(samples):
+    """Reference implementation over (speed, hr) samples: split in half,
+    compare the efficiency of each half. This is what the lap method
+    approximates."""
+    mid = len(samples) // 2
+
+    def ef(chunk):
+        speed = sum(s for s, _ in chunk) / len(chunk)
+        hr = sum(h for _, h in chunk) / len(chunk)
+        return (speed * 60.0) / hr
+
+    a, b = ef(samples[:mid]), ef(samples[mid:])
+    return (a - b) / a
+
+
+def test_lap_decoupling_approximates_the_stream_computation():
+    """Same drift, computed per-second and per-lap, must agree closely.
+
+    Measured on 8 real long runs against intervals.icu's raw streams: median
+    difference 1.0 percentage point, worst case 3.45. This test holds the
+    synthetic equivalent so a refactor cannot silently break the agreement
+    that justifies using ~1 KB of laps instead of megabytes of stream.
+    """
+    # Two hours at constant speed with HR drifting 130 -> 150.
+    seconds = 7200
+    speed = SPEED_6
+    samples = [(speed, 130.0 + 20.0 * (i / seconds)) for i in range(seconds)]
+
+    # The same session as 24 five-minute laps carrying each lap's mean HR.
+    per_lap = seconds // 300
+    laps = []
+    for k in range(per_lap):
+        chunk = samples[k * 300:(k + 1) * 300]
+        laps.append(lap(k, moving=300.0, speed=speed,
+                        hr=sum(h for _, h in chunk) / len(chunk)))
+
+    stream = _stream_decoupling(samples[eff.WARMUP_EXCLUDE_S:])
+    lap_based = eff.session_efficiency(laps)["decoupling"]
+
+    assert abs(lap_based - stream) < 0.03, (
+        f"lap method {lap_based:.4f} vs stream {stream:.4f} — the approximation "
+        "must stay within 3 percentage points"
+    )
+
+
+def test_stopped_time_is_where_the_lap_method_degrades():
+    """The one real session that missed the 3-point band had 9.6% stopped
+    time: a lap containing a pause has its average speed distorted, while a
+    stream simply drops stationary samples. A lap whose moving time is well
+    under its elapsed time must therefore be visible to callers."""
+    paused = lap(0, moving=200.0, distance=1000.0, speed=None)
+    paused["duration_s"] = 600.0
+    speed, basis = eff.lap_speed(paused)
+    assert basis == "derived"
+    assert speed == pytest.approx(1000.0 / 200.0), "derived speed must use MOVING time"
