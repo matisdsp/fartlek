@@ -56,8 +56,8 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 | Token + calls-per-task regression gates | ⬜ |
 | Transcript audits (every LLM-re-derived number = missing pre-computation) | ⬜ |
 | French-language eval tasks (server renders English, client translates) | ⬜ |
-| Engine validation vs intervals.icu golden data | ⬜ **blocked**: needs a user decision on creating the account |
-| Anomaly-scanner threshold tuning on real multi-month data | ⬜ needs a triage pass with the athlete |
+| Engine validation vs intervals.icu golden data | 🟡 account created (athlete i649595), API key in .env, Garmin import running. NOTE: their CTL is TSS-scaled (15.6) vs ours Garmin-load-scaled (104.8) — only ratios (form %, ramp %) and per-activity EF/decoupling are comparable |
+| Anomaly-scanner threshold tuning on real multi-month data | ✅ 75 → 27 alerts, AMBER 27 → 4, anchored by the certified salmonella positive (2026-04-19..22) |
 
 ## 5. Open questions (§7)
 
@@ -66,7 +66,7 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 | 1 | userstats RHR range on all account types | ✅ resolved — 205 days in one call, and the service serves a metricId per daily scalar over an arbitrary window (see `USERSTATS_DAILY_METRICS`) |
 | 2 | Body-battery max window / chunking | ⬜ 30-day chunks work (92 days stored); max window still unprobed — see D7 |
 | 3 | threshold-pace / race-prediction history availability | ⬜ |
-| 4 | Anomaly-scanner false-positive rate | ⬜ |
+| 4 | Anomaly-scanner false-positive rate | ✅ resolved — replay + athlete triage, see the quality table |
 | 6 | `directWorkoutRpe` / `directWorkoutFeel` real shape | ⬜ |
 | 7 | Enrolled Garmin Coach plans: calendar vs `get_training_plans` | ⬜ |
 
