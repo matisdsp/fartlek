@@ -43,6 +43,27 @@ BACKOFF_START_S = 60.0
 BACKOFF_CAP_S = 900.0
 BASELINE_WINDOWS = (7, 28, 60, 90)
 ACTIVITY_HISTORY_DAYS = 180
+
+# userstats-service metricId -> (days column, cast). One range call per metric
+# backfills the whole window, replacing ~1 daily-summary call per day.
+#
+# Every id here was cross-checked against a fully-elapsed day's daily summary
+# and matched exactly. metricId 83 (WELLNESS_MAX_AVG_HEART_RATE) is
+# deliberately ABSENT: it read 138 where the summary's maxHeartRate read 140,
+# i.e. it is a max of averaged HR, not the instantaneous daily max. Writing it
+# into days.max_hr would mix two definitions in one column.
+USERSTATS_DAILY_METRICS: dict[int, tuple[str, Any]] = {
+    29: ("steps", int),
+    63: ("avg_stress", int),
+    82: ("min_hr", int),
+    28: ("calories_total", int),
+    22: ("calories_active", int),
+    39: ("distance_m", float),
+    53: ("floors", float),
+    51: ("intensity_mod_min", int),
+    52: ("intensity_vig_min", int),
+}
+
 SPLITS_HISTORY_DAYS = 120   # §3.2 #12: 8-12 weeks of qualifying sessions
 SPLITS_PER_RUN = 40         # cap per invocation, so one call never runs long
 _SPLITS_SKIP_CAP = 500      # bound on the remembered "this one has no laps" list
@@ -603,8 +624,12 @@ class SyncEngine:
             n += 1
         return n
 
-    def _store_rhr_range(self, payload: Any) -> int:
-        """Userstats metricId=60 payload → days.resting_hr rows; returns count."""
+    def _store_userstats_range(self, payload: Any, column: str, cast=int) -> int:
+        """A userstats-service range payload → days.<column> rows; returns count.
+
+        One call covers the whole window, so this replaces one daily-summary
+        fetch per day (~180 calls) with one call per metric.
+        """
         entries: list[dict[str, Any]] = []
         if isinstance(payload, dict):
             metrics_map = (payload.get("allMetrics") or {}).get("metricsMap") or {}
@@ -617,9 +642,13 @@ class SyncEngine:
         for e in entries:
             d, v = e.get("calendarDate"), e.get("value")
             if d and v is not None:
-                self._upsert_day({"date": d, "resting_hr": int(v)})
+                self._upsert_day({"date": d, column: cast(v)})
                 n += 1
         return n
+
+    def _store_rhr_range(self, payload: Any) -> int:
+        """Userstats metricId=60 payload → days.resting_hr rows; returns count."""
+        return self._store_userstats_range(payload, "resting_hr")
 
     # --- tiers ---
 
@@ -817,6 +846,22 @@ class SyncEngine:
                 row = digest_body_battery_day(e)
                 if row is not None:
                     self._upsert_day(row)
+
+        # Daily wellness scalars, one range call per metric (§3.3 tier 1).
+        # Without this the only source is the daily summary, which is fetched
+        # for TODAY only — so every one of these columns held a single day of
+        # history, and any row written mid-day stayed frozen at its mid-day
+        # value forever. Re-running this heals both.
+        for metric_id, (column, cast) in USERSTATS_DAILY_METRICS.items():
+            payload = self._try_call(
+                f"/userstats-service/wellness/daily/{name}",
+                errors,
+                fromDate=history_start,
+                untilDate=t,
+                metricId=metric_id,
+            )
+            if payload is not None:
+                self._store_userstats_range(payload, column, cast)
 
         self._probe("weekly_stress", f"/usersummary-service/stats/stress/weekly/{t}/52")
         half = (today_d - timedelta(days=90)).isoformat()
