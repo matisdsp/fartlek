@@ -14,8 +14,8 @@ Scope decisions taken 2026-07-22: engine before tools · live Garmin probing all
 | Per-lap splits backfill + storage | §3.2 #12 | ✅ `activity_laps`, `SyncEngine.backfill_splits` |
 | EF / decoupling / durability + HR-at-pace bands | §3.2 #12, #13 | ✅ `analytics/efficiency.py` (+ amendment: pace bands primary) |
 | Sleep debt / SRI / social jetlag | §3.2 #10 | ✅ `analytics/sleep.py` |
-| Overtraining convergence audit (two-sided RHR, HR-response corroboration) | §3.2 #20 | ⬜ next |
-| Forward PMC projection + taper window | §3.2 #17 | ⬜ |
+| Overtraining convergence audit (two-sided RHR, HR-response corroboration) | §3.2 #20 | ✅ `analytics/convergence.py` — end-to-end on real data: WATCH (sleep group only) |
+| Forward PMC projection + taper window | §3.2 #17 | ⬜ next |
 | Race triangulation (Garmin / Tanda / Riegel) | §3.2 #16 | ⬜ |
 | **Fixed-time race model** (24h events — Riegel/Tanda structurally inapplicable) | amendment needed | ⬜ |
 | Intensity distribution (TID) mapping + auto target | §3.2 #11 | ⬜ |
