@@ -58,7 +58,37 @@ _TRACKED = [
     "daily_load",
 ]
 
-_HIGH_SIDE_ONLY = {"daily_load"}
+# Which direction of deviation is ADVERSE for each metric. Only that side
+# alerts (§3.2 #21, tuned 2026-07-22 against the maintainer's 6-month history).
+#
+# Before this, 31% of all alerts fired on an IMPROVEMENT — "resting_hr low —
+# 43 vs 47", "hrv_last_night high — 115 vs 86" — i.e. the scanner interrupted
+# the athlete to report good news. Favourable deviations are still computed:
+# analytics.convergence consumes two-sided RHR, because a sustained DROP
+# alongside other deviant markers is the parasympathetic overtraining pattern
+# (§3.2 #9). It just never raises an alert on its own.
+_ADVERSE_DIRECTION = {
+    "resting_hr": "high",
+    "hrv_last_night": "low",
+    "sleep_score": "low",
+    "sleep_duration_h": "low",
+    "body_battery_wake": "low",
+    "avg_stress": "high",
+    "daily_load": "high",
+}
+
+# Metrics whose baseline is computed over TRAINING days only (value > 0).
+# daily_load's 90-day median includes rest days, so it sat at 68 while a
+# normal weekly long run scored 375 — every long run tripped the scanner by
+# construction. Comparing sessions to sessions is the fix; genuine load
+# structure problems are owned by monotony/strain/ramp, not by this spike test.
+_TRAINING_DAYS_ONLY = {"daily_load"}
+
+# Minimum trailing streak before a severe single day may alert. Default 1
+# (one severe day is enough). Sleep is 2: this athlete sleeps 6.2h against a
+# 8.9h need, so isolated short nights are the norm and they already know about
+# them — two in a row is the signal they might have missed.
+_MIN_SEVERE_STREAK = {"sleep_duration_h": 2, "sleep_score": 2}
 
 
 def tracked_metrics() -> list[str]:
@@ -76,6 +106,9 @@ def _baseline90(
     """(median, mad_sd, n) over the 90 calendar days ending end_date, or None if empty."""
     start = (date.fromisoformat(end_date) - timedelta(days=_BASELINE_WINDOW - 1)).isoformat()
     values = [v for d, v in points if start <= d <= end_date]
+    if metric in _TRAINING_DAYS_ONLY:
+        # Rest days are not evidence about what a training day looks like.
+        values = [v for v in values if v > 0]
     if not values:
         return None
     med = statistics.median(values)
@@ -84,16 +117,17 @@ def _baseline90(
     return med, max(_MAD_SCALE * mad, floor, _MAD_FLOOR), len(values)
 
 
+def _adverse_z(metric: str, z: float) -> float:
+    """z re-signed so positive always means 'in the bad direction'."""
+    return -z if _ADVERSE_DIRECTION.get(metric) == "low" else z
+
+
 def _out_of_band(metric: str, z: float) -> bool:
-    if metric in _HIGH_SIDE_ONLY:
-        return z > 1
-    return abs(z) > 1
+    return _adverse_z(metric, z) > 1
 
 
 def _severe(metric: str, z: float) -> bool:
-    if metric in _HIGH_SIDE_ONLY:
-        return z > 2
-    return abs(z) > 2
+    return _adverse_z(metric, z) > 2
 
 
 def _trailing_streak(metric: str, dated_zs: list[tuple[str, float]], severe: bool) -> int:
@@ -133,7 +167,9 @@ def scan(
         dated_zs = [(d, (v - median) / mad_sd) for d, v in points]
         z_today = dated_zs[-1][1]
         streak = _trailing_streak(metric, dated_zs, severe=False)
-        if not (_severe(metric, z_today) or streak >= 3):
+        min_severe = _MIN_SEVERE_STREAK.get(metric, 1)
+        severe_today = _severe(metric, z_today) and streak >= min_severe
+        if not (severe_today or streak >= 3):
             continue
         hard_streak = _trailing_streak(metric, dated_zs, severe=True)
         severity = "AMBER" if hard_streak >= 3 else "WATCH"
