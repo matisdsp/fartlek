@@ -63,8 +63,8 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 
 | # | Question | State |
 |---|---|---|
-| 1 | userstats RHR range on all account types | ✅ resolved — 183 days fetched in one call |
-| 2 | Body-battery max window / chunking | ⬜ **and see defect D1** |
+| 1 | userstats RHR range on all account types | ✅ resolved — 205 days in one call, and the service serves a metricId per daily scalar over an arbitrary window (see `USERSTATS_DAILY_METRICS`) |
+| 2 | Body-battery max window / chunking | ⬜ 30-day chunks work (92 days stored); max window still unprobed — see D7 |
 | 3 | threshold-pace / race-prediction history availability | ⬜ |
 | 4 | Anomaly-scanner false-positive rate | ⬜ |
 | 6 | `directWorkoutRpe` / `directWorkoutFeel` real shape | ⬜ |
@@ -74,7 +74,9 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 
 | # | Finding | State |
 |---|---|---|
-| D1 | `avg_stress`, `body_battery_wake`, `steps` hold 1–2 days despite tier-1 fetching 52 weeks of stress and chunked body battery. Degrades readiness fusion (§3.2 #18 weights Body Battery 0.10) | ⬜ **investigate next** |
+| D1 | Daily wellness scalars (`steps`, `avg_stress`, `min_hr`, calories, distance, floors, intensity minutes) held 1 day each — the daily summary is only fetched for today, and the spec provided no backfill for them | ✅ fixed — userstats range call per metric, 2 → 181 days for 9 extra calls |
+| D6 | Rows written by a mid-day sync stayed frozen at their mid-day values forever (2026-07-20 held 6,847 steps vs an actual 18,664) | ✅ fixed by the same range backfill, which rewrites completed days |
+| D7 | `body_battery_wake` still has 1 day: it is not in userstats and the dedicated body-battery endpoint only yields high/low. Readiness fusion weights it 0.10 | ⬜ |
 | D2 | `ACTIVITY_HISTORY_DAYS = 180` is not parameterisable — a long-cycle athlete cannot see their full season | ⬜ |
 | D3 | First `fartlek auth` persisted `di_refresh_token: null`, so the session died after ~20h and forced a full re-login. Re-auth stored one correctly; watch whether refresh rewrites the file | ⬜ monitor |
 | D4 | Steady-session EF qualifier yields too few sessions to trend on a real athlete | ✅ amended — pace bands primary |
