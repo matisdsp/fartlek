@@ -1,3 +1,5 @@
+<!-- mcp-name: io.github.matisdsp/fartlek -->
+
 # Fartlek
 
 *A coach's morning report from your Garmin data, for any LLM via MCP.*
