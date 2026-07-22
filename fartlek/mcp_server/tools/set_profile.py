@@ -17,9 +17,17 @@ from fartlek.render.renderer import estimate_tokens, format_date
 CAP_TOKENS = 200
 
 _GOAL_TIME_RE = re.compile(r"^\d{1,2}:[0-5]\d:[0-5]\d$")
-_GOAL_KEYS = ("goal_race_date", "goal_distance", "goal_custom_km", "goal_time")
+_GOAL_KEYS = ("goal_race_date", "goal_distance", "goal_custom_km", "goal_time",
+              "goal_target_km")
 _PHASE_KEYS = ("phase", "phase_week", "phase_total_weeks")
-_DISTANCE_LABEL = {"5k": "5K", "10k": "10K", "half": "Half", "marathon": "Marathon"}
+_DISTANCE_LABEL = {"5k": "5K", "10k": "10K", "half": "Half", "marathon": "Marathon",
+                   "6h": "6h", "12h": "12h", "24h": "24h"}
+
+# Fixed-time events (6h/12h/24h) ask the opposite question from a distance
+# race: how FAR in a set time, not how long over a set distance. They therefore
+# take a target distance rather than a target time, and garmin_fitness routes
+# them to a different model entirely (§3.2 fixed-time amendment).
+FIXED_TIME_GOALS = frozenset({"6h", "12h", "24h"})
 
 
 def _finish(banner: str | None, body: str, cap: int = CAP_TOKENS) -> str:
@@ -39,7 +47,11 @@ def _goal_summary(profile: dict[str, Any]) -> str:
     if profile.get("goal_race_date"):
         parts.append(format_date(str(profile["goal_race_date"])))
     summary = " ".join(parts)
-    if profile.get("goal_time"):
+    # A fixed-time goal is stated as a distance target; a distance goal as a
+    # time target. Showing the wrong one reads as a data-entry mistake.
+    if str(dist or "") in FIXED_TIME_GOALS and profile.get("goal_target_km"):
+        summary += f", target {float(profile['goal_target_km']):g} km"
+    elif profile.get("goal_time"):
         summary += f", {profile['goal_time']}"
     return summary
 
@@ -50,6 +62,7 @@ async def run(
     goal_race_date: str | None = None,
     goal_distance: str | None = None,
     goal_custom_km: float | None = None,
+    goal_target_km: float | None = None,
     goal_time: str | None = None,
     phase: str | None = None,
     phase_week: int | None = None,
@@ -68,6 +81,7 @@ async def run(
             "goal_race_date": goal_race_date,
             "goal_distance": goal_distance,
             "goal_custom_km": goal_custom_km,
+            "goal_target_km": goal_target_km,
             "goal_time": goal_time,
             "phase": phase,
             "phase_week": phase_week,
@@ -111,6 +125,20 @@ async def run(
 
     profile = ctx.store.get_profile()
     effective_distance = goal_distance or profile.get("goal_distance")
+    if goal_target_km is not None and effective_distance not in FIXED_TIME_GOALS:
+        return _finish(
+            banner,
+            "goal_target_km applies only to fixed-time events "
+            f"({', '.join(sorted(FIXED_TIME_GOALS))}); goal_distance is "
+            f"{effective_distance or 'not set'}. "
+            "Example: garmin_set_profile(goal_distance='24h', goal_target_km=200)",
+        )
+    if goal_time is not None and effective_distance in FIXED_TIME_GOALS:
+        return _finish(
+            banner,
+            "a fixed-time event has a distance target, not a time target. "
+            "Example: garmin_set_profile(goal_distance='24h', goal_target_km=200)",
+        )
     if goal_custom_km is not None and effective_distance != "custom":
         return _finish(
             banner,

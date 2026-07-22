@@ -338,3 +338,42 @@ async def test_sync_banner_prefix_and_errors_line(store):
 
 if __name__ == "__main__":
     raise SystemExit(pytest.main([__file__, "-q"]))
+
+
+# --- fixed-time goals (added 2026-07-22) ------------------------------------
+
+async def test_fixed_time_goal_takes_a_distance_target(store):
+    """A 24h event asks how FAR in a set time. Before this, the shipped tool
+    could not express the maintainer's own goal at all: goal_custom_km was
+    rejected unless goal_distance=='custom', and there was no way to say 24h."""
+    ctx = FakeContext(store)
+    out = await set_profile.run(
+        ctx, goal_distance="24h", goal_race_date="2026-08-29", goal_target_km=200.0,
+    )
+    assert "24h" in out and "200 km" in out
+    profile = store.get_profile()
+    assert profile["goal_distance"] == "24h"
+    assert float(profile["goal_target_km"]) == 200.0
+
+
+async def test_target_km_is_rejected_for_a_distance_race(store):
+    ctx = FakeContext(store)
+    out = await set_profile.run(ctx, goal_distance="marathon", goal_target_km=200.0)
+    assert "only to fixed-time events" in out
+    assert "goal_distance='24h'" in out
+
+
+async def test_time_target_is_rejected_for_a_fixed_time_event(store):
+    """Asking for a finish time on a 24h race is a category error — it always
+    takes 24 hours."""
+    ctx = FakeContext(store)
+    out = await set_profile.run(ctx, goal_distance="24h", goal_time="3:00:00")
+    assert "distance target, not a time target" in out
+
+
+async def test_distance_race_still_uses_a_time_target(store):
+    ctx = FakeContext(store)
+    out = await set_profile.run(
+        ctx, goal_distance="marathon", goal_race_date="2026-09-20", goal_time="2:59:00",
+    )
+    assert "2:59:00" in out

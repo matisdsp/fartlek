@@ -159,8 +159,8 @@ async def garmin_athlete() -> str:
 @mcp.tool(
     annotations=LOCAL_WRITE,
     description=(
-        "Set or update athlete context the watch can't know: goal race (date/distance/"
-        "target time), current training phase, weekly availability, intensity-distribution "
+        "Set or update athlete context the watch can't know: goal race (date, distance or "
+        "fixed-time event such as 24h with a target distance, target time), training phase, weekly availability, intensity-distribution "
         "preference, LT1 override. Stored locally only; grounds the plan/goal context used "
         "by other tools. Only provided fields change. Call when the user states or changes "
         "a goal, phase, or constraint. Injuries and illness belong to garmin_log, not here."
@@ -168,9 +168,17 @@ async def garmin_athlete() -> str:
 )
 async def garmin_set_profile(
     goal_race_date: Annotated[str | None, Field(description="YYYY-MM-DD")] = None,
-    goal_distance: Literal["5k", "10k", "half", "marathon", "custom"] | None = None,
-    goal_custom_km: float | None = None,
-    goal_time: Annotated[str | None, Field(description="H:MM:SS")] = None,
+    goal_distance: Literal[
+        "5k", "10k", "half", "marathon", "custom", "6h", "12h", "24h"
+    ] | None = None,
+    goal_custom_km: Annotated[
+        float | None, Field(description="with goal_distance='custom'")
+    ] = None,
+    goal_target_km: Annotated[
+        float | None,
+        Field(description="target distance for a fixed-time event (6h/12h/24h)"),
+    ] = None,
+    goal_time: Annotated[str | None, Field(description="H:MM:SS, distance races only")] = None,
     phase: Literal["base", "build", "peak", "taper", "recovery", "none"] | None = None,
     phase_week: int | None = None,
     phase_total_weeks: int | None = None,
@@ -184,6 +192,7 @@ async def garmin_set_profile(
             goal_race_date=goal_race_date,
             goal_distance=goal_distance,
             goal_custom_km=goal_custom_km,
+            goal_target_km=goal_target_km,
             goal_time=goal_time,
             phase=phase,
             phase_week=phase_week,
