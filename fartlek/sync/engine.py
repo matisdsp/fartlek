@@ -43,6 +43,9 @@ BACKOFF_START_S = 60.0
 BACKOFF_CAP_S = 900.0
 BASELINE_WINDOWS = (7, 28, 60, 90)
 ACTIVITY_HISTORY_DAYS = 180
+SPLITS_HISTORY_DAYS = 120   # §3.2 #12: 8-12 weeks of qualifying sessions
+SPLITS_PER_RUN = 40         # cap per invocation, so one call never runs long
+_SPLITS_SKIP_CAP = 500      # bound on the remembered "this one has no laps" list
 
 
 class RateLimiter:
@@ -368,6 +371,66 @@ def digest_activity(raw: dict[str, Any]) -> dict[str, Any]:
     if extra:
         row["extra_json"] = json.dumps(extra, separators=(",", ":"))
     return row
+
+
+_LAP_MAP = {
+    "distance_m": "distance",
+    "duration_s": "duration",
+    "moving_s": "movingDuration",
+    "avg_hr": "averageHR",
+    "max_hr": "maxHR",
+    "avg_speed": "averageSpeed",
+    "gap_speed": "avgGradeAdjustedSpeed",
+    "elev_gain": "elevationGain",
+    "elev_loss": "elevationLoss",
+    "avg_cadence": "averageRunCadence",
+    "temp_c": "averageTemperature",
+}
+
+
+def digest_laps(raw: dict[str, Any], activity_id: int) -> list[dict[str, Any]]:
+    """/activity/{id}/splits payload → activity_laps rows.
+
+    Reads `lapDTOs` (auto/manual laps) and falls back to `splits` (the typed
+    endpoint's container). Laps with no distance AND no duration carry no
+    information and are dropped; everything else is kept as-is, including
+    recovery laps — filtering by intensity is an analysis decision, not a
+    storage one.
+
+    `avgGradeAdjustedSpeed` and `averageTemperature` are device-dependent and
+    stay NULL when absent (never substituted with the flat-ground speed, which
+    would silently turn a hilly lap into a fast one).
+    """
+    laps = (raw or {}).get("lapDTOs") or (raw or {}).get("splits") or []
+    rows: list[dict[str, Any]] = []
+    for i, lap in enumerate(laps):
+        if not isinstance(lap, dict):
+            continue
+        if not lap.get("distance") and not lap.get("duration"):
+            continue
+        # `or` would be wrong here: lap index 0 is the FIRST lap of every
+        # session, not a missing value.
+        index = lap.get("lapIndex")
+        if index is None:
+            index = lap.get("messageIndex")
+        row: dict[str, Any] = {
+            "activity_id": activity_id,
+            "lap_index": i if index is None else int(index),
+        }
+        for col, key in _LAP_MAP.items():
+            v = lap.get(key)
+            if v is not None:
+                row[col] = v
+        itype = lap.get("intensityType") or lap.get("type")
+        if itype:
+            row["intensity_type"] = str(itype)
+        rows.append(row)
+    # Lap index is the primary key: de-duplicate defensively rather than
+    # letting a malformed payload abort the whole activity.
+    seen: dict[int, dict[str, Any]] = {}
+    for row in rows:
+        seen[int(row["lap_index"])] = row
+    return [seen[k] for k in sorted(seen)]
 
 
 class SyncEngine:
@@ -783,9 +846,12 @@ class SyncEngine:
         """Nightly sleep DTO + timeline backfill, newest-first from yesterday.
 
         Resumable via sync_state['tier2_cursor'] JSON:
-        {"phase": "sleep"|"done", "next_date", "end_date",
-         "splits_cursor": null, "details_cursor": null}   (Phase-2 slots).
+        {"phase": "sleep"|"done", "next_date", "end_date"}.
         The cursor is rewritten after every night; ≥2s call spacing.
+
+        Per-activity splits are backfilled separately by backfill_splits():
+        they are keyed by activity, not by date, so they resume on their own
+        work list rather than on this date cursor.
         """
         return self._locked(lambda: self._tier2(backfill_days))
 
@@ -811,10 +877,6 @@ class SyncEngine:
             next_d = today_d - timedelta(days=1)
             end_date = default_end
 
-        carried = {
-            "splits_cursor": (cursor or {}).get("splits_cursor"),
-            "details_cursor": (cursor or {}).get("details_cursor"),
-        }
         end_d = date.fromisoformat(end_date)
         nights = 0
         old_interval = self.limiter.min_interval_s
@@ -837,7 +899,6 @@ class SyncEngine:
                             "phase": "sleep" if next_d >= end_d else "done",
                             "next_date": next_d.isoformat(),
                             "end_date": end_date,
-                            **carried,
                         }
                     ),
                 )
@@ -887,6 +948,78 @@ class SyncEngine:
             self.store.set_sync_state("last_sync", self._now_iso())
             self.recompute_derived()
         return {"calls": self._calls - start_calls, "nights": nights, "done": d > yesterday}
+
+    def backfill_splits(
+        self,
+        days: int = SPLITS_HISTORY_DAYS,
+        limit: int = SPLITS_PER_RUN,
+        sport_like: str = "%running%",
+    ) -> dict[str, Any]:
+        """Per-lap backfill for activities in the window that have none yet.
+
+        One cheap call per activity (~1 KB). Newest first, because a recent
+        session is worth more than an old one if the run is interrupted.
+        Resumable by construction: the work list is "activities with no stored
+        laps", so a partial run simply leaves a shorter list next time — there
+        is no cursor to corrupt.
+
+        Activities whose payload yields no laps are remembered in
+        sync_state['splits_no_laps'] so they are not re-fetched forever
+        (manual entries and third-party syncs have no splits at all).
+        """
+        return self._locked(lambda: self._backfill_splits(days, limit, sport_like))
+
+    def _backfill_splits(self, days: int, limit: int, sport_like: str) -> dict[str, Any]:
+        t = self._today()
+        start_calls = self._calls
+        start = (date.fromisoformat(t) - timedelta(days=days - 1)).isoformat()
+
+        raw_skip = self.store.get_sync_state("splits_no_laps")
+        skip: list[int] = json.loads(raw_skip) if raw_skip else []
+        skip_set = set(skip)
+
+        pending = [
+            a for a in self.store.activities_missing_laps(start, t, sport_like)
+            if a["activity_id"] not in skip_set
+        ]
+        errors: list[str] = []
+        done = laps_stored = empty = 0
+
+        old_interval = self.limiter.min_interval_s
+        self.limiter.min_interval_s = max(old_interval, 2.0)
+        try:
+            for act in pending[:limit]:
+                aid = int(act["activity_id"])
+                raw = self._try_call(f"/activity-service/activity/{aid}/splits", errors)
+                if raw is None:
+                    continue
+                laps = digest_laps(raw, aid)
+                if laps:
+                    self.store.replace_activity_laps(aid, laps)
+                    laps_stored += len(laps)
+                else:
+                    skip.append(aid)
+                    empty += 1
+                done += 1
+        finally:
+            self.limiter.min_interval_s = old_interval
+
+        if empty:
+            # Bounded: the tail is the oldest, and re-probing a few stale ids
+            # is cheaper than letting this list grow without limit.
+            self.store.set_sync_state(
+                "splits_no_laps", json.dumps(skip[-_SPLITS_SKIP_CAP:])
+            )
+        if done:
+            self.store.set_sync_state("last_sync", self._now_iso())
+        return {
+            "calls": self._calls - start_calls,
+            "activities": done,
+            "laps": laps_stored,
+            "no_laps": empty,
+            "remaining": max(0, len(pending) - limit),
+            "errors": errors,
+        }
 
     def incremental(self) -> dict[str, Any]:
         """Daily steady state: today's summary/sleep/HRV + activities newer

@@ -405,9 +405,9 @@ def test_export_csv_one_file_per_table(store: Store, tmp_path: Path):
     store.upsert_activity(act(1, "2026-07-01", load=50.0))
     out = tmp_path / "export"
     paths = store.export_csv(out)
-    expected = {"schema_meta", "days", "activities", "sleep_timeline", "activity_digests",
-                "baselines", "pmc", "alerts", "wellness_log", "athlete_profile",
-                "plan_calendar", "capability_map", "sync_state"}
+    expected = {"schema_meta", "days", "activities", "sleep_timeline", "activity_laps",
+                "activity_digests", "baselines", "pmc", "alerts", "wellness_log",
+                "athlete_profile", "plan_calendar", "capability_map", "sync_state"}
     assert {p.stem for p in paths} == expected
     assert all(p.exists() and p.parent == out for p in paths)
 
