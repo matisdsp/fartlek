@@ -84,6 +84,30 @@ CREATE TABLE IF NOT EXISTS sleep_timeline (
     intervals_json TEXT NOT NULL               -- [["deep"|"light"|"rem"|"awake", start_iso, end_iso], ...]
 );
 
+-- Per-lap digest from /activity/{id}/splits (~1 KB per session on the wire).
+-- Laps are ALREADY a digest — the per-second streams are what gets discarded.
+-- Keeping them is what makes HR-at-pace answerable: a session's average pace
+-- hides the 3:30 reps and 7:00 recoveries an interval workout is made of, so
+-- any efficiency question has to be answered lap by lap, not session by session.
+CREATE TABLE IF NOT EXISTS activity_laps (
+    activity_id    INTEGER NOT NULL REFERENCES activities(activity_id),
+    lap_index      INTEGER NOT NULL,
+    distance_m     REAL,
+    duration_s     REAL,
+    moving_s       REAL,
+    avg_hr         INTEGER,
+    max_hr         INTEGER,
+    avg_speed      REAL,                      -- m/s
+    gap_speed      REAL,                      -- avgGradeAdjustedSpeed, m/s (NULL => absent)
+    elev_gain      REAL,
+    elev_loss      REAL,
+    avg_cadence    REAL,
+    temp_c         REAL,                      -- averageTemperature (heat guard, §3.2 #12)
+    intensity_type TEXT,                      -- INTERVAL_ACTIVE | INTERVAL_REST | NULL
+    PRIMARY KEY (activity_id, lap_index)
+);
+CREATE INDEX IF NOT EXISTS idx_laps_activity ON activity_laps(activity_id);
+
 -- EF / decoupling / durability / interval digests. Raw streams discarded after digest.
 CREATE TABLE IF NOT EXISTS activity_digests (
     activity_id  INTEGER PRIMARY KEY REFERENCES activities(activity_id),

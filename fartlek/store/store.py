@@ -197,6 +197,55 @@ class Store:
             (_window_start(date, days_back), date),
         )
 
+    def replace_activity_laps(self, activity_id: int, laps: list[dict[str, Any]]) -> None:
+        """Replace this activity's laps wholesale — a re-fetch is authoritative
+        and lap indices can shift if the athlete edits the activity."""
+        for lap in laps:
+            self._validate("activity_laps", lap)
+        with self._conn:
+            self._conn.execute(
+                "DELETE FROM activity_laps WHERE activity_id = ?", (activity_id,)
+            )
+            for lap in laps:
+                cols = list(lap)
+                self._conn.execute(
+                    f"INSERT INTO activity_laps ({', '.join(cols)}) "
+                    f"VALUES ({', '.join('?' for _ in cols)})",
+                    [lap[c] for c in cols],
+                )
+
+    def get_activity_laps(self, activity_id: int) -> list[dict[str, Any]]:
+        return self._all(
+            "SELECT * FROM activity_laps WHERE activity_id = ? ORDER BY lap_index",
+            (activity_id,),
+        )
+
+    def laps_in_range(
+        self, start_date: str, end_date: str, sport_like: str = "%"
+    ) -> list[dict[str, Any]]:
+        """Every stored lap in the window, carrying its activity's date and sport
+        — the input to pace-band and EF analyses."""
+        return self._all(
+            "SELECT l.*, a.date AS date, a.sport AS sport FROM activity_laps l "
+            "JOIN activities a ON a.activity_id = l.activity_id "
+            "WHERE a.date >= ? AND a.date <= ? AND a.sport LIKE ? "
+            "ORDER BY a.date, l.lap_index",
+            (start_date, end_date, sport_like),
+        )
+
+    def activities_missing_laps(
+        self, start_date: str, end_date: str, sport_like: str = "%"
+    ) -> list[dict[str, Any]]:
+        """Activities in the window that have no stored laps yet — the splits
+        backfill work list, newest first (recent sessions matter most)."""
+        return self._all(
+            "SELECT a.* FROM activities a "
+            "LEFT JOIN activity_laps l ON l.activity_id = a.activity_id "
+            "WHERE a.date >= ? AND a.date <= ? AND a.sport LIKE ? AND l.activity_id IS NULL "
+            "GROUP BY a.activity_id ORDER BY a.date DESC",
+            (start_date, end_date, sport_like),
+        )
+
     def upsert_activity_digest(self, row: dict[str, Any]) -> None:
         self._upsert("activity_digests", row)
 
