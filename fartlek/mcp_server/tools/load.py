@@ -178,18 +178,24 @@ def _monotony_summary(
         ms = pmc_engine.monotony_strain(window)
         if ms["monotony"] is not None:
             monotony_vals.append(ms["monotony"])
-            flagged = flagged or ms["flag"]
+        # A degenerate week (identical non-zero loads every day) has no
+        # numeric monotony (SD~0) but IS flagged by the engine — that flag
+        # must survive even when no week produced a usable number, or the
+        # single most monotonous possible week goes unreported.
+        flagged = flagged or ms["flag"]
         if ms["strain"] is not None:
             strain_candidates.append((block[-1]["date"], ms["strain"], ms["strain_percentile"]))
 
-    if not monotony_vals:
+    if not monotony_vals and not flagged:
         return None, False
 
-    lo, hi = min(monotony_vals), max(monotony_vals)
-    span = f"{lo:.1f}" if hi - lo < 0.05 else f"{lo:.1f}–{hi:.1f}"
-    line = f"Monotony {span} across the window" + (
-        " — spiked above 2.0" if flagged else " — no spike"
-    )
+    if monotony_vals:
+        lo, hi = min(monotony_vals), max(monotony_vals)
+        span = f"{lo:.1f}" if hi - lo < 0.05 else f"{lo:.1f}–{hi:.1f}"
+        line = f"Monotony {span} across the window"
+    else:
+        line = "Monotony undefined some weeks (identical daily loads)"
+    line += " — spiked above 2.0" if flagged else " — no spike"
     if strain_candidates:
         peak_date, _peak_strain, peak_pctile = max(strain_candidates, key=lambda t: t[1])
         if peak_pctile is not None:
@@ -270,11 +276,18 @@ def _monotony_daily_series(daily_loads: list[tuple[str, float]]) -> list[tuple[s
 def _precedent_line(
     store: Any, daily_loads_full: list[tuple[str, float]]
 ) -> tuple[str | None, bool]:
-    """The athlete's own pre-episode monotony level, mined from logged
+    """The athlete's own pre-episode load levels, mined from logged
     illness/injury (§3.2 #5) — externally-caused episodes are excluded from
     the trigger level, since their pre-episode load says nothing about this
     athlete's own tolerance (see analytics.precedent's module docstring for
-    the salmonella case that motivated the exclusion)."""
+    the salmonella case that motivated the exclusion).
+
+    BOTH weekly load and monotony are compared, and whichever is exceeded is
+    reported. Which of the two predicts trouble is athlete-specific: on the
+    maintainer's history the worst episode had the LOWEST monotony (1.2) and
+    the HIGHEST weekly load (1048), so a monotony-only comparison would have
+    stayed quiet through the exact fortnight that broke them.
+    """
     logs = store._all("SELECT date, flag, note FROM wellness_log ORDER BY date")
     episodes = precedent.episodes_from_log(logs)
     if not episodes:
@@ -284,21 +297,45 @@ def _precedent_line(
     ]
 
     mono_series = _monotony_daily_series(daily_loads_full)
-    if not mono_series:
+    weekly_series = _weekly_load_daily_series(daily_loads_full)
+    metrics = {k: v for k, v in
+               (("monotony", mono_series), ("weekly_load", weekly_series)) if v}
+    if not metrics:
         return None, False
 
-    mined = precedent.mine(episodes, {"monotony": mono_series})
+    mined = precedent.mine(episodes, metrics)
     levels = precedent.trigger_levels(mined, exclude=external)
-    res = precedent.compare({"monotony": mono_series[-1][1]}, levels)
+    current = {k: v[-1][1] for k, v in metrics.items()}
+    res = precedent.compare(current, levels)
     if res["silent"] or not res["statements"]:
         return None, False
+
+    # Lead with whatever is exceeded; when nothing is, one reassuring line is
+    # enough — listing every clear marker just spends budget.
+    exceeded = res["exceeded"]
+    if exceeded:
+        shown = [s for s in res["statements"] if "above your own" in s]
+    else:
+        shown = res["statements"][:1]
 
     n = res["n_precedents"]
     line = (
         f"Personal precedent ({n} episode{'s' if n > 1 else ''} on file): "
-        + res["statements"][0]
+        + " · ".join(shown)
     )
-    return line, bool(res["exceeded"])
+    return line, bool(exceeded)
+
+
+def _weekly_load_daily_series(
+    daily_loads: list[tuple[str, float]]
+) -> list[tuple[str, float]]:
+    """Rolling 7-day load total per day — the input to the weekly-load
+    precedent comparison."""
+    out: list[tuple[str, float]] = []
+    for i in range(6, len(daily_loads)):
+        window = daily_loads[i - 6:i + 1]
+        out.append((daily_loads[i][0], sum(v for _, v in window)))
+    return out
 
 
 # ---------------------------------------------------------------------------

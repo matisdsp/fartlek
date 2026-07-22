@@ -33,6 +33,9 @@ from fartlek.mcp_server.tools import (
     fitness as t_fitness,
 )
 from fartlek.mcp_server.tools import (
+    load as t_load,
+)
+from fartlek.mcp_server.tools import (
     log_tool as t_log,
 )
 from fartlek.mcp_server.tools import (
@@ -42,10 +45,19 @@ from fartlek.mcp_server.tools import (
     recovery as t_recovery,
 )
 from fartlek.mcp_server.tools import (
+    reference as t_reference,
+)
+from fartlek.mcp_server.tools import (
     set_profile as t_set_profile,
 )
 from fartlek.mcp_server.tools import (
     sync_tool as t_sync,
+)
+from fartlek.mcp_server.tools import (
+    week as t_week,
+)
+from fartlek.mcp_server.tools import (
+    whats_changed as t_whats_changed,
 )
 
 logging.basicConfig(
@@ -86,16 +98,14 @@ async def _guard(coro):
 @mcp.tool(
     annotations=READ,
     description=(
-        "Call this FIRST for any question about how the athlete is doing today: readiness, "
-        "whether to train, how recovery looks right now, or anything time-ambiguous about "
-        "current state. Zero arguments needed. Returns a fused go/modify/rest verdict with "
-        "every recovery signal compared to this athlete's personal baseline, active alerts, "
-        "yesterday's session (with its activity_id), and today's scheduled workout. For "
-        "per-session analysis use garmin_activity; for browsing history use garmin_activities."
+        "Call FIRST for anything about TODAY: readiness, whether to train, current state. "
+        "Zero arguments. Returns a fused go/modify/rest verdict against personal baselines, "
+        "active alerts, yesterday's session with its activity_id, and today's planned "
+        "workout. One session → garmin_activity; browsing → garmin_activities."
     ),
 )
 async def garmin_brief(
-    date: Annotated[str | None, Field(description="YYYY-MM-DD, default today (retrospective briefs)")] = None,
+    date: Annotated[str | None, Field(description="YYYY-MM-DD, default today")] = None,
 ) -> str:
     return await _guard(t_brief.run(_ctx, date=date))
 
@@ -103,10 +113,9 @@ async def garmin_brief(
 @mcp.tool(
     annotations=READ,
     description=(
-        "Browse the training log and get activity IDs for drill-down. One compact row per "
-        "session — every row carries the activity_id that garmin_activity accepts. Filter by "
-        "date range and sport. All rows in the window are listed (up to limit); truncation "
-        "is disclosed with narrowing advice."
+        "Browse the log and get activity IDs. One row per session, each carrying the "
+        "activity_id garmin_activity accepts. Filter by date range and sport; truncation is "
+        "disclosed with narrowing advice."
     ),
 )
 async def garmin_activities(
@@ -123,13 +132,10 @@ async def garmin_activities(
 @mcp.tool(
     annotations=READ,
     description=(
-        "Deep analysis of ONE session: execution vs. structure, rep-by-rep fade for "
-        "intervals, decoupling for steady runs, comparison to the most similar past "
-        "session, planned-vs-executed where a planned workout exists. Select by activity_id "
-        "(from garmin_activities/garmin_brief), OR by date, OR omit both for the latest "
-        "activity — add sport to get the latest of that sport ('analyze my last run' = "
-        "garmin_activity(sport='running')). detail='standard' is enough for coaching; "
-        "'splits' adds the full lap table; 'full' adds a downsampled HR/pace curve."
+        "ONE session in depth: execution vs structure, rep-by-rep fade, decoupling, "
+        "comparison to the closest past session, planned-vs-executed. Select by "
+        "activity_id, by date, or omit both for the latest — add sport for the latest of "
+        "that sport. 'splits' adds the lap table; 'full' adds an HR/pace curve."
     ),
 )
 async def garmin_activity(
@@ -146,10 +152,9 @@ async def garmin_activity(
 @mcp.tool(
     annotations=READ,
     description=(
-        "Athlete reference card: zones, thresholds, PRs, goal race and phase (from "
-        "garmin_set_profile), personal baselines, injury notes, device data coverage. Call "
-        "once when athlete context is unknown; contents change rarely. To change goal/phase/"
-        "overrides, use garmin_set_profile."
+        "Reference card: zones, thresholds, PRs, goal and phase, baselines, injury notes, "
+        "device data coverage. Call once when athlete context is unknown; it changes "
+        "rarely. To change it, garmin_set_profile."
     ),
 )
 async def garmin_athlete() -> str:
@@ -159,11 +164,10 @@ async def garmin_athlete() -> str:
 @mcp.tool(
     annotations=LOCAL_WRITE,
     description=(
-        "Set or update athlete context the watch can't know: goal race (date, distance or "
-        "fixed-time event such as 24h with a target distance, target time), training phase, weekly availability, intensity-distribution "
-        "preference, LT1 override. Stored locally only; grounds the plan/goal context used "
-        "by other tools. Only provided fields change. Call when the user states or changes "
-        "a goal, phase, or constraint. Injuries and illness belong to garmin_log, not here."
+        "Athlete context the watch cannot know: goal race (date; a distance, or a "
+        "fixed-time event like 24h with a target distance), phase, weekly availability, "
+        "intensity preference, LT1 override. Local only; only provided fields change. "
+        "Injuries and illness go to garmin_log."
     ),
 )
 async def garmin_set_profile(
@@ -175,8 +179,7 @@ async def garmin_set_profile(
         float | None, Field(description="with goal_distance='custom'")
     ] = None,
     goal_target_km: Annotated[
-        float | None,
-        Field(description="target distance for a fixed-time event (6h/12h/24h)"),
+        float | None, Field(description="for fixed-time events (6h/12h/24h)")
     ] = None,
     goal_time: Annotated[str | None, Field(description="H:MM:SS, distance races only")] = None,
     phase: Literal["base", "build", "peak", "taper", "recovery", "none"] | None = None,
@@ -207,12 +210,10 @@ async def garmin_set_profile(
 @mcp.tool(
     annotations=LOCAL_WRITE,
     description=(
-        "Record subjective data the watch cannot capture: session RPE (1-10) and "
-        "Hooper-style wellness — fatigue, soreness, stress, mood, sleep quality (each 1-7) "
-        "— plus notes, especially illness or injury (set flag; resolve when healed). Stored "
-        "locally; feeds sRPE load, the readiness verdict (an illness note caps today's "
-        "verdict), and future analyses. Ask the athlete for RPE after discussing a session "
-        "if it is missing."
+        "Subjective data the watch cannot capture: session RPE (1-10), Hooper wellness "
+        "(fatigue, soreness, stress, mood, sleep quality, each 1-7), and notes — especially "
+        "illness or injury (set flag; resolve when healed). Feeds sRPE load and caps the "
+        "readiness verdict. Ask for RPE after discussing a session if missing."
     ),
 )
 async def garmin_log(
@@ -249,10 +250,9 @@ async def garmin_log(
 @mcp.tool(
     annotations={"readOnlyHint": False, "destructiveHint": False},
     description=(
-        "Force a data refresh from Garmin and report freshness, or start a historical "
-        "backfill (backfill_days > 0; resumable). Backfill deepens the sleep/HRV history "
-        "window. Use only if the user says data looks stale — all other tools auto-refresh "
-        "when stale."
+        "Force a refresh and report freshness, or start a resumable historical backfill "
+        "(backfill_days > 0, deepens sleep/HRV history). Use only if data looks stale — "
+        "every other tool auto-refreshes."
     ),
 )
 async def garmin_sync(
@@ -264,12 +264,10 @@ async def garmin_sync(
 @mcp.tool(
     annotations=READ,
     description=(
-        "Fitness outcomes and race feasibility: VO2max and efficiency trends, heart rate at "
-        "a fixed pace, long-run durability, a race projection against the athlete's stored "
-        "goal, and a form projection to race day with taper guidance. Call for 'am I getting "
-        "fitter', 'is training working', race planning, taper timing, or goal-feasibility "
-        "questions. The goal race comes from the athlete profile — set it with "
-        "garmin_set_profile."
+        "Is training working: VO2max and efficiency trends, HR at a fixed pace, long-run "
+        "durability, a race projection against the stored goal, and form projected to race "
+        "day with taper guidance. Call for 'am I getting fitter', race planning, taper "
+        "timing, goal feasibility. Set the goal with garmin_set_profile."
     ),
 )
 async def garmin_fitness(
@@ -282,12 +280,10 @@ async def garmin_fitness(
 @mcp.tool(
     annotations=READ,
     description=(
-        "Recovery physiology over time: sleep, HRV, resting HR and load structure compared "
-        "to this athlete's personal baselines, plus the multi-marker overtraining audit. "
-        "Call when the user asks why they feel tired, how they are sleeping, whether they "
-        "are overtraining or getting sick, or when another tool flags a recovery signal. "
-        "This tool OWNS overtraining questions. Not for a single day's go/no-go — that is "
-        "garmin_brief."
+        "Sleep, HRV, resting HR and load structure vs personal baselines, plus the "
+        "multi-marker overtraining audit. Call for tiredness, sleep, 'am I overtraining "
+        "or getting sick', or when another tool flags recovery. OWNS overtraining "
+        "questions. Single-day go/no-go is garmin_brief."
     ),
 )
 async def garmin_recovery(
@@ -300,10 +296,70 @@ async def garmin_recovery(
 @mcp.tool(
     annotations=READ,
     description=(
-        "Bounded escape hatch to a named Garmin data source, compacted (nulls/boilerplate "
-        "stripped, series downsampled) and hard-capped. Use ONLY when a synthesis tool "
-        "cannot answer and the user explicitly asks for underlying values. Never a starting "
-        "point."
+        "Multi-week dose: fitness/fatigue/form (CTL/ATL/TSB), ramp rate, ACWR, "
+        "monotony/strain, and intensity drift vs this athlete's own norm. Call for 'am I "
+        "training too much', ramp/taper dosing, periodization. Not single-day readiness "
+        "(garmin_brief); overtraining physiology is garmin_recovery."
+    ),
+)
+async def garmin_load(
+    weeks: Annotated[int, Field(ge=2, le=52, description="window length, default 8")] = 8,
+    anchor_date: Annotated[str | None, Field(description="YYYY-MM-DD, default today")] = None,
+) -> str:
+    return await _guard(t_load.run(_ctx, weeks=weeks, anchor_date=anchor_date))
+
+
+@mcp.tool(
+    annotations=READ,
+    description=(
+        "One week in session-level detail: load vs recent weeks, intensity distribution, a "
+        "per-day session table with activity_ids, recovery summary, and plan compliance "
+        "where a plan exists. Call for 'how was my week' or a specific week. Multi-week "
+        "trajectory is garmin_load."
+    ),
+)
+async def garmin_week(
+    anchor_date: Annotated[str | None, Field(description="YYYY-MM-DD, its Mon-Sun week")] = None,
+) -> str:
+    return await _guard(t_week.run(_ctx, anchor_date=anchor_date))
+
+
+@mcp.tool(
+    annotations=READ,
+    description=(
+        "Call for 'anything I should know?', 'what's new?', 'catch me up', or after days "
+        "away. Scans every tracked metric and returns ONLY statistically significant "
+        "changes, ranked safety-first; says 'nothing notable' when nothing tripped. "
+        "Today's readiness is garmin_brief."
+    ),
+)
+async def garmin_whats_changed(
+    since_days: Annotated[int, Field(ge=1, le=60, description="default 7")] = 7,
+) -> str:
+    return await _guard(t_whats_changed.run(_ctx, since_days=since_days))
+
+
+@mcp.tool(
+    annotations=READ,
+    description=(
+        "How a number was computed and whether to trust it: formula, inputs, whether each "
+        "threshold is a population default or personally derived, and the caveats. No "
+        "arguments for the index; metric='acwr' for one in depth."
+    ),
+)
+async def garmin_reference(
+    topic: str = "metrics_glossary",
+    metric: Annotated[str | None, Field(description="one metric name")] = None,
+) -> str:
+    return await _guard(t_reference.run(_ctx, topic=topic, metric=metric))
+
+
+@mcp.tool(
+    annotations=READ,
+    description=(
+        "Bounded escape hatch to one named Garmin source, compacted and hard-capped. Use "
+        "ONLY when a synthesis tool cannot answer and the user explicitly asks for raw "
+        "values. Never a starting point."
     ),
 )
 async def garmin_raw(
