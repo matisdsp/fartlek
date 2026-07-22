@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.matisdsp/fartlek",
   "title": "Fartlek",
-  "description": "A coach's morning report from your Garmin data, for any LLM via MCP. Server-side sports-science synthesis (CTL/ATL/TSB, ACWR, monotony, personal baselines) delivered as compact verdict-first reports.",
+  "description": "A coach's morning report from your Garmin data, for any LLM via MCP.",
   "version": "0.1.1",
   "websiteUrl": "https://github.com/matisdsp/fartlek",
   "repository": {
