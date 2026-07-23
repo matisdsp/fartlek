@@ -377,46 +377,118 @@ def _fixed_time_section(
                    priority="primary"), clause
 
 
-def _distance_section(
-    store: Any, goal: dict[str, Any]
-) -> tuple[Section, str]:
-    """Riegel-only race read for a distance goal.
+def _distance_key(target_m: float) -> str | None:
+    """The 5k/10k/half/marathon key for a target distance, or None if it is not
+    one of the four Garmin/Tanda standard distances."""
+    for key, metres in _DISTANCE_M.items():
+        if abs(target_m - metres) < 1.0:
+            return key
+    return None
 
-    Tanda and the Garmin prediction are not in the engine yet, so this renders
-    the one model that is and names what is missing — a two-of-three
-    'consensus' with two invented members would be worse than one honest model.
+
+def _tanda_inputs(store: Any, end: str, weeks: int = 8) -> tuple[float, float] | None:
+    """(mean weekly km, mean training pace s/km) over `weeks` of RUN activities
+    ending at `end` — the two inputs Tanda regresses on. None with no mileage."""
+    start = (_date.fromisoformat(end) - timedelta(days=weeks * 7 - 1)).isoformat()
+    dist_m = dur_s = 0.0
+    for a in store.list_activities(start, end):
+        if sport_family(a.get("sport") or "") != "running":
+            continue
+        d, t = a.get("distance_m") or 0.0, a.get("duration_s") or 0.0
+        if d > 0 and t > 0:
+            dist_m += d
+            dur_s += t
+    if dist_m <= 0 or dur_s <= 0:
+        return None
+    return (dist_m / 1000.0) / weeks, dur_s / (dist_m / 1000.0)
+
+
+def _distance_section(
+    store: Any, goal: dict[str, Any], end: str
+) -> tuple[Section, str]:
+    """Triangulated race read for a distance goal: Garmin / Tanda / Riegel shown
+    together, the spread as the confidence — disagreement is explained, never
+    averaged (§3.2 #16). Tanda is marathon-specific; each model appears only
+    when its inputs exist, and nothing is fabricated to force a consensus.
     """
     head = goal["label"] + (f" — {format_date(goal['date'])}" if goal.get("date") else "")
-    prs = _personal_records(store)
-    if not prs:
-        return (Section(title=None, header=None, prose=(
-            f"**{head}** — no maximal performance (PR) on file, so no race-time "
-            "prediction is offered. A training run is not a maximal effort and "
-            "modelling one as such would overstate the athlete."), priority="primary"),
-            f"{goal['label']} goal on file, no PR to predict from")
-
-    fit = race.fit_riegel_exponent(prs)
     target_m = goal["distance_m"]
-    d1, t1 = min(prs, key=lambda p: abs(p[0] - target_m))
-    predicted = race.riegel_time(t1, d1, target_m, fit["b"])
-    if fit["quality"] == "default":
-        basis = f"exponent {fit['b']:.3g} (population default — one PR only)"
-    else:
-        basis = f"exponent {fit['b']:.3g} fitted on {fit['n']} PRs ({fit['quality']}"
-        # A clamped fit means the athlete's own PRs implied something outside
-        # the physiological bounds — the number shown is the bound, not them.
-        basis += ", clamped to the 1.03-1.12 bounds)" if fit["clamped"] else ")"
-    lines = [f"**{head}** — Riegel {_hms(predicted)} from {d1 / 1000:.3g} km in "
-             f"{_hms(t1)}, {basis}."]
-    clause = f"{goal['label']} projects {_hms(predicted)} (Riegel only)"
+    key = _distance_key(target_m)
+
+    table = ["| Model | Predicted | Basis |", "|---|---|---|"]
+    predictions: list[float] = []
+    have_riegel = False
+    tanda: dict[str, Any] | None = None
+
+    # Garmin's own model, surfaced as-is
+    preds = store.get_race_predictions() or {}
+    if key and preds.get(key):
+        table.append(f"| Garmin | {_hms(preds[key])} | device model |")
+        predictions.append(preds[key])
+
+    # Tanda — marathon only (it is a marathon regression)
+    if key == "marathon":
+        ti = _tanda_inputs(store, end)
+        if ti:
+            wk_km, pace = ti
+            tanda = race.tanda_marathon(wk_km, pace)
+            domain = "" if tanda["in_domain"] else ", outside Tanda's 30–160 km/wk range"
+            table.append(f"| Tanda | {_hms(tanda['seconds'])} | "
+                         f"8 wk: {wk_km:.0f} km/wk @ {_hms(pace)}/km training{domain} |")
+            predictions.append(tanda["seconds"])
+
+    # Riegel — from maximal efforts (PRs)
+    prs = _personal_records(store)
+    if prs:
+        fit = race.fit_riegel_exponent(prs)
+        d1, t1 = min(prs, key=lambda p: abs(p[0] - target_m))
+        predicted = race.riegel_time(t1, d1, target_m, fit["b"])
+        if fit["quality"] == "default":
+            rb = f"exp {fit['b']:.3g} (population default, one PR)"
+        else:
+            rb = f"exp {fit['b']:.3g} fitted on {fit['n']} PRs"
+            rb += ", clamped to 1.03-1.12" if fit["clamped"] else ""
+        table.append(f"| Riegel ({d1 / 1000:.3g}k in {_hms(t1)}) | {_hms(predicted)} | {rb} |")
+        predictions.append(predicted)
+        have_riegel = True
+
+    if not predictions:
+        return (Section(title=None, header=None, prose=(
+            f"**{head}** — no PR, no device prediction, and not enough run "
+            "volume to model this race, so no time is offered. A training run "
+            "is not a maximal effort and modelling one would overstate you."),
+            priority="primary"),
+            f"{goal['label']} goal on file, nothing to predict from")
+
+    lo, hi = min(predictions), max(predictions)
+    n = len(predictions)
+    lines = [f"**{head}**", "\n".join(table)]
+    if n >= 2:
+        lines.append(f"{n} models span {_hms(lo)}–{_hms(hi)} (spread {_hms(hi - lo)}) — "
+                     "the range is the confidence, not averaged.")
+        if tanda is not None and have_riegel:
+            lines.append("Riegel extrapolates PR speed and assumes marathon-ready "
+                         "endurance; Tanda reads your actual 8-week volume — the gap "
+                         "between them is unproven durability, not measurement error.")
+    clause = f"{goal['label']}: {n} model{'s' if n > 1 else ''} {_hms(lo)}–{_hms(hi)}"
+
     goal_secs = _parse_hms(goal.get("goal_time"))
     if goal_secs:
-        delta = predicted - goal_secs
-        side = "short of" if delta > 0 else "inside"
-        lines.append(f"Target {_hms(goal_secs)}: {_hms(abs(delta))} {side} it.")
-        clause += f", {_hms(abs(delta))} {side} the {_hms(goal_secs)} target"
-    lines.append("Single-model read: Tanda and the device prediction are not "
-                 "wired into the engine yet, so no consensus is claimed.")
+        if goal_secs < lo:
+            rel = f"{_hms(lo - goal_secs)} faster than every model"
+        elif goal_secs > hi:
+            rel = f"{_hms(goal_secs - hi)} slower than every model"
+        else:
+            rel = "inside the model range"
+        lines.append(f"Target {_hms(goal_secs)}: {rel}.")
+        clause += f", target {'in range' if lo <= goal_secs <= hi else 'outside'}"
+
+    if tanda is not None:
+        km_lever = abs(tanda["seconds_per_km_per_week"]) * 5
+        pace_lever = tanda["seconds_per_training_pace_s"] * 5
+        lines.append(f"Tanda levers: +5 km/wk ≈ −{_hms(km_lever)}, "
+                     f"−5 s/km training pace ≈ −{_hms(pace_lever)}.")
+
     return Section(title=None, header=None, prose="\n\n".join(lines),
                    priority="primary"), clause
 
@@ -517,7 +589,7 @@ async def run(ctx: Any, weeks: int = DEFAULT_WEEKS,
     if goal["kind"] == "fixed_time":
         section, clause = _fixed_time_section(store, goal, end, window_days)
     elif goal["kind"] == "distance":
-        section, clause = _distance_section(store, goal)
+        section, clause = _distance_section(store, goal, end)
     elif goal["kind"] == "unknown":
         section, clause = None, (
             "a goal date is on file without a distance — "

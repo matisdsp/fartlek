@@ -188,25 +188,38 @@ def test_declared_fixed_time_type_without_a_parsable_label(store):
 
 # --- distance goal and no goal ----------------------------------------------
 
-def test_distance_goal_without_prs_declines_to_predict(store):
+def test_distance_goal_without_inputs_declines_to_predict(store):
+    """A non-marathon goal with no PR and no device prediction has nothing to
+    model — Tanda is marathon-only, so no number is invented (§3.2 #16)."""
     seed_band(store)
-    set_goal(store, goal_distance="marathon", goal_race_date="2026-09-20")
+    set_goal(store, goal_distance="10k", goal_race_date="2026-09-20")
     out = run(FakeContext(store))
-    assert "no maximal performance" in out
-    assert "Riegel" not in out
+    assert "nothing to predict from" in out
+    assert "Riegel" not in out and "Tanda" not in out
 
 
-def test_distance_goal_with_prs_renders_riegel_only(store):
+def test_marathon_goal_triangulates_tanda_and_riegel(store):
+    """Marathon goal: Tanda (from 8-week volume) and Riegel (from PRs) are shown
+    together, the spread is the confidence, disagreement is explained, never
+    averaged."""
     seed_band(store)
     set_goal(store, goal_distance="marathon", goal_race_date="2026-09-20",
              goal_time="2:59:00", pr_10k="38:43", pr_half="1:25:00")
     out = run(FakeContext(store))
-    assert "Riegel" in out
-    assert "exponent" in out
-    # Tanda may only appear as a disclosure of what is missing — never as a
-    # second prediction, which would fake a consensus out of one model.
-    assert "Tanda and the device prediction are not" in out
-    assert "no consensus is claimed" in out
+    assert "| Model | Predicted | Basis |" in out
+    assert "Riegel" in out and "Tanda" in out
+    assert "models span" in out and "not averaged" in out
+    assert "unproven durability" in out            # disagreement, not a 2nd prediction
+    assert "Tanda levers" in out
+
+
+def test_marathon_goal_includes_the_garmin_prediction(store):
+    """Garmin's own race prediction is the third model, surfaced as-is."""
+    seed_band(store)
+    set_goal(store, goal_distance="marathon", goal_race_date="2026-09-20")
+    store.set_race_predictions({"marathon": 11000.0})
+    out = run(FakeContext(store))
+    assert "Garmin" in out and "device model" in out
 
 
 def test_distance_goal_uses_synced_personal_records(store):
@@ -219,7 +232,7 @@ def test_distance_goal_uses_synced_personal_records(store):
         "half": {"seconds": 5100.0, "date": "2026-04-10", "activity_id": 2},  # 1:25:00
     })
     out = run(FakeContext(store))
-    assert "Riegel" in out and "exponent" in out
+    assert "Riegel" in out                          # sync PRs feed the Riegel model
 
 
 def test_no_goal_on_file_points_at_the_profile_tool(store):
