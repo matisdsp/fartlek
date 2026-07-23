@@ -1,6 +1,6 @@
 # Handoff — état du projet Fartlek
 
-*Dernière mise à jour : 2026-07-23. Le moteur Phase 2 et les 6 outils sont terminés ; reste le durcissement qualité (gates CI) et la release v0.2.*
+*Dernière mise à jour : 2026-07-23. Moteur Phase 2, 6 outils, **5 gates CI** et **harnais d'éval réduit** terminés ; version bumpée à **0.2.0** localement. Ne reste que les étapes de release à la main (tag/push PyPI, `mcp-publisher`).*
 
 Ce document est le **point d'entrée** pour un agent (ou un humain) qui prend le relai. Il dit **où en est le projet**, **ce qui est vérifié**, **ce qui reste**, et **les pièges qui coûtent du temps**. Il ne duplique pas la spec : l'autorité reste `docs/DESIGN.md` (le quoi/pourquoi), `ROADMAP.md` (le plan par phase) et `docs/PHASE2.md` (la checklist item-par-item de la Phase 2, à jour dans le même commit que le travail).
 
@@ -9,8 +9,8 @@ Ce document est le **point d'entrée** pour un agent (ou un humain) qui prend le
 ## 0. TL;DR — commence ici
 
 1. **Lis, dans l'ordre :** ce fichier → `docs/PHASE2.md` (checklist exacte du restant) → `docs/DESIGN.md` §3.2 (le catalogue de métriques, contrat) → `CLAUDE.md` (discipline projet).
-2. **Fais tourner** `uv run pytest -q` (attendu : **915 passent**) et `uv run ruff check fartlek/ tests/` (clean).
-3. **Le moteur et les 14 outils sont finis et vérifiés sur un compte Garmin réel.** Ce qui reste pour tagger la v0.2 : quelques **gates CI** (§6 ci-dessous) puis la release. Le gros programme d'éval part en **v0.2.1** (décision 2026-07-23).
+2. **Fais tourner** `uv run pytest -q` (attendu : **971 passent**) et `uv run ruff check fartlek/ tests/` (clean).
+3. **Le moteur, les 14 outils, les 5 gates CI et l'éval réduit sont finis et vérifiés sur un compte Garmin réel.** La version est déjà bumpée à **0.2.0** (pyproject + server.json + uv.lock). Ne reste que **tagger et publier** (§6) — étapes humaines. Le gros programme d'éval (30 tâches × 3 clients, audits de transcript) part en **v0.2.1**.
 4. **Un compte de test réel est installé** dans `~/.fartlek/` (voir §4). Ne le casse pas ; ne commite jamais `~/.fartlek/` ni `.env`.
 
 ---
@@ -33,10 +33,10 @@ Corollaire structurant : **le LLM ne doit jamais avoir à re-dériver une statis
 | **Phase 2 — les 6 outils** | ✅ **livrés, câblés, vérifiés en MCP réel** |
 | Détecteur d'alertes | ✅ calé sur 6 mois de données réelles (75 → 27 alertes) |
 | Validation externe (intervals.icu) | ✅ decoupling croisé, écart médian 1 pt |
-| Tests | ✅ **915 passent** (`uv run pytest -q`, ~4 s) |
+| Tests | ✅ **971 passent** (`uv run pytest -q`, ~4 s) |
 | Lint | ✅ `uv run ruff check fartlek/ tests/` |
-| Version PyPI en ligne | **0.1.1** (le bump 0.2.0 reste à faire) |
-| Programme qualité / gates CI | ⬜ partiel — voir §6 |
+| Version PyPI en ligne | **0.1.1** — local bumpé à **0.2.0**, tag/push à faire (§6) |
+| Programme qualité / gates CI | ✅ **5 gates livrés** (§6) ; éval réduit fait (`docs/EVAL.md`) |
 | Prompts & ressources MCP | ⬜ non commencés (progressive enhancement, candidat v0.2.1) |
 
 **14 outils exposés** en tout : 8 de Phase 1 (`garmin_brief`, `garmin_activities`, `garmin_activity`, `garmin_athlete`, `garmin_set_profile`, `garmin_log`, `garmin_sync`, `garmin_raw`) + 6 de Phase 2 (`garmin_recovery`, `garmin_load`, `garmin_fitness`, `garmin_week`, `garmin_whats_changed`, `garmin_reference`).
@@ -135,20 +135,18 @@ Deux items, tous deux **mineurs et non bloquants** pour la v0.2 :
 
 **Décision de scope (2026-07-23) :** la v0.2 sort avec les **gates CI automatisés** + un **harnais d'éval réduit** ; le programme lourd (30 tâches × 3 clients, audits de transcript, tâches FR) part en **v0.2.1**. Détail dans `docs/PHASE2.md` §4.
 
-**Gates CI à écrire pour la v0.2** (tous dans `tests/`, s'inspirer de `test_guardrails.py`) :
-1. **Gate tokenizer réel (tiktoken)** — dette de Phase 0. Compter chaque golden render avec un vrai tokenizer ; asserter que l'estimateur runtime `ceil(chars/3.2)` ne sous-compte jamais le tokenizer sur le set golden. C'est le plus gros morceau : il faut d'abord produire des **golden renders** (sorties figées des 14 outils sur des fixtures).
-2. **Test de langage d'attribution** — tout « because »/« matches » rendu doit correspondre à une règle de `attribution.RULE_IDS` ; sinon le build casse. `attribution.py` expose déjà `RULE_IDS` et `CO_OCCURRENCE_TEMPLATE` exprès.
-3. **Cohérence description/signature** — chaque format/param nommé dans une description d'outil doit exister dans son schéma.
-4. **Gate coût de session ≤17K** — somme des caps durs, un appel par outil aux arguments par défaut.
+**✅ Gates CI livrés** (5, détail + emplacements dans `docs/PHASE2.md` §4) :
+1. **Gate tokenizer réel (tiktoken)** — `test_budget_gate.py` sur `golden_renders.py`. Reframé après mesure : `ceil(chars/3.2)` **n'est pas** un majorant (il sous-compte les tables denses de 20–30 %) ; aucun modèle linéaire ne peut borner un tokenizer BPE. Le gate asserte donc la vraie garantie — **le compte tokenizer réel de chaque golden tient sous son cap** — pas une formule impossible. DESIGN §4.5 + docstring du renderer corrigés (décision owner 2026-07-23).
+2. **Langage d'attribution** — `test_attribution_language.py`. L'attribution n'est pas encore câblée dans un outil de synthèse, donc le scan de rendu prémunit la surface.
+3. **Cohérence description/signature** — `test_guardrails.py::test_description_call_args_are_registered_params`.
+4. **Coût de session ≤17K** — `test_guardrails.py::test_session_cost_under_17k` (= 16 070).
 
-**Harnais d'éval réduit (v0.2)** : ~10 tâches multi-outils jouées **localement sur Claude Code seulement**, incluant au moins une tâche en français (le serveur rend l'anglais, le client traduit — vérifier qu'aucun nombre ne se perd). Les 30 tâches × 3 clients et les audits de transcript sont **v0.2.1**.
+**✅ Harnais d'éval réduit fait** (`docs/EVAL.md`) : 10 tâches définies, A–F jouées live sur le compte réel le 2026-07-23 (dont une en français, chiffres préservés). A révélé 3 défauts de cohérence flagship — **E1** (⚠ HRV haut = faux positif), **E2-B** (dette sommeil `week` vs `recovery`), **E2-A** (need `athlete` mal étiqueté) — **tous corrigés** avec tests de régression (voir PHASE2 §6). E4 (ACWR) est by-design ; l'harmonisation de transparence de bande HRV (E1) part en v0.2.1.
 
-**Release v0.2** (procédure vérifiée en Phase 1, cf. §8) :
-1. bump `version` dans `pyproject.toml` **et** les deux champs de `server.json`.
-2. `uv sync` (répercute dans `uv.lock` — le CI utilise `--frozen`, ne pas l'oublier).
-3. commit, `git tag v0.2.0 && git push origin main v0.2.0` → le workflow OIDC publie sur PyPI.
-4. `mcp-publisher login github` (**device-code OAuth — nécessite un humain**) puis `mcp-publisher publish` pour le registre MCP.
-5. Annuaires tiers (Glama, mcp.so, PulseMCP) — le mainteneur soumet.
+**Release v0.2 — version DÉJÀ bumpée à 0.2.0** (pyproject + les 2 champs `server.json` + `uv.lock`, committé). Reste, à la main (procédure vérifiée en Phase 1, cf. §8) :
+1. `git tag v0.2.0 && git push origin main v0.2.0` → le workflow OIDC publie sur PyPI.
+2. `mcp-publisher login github` (**device-code OAuth — nécessite un humain**) puis `mcp-publisher publish` pour le registre MCP.
+3. Annuaires tiers (Glama, mcp.so, PulseMCP) — le mainteneur soumet.
 
 ---
 

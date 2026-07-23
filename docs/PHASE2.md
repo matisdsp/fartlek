@@ -94,6 +94,7 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 
 ## 7. Release
 
-⬜ Bump to 0.2.0, `uv sync` to keep `uv.lock` in step, tag → PyPI via OIDC
-⬜ Update `server.json` (both version fields) and publish to the MCP registry — **needs a human** for `mcp-publisher login github`
+✅ Bumped to 0.2.0 — `pyproject.toml`, both `server.json` version fields, and `uv.lock` (`uv sync`), committed
+⬜ `git tag v0.2.0 && git push origin main v0.2.0` → PyPI via OIDC — **human step** (irreversible publish)
+⬜ Publish to the MCP registry — **needs a human** for `mcp-publisher login github` (device-code OAuth) then `mcp-publisher publish`
 ⬜ Third-party directories (Glama, mcp.so, PulseMCP) — the maintainer handles submission
