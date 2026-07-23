@@ -1,6 +1,8 @@
 """Readiness fusion + gates (DESIGN §3.2 #18-19) — fartlek/analytics/fusion.py."""
 from __future__ import annotations
 
+import math
+
 import pytest
 
 from fartlek.analytics import fusion
@@ -335,11 +337,14 @@ def test_marker_inputs_hrv_band_self_computed(store):
     inputs = fusion.marker_inputs(store, TODAY)
     band = inputs["hrv_band"]
     assert band is not None and band["n"] == 20
-    # median 60, mad 5 → mad_sd 7.413; band = mean 60 ± 3.7065
-    assert band["low"] == pytest.approx(60 - 0.5 * 7.413)
-    assert band["high"] == pytest.approx(60 + 0.5 * 7.413)
-    # last 7 alternating nights: 65,55,65,55,65,55,65 → mean 425/7
-    assert inputs["hrv_roll7"] == pytest.approx(425 / 7)
+    # canonical band is lnRMSSD now (§3.2 #8, E1): mean(ln) ± 0.5·MAD-SD, LOG space
+    med_ln = (math.log(55) + math.log(65)) / 2       # == mean for this symmetric set
+    mad_sd = 1.4826 * abs(math.log(65) - med_ln)
+    assert band["low"] == pytest.approx(med_ln - 0.5 * mad_sd)
+    assert band["high"] == pytest.approx(med_ln + 0.5 * mad_sd)
+    # last 7 alternating nights 65,55,65,55,65,55,65 → mean of their lnRMSSD
+    assert inputs["hrv_roll7"] == pytest.approx(
+        sum(math.log(v) for v in (65, 55, 65, 55, 65, 55, 65)) / 7)
 
 
 def test_marker_inputs_hrv_band_needs_14_nights(store):

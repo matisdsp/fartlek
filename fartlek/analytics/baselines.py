@@ -5,6 +5,7 @@ gaps are fine — windows are calendar-day windows, n reports actual points).
 """
 from __future__ import annotations
 
+import math
 from datetime import date, timedelta
 from statistics import fmean, median
 from typing import Any
@@ -56,6 +57,51 @@ def band_position(value: float, base: dict[str, Any]) -> str:
     if abs(z) <= 2:
         return "high" if z > 0 else "low"
     return "very_high" if z > 0 else "very_low"
+
+
+# --- canonical HRV band (§3.2 #8) -------------------------------------------
+# ONE definition, shared by garmin_brief, garmin_recovery, garmin_week and
+# readiness fusion so the four cannot drift apart (defect E1): the 60d lnRMSSD
+# mean ± 0.5·MAD-SD, classified against the 7-day rolling mean of lnRMSSD.
+HRV_BAND_WINDOW = 60
+HRV_BAND_K = 0.5          # band half-width in robust SDs
+HRV_ROLL_DAYS = 7
+
+
+def hrv_band(hrv_series: list[tuple[str, float]], end_date: str) -> dict[str, Any] | None:
+    """Canonical HRV band (§3.2 #8): the 60d lnRMSSD mean ± 0.5·MAD-SD.
+
+    Input is the raw avgOvernightHrv series in ms; the band is computed in LOG
+    space because HRV is log-normally distributed and the spec's decision basis
+    is lnRMSSD. Returns {lo, hi, mean, mad_sd, n} in LOG space — exp() the
+    bounds for an ms display — or None when the window is empty.
+    """
+    base = baseline([(d, math.log(v)) for d, v in hrv_series if v and v > 0],
+                    end_date, HRV_BAND_WINDOW)
+    if base is None:
+        return None
+    half = HRV_BAND_K * base["mad_sd"]
+    return {"lo": base["mean"] - half, "hi": base["mean"] + half,
+            "mean": base["mean"], "mad_sd": base["mad_sd"], "n": base["n"]}
+
+
+def hrv_roll(hrv_series: list[tuple[str, float]], end_date: str,
+             days: int = HRV_ROLL_DAYS) -> float | None:
+    """The decision basis (§3.2 #8): the mean of lnRMSSD over the last `days`."""
+    end_d = date.fromisoformat(end_date)
+    start_d = end_d - timedelta(days=days - 1)
+    ln = [math.log(v) for d, v in hrv_series
+          if v and v > 0 and start_d <= date.fromisoformat(d) <= end_d]
+    return fmean(ln) if ln else None
+
+
+def hrv_position(roll_ln: float, band: dict[str, Any]) -> str:
+    """'below' | 'in' | 'above' for a lnRMSSD roll vs the canonical band."""
+    if roll_ln < band["lo"]:
+        return "below"
+    if roll_ln > band["hi"]:
+        return "above"
+    return "in"
 
 
 def streak(series: list[tuple[str, float]], predicate: Any) -> int:
