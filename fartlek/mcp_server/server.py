@@ -16,6 +16,7 @@ from mcp.server.fastmcp import FastMCP
 from pydantic import Field
 
 from fartlek.health.exceptions import GarminAuthError
+from fartlek.mcp_server import prompts
 from fartlek.mcp_server.context import ToolContext
 from fartlek.mcp_server.tools import (
     activities as t_activities,
@@ -394,6 +395,68 @@ async def garmin_raw(
             max_points=max_points,
         )
     )
+
+
+# --- Prompts (DESIGN §4.6): data + methodology conversation starters. Thin
+# wrappers over prompts.py; every tool they name is registered above. ---------
+
+@mcp.prompt(description=prompts.PROMPTS["morning_briefing"][1])
+def morning_briefing() -> str:
+    return prompts.morning_briefing()
+
+
+@mcp.prompt(description=prompts.PROMPTS["weekly_review"][1])
+def weekly_review() -> str:
+    return prompts.weekly_review()
+
+
+@mcp.prompt(description=prompts.PROMPTS["post_activity_debrief"][1])
+def post_activity_debrief(
+    activity_id: Annotated[str, Field(description="the session's activity_id")],
+) -> str:
+    return prompts.post_activity_debrief(activity_id)
+
+
+@mcp.prompt(description=prompts.PROMPTS["race_readiness"][1])
+def race_readiness() -> str:
+    return prompts.race_readiness()
+
+
+@mcp.prompt(description=prompts.PROMPTS["plan_next_week"][1])
+def plan_next_week() -> str:
+    return prompts.plan_next_week()
+
+
+@mcp.prompt(description=prompts.PROMPTS["injury_risk_check"][1])
+def injury_risk_check() -> str:
+    return prompts.injury_risk_check()
+
+
+@mcp.prompt(description=prompts.PROMPTS["setup_athlete"][1])
+def setup_athlete() -> str:
+    return prompts.setup_athlete()
+
+
+# --- Resources (DESIGN §4.6): mirrors of the tools, for clients that pull them.
+# The garmin_reference tool ships the same glossary in-band because Desktop
+# cannot pull resources model-side (§2.4). ------------------------------------
+
+@mcp.resource(
+    "garmin://athlete/snapshot",
+    mime_type="text/markdown",
+    description="Mirror of garmin_athlete: zones, PRs, goal/phase, baselines, data coverage.",
+)
+async def athlete_snapshot() -> str:
+    return await _guard(t_athlete.run(_ctx))
+
+
+@mcp.resource(
+    "garmin://reference/metrics-glossary",
+    mime_type="text/markdown",
+    description="Mirror of garmin_reference: every formula, threshold provenance, and honesty notes.",
+)
+async def metrics_glossary() -> str:
+    return await _guard(t_reference.run(_ctx))
 
 
 def main() -> None:
