@@ -2,7 +2,9 @@
 
 *A coach's morning report from your Garmin data, for any LLM via MCP.* Open-source project. The authoritative spec is `docs/DESIGN.md`; the phase plan is `ROADMAP.md`.
 
-**Picking up the project? Start with [`docs/HANDOFF.md`](docs/HANDOFF.md)** — current state, verified facts, invariants, and the traps that cost time. Phases 0 and 1 are done (v0.1.1 on PyPI); Phase 2 is next.
+**Language: English only.** This is a public open-source repo — write everything in English: code, identifiers, comments, docstrings, user-facing strings, commit messages (subject and body), and docs. The sole exception is quoted foreign-language content that is itself the subject under test (e.g. the French eval task in `docs/EVAL.md` that checks numbers survive translation).
+
+**Picking up the project? Start with [`docs/HANDOFF.md`](docs/HANDOFF.md)** — current state, verified facts, invariants, and the traps that cost time. Phases 0–2 are done (v0.2.0 on PyPI); Phase 3 is next.
 
 ## Git discipline — commit as you go
 
