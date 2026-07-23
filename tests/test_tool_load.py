@@ -197,8 +197,21 @@ def test_tid_method_note_discloses_bucket_approximation(store):
     seed_weekly_activities(store, 12, lambda w: (1000, 900, 20, 5, 0))
     out = run(FakeContext(store), weeks=8)
     assert "buckets_approximate" not in out  # not the internal method-tag literal
-    assert "approximated from Garmin's 5-zone buckets" in out
-    assert "LT1/LT2 boundaries aren't stored yet" in out
+    assert "whole Garmin HR-zone buckets" in out
+    assert "approximate" in out
+
+
+def test_tid_note_is_prorated_when_zones_are_stored(store):
+    """D8: with the athlete's zone config persisted, the distribution is
+    pro-rated across their real thresholds and the note says so instead of
+    disclosing the bucket fallback."""
+    seed_calm(store, days=90)
+    seed_weekly_activities(store, 12, lambda w: (1000, 900, 20, 5, 0))
+    store.set_hr_zones({"sport": "RUNNING", "zone_floors": [99, 117, 139, 156, 178],
+                        "lthr": 176, "max_hr": 195, "resting_hr": 44})
+    out = run(FakeContext(store), weeks=8)
+    assert "pro-rated across the athlete's own Garmin thresholds" in out
+    assert "whole Garmin HR-zone buckets" not in out
 
 
 # --- ramp and monotony flags reach the verdict ------------------------------

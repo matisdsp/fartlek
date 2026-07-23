@@ -160,3 +160,50 @@ def test_drift_is_measured_against_the_athletes_own_norm():
 def test_no_drift_verdict_without_a_norm():
     res = tid.drift_vs_norm((0.8, 0.1, 0.1), None)
     assert res["drifted"] is False and res["reason"] == "insufficient data"
+
+
+# --- zone_mapping_kwargs (D8: persisted zone config → mapping) --------------
+
+def test_zone_mapping_kwargs_from_stored_config():
+    """The real RUNNING config: LT2 is the device lactate threshold, LT1 the
+    population estimate off resting HR (no override)."""
+    config = {"sport": "RUNNING", "zone_floors": [99, 117, 139, 156, 178],
+              "lthr": 176, "max_hr": 195, "resting_hr": 44}
+    kw = tid.zone_mapping_kwargs(config)
+    assert kw["lt2"] == 176.0
+    assert kw["max_hr"] == 195.0
+    assert kw["zone_floors"] == [99.0, 117.0, 139.0, 156.0, 178.0]
+    assert kw["lt1"] == pytest.approx(tid.lt1_estimate(44, 195))
+    assert kw["lt1"] < kw["lt2"]
+
+
+def test_zone_mapping_prefers_the_athlete_override():
+    config = {"zone_floors": [99, 117, 139, 156, 178], "lthr": 176,
+              "max_hr": 195, "resting_hr": 44}
+    kw = tid.zone_mapping_kwargs(config, lt1_override=150)
+    assert kw["lt1"] == 150.0
+
+
+def test_zone_mapping_empty_without_config_or_anchors():
+    assert tid.zone_mapping_kwargs(None) == {}
+    assert tid.zone_mapping_kwargs({}) == {}
+    # LTHR present but no way to anchor LT1 (no resting HR, no override)
+    assert tid.zone_mapping_kwargs(
+        {"zone_floors": [99, 117, 139, 156, 178], "lthr": 176, "max_hr": 195}) == {}
+    # LT1 estimate would not be below LT2 → refuse rather than emit a bad split
+    assert tid.zone_mapping_kwargs(
+        {"zone_floors": [1, 2, 3, 4, 5], "lthr": 100, "max_hr": 300,
+         "resting_hr": 290}) == {}
+
+
+def test_stored_config_produces_the_same_split_as_explicit_kwargs():
+    """The persisted-config path and the hand-passed path must agree."""
+    config = {"zone_floors": [99, 117, 139, 156, 178], "lthr": 176,
+              "max_hr": 195, "resting_hr": 44}
+    kw = tid.zone_mapping_kwargs(config)
+    acts = [act(z=(600, 1200, 300, 120, 60))]
+    via_config = tid.shares(tid.distribution(acts, **kw))
+    via_explicit = tid.shares(tid.distribution(
+        acts, zone_floors=[99, 117, 139, 156, 178], max_hr=195,
+        lt1=tid.lt1_estimate(44, 195), lt2=176))
+    assert via_config == via_explicit

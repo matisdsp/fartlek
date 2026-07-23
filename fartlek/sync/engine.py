@@ -355,6 +355,37 @@ def digest_hrv(raw: dict[str, Any], date: str) -> dict[str, Any]:
     return row
 
 
+def digest_hr_zones(raw: Any) -> dict[str, Any] | None:
+    """`/biometric-service/heartRateZones` payload → compact zone config.
+
+    The endpoint returns one entry per sport ('RUNNING', 'DEFAULT', 'CYCLING'…);
+    the running entry is preferred because Fartlek's intensity distribution is
+    run-centric and running LTHR differs from the default (176 vs 183 on the
+    sampled account — using the wrong one would shift every zone boundary).
+    Falls back to DEFAULT, then the first entry, then None.
+
+    Returns {sport, zone_floors: [5], lthr, max_hr, resting_hr} — the substrate
+    that lets `tid.distribution` pro-rate across real thresholds instead of the
+    whole-bucket approximation it falls back to when these are absent.
+    """
+    entries = raw if isinstance(raw, list) else [raw] if isinstance(raw, dict) else []
+    entries = [e for e in entries if isinstance(e, dict) and e.get("zone1Floor")]
+    if not entries:
+        return None
+    by_sport = {str(e.get("sport") or "").upper(): e for e in entries}
+    chosen = by_sport.get("RUNNING") or by_sport.get("DEFAULT") or entries[0]
+    floors = [chosen.get(f"zone{i}Floor") for i in range(1, 6)]
+    if any(f is None for f in floors):
+        return None
+    return {
+        "sport": chosen.get("sport"),
+        "zone_floors": [float(f) for f in floors],
+        "lthr": chosen.get("lactateThresholdHeartRateUsed"),
+        "max_hr": chosen.get("maxHeartRateUsed"),
+        "resting_hr": chosen.get("restingHeartRateUsed"),
+    }
+
+
 def digest_activity(raw: dict[str, Any]) -> dict[str, Any]:
     """One activities-list entry → activities row.
 
@@ -680,7 +711,23 @@ class SyncEngine:
         start_calls = self._calls
 
         self._probe("profile", "/userprofile-service/socialProfile")
-        self._probe("user_settings", "/userprofile-service/userprofile/user-settings")
+        settings = self._probe("user_settings", "/userprofile-service/userprofile/user-settings")
+        # The watch already knows the athlete's weight; the weight-service
+        # range endpoint is often empty (no manual scale entries), so seed
+        # today's weight from user-settings when the range gave nothing. This
+        # is what makes garmin_athlete show a weight at all on such accounts.
+        weight = ((settings or {}).get("userData") or {}).get("weight")
+        if weight and not (self.store.get_day(t) or {}).get("weight_g"):
+            self._upsert_day({"date": t, "weight_g": int(round(float(weight)))})
+
+        # HR-zone config → tid can pro-rate across real thresholds instead of
+        # the whole-bucket approximation. Probed (capability recorded) then
+        # digested and persisted; absent → the tools disclose the fallback.
+        zones_raw = self._probe("hr_zones", "/biometric-service/heartRateZones")
+        zones = digest_hr_zones(zones_raw)
+        if zones:
+            self.store.set_hr_zones(zones)
+
         self._probe("personal_records", f"/personalrecord-service/personalrecord/prs/{name}")
         self._probe("race_predictions", f"/metrics-service/metrics/racepredictions/latest/{name}")
         self._probe("training_status", f"/metrics-service/metrics/trainingstatus/aggregated/{t}")

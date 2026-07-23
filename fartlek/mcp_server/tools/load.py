@@ -37,6 +37,7 @@ from typing import Any
 
 from fartlek.analytics import baselines, precedent, tid, trends
 from fartlek.analytics import pmc as pmc_engine
+from fartlek.mcp_server.tools import _zones
 from fartlek.render.renderer import Report, Section, arrow_series, render
 
 CAP = 1100
@@ -214,18 +215,20 @@ def _tid_section(
     store: Any, end: str, weeks: int
 ) -> tuple[str | None, str | None, str | None]:
     end_d = _date.fromisoformat(end)
+    zk, tid_note = _zones.resolve(store, end)
     norm_start = (end_d - timedelta(days=NORM_WEEKS * 7 - 1)).isoformat()
-    norm_shares = tid.shares(tid.distribution(store.list_activities(norm_start, end)))
+    norm_shares = tid.shares(tid.distribution(store.list_activities(norm_start, end), **zk))
     if norm_shares is None:
         return None, None, None
     norm_class = tid.classify(norm_shares)
 
     recent_start = (end_d - timedelta(days=RECENT_WEEKS * 7 - 1)).isoformat()
-    recent_shares = tid.shares(tid.distribution(store.list_activities(recent_start, end)))
+    recent_shares = tid.shares(tid.distribution(store.list_activities(recent_start, end), **zk))
     drift = tid.drift_vs_norm(recent_shares, norm_shares)
 
     report_start = (end_d - timedelta(days=weeks * 7 - 1)).isoformat()
-    creep = tid.grey_zone_creep(tid.weekly_mid_shares(store.list_activities(report_start, end)))
+    creep = tid.grey_zone_creep(
+        tid.weekly_mid_shares(store.list_activities(report_start, end), **zk))
 
     e, m, h = norm_shares
     label = _TID_LABEL.get(norm_class, norm_class)
@@ -248,12 +251,7 @@ def _tid_section(
     else:
         line += " — on your own norm, no drift"
 
-    note = (
-        "zone splits approximated from Garmin's 5-zone buckets (Z1+Z2 easy / Z3 "
-        "moderate / Z4+Z5 hard) since your LT1/LT2 boundaries aren't stored yet — "
-        "drift direction is reliable even though the split itself is approximate"
-    )
-    return line, note, flag_kind
+    return line, tid_note, flag_kind
 
 
 # ---------------------------------------------------------------------------

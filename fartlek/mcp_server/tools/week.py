@@ -49,6 +49,7 @@ from fartlek.analytics import baselines, convergence, efficiency, tid
 from fartlek.analytics import pmc as pmc_engine
 from fartlek.analytics import sleep as sleep_engine
 from fartlek.analytics.matcher import sport_family
+from fartlek.mcp_server.tools import _zones
 from fartlek.render.renderer import Report, Row, Section, format_date, render
 
 CAP = 1200
@@ -235,8 +236,9 @@ def _load_rows(store: Any, start: _date, end: _date) -> tuple[list[Row], dict[st
 
 def _distribution(store: Any, start: _date, end: _date) -> tuple[Section | None, dict[str, Any] | None]:
     end_s = end.isoformat()
+    zk, tid_note = _zones.resolve(store, end_s)
     week_acts = store.list_activities(start.isoformat(), end_s)
-    week_dist = tid.distribution(week_acts)
+    week_dist = tid.distribution(week_acts, **zk)
     if week_dist["total"] <= 0:
         return None, None
     week_shares = tid.shares(week_dist)
@@ -244,7 +246,7 @@ def _distribution(store: Any, start: _date, end: _date) -> tuple[Section | None,
     norm_start = (start - timedelta(days=NORM_WINDOW_DAYS)).isoformat()
     norm_end = (start - timedelta(days=1)).isoformat()
     norm_acts = store.list_activities(norm_start, norm_end)
-    norm_shares = tid.shares(tid.distribution(norm_acts))
+    norm_shares = tid.shares(tid.distribution(norm_acts, **zk))
 
     e, m, h = week_shares
     line = f"Distribution (3-zone): {e * 100:.0f}/{m * 100:.0f}/{h * 100:.0f}% easy/moderate/hard by time"
@@ -259,9 +261,7 @@ def _distribution(store: Any, start: _date, end: _date) -> tuple[Section | None,
 
     section = Section(
         title=None, header=None, prose=line, priority="secondary",
-        method_note="zone floors aren't persisted per athlete yet, so this splits "
-                    "whole HR-zone buckets (Z1+Z2 easy, Z3 moderate, Z4+Z5 hard) "
-                    "rather than pro-rating across the real thresholds",
+        method_note=tid_note,
     )
     return section, drift
 

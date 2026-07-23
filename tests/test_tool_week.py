@@ -245,7 +245,15 @@ def test_distribution_present_with_zone_data(store):
     seed_week(store)
     out = run(FakeContext(store), anchor_date="2026-07-13")
     assert "Distribution (3-zone)" in out
-    assert "whole HR-zone buckets" in out
+    assert "whole Garmin HR-zone buckets" in out  # bucket fallback, no zones seeded
+
+
+def test_distribution_is_prorated_when_zones_are_stored(store):
+    seed_week(store)
+    store.set_hr_zones({"sport": "RUNNING", "zone_floors": [99, 117, 139, 156, 178],
+                        "lthr": 176, "max_hr": 195, "resting_hr": 44})
+    out = run(FakeContext(store), anchor_date="2026-07-13")
+    assert "pro-rated across the athlete's own Garmin thresholds" in out
 
 
 # --- decoupling note ----------------------------------------------------------

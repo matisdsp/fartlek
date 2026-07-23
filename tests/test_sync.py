@@ -189,6 +189,16 @@ def base_routes():
     return {
         "/userprofile-service/socialProfile": {"displayName": "athlete1", "fullName": "A"},
         "/userprofile-service/userprofile/user-settings": {"userData": {"weight": 70000.0}},
+        "/biometric-service/heartRateZones": [
+            {"sport": "DEFAULT", "trainingMethod": "LACTATE_THRESHOLD",
+             "lactateThresholdHeartRateUsed": 183, "maxHeartRateUsed": 195,
+             "restingHeartRateUsed": 44, "zone1Floor": 101, "zone2Floor": 121,
+             "zone3Floor": 142, "zone4Floor": 164, "zone5Floor": 183},
+            {"sport": "RUNNING", "trainingMethod": "LACTATE_THRESHOLD",
+             "lactateThresholdHeartRateUsed": 176, "maxHeartRateUsed": 195,
+             "restingHeartRateUsed": 44, "zone1Floor": 99, "zone2Floor": 117,
+             "zone3Floor": 139, "zone4Floor": 156, "zone5Floor": 178},
+        ],
         "/personalrecord-service/personalrecord/prs/": [{"typeId": 3, "value": 1200.0}],
         "/metrics-service/metrics/racepredictions/latest/": {"time5K": 1500.0},
         "/metrics-service/metrics/trainingstatus/aggregated/": {"mostRecentTrainingStatus": {}},
@@ -411,9 +421,17 @@ def test_tier0_populates_store_and_capability_map(store, tmp_path):
     engine, fetch = make_engine(store, tmp_path, routes)
     result = engine.tier0()
 
-    assert result["calls"] == 15
+    assert result["calls"] == 16
     assert result["activities"] == 2
     assert result["plan_entries"] == 1  # next-month duplicate deduped
+
+    # HR zones persisted, RUNNING entry preferred over DEFAULT (176 vs 183)
+    zones = store.get_hr_zones()
+    assert zones["sport"] == "RUNNING"
+    assert zones["lthr"] == 176
+    assert zones["zone_floors"] == [99.0, 117.0, 139.0, 156.0, 178.0]
+    # weight seeded from user-settings when the range endpoint has nothing
+    assert store.get_day(TODAY)["weight_g"] == 70000
 
     # today's rows: summary + sleep + hrv merged into one days row
     day = store.get_day(TODAY)

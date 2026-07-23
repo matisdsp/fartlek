@@ -42,6 +42,7 @@ from datetime import timedelta
 from typing import Any
 
 from fartlek.analytics import alerts, baselines, efficiency, tid, trends
+from fartlek.mcp_server.tools import _zones
 from fartlek.render.renderer import Report, Row, Section, render
 
 CAP = 700
@@ -166,22 +167,23 @@ def _scan_ef(store: Any, end: str) -> tuple[dict[str, Any] | None, str | None, s
 
 def _scan_grey_zone(store: Any, end: str) -> tuple[dict[str, Any] | None, str | None, str | None]:
     """Grey-zone creep (tid.grey_zone_creep) over a fixed 12-week lookback,
-    independent of since_days for the same sparsity reason as EF. No
-    zone_floors/lt1/lt2 are available here, so tid falls back to its
-    disclosed whole-bucket approximation rather than the pro-rated one —
-    an honest degradation, not a silent one."""
+    independent of since_days for the same sparsity reason as EF. Uses the
+    athlete's persisted zone thresholds when available, else the disclosed
+    whole-bucket approximation — an honest degradation, not a silent one."""
+    zk, _note = _zones.resolve(store, end)
+    prorated = bool(zk)
     start = (_date.fromisoformat(end) - timedelta(days=_TID_LOOKBACK_DAYS - 1)).isoformat()
     activities = store.list_activities(start, end)
-    creep = tid.grey_zone_creep(tid.weekly_mid_shares(activities))
+    creep = tid.grey_zone_creep(tid.weekly_mid_shares(activities, **zk))
     label = _LABEL["tid_grey_zone"]
     if creep["reason"]:
         return None, None, label
     if not creep["creeping"]:
         return None, label, None
+    zone_note = "" if prorated else " (zone bands approximate — no athlete zone config)"
     sentence = (
         f"grey-zone creep: mid-zone share {creep['from_share']:.0%} -> "
-        f"{creep['to_share']:.0%} over {creep['weeks']} wk "
-        "(zone bands approximate — no athlete zone config used)"
+        f"{creep['to_share']:.0%} over {creep['weeks']} wk{zone_note}"
     )
     return {"bucket": _bucket("tid_grey_zone", "rising", False), "sentence": sentence}, None, None
 
