@@ -42,6 +42,8 @@ CREATE TABLE IF NOT EXISTS days (
     hrv_last_night     REAL,          -- avgOvernightHrv (ms)
     hrv_status         TEXT,          -- Garmin enum (BALANCED/UNBALANCED/LOW/...)
     hrv_weekly_avg     REAL,
+    endurance_score       REAL,       -- Garmin Endurance Score (capability-gated, §3.2 #23)
+    running_tolerance_pct REAL,       -- impact-load / capacity ratio (capability-gated, §3.2 #23)
     daily_load         REAL NOT NULL DEFAULT 0,
     srpe_load          REAL,          -- parallel internal-load ledger, NEVER mixed into PMC
     synced_at          TEXT NOT NULL

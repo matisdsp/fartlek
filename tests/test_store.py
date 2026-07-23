@@ -420,3 +420,23 @@ def test_export_csv_one_file_per_table(store: Store, tmp_path: Path):
     with (out / "pmc.csv").open(newline="") as f:
         rows = list(csv.reader(f))
     assert rows == [["date", "load", "ctl", "atl", "tsb"]]
+
+
+def test_migration_adds_new_days_columns_to_a_preexisting_db(tmp_path):
+    """`CREATE TABLE IF NOT EXISTS` won't add columns to an old account's days
+    table, so Store's ALTER-TABLE migration backfills them on open."""
+    db = tmp_path / "old.db"
+    con = sqlite3.connect(db)
+    con.execute("CREATE TABLE days (date TEXT PRIMARY KEY, "
+                "daily_load REAL NOT NULL DEFAULT 0, synced_at TEXT NOT NULL)")
+    con.commit()
+    con.close()
+    with Store(db) as s:
+        cols = {r["name"] for r in s._conn.execute("PRAGMA table_info(days)")}
+        assert {"endurance_score", "running_tolerance_pct"} <= cols
+        # and the migrated columns are usable end to end
+        s.upsert_day({"date": "2026-07-20", "endurance_score": 5000.0, "synced_at": TS})
+        assert dict(s.get_series("endurance_score", "2026-07-20", 7))["2026-07-20"] == 5000.0
+    # reopening is idempotent (no duplicate-column error)
+    with Store(db) as s:
+        assert "endurance_score" in {r["name"] for r in s._conn.execute("PRAGMA table_info(days)")}

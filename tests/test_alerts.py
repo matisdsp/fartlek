@@ -9,6 +9,7 @@ from fartlek.analytics.alerts import (
     _baseline90,
     resolution_dates,
     scan,
+    tolerance_alert,
     tracked_metrics,
 )
 
@@ -285,3 +286,13 @@ def test_salmonella_episode_is_still_detected():
     assert len(fired) >= 3, f"multi-marker illness day under-detected: {fired}"
     # Several markers deviating the same day is exactly the escalation case.
     assert any(a["severity"] == "AMBER" for a in alerts)
+
+
+def test_tolerance_alert_fires_only_over_capacity():
+    assert tolerance_alert(None, "2026-07-20") is None   # no data → no alarm
+    assert tolerance_alert(0.9, "2026-07-20") is None    # under capacity
+    assert tolerance_alert(1.0, "2026-07-20") is None    # exactly at capacity
+    al = tolerance_alert(1.3, "2026-07-20")
+    assert al == {"metric": "running_tolerance", "severity": "WATCH",
+                  "message": "running tolerance over capacity — impact load 130% of tolerance",
+                  "since_date": "2026-07-20"}

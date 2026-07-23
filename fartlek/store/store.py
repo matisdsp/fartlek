@@ -25,6 +25,13 @@ from typing import Any
 _SCHEMA_PATH = Path(__file__).with_name("schema.sql")
 _SEVERITY_RANK = "CASE severity WHEN 'RED' THEN 0 WHEN 'AMBER' THEN 1 ELSE 2 END"
 
+# `days` columns added after the initial schema, for ALTER-TABLE migration of
+# pre-existing account DBs (schema.sql covers freshly-created ones).
+_DAYS_ADDED_COLUMNS = (
+    ("endurance_score", "REAL"),
+    ("running_tolerance_pct", "REAL"),
+)
+
 
 def _dict_row(cursor: sqlite3.Cursor, row: tuple) -> dict[str, Any]:
     return {d[0]: row[i] for i, d in enumerate(cursor.description)}
@@ -51,6 +58,7 @@ class Store:
         self._conn.execute("PRAGMA journal_mode = WAL")
         self._conn.execute("PRAGMA busy_timeout = 5000")
         self._conn.executescript(_SCHEMA_PATH.read_text(encoding="utf-8"))
+        self._migrate_days_columns()
         # Column/pk maps, used to validate upsert dicts and to build SQL.
         tables = [
             r["name"]
@@ -64,6 +72,16 @@ class Store:
             info = list(self._conn.execute(f"PRAGMA table_info({t})"))
             self._columns[t] = [r["name"] for r in info]
             self._pks[t] = [r["name"] for r in sorted(info, key=lambda r: r["pk"]) if r["pk"]]
+
+    def _migrate_days_columns(self) -> None:
+        """`CREATE TABLE IF NOT EXISTS` never adds columns to an existing `days`
+        table, so columns introduced after an account's DB was created are
+        backfilled here with `ALTER TABLE`. Idempotent — only missing columns
+        are added; the type mirrors schema.sql."""
+        existing = {r["name"] for r in self._conn.execute("PRAGMA table_info(days)")}
+        for col, col_type in _DAYS_ADDED_COLUMNS:
+            if col not in existing:
+                self._conn.execute(f"ALTER TABLE days ADD COLUMN {col} {col_type}")
 
     def close(self) -> None:
         self._conn.close()

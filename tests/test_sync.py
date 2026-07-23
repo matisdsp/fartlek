@@ -22,9 +22,11 @@ from fartlek.sync.engine import (
     activity_history_days,
     digest_activity,
     digest_daily_summary,
+    digest_endurance_score,
     digest_hrv,
     digest_personal_records,
     digest_race_predictions,
+    digest_running_tolerance,
     digest_sleep,
 )
 
@@ -216,6 +218,10 @@ def base_routes():
         "/metrics-service/metrics/racepredictions/latest/": {
             "time5K": 1500.0, "time10K": 3120.0,
             "timeHalfMarathon": 6900.0, "timeMarathon": 14400.0},
+        # default: device without these depth metrics (as on the maintainer's)
+        "/metrics-service/metrics/endurancescore/stats": {
+            "avg": None, "max": None, "enduranceScoreDTO": None, "groupMap": {}},
+        "/metrics-service/metrics/runningtolerance/stats": [],
         "/metrics-service/metrics/trainingstatus/aggregated/": {"mostRecentTrainingStatus": {}},
         "/metrics-service/metrics/trainingreadiness/": [{"score": 55, "level": "MODERATE"}],
         "/usersummary-service/usersummary/daily/": daily_summary_payload(),
@@ -469,6 +475,36 @@ def test_digest_race_predictions_maps_the_four_distances():
     assert digest_race_predictions([]) is None    # non-dict → None
 
 
+def test_digest_endurance_score_walks_group_map():
+    raw = {"avg": 5100, "max": 5300, "enduranceScoreDTO": {"overallScore": 5100},
+           "groupMap": {
+               "2026-07-06": {"groupAverage": 5000.0, "groupMax": 5200},
+               "2026-07-13": {"groupAverage": 5100.0, "groupMax": 5300},
+               "2026-07-20": {"groupAverage": None, "groupMax": None}}}  # partial week dropped
+    assert digest_endurance_score(raw) == [("2026-07-06", 5000.0), ("2026-07-13", 5100.0)]
+
+
+def test_digest_endurance_score_all_null_shell_is_empty():
+    """Unsupported devices answer 200 with a fully-null shell — must yield []
+    so the capability is recorded absent, not available."""
+    shell = {"avg": None, "max": None, "enduranceScoreDTO": None,
+             "groupMap": {"2026-07-13": {"groupAverage": None, "groupMax": None,
+                                         "enduranceContributorDTOList": []}}}
+    assert digest_endurance_score(shell) == []
+    assert digest_endurance_score({}) == []
+    assert digest_endurance_score(None) == []
+
+
+def test_digest_running_tolerance_recognised_and_unknown_shapes():
+    ok = [{"calendarDate": "2026-07-19", "impactLoad": 120.0, "tolerance": 100.0},
+          {"calendarDate": "2026-07-20", "ratio": 0.8}]
+    assert digest_running_tolerance(ok) == [("2026-07-19", 1.2), ("2026-07-20", 0.8)]
+    # unknown shape → [] (absence, never a fabricated number)
+    assert digest_running_tolerance([{"calendarDate": "2026-07-20", "mystery": 5}]) == []
+    assert digest_running_tolerance([]) == []
+    assert digest_running_tolerance(None) == []
+
+
 # --- tier 0 ------------------------------------------------------------------
 
 def test_tier0_populates_store_and_capability_map(store, tmp_path):
@@ -567,9 +603,10 @@ def test_tier1_pagination_terminates_on_short_page(store, tmp_path):
     assert [kw["start"] for _, kw in searches] == [0, 5]  # stopped after short page
     assert result["activities"] == 8
     assert store.get_activity(207) is not None
-    # 2 pages + weight + 3 bb chunks + stress + 2 maxmet + progress
-    # + one userstats range call per daily wellness metric (incl. RHR).
-    assert result["calls"] == 10 + len(USERSTATS_DAILY_METRICS) + 1
+    # 2 pages + weight + 3 bb chunks + endurance + tolerance + stress
+    # + 2 maxmet + progress + one userstats range call per daily wellness
+    # metric (incl. RHR).
+    assert result["calls"] == 12 + len(USERSTATS_DAILY_METRICS) + 1
 
     # RHR range landed in days
     assert store.get_day("2026-07-18")["resting_hr"] == 46
@@ -648,6 +685,27 @@ def test_tier1_rhr_capability_fallback_recorded(store, tmp_path):
     cap = store.get_capabilities()["rhr_range"]
     assert cap["available"] is False
     assert "building RHR forward" in cap["detail"]
+
+
+def test_tier1_persists_endurance_score_when_the_device_produces_it(store, tmp_path):
+    routes = base_routes()
+    routes["/metrics-service/metrics/endurancescore/stats"] = {
+        "avg": 5100, "max": 5300, "enduranceScoreDTO": {"overallScore": 5100},
+        "groupMap": {"2026-07-06": {"groupAverage": 5000.0},
+                     "2026-07-13": {"groupAverage": 5100.0}}}
+    engine, _ = make_engine(store, tmp_path, routes)
+    engine.tier1()
+    assert dict(store.get_series("endurance_score", TODAY, 60))["2026-07-13"] == 5100.0
+    assert store.get_capabilities()["endurance_score"]["available"] is True
+
+
+def test_tier1_records_endurance_absent_on_the_null_shell(store, tmp_path):
+    """The default route is the all-null 200 shell of an unsupported device:
+    capability recorded absent, no fabricated series."""
+    engine, _ = make_engine(store, tmp_path, base_routes())
+    engine.tier1()
+    assert store.get_capabilities()["endurance_score"]["available"] is False
+    assert store.get_series("endurance_score", TODAY, 60) == []
 
 
 # --- tier 2 ------------------------------------------------------------------

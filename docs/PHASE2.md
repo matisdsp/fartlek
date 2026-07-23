@@ -21,7 +21,7 @@ Scope decisions taken 2026-07-22: engine before tools · live Garmin probing all
 | Intensity distribution (TID) mapping + auto target | §3.2 #11 | ✅ `analytics/tid.py` — pro-rated zone mapping, own-norm target, creep detection |
 | Attribution rules (closed set) | §3.2 #22 | ✅ `analytics/attribution.py` — 5 rules, silent when evidence cannot discriminate |
 | Retroactive precedent mining | §3.2 #5 | ✅ `analytics/precedent.py` — cross-source merge; external episodes excludable. Athlete's own levels: weekly load 974, strain 1817, monotony 1.87 |
-| Capability-gated running-tolerance / endurance-score trends | §3.2 #23 | ⬜ minor — no capability probe exists yet, permanently omitted until one does |
+| Capability-gated running-tolerance / endurance-score trends | §3.2 #23 | ✅ **done** — Tier-1 probes both (custom availability check for endurance's 200+all-null shell), persisted to `days` columns via an `ALTER TABLE` migration, endurance trend in `garmin_fitness`, tolerance line + over-capacity WATCH alert (via `alerts.tolerance_alert`) in the load/brief/week path. **Capability-absent on the maintainer's device (FR735XT/255) → fixture-tested only; running-tolerance digest shape is UNVERIFIED (defensive: unknown shape → absent line, never faked)** |
 
 ## 2. Tools
 
@@ -34,7 +34,7 @@ Scope decisions taken 2026-07-22: engine before tools · live Garmin probing all
 | `garmin_whats_changed` | 700 | ✅ |
 | `garmin_reference` (metrics glossary) | — | ✅ |
 
-**Engine complete enough to start tools (2026-07-22).** Race triangulation landed 2026-07-23; the only remaining engine item is the capability-gated running-tolerance / endurance-score trends (minor, needs a probe).
+**Engine complete (2026-07-23).** Race triangulation and the capability-gated running-tolerance / endurance-score trends both landed 2026-07-23 — every §3.2 engine item is now done. The running-tolerance digest is the one piece shipped on an unverified response shape (no supporting device to test against), written defensively so an unknown shape omits the line rather than faking it.
 
 Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `tests/test_guardrails.py` as it lands — that set is the progress counter.
 
