@@ -320,6 +320,20 @@ def test_completed_week_never_says_still_to_come(store):
     assert "still to come" not in out
 
 
+def test_hrv_recovery_line_prints_band_bounds(store):
+    """E1 transparency: week's HRV recovery line shows the band bounds it uses,
+    so its 'in band N/M' read is legible next to brief's and recovery's."""
+    end = date.fromisoformat("2026-07-19")
+    for i in range(90):
+        d = (end - timedelta(days=89 - i)).isoformat()
+        store.upsert_day({"date": d, "synced_at": "2026-01-01T00:00:00",
+                          "hrv_last_night": 85.0 + (i % 9)})
+    seed_history(store, "2026-07-19")
+    out = run(FakeContext(store), anchor_date="2026-07-13")
+    line = next(line for line in out.splitlines() if "HRV in band" in line)
+    assert re.search(r"HRV in band \d+/\d+ \(band \d+–\d+\)", line)
+
+
 def test_sleep_debt_anchors_at_today_not_the_future_week_end(store):
     """E2-B: for an in-progress week, the 14d sleep-debt line anchors at today,
     not the (future) Sunday week-end — otherwise it counts a different set of

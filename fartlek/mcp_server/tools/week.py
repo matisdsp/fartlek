@@ -286,9 +286,11 @@ def _recovery(store: Any, start: _date, end: _date, today: _date) -> dict[str, A
     if week_hrv:
         base = baselines.baseline(hrv_series, end_s, 90)
         if base:
+            lo, hi = base["median"] - base["mad_sd"], base["median"] + base["mad_sd"]
             in_band = sum(1 for _, v in week_hrv
                           if baselines.band_position(v, base) == "in_band")
-            out["lines"].append(f"HRV in band {in_band}/{len(week_hrv)}")
+            out["lines"].append(
+                f"HRV in band {in_band}/{len(week_hrv)} (band {lo:.0f}–{hi:.0f})")
             if in_band < len(week_hrv):
                 out["concern"] = True
                 out["concern_reason"] = "HRV left band this week"
