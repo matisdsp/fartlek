@@ -53,9 +53,9 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 | Real-tokenizer budget gate (tiktoken) — Phase 0 debt | ✅ `test_budget_gate.py` over `golden_renders.py`: 16 goldens, every real tiktoken count ≤ cap (worst util 58%) |
 | ~~Estimator never undercounts the tokenizer on goldens~~ → **refuted & reframed** | ✅ the estimator *does* undercount dense tables 20–30% (no linear char-divisor can bound BPE); gate now asserts **real renders fit real caps** + an estimator sanity band. DESIGN §4.5 + renderer docstring corrected. Decision 2026-07-23 (owner) |
 | Breadcrumb validity extended to Phase-2 tools | ✅ registry test covers all 14 tools; catalog ≤3.5K enforced |
-| Attribution-language test (every "because" maps to §3.2 #22) | ⬜ |
-| Description/signature consistency | ⬜ |
-| Session-cost gate ≤17K | ⬜ |
+| Attribution-language test (every "because" maps to §3.2 #22) | ✅ `test_attribution_language.py` — engine phrasings closed, glossary/engine consistency, no bare "because" in any render (attribution not yet wired into a synthesis tool, so this future-proofs the render surface) |
+| Description/signature consistency | ✅ `test_guardrails.py::test_description_call_args_are_registered_params` — every `garmin_x(arg=…)` in a description names a real param of x |
+| Session-cost gate ≤17K | ✅ `test_guardrails.py::test_session_cost_under_17k` — sum of hard caps at default args = 16,070 (basis §5 rule 8) |
 | Catalog ≤3.5K tokens | ✅ exists, must keep passing |
 | Eval harness ~30 multi-tool tasks, Claude Code + Desktop + Cursor | ⬜ *(v0.2.1)* |
 | Token + calls-per-task regression gates | ⬜ |
