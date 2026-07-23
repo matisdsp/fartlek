@@ -9,9 +9,11 @@ breadcrumbs never leak an unshipped tool name.
 from __future__ import annotations
 
 import asyncio
+import re
 from datetime import date, timedelta
 
 from fartlek.analytics import pmc as pmc_engine
+from fartlek.analytics import sleep as sleep_engine
 from fartlek.mcp_server.tools import week
 from fartlek.render.renderer import estimate_tokens
 
@@ -316,3 +318,33 @@ def test_completed_week_never_says_still_to_come(store):
     seed_week(store)
     out = run(FakeContext(store, today="2026-07-26"), anchor_date="2026-07-15")
     assert "still to come" not in out
+
+
+def test_sleep_debt_anchors_at_today_not_the_future_week_end(store):
+    """E2-B: for an in-progress week, the 14d sleep-debt line anchors at today,
+    not the (future) Sunday week-end — otherwise it counts a different set of
+    nights than garmin_recovery run the same day and the two tools disagree."""
+    end = date.fromisoformat(TODAY)  # Mon 2026-07-20 → week 07-20..07-26, in progress
+    for i in range(20):              # 20 short nights ending today, 2h deficit each
+        d = (end - timedelta(days=19 - i)).isoformat()
+        store.upsert_day({"date": d, "synced_at": "2026-01-01T00:00:00",
+                          "sleep_duration_h": 6.0, "sleep_need_h": 8.0})
+    seed_history(store, TODAY)       # load history so the rest of the week renders
+
+    out = run(FakeContext(store))
+    m = re.search(r"14d debt ([\d.]+)h", out)
+    assert m, "week did not render a 14d sleep-debt line"
+    rendered = float(m.group(1))
+
+    def debt_anchored_at(anchor: str) -> float:
+        days = [(date.fromisoformat(anchor) - timedelta(days=13 - i)).isoformat()
+                for i in range(14)]
+        rows = [store.get_day(d) or {} for d in days]
+        return sleep_engine.sleep_debt(rows, anchor, window=14)["debt_h"]
+
+    today_debt = debt_anchored_at(TODAY)                       # 14 seeded nights → 28h
+    sunday_debt = debt_anchored_at((end + timedelta(days=6)).isoformat())  # buggy: 8 nights
+    assert today_debt != sunday_debt, "fixture must actually exercise the anchor bug"
+    assert abs(rendered - today_debt) < 0.05, (
+        f"week 14d debt {rendered} anchored at the week-end, not today ({today_debt})"
+    )

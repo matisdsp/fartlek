@@ -270,9 +270,15 @@ def _distribution(store: Any, start: _date, end: _date) -> tuple[Section | None,
 # recovery summary
 # ---------------------------------------------------------------------------
 
-def _recovery(store: Any, start: _date, end: _date) -> dict[str, Any]:
+def _recovery(store: Any, start: _date, end: _date, today: _date) -> dict[str, Any]:
     end_s = end.isoformat()
     start_s = start.isoformat()
+    # Trailing rolling windows (14d sleep debt, 7d SRI) must anchor at "now",
+    # not at a future week-end: for an in-progress week, anchoring at Sunday
+    # shifts the 14-night window past real nights and disagrees with the same
+    # figure from garmin_recovery run the same day (E2-B). The week-scoped
+    # HRV/RHR selections below stay bounded to the ISO week.
+    trail_s = min(end, today).isoformat()
     out: dict[str, Any] = {"lines": [], "concern": False, "concern_reason": ""}
 
     hrv_series = store.get_series("hrv_last_night", end_s, 90)
@@ -302,8 +308,8 @@ def _recovery(store: Any, start: _date, end: _date) -> dict[str, Any]:
                 out["concern"] = True
                 out["concern_reason"] = f"RHR {_signed(delta)} vs 30d median"
 
-    day_rows = [store.get_day(d) or {} for d in _dates(end_s, 14)]
-    debt = sleep_engine.sleep_debt(day_rows, end_s, window=14)
+    day_rows = [store.get_day(d) or {} for d in _dates(trail_s, 14)]
+    debt = sleep_engine.sleep_debt(day_rows, trail_s, window=14)
     if debt["debt_h"] is not None:
         rising = debt["debt_h"] > convergence.SLEEP_DEBT_H_14D
         out["lines"].append(
@@ -314,8 +320,8 @@ def _recovery(store: Any, start: _date, end: _date) -> dict[str, Any]:
             out["concern"] = True
             out["concern_reason"] = "sleep debt rising"
 
-    timeline = store.get_sleep_timeline(end_s, days_back=7)
-    sri = sleep_engine.sleep_regularity_index(timeline, end_s, days=7)
+    timeline = store.get_sleep_timeline(trail_s, days_back=7)
+    sri = sleep_engine.sleep_regularity_index(timeline, trail_s, days=7)
     if not sri["suppressed"]:
         out["lines"].append(f"regularity {sri['sri']:.0f}/100")
 
@@ -500,7 +506,7 @@ async def run(ctx: Any, anchor_date: str | None = None) -> str:
     if dist_section is not None:
         sections.append(dist_section)
 
-    recovery = _recovery(store, start, end)
+    recovery = _recovery(store, start, end, today_d)
     if recovery["lines"]:
         sections.append(Section(
             title=None, header=None,
