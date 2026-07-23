@@ -419,6 +419,26 @@ def digest_personal_records(raw: Any) -> dict[str, dict[str, Any]] | None:
     return out or None
 
 
+_RACE_PRED_FIELDS = {"5k": "time5K", "10k": "time10K",
+                     "half": "timeHalfMarathon", "marathon": "timeMarathon"}
+
+
+def digest_race_predictions(raw: Any) -> dict[str, float] | None:
+    """`/metrics-service/.../racepredictions/latest/{name}` → {distance: seconds}.
+
+    Garmin's own race-time model, surfaced as-is for the triangulation (§3.2
+    #16). Keeps the four standard run distances with a positive predicted time.
+    """
+    if not isinstance(raw, dict):
+        return None
+    out: dict[str, float] = {}
+    for key, field in _RACE_PRED_FIELDS.items():
+        value = raw.get(field)
+        if isinstance(value, (int, float)) and value > 0:
+            out[key] = float(value)
+    return out or None
+
+
 def digest_activity(raw: dict[str, Any]) -> dict[str, Any]:
     """One activities-list entry → activities row.
 
@@ -769,7 +789,13 @@ class SyncEngine:
         prs = digest_personal_records(pr_raw)
         if prs:
             self.store.set_personal_records(prs)
-        self._probe("race_predictions", f"/metrics-service/metrics/racepredictions/latest/{name}")
+        # Garmin's own race predictions → the third model in the distance
+        # triangulation (§3.2 #16). Sync-derived, persisted like PRs.
+        rp_raw = self._probe(
+            "race_predictions", f"/metrics-service/metrics/racepredictions/latest/{name}")
+        predictions = digest_race_predictions(rp_raw)
+        if predictions:
+            self.store.set_race_predictions(predictions)
         self._probe("training_status", f"/metrics-service/metrics/trainingstatus/aggregated/{t}")
         self._probe("training_readiness", f"/metrics-service/metrics/trainingreadiness/{t}")
 
