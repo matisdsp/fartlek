@@ -38,12 +38,15 @@ Scope decisions taken 2026-07-22: engine before tools · live Garmin probing all
 
 Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `tests/test_guardrails.py` as it lands — that set is the progress counter.
 
-## 3. MCP prompts & resources
+## 3. MCP prompts & resources — *progressive enhancement, v0.2.1 candidate*
 
 ⬜ Prompts: `morning_briefing`, `weekly_review`, `post_activity_debrief`, `race_readiness`, `plan_next_week`, `injury_risk_check`, `setup_athlete` (§4.6)
 ⬜ Resources: `garmin://athlete/snapshot`, `garmin://reference/metrics-glossary`
 
-## 4. Quality programme (§4.5) — full spec scope
+## 4. Quality programme (§4.5)
+
+**Scope revised 2026-07-23 → v0.2 ships with automated CI gates + a reduced eval harness; the heavy manual programme (30 tasks × 3 clients, transcript audits) moves to v0.2.1.** Do the ⬜ CI gates below for v0.2; the eval-harness rows marked *(v0.2.1)* are deferred.
+
 
 | Gate | State |
 |---|---|
@@ -54,10 +57,10 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 | Description/signature consistency | ⬜ |
 | Session-cost gate ≤17K | ⬜ |
 | Catalog ≤3.5K tokens | ✅ exists, must keep passing |
-| Eval harness ~30 multi-tool tasks, Claude Code + Desktop + Cursor | ⬜ |
+| Eval harness ~30 multi-tool tasks, Claude Code + Desktop + Cursor | ⬜ *(v0.2.1)* |
 | Token + calls-per-task regression gates | ⬜ |
-| Transcript audits (every LLM-re-derived number = missing pre-computation) | ⬜ |
-| French-language eval tasks (server renders English, client translates) | ⬜ |
+| Transcript audits (every LLM-re-derived number = missing pre-computation) | ⬜ *(v0.2.1)* |
+| French-language eval tasks (server renders English, client translates) | ⬜ *(v0.2.1)* |
 | Engine validation vs intervals.icu golden data | ✅ decoupling validated against raw streams on 8 long runs: median diff 1.0 pt, 7/8 within 3 pts. Their derived fields (decoupling/EF) come back empty on this account, so the streams were used directly — a stronger check. NOTE: their CTL is TSS-scaled (15.6) vs ours Garmin-load-scaled (104.8); only ratios are comparable |
 | Anomaly-scanner threshold tuning on real multi-month data | ✅ 75 → 27 alerts, AMBER 27 → 4, anchored by the certified salmonella positive (2026-04-19..22) |
 
