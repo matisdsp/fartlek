@@ -21,18 +21,18 @@ Scope decisions taken 2026-07-22: engine before tools · live Garmin probing all
 | Intensity distribution (TID) mapping + auto target | §3.2 #11 | ✅ `analytics/tid.py` — pro-rated zone mapping, own-norm target, creep detection |
 | Attribution rules (closed set) | §3.2 #22 | ✅ `analytics/attribution.py` — 5 rules, silent when evidence cannot discriminate |
 | Retroactive precedent mining | §3.2 #5 | ✅ `analytics/precedent.py` — cross-source merge; external episodes excludable. Athlete's own levels: weekly load 974, strain 1817, monotony 1.87 |
-| Capability-gated running-tolerance / endurance-score trends | §3.2 #23 | ⬜ minor |
+| Capability-gated running-tolerance / endurance-score trends | §3.2 #23 | ⬜ minor — no capability probe exists yet, permanently omitted until one does |
 
 ## 2. Tools
 
 | Tool | Cap | State |
 |---|---|---|
-| `garmin_recovery` | 1,100 | ⬜ |
-| `garmin_load` | 1,100 | ⬜ |
-| `garmin_fitness` (incl. projection + taper) | 1,000 | ⬜ |
-| `garmin_week` | 1,200 | ⬜ |
-| `garmin_whats_changed` | 700 | ⬜ |
-| `garmin_reference` (metrics glossary) | — | ⬜ |
+| `garmin_recovery` | 1,100 | ✅ |
+| `garmin_load` | 1,100 | ✅ |
+| `garmin_fitness` (incl. projection + taper) | 1,000 | ✅ |
+| `garmin_week` | 1,200 | ✅ |
+| `garmin_whats_changed` | 700 | ✅ |
+| `garmin_reference` (metrics glossary) | — | ✅ |
 
 **Engine complete enough to start tools (2026-07-22).** Remaining engine items (Tanda triangulation, capability-gated trends) are minor and not blocking.
 
@@ -49,7 +49,7 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 |---|---|
 | Real-tokenizer budget gate (tiktoken) — Phase 0 debt | ⬜ |
 | Estimator never undercounts the tokenizer on goldens | ⬜ |
-| Breadcrumb validity extended to Phase-2 tools | ⬜ (registry test exists) |
+| Breadcrumb validity extended to Phase-2 tools | ✅ registry test covers all 14 tools; catalog ≤3.5K enforced |
 | Attribution-language test (every "because" maps to §3.2 #22) | ⬜ |
 | Description/signature consistency | ⬜ |
 | Session-cost gate ≤17K | ⬜ |
