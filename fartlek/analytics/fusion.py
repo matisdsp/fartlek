@@ -9,11 +9,11 @@ GREEN / AMBER / RED verdict with a one-sentence rationale:
   body_battery .10. Weights renormalize over AVAILABLE markers; the result
   always lists which markers were used.
 - Marker inputs (each may be None = unavailable):
-  hrv: 7-day rolling mean of hrv_last_night vs the band. The band is
-    SELF-COMPUTED ONLY (documented decision): Garmin's shipped baseline is
-    not persisted in the days schema, so the band is the 60d mean ± 0.5·SD
-    (robust SD = mad_sd from baselines.baseline, raw-ms space) once n ≥ 14
-    nights exist; fewer nights → marker unavailable. z-like position: 0 in
+  hrv: 7-day rolling mean of lnRMSSD vs the band, both from the shared
+    resolver baselines.hrv_band/hrv_roll (§3.2 #8) so brief/recovery/week/
+    fusion agree (E1). The band is the 60d lnRMSSD mean ± 0.5·SD (robust SD =
+    mad_sd), LOG space, self-computed once n ≥ 14 nights exist; fewer nights →
+    marker unavailable. z-like position: 0 in
     band, negative below scaled by band half-width; ABOVE band contributes 0
     (abnormally high rMSSD is not automatically good — §3.2 #8; it feeds
     convergence, not readiness credit).
@@ -59,9 +59,9 @@ AMBER/RED (§4.4), e.g. "replace today's quality with 40 min easy below HR
 """
 from __future__ import annotations
 
+import math
 from datetime import date as _date
 from datetime import timedelta
-from statistics import fmean
 from typing import Any
 
 from fartlek.analytics import baselines as baselines_mod
@@ -115,17 +115,20 @@ def marker_inputs(store: Any, date: str) -> dict[str, Any]:
     # --- HRV ---
     hrv_series = store.get_series("hrv_last_night", date, 60)
     out["hrv_series"] = hrv_series
-    b60 = baselines_mod.baseline(hrv_series, date, 60)
+    # Canonical band from the shared resolver (60d lnRMSSD mean ± 0.5·MAD-SD,
+    # §3.2 #8) so brief/recovery/week/fusion cannot drift apart (E1). low/high
+    # are LOG-space bounds; the display exp()s them.
+    band_ln = baselines_mod.hrv_band(hrv_series, date)
     band = None
-    if b60 is not None and b60["n"] >= BASELINE_WARM_N:
-        half = 0.5 * b60["mad_sd"]
-        band = {"low": b60["mean"] - half, "high": b60["mean"] + half, "n": b60["n"]}
+    if band_ln is not None and band_ln["n"] >= BASELINE_WARM_N:
+        band = {"low": band_ln["lo"], "high": band_ln["hi"], "n": band_ln["n"]}
     out["hrv_band"] = band
-    start7 = (_date.fromisoformat(date) - timedelta(days=6)).isoformat()
-    last7 = [v for d, v in hrv_series if d >= start7]
-    out["hrv_roll7"] = fmean(last7) if last7 else None
+    out["hrv_roll7"] = baselines_mod.hrv_roll(hrv_series, date)
     last_night = day.get("hrv_last_night")
     out["hrv_last_night"] = last_night
+    # The single-night acute-override z (§3.2 #19) is a separate contract from
+    # the band — kept on the raw-ms 60d baseline.
+    b60 = baselines_mod.baseline(hrv_series, date, 60)
     out["hrv_last_night_z"] = (
         baselines_mod.zscore(float(last_night), b60)
         if (last_night is not None and b60 is not None)
@@ -213,7 +216,8 @@ def _marker_zs(inputs: dict[str, Any]) -> tuple[dict[str, float], dict[str, str]
         if roll < band["low"]:
             zs["hrv"] = (roll - band["low"]) / half
             phrases["hrv"] = (
-                f"HRV 7d avg {roll:.0f} ms below band {band['low']:.0f}-{band['high']:.0f}"
+                f"HRV 7d avg {math.exp(roll):.0f} ms below band "
+                f"{math.exp(band['low']):.0f}-{math.exp(band['high']):.0f}"
             )
         else:  # in band or above band — above is never credited (§3.2 #8)
             zs["hrv"] = 0.0

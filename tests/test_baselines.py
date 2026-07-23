@@ -1,6 +1,8 @@
 """Tests for fartlek.analytics.baselines (DESIGN.md §3.2 #6, #9)."""
 from __future__ import annotations
 
+import math
+
 import pytest
 from conftest import make_series
 
@@ -8,12 +10,46 @@ from fartlek.analytics.baselines import (
     MAD_SCALE,
     band_position,
     baseline,
+    hrv_band,
+    hrv_position,
+    hrv_roll,
     rhr_deviation,
     streak,
     zscore,
 )
 
 END = "2026-07-20"
+
+
+# --- canonical HRV band (§3.2 #8) -------------------------------------------
+
+def test_hrv_band_is_60d_lnrmssd_mean_half_mad():
+    """The one shared band (E1): 60d lnRMSSD mean ± 0.5·MAD-SD, in LOG space."""
+    series = make_series(END, [80.0 if i % 2 else 100.0 for i in range(60)])
+    band = hrv_band(series, END)
+    med_ln = (math.log(80) + math.log(100)) / 2   # mean == median for this symmetric set
+    mad_sd = MAD_SCALE * abs(math.log(100) - med_ln)
+    assert band["lo"] == pytest.approx(med_ln - 0.5 * mad_sd, abs=1e-9)
+    assert band["hi"] == pytest.approx(med_ln + 0.5 * mad_sd, abs=1e-9)
+    assert band["n"] == 60
+    assert 80 < math.exp(band["hi"]) < 100        # bounds exp() to plausible ms
+
+
+def test_hrv_band_none_without_data():
+    assert hrv_band([], END) is None
+
+
+def test_hrv_roll_is_mean_of_last_7_lnrmssd():
+    series = make_series(END, [90.0] * 60)
+    assert hrv_roll(series, END) == pytest.approx(math.log(90))
+    assert hrv_roll([], END) is None
+
+
+def test_hrv_position_below_in_above():
+    band = {"lo": math.log(80), "hi": math.log(100)}
+    assert hrv_position(math.log(75), band) == "below"
+    assert hrv_position(math.log(90), band) == "in"
+    assert hrv_position(math.log(110), band) == "above"
 
 
 # --- baseline ---------------------------------------------------------------

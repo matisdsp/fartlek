@@ -13,10 +13,10 @@ carry the concrete modification, provisional ⇒ 'PROVISIONAL (n=…)' prefix).
 """
 from __future__ import annotations
 
+import math
 import re
 from datetime import date as _date
 from datetime import timedelta
-from statistics import fmean
 from typing import Any
 
 from fartlek.analytics import baselines, fusion
@@ -120,36 +120,34 @@ def _prior(series: list[tuple[str, float]], d: str) -> list[tuple[str, float]]:
 def _hrv_row(store: Any, d: str) -> Row | None:
     series = store.get_series("hrv_last_night", d, 60)
     today = _at(series, d)
-    base = baselines.baseline(_prior(series, d), d, 60)
-    if today is None or base is None:
+    band = baselines.hrv_band(series, d)          # canonical 60d lnRMSSD band (E1)
+    roll_ln = baselines.hrv_roll(series, d)
+    if today is None or band is None or roll_ln is None:
         return None
-    lo = base["mean"] - 0.5 * base["mad_sd"]
-    hi = base["mean"] + 0.5 * base["mad_sd"]
-    start7 = (_date.fromisoformat(d) - timedelta(days=6)).isoformat()
-    vals7 = [v for dd, v in series if dd >= start7]
-    roll7 = fmean(vals7) if vals7 else today
-    if roll7 < lo:
-        pos, flag = "below band", "⚠ below band"
-        run = baselines.streak(series, lambda v: v < lo)
+    pos = baselines.hrv_position(roll_ln, band)   # 'below' | 'in' | 'above'
+    ln_series = [(dd, math.log(v)) for dd, v in series if v and v > 0]
+    if pos == "below":
+        flag = "⚠ below band"
+        run = baselines.streak(ln_series, lambda v: v < band["lo"])
         context = f"below band, {run}d"
-    elif roll7 > hi:
+    elif pos == "above":
         # High HRV is not a daily warning: fusion never credits or penalises it
         # ("above is never credited", §3.2 #8), a rise is corroboration for the
         # convergence audit, not a standalone alarm, and the alert scanner is
         # tuned so only the unfavorable direction interrupts (HANDOFF §7). So we
         # surface "above band" as information, not a ⚠.
-        pos, flag = "above band", "✓"
-        run = baselines.streak(series, lambda v: v > hi)
+        flag = "✓"
+        run = baselines.streak(ln_series, lambda v: v > band["hi"])
         context = f"above band, {run}d"
     else:
-        pos, flag = "in band", "✓"
-        run = baselines.streak(series, lambda v: lo <= v <= hi)
+        flag = "✓"
+        run = baselines.streak(ln_series, lambda v: band["lo"] <= v <= band["hi"])
         context = f"in band, {run}d stable" if run else "in band"
-    n_txt = f", n={base['n']}" if base["n"] < 60 else ""
+    n_txt = f", n={band['n']}" if band["n"] < 60 else ""
     return Row(cells=[
         "HRV overnight",
-        f"{today:.0f} ms (7d avg {pos})",
-        f"band {lo:.0f}–{hi:.0f} (60d{n_txt})",
+        f"{today:.0f} ms (7d avg {pos} band)",
+        f"band {math.exp(band['lo']):.0f}–{math.exp(band['hi']):.0f} (60d{n_txt})",
         context,
         flag,
     ])

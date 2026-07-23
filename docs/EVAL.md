@@ -86,4 +86,4 @@ Each was traced to root cause by a dedicated investigation (2026-07-23); the tab
 - Three clients (Claude Code **+ Desktop + Cursor**) — this run is Claude Code only.
 - Automated token- and calls-per-task **regression gates** (this run is a manual read).
 - Formal **transcript audits**: every model-stated number traced to the render that produced it (every re-derived number = a missing pre-computation).
-- Remaining coherence work: E1's **shared HRV-band resolver** (band bounds are now printed by recovery/week, but the three tools still compute the band differently — brief mean±0.5·MAD, recovery median±0.5·MAD in log, week median±1·MAD — so they should be unified) and E4's anchor labelling. The two real bugs (E1 false-⚠, E2-B), the E2-A mislabel, and E1 band-transparency were fixed post-v0.2.
+- Remaining coherence work: only E4's anchor labelling (minor, by-design). **E1 is fully closed** — the shared HRV-band resolver (`baselines.hrv_band`, canonical 60d lnRMSSD mean ± 0.5·MAD-SD, §3.2 #8) now backs brief/recovery/week/fusion, so they can no longer diverge; the false-⚠, band-transparency, E2-A mislabel, and E2-B anchor bug were all fixed post-v0.2.

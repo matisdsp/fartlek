@@ -39,6 +39,7 @@ Design choices worth stating:
 """
 from __future__ import annotations
 
+import math
 import re
 from datetime import date as _date
 from datetime import timedelta
@@ -284,13 +285,13 @@ def _recovery(store: Any, start: _date, end: _date, today: _date) -> dict[str, A
     hrv_series = store.get_series("hrv_last_night", end_s, 90)
     week_hrv = [(d, v) for d, v in hrv_series if start_s <= d <= end_s]
     if week_hrv:
-        base = baselines.baseline(hrv_series, end_s, 90)
-        if base:
-            lo, hi = base["median"] - base["mad_sd"], base["median"] + base["mad_sd"]
+        band = baselines.hrv_band(hrv_series, end_s)   # canonical 60d lnRMSSD band (E1)
+        if band:
             in_band = sum(1 for _, v in week_hrv
-                          if baselines.band_position(v, base) == "in_band")
+                          if v and v > 0 and baselines.hrv_position(math.log(v), band) == "in")
             out["lines"].append(
-                f"HRV in band {in_band}/{len(week_hrv)} (band {lo:.0f}–{hi:.0f})")
+                f"HRV in band {in_band}/{len(week_hrv)} "
+                f"(band {math.exp(band['lo']):.0f}–{math.exp(band['hi']):.0f})")
             if in_band < len(week_hrv):
                 out["concern"] = True
                 out["concern_reason"] = "HRV left band this week"
