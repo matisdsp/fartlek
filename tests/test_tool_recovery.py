@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import re
 from datetime import date, timedelta
 
 import pytest
@@ -130,6 +131,31 @@ def test_empty_store_still_renders_a_valid_report(store):
 
 
 # --- the verdict is convergence's, and the athlete outranks sensors ---------
+
+def test_hrv_row_prints_its_band_bounds(store):
+    """E1 transparency: the HRV-vs-band row shows the band it compares against,
+    so 'in band' is not a bare claim and cross-tool reads are legible."""
+    rows = make_days(TODAY, 60, hrv_last_night=[70 if i % 2 else 95 for i in range(60)],
+                     resting_hr=46.0, daily_load=80.0)
+    for r in rows:
+        store.upsert_day(r)
+    out = run(FakeContext(store))
+    line = next(line for line in out.splitlines() if "HRV (7d roll)" in line)
+    assert re.search(r"\(band \d+–\d+\)", line)
+
+
+def test_high_hrv_reads_above_band_but_does_not_flag_the_audit(store):
+    """E1: recovery now agrees with brief that a high roll is 'above band', but
+    high HRV is information — only a sustained drop feeds the audit (§3.2 #8)."""
+    hrv = [80 if i % 2 else 90 for i in range(53)] + [140] * 7  # sharp recent rise
+    rows = make_days(TODAY, 60, hrv_last_night=hrv, resting_hr=46.0, daily_load=80.0)
+    for r in rows:
+        store.upsert_day(r)
+    out = run(FakeContext(store))
+    line = next(line for line in out.splitlines() if "HRV (7d roll)" in line)
+    assert "above band" in line
+    assert line.rstrip().endswith("no |")  # deviation flag: not counted against the athlete
+
 
 def test_calm_data_is_not_alarming(store):
     seed(store)

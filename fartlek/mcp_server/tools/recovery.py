@@ -73,15 +73,25 @@ def _hrv_group(store: Any, end: str, window: int) -> tuple[dict[str, Any], list[
         base = baselines.baseline(ln, end, 60)
         if base:
             floor = base["median"] - 0.5 * base["mad_sd"]
+            ceil = base["median"] + 0.5 * base["mad_sd"]
             below_days = baselines.streak(ln, lambda v: v < floor)
             recent = [v for d, v in ln
                       if _date.fromisoformat(d) > _date.fromisoformat(end) - timedelta(days=7)]
             if len(recent) >= 3:
                 roll = sum(recent) / len(recent)
-                state = "below band" if roll < floor else "in band"
+                # Band is displayed two-sided so the read agrees with garmin_brief
+                # (E1), but only a sustained drop feeds the audit: high HRV is
+                # information, not a concern (§3.2 #8).
+                if roll < floor:
+                    state = "below band"
+                elif roll > ceil:
+                    state = "above band"
+                else:
+                    state = "in band"
                 rows.append(Row([
                     "HRV (7d roll) vs band",
-                    f"{math.exp(roll):.0f} ms, {state}"
+                    f"{math.exp(roll):.0f} ms, {state} "
+                    f"(band {math.exp(floor):.0f}–{math.exp(ceil):.0f})"
                     + (f", {below_days}d streak" if below_days else ""),
                     "YES" if below_days >= convergence.PERSISTENCE_DAYS else "no",
                 ]))
