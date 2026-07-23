@@ -135,6 +135,16 @@ async def test_hrv_band_and_baselines_line(store):
     assert "wake Body Battery 88" in out
 
 
+async def test_sleep_need_is_a_60d_baseline_not_the_latest_night(store):
+    """E2-A: under a 'Baselines (60d)' header the need must be a 60d central
+    value, not the most recent single night (which can spike above baseline)."""
+    need = [8.0] * 59 + [12.0]  # steady 8h, one high final night
+    _seed_days(store, hrv_last_night=[90] * 60, sleep_need_h=need, body_battery_wake=88)
+    out = await athlete.run(FakeContext(store))
+    assert "sleep need 8h00" in out   # the robust 60d median, not 12h00
+    assert "12h" not in out
+
+
 async def test_hrv_band_omitted_when_insufficient(store):
     _seed_days(store, steps=1000)  # no hrv at all
     for row in make_days(TODAY, 5, hrv_last_night=90):

@@ -207,9 +207,11 @@ def _baselines_line(store: Any, today: str) -> str | None:
     if hrv is not None and hrv["n"] >= _HRV_BAND_MIN_N:
         lo, hi = hrv["median"] - hrv["mad_sd"], hrv["median"] + hrv["mad_sd"]
         pieces.append(f"HRV band {lo:.0f}–{hi:.0f}")
-    need = _latest(store, "sleep_need_h", today, 90)
-    if need:
-        pieces.append(f"sleep need {_fmt_hours(need)}")
+    # A 60d median, not the latest single night (E2-A): this line sits under a
+    # "Baselines (60d)" header, so it must be a baseline, not a point value.
+    need = _baseline(store, "sleep_need_h", today, 60)
+    if need is not None:
+        pieces.append(f"sleep need {_fmt_hours(need['median'])}")
     bb = _baseline(store, "body_battery_wake", today, 60)
     if bb is not None:
         pieces.append(f"wake Body Battery {bb['median']:.0f}")
