@@ -43,6 +43,22 @@ BACKOFF_START_S = 60.0
 BACKOFF_CAP_S = 900.0
 BASELINE_WINDOWS = (7, 28, 60, 90)
 ACTIVITY_HISTORY_DAYS = 180
+ACTIVITY_HISTORY_BOUNDS = (30, 730)  # sane floor/ceiling for the override
+
+
+def activity_history_days() -> int:
+    """Activity-history backfill window (default 180). Overridable via
+    FARTLEK_ACTIVITY_HISTORY_DAYS so a long-cycle athlete (e.g. a year-long
+    ultra build) can pull a full season instead of the fixed half-year;
+    clamped to [30, 730] days, and any non-integer value falls back to the
+    default rather than failing the sync."""
+    raw = os.environ.get("FARTLEK_ACTIVITY_HISTORY_DAYS")
+    if raw is None:
+        return ACTIVITY_HISTORY_DAYS
+    try:
+        return max(ACTIVITY_HISTORY_BOUNDS[0], min(ACTIVITY_HISTORY_BOUNDS[1], int(raw)))
+    except ValueError:
+        return ACTIVITY_HISTORY_DAYS
 
 # userstats-service metricId -> (days column, cast). One range call per metric
 # backfills the whole window, replacing ~1 daily-summary call per day.
@@ -876,7 +892,7 @@ class SyncEngine:
         name = self.display_name
         start_calls = self._calls
         today_d = date.fromisoformat(t)
-        history_start = (today_d - timedelta(days=ACTIVITY_HISTORY_DAYS)).isoformat()
+        history_start = (today_d - timedelta(days=activity_history_days())).isoformat()
         errors: list[str] = []
 
         # Activities-by-date, paginated until a short page or the start date.

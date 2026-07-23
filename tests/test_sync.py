@@ -14,10 +14,12 @@ import pytest
 from conftest import make_days
 
 from fartlek.sync.engine import (
+    ACTIVITY_HISTORY_DAYS,
     USERSTATS_DAILY_METRICS,
     RateLimiter,
     SyncEngine,
     SyncLock,
+    activity_history_days,
     digest_activity,
     digest_daily_summary,
     digest_hrv,
@@ -441,6 +443,19 @@ def test_digest_personal_records_maps_run_typeids_and_filters():
     assert out["marathon"]["date"] is None       # no timestamp in payload
     assert digest_personal_records([]) is None    # empty → None, not {}
     assert digest_personal_records(None) is None   # non-list → None
+
+
+def test_activity_history_days_override(monkeypatch):
+    monkeypatch.delenv("FARTLEK_ACTIVITY_HISTORY_DAYS", raising=False)
+    assert activity_history_days() == ACTIVITY_HISTORY_DAYS  # default 180
+    monkeypatch.setenv("FARTLEK_ACTIVITY_HISTORY_DAYS", "365")
+    assert activity_history_days() == 365                    # long-cycle athlete
+    monkeypatch.setenv("FARTLEK_ACTIVITY_HISTORY_DAYS", "5000")
+    assert activity_history_days() == 730                    # clamped to the ceiling
+    monkeypatch.setenv("FARTLEK_ACTIVITY_HISTORY_DAYS", "10")
+    assert activity_history_days() == 30                     # clamped to the floor
+    monkeypatch.setenv("FARTLEK_ACTIVITY_HISTORY_DAYS", "not-a-number")
+    assert activity_history_days() == ACTIVITY_HISTORY_DAYS  # bad value → default
 
 
 def test_digest_race_predictions_maps_the_four_distances():

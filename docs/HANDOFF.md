@@ -161,7 +161,7 @@ Two items, both **minor and non-blocking** for v0.2:
 
 **Open** (non-blocking):
 - **D7**: `body_battery_wake` has only 1 day of history (absent from userstats, the dedicated endpoint only returns high/low). Weighs 0.10 in the readiness fusion.
-- **D2**: `ACTIVITY_HISTORY_DAYS = 180` not configurable — an athlete on a long cycle doesn't see their whole season.
+- ~~**D2**~~: **fixed** — `activity_history_days()` reads `FARTLEK_ACTIVITY_HISTORY_DAYS` (clamped 30–730, bad value falls back to the 180-day default), so a long-cycle athlete can pull a full season.
 - **D3** (to watch): the first `fartlek auth` had persisted `di_refresh_token: null` → session dead at ~20 h. The re-login stored a correct one; verify that the refresh does rewrite the file over time.
 
 **The alert scanner's calibration (§7.4) is done and worth understanding**: replay over 116 real days → 75 alerts (one every 1.5 days, unworkable). Three rules decided with the athlete: (a) only the *unfavorable* direction alerts (31% of alerts flagged an *improvement*); (b) the load baseline only uses training days; (c) sleep requires 2 consecutive short nights. Result: 75 → 27, AMBER 27 → 4. **Anchored by a certified positive**: the athlete had salmonella on 2026-04-19..22 (5 deviant markers) — `test_salmonella_episode_is_still_detected` forbids any future tightening that would mask that day.

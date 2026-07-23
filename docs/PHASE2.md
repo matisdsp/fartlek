@@ -84,7 +84,7 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 | D6 | Rows written by a mid-day sync stayed frozen at their mid-day values forever (2026-07-20 held 6,847 steps vs an actual 18,664) | ✅ fixed by the same range backfill, which rewrites completed days |
 | D8 | HR zone boundaries and body weight fetched by tier 0 but never persisted | ✅ fixed — tier 0 persists the RUNNING zone config + seeds weight from user-settings; the 3 TID tools pro-rate via shared `_zones.resolve()` |
 | D7 | `body_battery_wake` still has 1 day: it is not in userstats and the dedicated body-battery endpoint only yields high/low. Readiness fusion weights it 0.10 | ⬜ |
-| D2 | `ACTIVITY_HISTORY_DAYS = 180` is not parameterisable — a long-cycle athlete cannot see their full season | ⬜ |
+| D2 | `ACTIVITY_HISTORY_DAYS = 180` is not parameterisable — a long-cycle athlete cannot see their full season | ✅ fixed — `activity_history_days()` reads `FARTLEK_ACTIVITY_HISTORY_DAYS` (clamped 30–730, bad value → default 180); `test_activity_history_days_override` |
 | D3 | First `fartlek auth` persisted `di_refresh_token: null`, so the session died after ~20h and forced a full re-login. Re-auth stored one correctly; watch whether refresh rewrites the file | ⬜ monitor |
 | D4 | Steady-session EF qualifier yields too few sessions to trend on a real athlete | ✅ amended — pace bands primary |
 | D5 | `digest_laps` treated lap index 0 as missing (`or` on a falsy int) | ✅ fixed with the splits commit |
