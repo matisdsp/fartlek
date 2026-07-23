@@ -40,6 +40,43 @@ def lt1_estimate(resting_hr: float, max_hr: float) -> float:
     return resting_hr + 0.75 * (max_hr - resting_hr)
 
 
+def zone_mapping_kwargs(
+    zone_config: dict[str, Any] | None,
+    *,
+    resting_hr: float | None = None,
+    lt1_override: float | None = None,
+) -> dict[str, Any]:
+    """Turn a stored HR-zone config (from the biometric endpoint, digested by
+    sync.engine.digest_hr_zones) into the kwargs `distribution`/`map_to_three_zones`
+    need for pro-rated mapping. Empty dict when the config cannot anchor both
+    thresholds — the caller then gets the whole-bucket fallback and discloses it.
+
+    LT2 is Garmin's lactate-threshold HR; LT1 is the athlete override if set,
+    else the population estimate (§3.2 #11 anchor order). Returns {} rather
+    than guessing when max_hr or a resting HR for the estimate is missing.
+    """
+    if not zone_config:
+        return {}
+    floors = zone_config.get("zone_floors")
+    lthr = zone_config.get("lthr")
+    max_hr = zone_config.get("max_hr")
+    if not floors or len(floors) < 5 or not lthr or not max_hr:
+        return {}
+
+    lt2 = float(lthr)
+    if lt1_override is not None:
+        lt1 = float(lt1_override)
+    else:
+        rest = resting_hr if resting_hr is not None else zone_config.get("resting_hr")
+        if rest is None:
+            return {}
+        lt1 = lt1_estimate(float(rest), float(max_hr))
+    if not lt1 < lt2:
+        return {}
+    return {"zone_floors": [float(f) for f in floors[:5]],
+            "max_hr": float(max_hr), "lt1": lt1, "lt2": lt2}
+
+
 def _overlap(lo: float, hi: float, a: float, b: float) -> float:
     """Width of [lo,hi) ∩ [a,b), zero when disjoint."""
     return max(0.0, min(hi, b) - max(lo, a))

@@ -15,6 +15,7 @@ Conventions:
 from __future__ import annotations
 
 import csv
+import json
 import sqlite3
 from datetime import date as _date
 from datetime import datetime, timedelta
@@ -344,6 +345,16 @@ class Store:
 
     def get_profile(self) -> dict[str, str]:
         return {r["key"]: r["value"] for r in self._all("SELECT * FROM athlete_profile")}
+
+    def set_hr_zones(self, config: dict[str, Any]) -> None:
+        """Persist the digested HR-zone config. Kept in sync_state (it is
+        sync-derived, not athlete-set) rather than athlete_profile, which is
+        reserved for values the user types via garmin_set_profile."""
+        self.set_sync_state("hr_zones", json.dumps(config))
+
+    def get_hr_zones(self) -> dict[str, Any] | None:
+        raw = self.get_sync_state("hr_zones")
+        return json.loads(raw) if raw else None
 
     def upsert_plan_entry(self, row: dict[str, Any]) -> int:
         if row.get("id") is not None:
