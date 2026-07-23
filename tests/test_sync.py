@@ -22,6 +22,7 @@ from fartlek.sync.engine import (
     digest_daily_summary,
     digest_hrv,
     digest_personal_records,
+    digest_race_predictions,
     digest_sleep,
 )
 
@@ -210,7 +211,9 @@ def base_routes():
             {"typeId": 6, "value": 12560.0, "status": "ACCEPTED"},
             {"typeId": 7, "value": 102717.0, "status": "ACCEPTED"},  # longest run (m) — ignored
         ],
-        "/metrics-service/metrics/racepredictions/latest/": {"time5K": 1500.0},
+        "/metrics-service/metrics/racepredictions/latest/": {
+            "time5K": 1500.0, "time10K": 3120.0,
+            "timeHalfMarathon": 6900.0, "timeMarathon": 14400.0},
         "/metrics-service/metrics/trainingstatus/aggregated/": {"mostRecentTrainingStatus": {}},
         "/metrics-service/metrics/trainingreadiness/": [{"score": 55, "level": "MODERATE"}],
         "/usersummary-service/usersummary/daily/": daily_summary_payload(),
@@ -440,6 +443,17 @@ def test_digest_personal_records_maps_run_typeids_and_filters():
     assert digest_personal_records(None) is None   # non-list → None
 
 
+def test_digest_race_predictions_maps_the_four_distances():
+    raw = {"time5K": 1290.0, "time10K": 2700.0, "timeHalfMarathon": 6000.0,
+           "timeMarathon": 12600.0, "someOtherField": 1}
+    out = digest_race_predictions(raw)
+    assert out == {"5k": 1290.0, "10k": 2700.0, "half": 6000.0, "marathon": 12600.0}
+    # partial payloads keep only the present positive fields
+    assert digest_race_predictions({"time5K": 1290.0, "timeMarathon": 0}) == {"5k": 1290.0}
+    assert digest_race_predictions({}) is None
+    assert digest_race_predictions([]) is None    # non-dict → None
+
+
 # --- tier 0 ------------------------------------------------------------------
 
 def test_tier0_populates_store_and_capability_map(store, tmp_path):
@@ -505,6 +519,16 @@ def test_tier0_populates_store_and_capability_map(store, tmp_path):
     # idempotent: rerun does not duplicate plan entries
     engine.tier0()
     assert len(store.plan_entries("2026-07-22", "2026-07-22")) == 1
+
+
+def test_tier0_persists_race_predictions(store, tmp_path):
+    """Garmin's own race predictions are digested and stored for the distance
+    triangulation (the main tier-0 test forces this endpoint to 500, so it is
+    covered separately here on the healthy path)."""
+    engine, _ = make_engine(store, tmp_path, base_routes())
+    engine.tier0()
+    assert store.get_race_predictions() == {
+        "5k": 1500.0, "10k": 3120.0, "half": 6900.0, "marathon": 14400.0}
 
 
 # --- tier 1 ------------------------------------------------------------------

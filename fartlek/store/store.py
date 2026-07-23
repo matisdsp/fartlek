@@ -366,6 +366,15 @@ class Store:
         raw = self.get_sync_state("personal_records")
         return json.loads(raw) if raw else None
 
+    def set_race_predictions(self, predictions: dict[str, Any]) -> None:
+        """Persist Garmin's own race-time predictions ({distance: seconds}) —
+        sync-derived, kept in sync_state like PRs and HR zones."""
+        self.set_sync_state("race_predictions", json.dumps(predictions))
+
+    def get_race_predictions(self) -> dict[str, Any] | None:
+        raw = self.get_sync_state("race_predictions")
+        return json.loads(raw) if raw else None
+
     def upsert_plan_entry(self, row: dict[str, Any]) -> int:
         if row.get("id") is not None:
             self._upsert("plan_calendar", row)
