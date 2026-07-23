@@ -11,8 +11,12 @@ markdown payload under a hard token cap:
     [detail sections]
     Next: tool(args) · tool(args)           ← undroppable
 
-Runtime token estimator: estimate_tokens(text) = ceil(len(text)/3.2).
-CI asserts the estimator never undercounts a real tokenizer on golden renders.
+Runtime token estimator: estimate_tokens(text) = ceil(len(text)/3.2). This is a
+cheap heuristic for drop-ordering, NOT an upper bound — dense numeric tables
+tokenize ~20-30% worse than it predicts (a real BPE tokenizer counts `week` at
+475 where this says 386). The budget guarantee lives in CI instead: the
+real-tokenizer gate (tests/test_budget_gate.py) asserts every golden render's
+true token count fits its cap. Safe because caps carry large real headroom.
 
 Drop order when over cap (§5 rule 7), each drop disclosed with a one-line
 notice built from Section.overflow_hint when present:

@@ -50,8 +50,8 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 
 | Gate | State |
 |---|---|
-| Real-tokenizer budget gate (tiktoken) — Phase 0 debt | ⬜ |
-| Estimator never undercounts the tokenizer on goldens | ⬜ |
+| Real-tokenizer budget gate (tiktoken) — Phase 0 debt | ✅ `test_budget_gate.py` over `golden_renders.py`: 16 goldens, every real tiktoken count ≤ cap (worst util 58%) |
+| ~~Estimator never undercounts the tokenizer on goldens~~ → **refuted & reframed** | ✅ the estimator *does* undercount dense tables 20–30% (no linear char-divisor can bound BPE); gate now asserts **real renders fit real caps** + an estimator sanity band. DESIGN §4.5 + renderer docstring corrected. Decision 2026-07-23 (owner) |
 | Breadcrumb validity extended to Phase-2 tools | ✅ registry test covers all 14 tools; catalog ≤3.5K enforced |
 | Attribution-language test (every "because" maps to §3.2 #22) | ⬜ |
 | Description/signature consistency | ⬜ |
