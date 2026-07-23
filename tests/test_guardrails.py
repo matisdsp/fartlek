@@ -7,6 +7,11 @@
   (the poisoned-breadcrumb bug class, §4.5) — Phase-2 names must not leak.
 - Every declared tool name uses the garmin_ prefix and exists as a module
   entry point.
+- Session-cost gate: the sum of hard caps, one call per tool at default args,
+  stays ≤17K (§5 rule 8 basis).
+- Description/signature consistency: every `garmin_x(arg=…)` call written into
+  any tool description names a real parameter of that tool (extends breadcrumb
+  validity from tool names to their arguments).
 """
 from __future__ import annotations
 
@@ -89,3 +94,75 @@ def test_descriptions_have_trigger_and_boundary(tools):
     # warn against starting with it (§4.2 trigger ownership).
     assert "FIRST" in by_name["garmin_brief"]
     assert "Never a starting point" in by_name["garmin_raw"]
+
+
+# --- session-cost gate (§5 rule 8) ------------------------------------------
+
+def _hard_caps() -> dict[str, int]:
+    """Each tool's hard cap at DEFAULT arguments — garmin_activity at
+    detail='standard', reference and raw included (§5 rule 8 basis). Read from
+    the tool modules so a cap change is reflected here automatically."""
+    from fartlek.mcp_server.tools import (
+        activities,
+        activity,
+        athlete,
+        brief,
+        fitness,
+        log_tool,
+        raw,
+        recovery,
+        reference,
+        set_profile,
+        sync_tool,
+        week,
+        whats_changed,
+    )
+    from fartlek.mcp_server.tools import load as load_tool
+
+    return {
+        "garmin_brief": brief.CAP,
+        "garmin_activities": activities.CAP_TOKENS,
+        "garmin_activity": activity.CAPS["standard"],
+        "garmin_athlete": athlete.CAP_TOKENS,
+        "garmin_set_profile": set_profile.CAP_TOKENS,
+        "garmin_log": log_tool.CAP_TOKENS,
+        "garmin_sync": sync_tool.CAP_TOKENS,
+        "garmin_raw": raw.CAP,
+        "garmin_recovery": recovery.CAP,
+        "garmin_fitness": fitness.CAP,
+        "garmin_load": load_tool.CAP,
+        "garmin_week": week.CAP,
+        "garmin_whats_changed": whats_changed.CAP,
+        "garmin_reference": reference.CAP,
+    }
+
+
+def test_session_cost_under_17k():
+    caps = _hard_caps()
+    assert set(caps) == REGISTRY, "every registered tool must contribute a cap"
+    total = sum(caps.values())
+    # DESIGN §5 rule 8: the defined basis sums to ~16.1K, gated at ≤17K.
+    assert total <= 17_000, f"session cost {total} exceeds the 17K guarantee"
+
+
+# --- description/signature consistency --------------------------------------
+
+_CALL = re.compile(r"\b(garmin_[a-z_]+)\(([^)]*)\)")
+_ARG = re.compile(r"([A-Za-z_]\w*)\s*=")
+
+
+def test_description_call_args_are_registered_params(tools):
+    """Every garmin_x(arg=…) written into a description names a real parameter
+    of x — a stale param reference (the sibling of the poisoned breadcrumb)
+    fails the build."""
+    params = {
+        t.name: set((t.inputSchema.get("properties") or {}).keys()) for t in tools
+    }
+    for t in tools:
+        for callee, arglist in _CALL.findall(t.description or ""):
+            assert callee in params, f"{t.name} description calls unknown tool {callee}"
+            for arg in _ARG.findall(arglist):
+                assert arg in params[callee], (
+                    f"{t.name} description writes {callee}({arg}=…) but {arg!r} is "
+                    f"not a parameter of {callee} ({sorted(params[callee])})"
+                )
