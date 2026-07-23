@@ -455,6 +455,65 @@ def digest_race_predictions(raw: Any) -> dict[str, float] | None:
     return out or None
 
 
+def digest_endurance_score(raw: Any) -> list[tuple[str, float]]:
+    """`/metrics-service/metrics/endurancescore/stats` (aggregation=weekly) →
+    [(week_start_date, score)], the series for the §3.2 #23 trend.
+
+    Garmin returns `{"groupMap": {week_start: {"groupAverage": …}}}`. On a
+    device that does not compute Endurance Score the endpoint answers HTTP 200
+    with a fully-shaped but all-null shell, so callers must judge availability
+    by whether this digest finds a real value, NOT by a non-empty payload.
+    Returns an empty list when nothing usable is present.
+    """
+    group_map = (raw or {}).get("groupMap") if isinstance(raw, dict) else None
+    if not isinstance(group_map, dict):
+        return []
+    out: list[tuple[str, float]] = []
+    for week_start, group in group_map.items():
+        value = group.get("groupAverage") if isinstance(group, dict) else None
+        if isinstance(value, (int, float)) and value > 0:
+            out.append((str(week_start)[:10], float(value)))
+    return sorted(out)
+
+
+# Best-effort field mapping for running tolerance. UNVERIFIED against a
+# supporting device (the maintainer's watches do not produce it and no fixture
+# exists), so the digest is conservative by design: an unrecognised shape yields
+# NO points, which omits the line rather than fabricating a number (§8.5).
+_TOLERANCE_LOAD_FIELDS = ("impactLoad", "dailyImpactLoad", "runningLoad")
+_TOLERANCE_CAP_FIELDS = ("tolerance", "capacity", "runningTolerance", "impactLoadCapacity")
+
+
+def digest_running_tolerance(raw: Any) -> list[tuple[str, float]]:
+    """`/metrics-service/metrics/runningtolerance/stats` → [(date, ratio)] where
+    ratio = impact load / tolerance capacity (>1.0 = over capacity, §3.2 #23).
+
+    The populated response shape is UNVERIFIED (see the field constants above);
+    this reads a per-entry date plus an impact-load-and-capacity pair, or a
+    directly-supplied ratio, and returns [] for anything it does not recognise.
+    A misparse must yield ABSENCE, never a wrong number.
+    """
+    entries = raw if isinstance(raw, list) else (raw or {}).get("groupList") \
+        if isinstance(raw, dict) else None
+    if not isinstance(entries, list):
+        return []
+    out: list[tuple[str, float]] = []
+    for e in entries:
+        if not isinstance(e, dict):
+            continue
+        d = e.get("calendarDate") or e.get("date")
+        ratio = e.get("ratio")
+        if not isinstance(ratio, (int, float)):
+            load = next((e[f] for f in _TOLERANCE_LOAD_FIELDS
+                         if isinstance(e.get(f), (int, float))), None)
+            cap = next((e[f] for f in _TOLERANCE_CAP_FIELDS
+                        if isinstance(e.get(f), (int, float)) and e[f] > 0), None)
+            ratio = (load / cap) if (load is not None and cap) else None
+        if d and isinstance(ratio, (int, float)) and ratio > 0:
+            out.append((str(d)[:10], float(ratio)))
+    return sorted(out)
+
+
 def digest_activity(raw: dict[str, Any]) -> dict[str, Any]:
     """One activities-list entry → activities row.
 
@@ -992,6 +1051,40 @@ class SyncEngine:
             if payload is not None:
                 self._store_userstats_range(payload, column, cast)
 
+        # Endurance Score & Running Tolerance (capability-gated depth metrics,
+        # §3.2 #23). Both endpoints answer even on devices that do not compute
+        # them — endurance score with a fully-null 200 shell — so availability
+        # is judged by whether the digest yields a real value, not by a 200.
+        try:
+            payload = self._call(
+                "/metrics-service/metrics/endurancescore/stats",
+                startDate=history_start, endDate=t, aggregation="weekly",
+            )
+            es = digest_endurance_score(payload)
+            for d, v in es:
+                self._upsert_day({"date": d, "endurance_score": v})
+            self.store.set_capability(
+                "endurance_score", bool(es),
+                "" if es else "device does not compute Endurance Score",
+            )
+        except Exception as exc:
+            self.store.set_capability("endurance_score", False, f"{type(exc).__name__}: {exc}")
+
+        try:
+            payload = self._call(
+                "/metrics-service/metrics/runningtolerance/stats",
+                startDate=history_start, endDate=t, aggregation="daily",
+            )
+            rt = digest_running_tolerance(payload)
+            for d, v in rt:
+                self._upsert_day({"date": d, "running_tolerance_pct": v})
+            self.store.set_capability(
+                "running_tolerance", bool(rt),
+                "" if rt else "device does not compute Running Tolerance",
+            )
+        except Exception as exc:
+            self.store.set_capability("running_tolerance", False, f"{type(exc).__name__}: {exc}")
+
         self._probe("weekly_stress", f"/usersummary-service/stats/stress/weekly/{t}/52")
         half = (today_d - timedelta(days=90)).isoformat()
         self._probe("maxmet_history", f"/metrics-service/metrics/maxmet/daily/{history_start}/{half}")
@@ -1339,6 +1432,12 @@ class SyncEngine:
 
         # Alert scan diff: new/changed → upsert, back-in-band → resolve.
         desired = alerts_mod.scan(series_by_metric, t)
+        # Running-tolerance over-capacity is an absolute Garmin threshold, not a
+        # personal-baseline z-score, so it is scanned separately (§3.2 #23/#21).
+        tol_series = store.get_series("running_tolerance_pct", t, 30)
+        tol_alert = alerts_mod.tolerance_alert(tol_series[-1][1] if tol_series else None, t)
+        if tol_alert:
+            desired.append(tol_alert)
         for al in desired:
             store.upsert_alert(al.get("since_date", t), al["metric"], al["severity"], al["message"])
         desired_metrics = {al["metric"] for al in desired}
@@ -1349,6 +1448,9 @@ class SyncEngine:
             resolved = alerts_mod.resolution_dates(series_by_metric, candidates, t)
             for metric, rdate in resolved.items():
                 store.resolve_alert(metric, rdate)
+            # tolerance resolves on the absolute rule, not the z-score one
+            if "running_tolerance" in candidates:
+                store.resolve_alert("running_tolerance", t)
 
     # --- staleness API for the MCP layer ---
 

@@ -154,6 +154,23 @@ def _acwr_line(acwr: dict[str, Any]) -> str | None:
     )
 
 
+def _tolerance_line(store: Any, end: str, window_days: int) -> tuple[str, bool] | None:
+    """Garmin running tolerance (capability-gated, §3.2 #23): impact load vs the
+    device's own capacity, plus a trend. Absent series → None (no line, never
+    faked). Returns (line, over_capacity)."""
+    series = store.get_series("running_tolerance_pct", end, window_days)
+    if not series:
+        return None
+    ratio = series[-1][1]
+    over = ratio > 1.0
+    line = (f"Running tolerance: impact load {ratio:.0%} of your capacity — "
+            f"{'over capacity' if over else 'within capacity'}")
+    res = trends.analyze("running_tolerance_pct", series, end, min(window_days, 28), unit="")
+    if not res["suppressed"]:
+        line += f" · {res['sentence']}"
+    return line, over
+
+
 # ---------------------------------------------------------------------------
 # monotony / strain history
 # ---------------------------------------------------------------------------
@@ -342,6 +359,7 @@ def _weekly_load_daily_series(
 
 def _verdict_text(
     ramp_flag: bool | None, mono_flag: bool, tid_flag: str | None, precedent_exceeded: bool,
+    over_capacity: bool = False,
 ) -> str:
     issues: list[str] = []
     if ramp_flag:
@@ -350,6 +368,8 @@ def _verdict_text(
         issues.append("monotony spiked above 2.0 in the window")
     if tid_flag:
         issues.append(tid_flag)
+    if over_capacity:
+        issues.append("running impact load over your tolerance capacity")
     if precedent_exceeded:
         issues.append("load structure above your own pre-episode trigger level")
     if not issues:
@@ -433,6 +453,12 @@ async def run(ctx: Any, weeks: int = DEFAULT_WEEKS, anchor_date: str | None = No
     if mono_line:
         dose_lines.append(mono_line)
 
+    tolerance = _tolerance_line(store, end, weeks * 7)
+    over_capacity = False
+    if tolerance:
+        tol_line, over_capacity = tolerance
+        dose_lines.append(tol_line)
+
     report_start = (_date.fromisoformat(end) - timedelta(days=weeks * 7 - 1)).isoformat()
     currency_note = f"{n}d of local history feeds CTL/ATL/ACWR"
     window_acts = store.list_activities(report_start, end)
@@ -459,7 +485,8 @@ async def run(ctx: Any, weeks: int = DEFAULT_WEEKS, anchor_date: str | None = No
     if prec_line:
         sections.append(Section(title=None, header=None, prose=prec_line, priority="secondary"))
 
-    verdict = _verdict_text(form.get("ramp_flag"), mono_flag, tid_flag, prec_exceeded)
+    verdict = _verdict_text(form.get("ramp_flag"), mono_flag, tid_flag, prec_exceeded,
+                            over_capacity)
     provisional = n < 28
     if provisional:
         verdict = f"PROVISIONAL (n={n} days) — {verdict}"

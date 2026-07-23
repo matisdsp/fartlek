@@ -138,6 +138,31 @@ def test_acwr_caveat_present_when_not_yet_reliable(store):
     assert "contested spike detector, not a verdict" in out
 
 
+# --- running tolerance (capability-gated, §3.2 #23) -------------------------
+
+def test_absent_running_tolerance_omits_the_line(store):
+    seed_calm(store)
+    assert "Running tolerance" not in run(FakeContext(store))
+
+
+def test_running_tolerance_within_capacity_renders(store):
+    seed_calm(store)
+    store.upsert_day({"date": TODAY, "running_tolerance_pct": 0.8,
+                      "synced_at": "2026-01-01T00:00:00"})
+    out = run(FakeContext(store))
+    assert "Running tolerance: impact load 80% of your capacity — within capacity" in out
+
+
+def test_running_tolerance_over_capacity_flags_line_and_verdict(store):
+    seed_calm(store)
+    store.upsert_day({"date": TODAY, "running_tolerance_pct": 1.25,
+                      "synced_at": "2026-01-01T00:00:00"})
+    out = run(FakeContext(store))
+    assert "impact load 125% of your capacity — over capacity" in out
+    verdict = out.split("VERDICT:")[1].split("**")[0]
+    assert "over your tolerance capacity" in verdict
+
+
 # --- absent data is omitted, never fabricated -------------------------------
 
 def test_empty_store_still_renders_a_valid_report(store):

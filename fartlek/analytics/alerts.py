@@ -226,3 +226,21 @@ def resolution_dates(
         if all(not _out_of_band(metric, (v - median) / mad_sd) for v in (v1, v2)):
             resolved[metric] = d2
     return resolved
+
+
+def tolerance_alert(ratio: float | None, end_date: str) -> dict[str, Any] | None:
+    """Running-tolerance over-capacity WATCH (§3.2 #23, feeding #21).
+
+    Unlike the z-score scanner above this is an ABSOLUTE Garmin threshold —
+    impact load above the device's own tolerance capacity (ratio > 1.0) — not a
+    personal-baseline deviation, so it is evaluated separately. Returns None
+    below capacity or with no data; a missing value never fabricates an alarm.
+    """
+    if ratio is None or ratio <= 1.0:
+        return None
+    return {
+        "metric": "running_tolerance",
+        "severity": "WATCH",
+        "message": f"running tolerance over capacity — impact load {ratio:.0%} of tolerance",
+        "since_date": end_date,
+    }

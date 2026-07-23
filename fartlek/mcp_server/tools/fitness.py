@@ -190,6 +190,20 @@ def _vo2max_row(store: Any, start: str, end: str, window_days: int) -> Row | Non
     return Row(["VO2max", f"{series[-1][1]:.1f} · " + _finding(res, "VO2max")])
 
 
+def _endurance_score_row(store: Any, end: str, window_days: int) -> Row | None:
+    """Garmin's Endurance Score, capability-gated (§3.2 #23): an absent series
+    (device does not compute it) yields no row — never a fabricated one. A
+    device composite, trended like VO2max (direction + magnitude, no p-value)."""
+    series = store.get_series("endurance_score", end, window_days)
+    if not series:
+        return None
+    res = trends.analyze("endurance_score", series, end, window_days, unit="")
+    if res["suppressed"]:
+        return Row(["Endurance Score", f"{series[-1][1]:.0f} latest — {res['reason']}, "
+                                       "no trend claimed"])
+    return Row(["Endurance Score", f"{series[-1][1]:.0f} · " + _finding(res, "Endurance Score")])
+
+
 def _pace_band(laps: list[dict[str, Any]]) -> tuple[float, float] | None:
     """The athlete's middle-half pace band, in s/km.
 
@@ -554,6 +568,9 @@ async def run(ctx: Any, weeks: int = DEFAULT_WEEKS,
     vo2 = _vo2max_row(store, start, end, window_days)
     if vo2:
         rows.append(vo2)
+    endurance = _endurance_score_row(store, end, window_days)
+    if endurance:
+        rows.append(endurance)
     band_rows, move = _band_rows(laps)
     rows.extend(band_rows)
     ef = _ef_row(laps, end, window_days)

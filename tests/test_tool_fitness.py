@@ -273,6 +273,21 @@ def test_vo2max_row_appears_once_the_device_produced_it(store):
     assert "VO2max" in out and "61.0" in out
 
 
+def test_absent_endurance_score_omits_the_row(store):
+    """Capability-gated (§3.2 #23): no endurance_score series → no row, no fake."""
+    seed_band(store)
+    out = run(FakeContext(store))
+    assert "Endurance Score" not in out
+
+
+def test_endurance_score_row_appears_once_the_device_produced_it(store):
+    seed_band(store)
+    for wk, score in (("2026-06-01", 5000.0), ("2026-06-29", 5150.0), ("2026-07-20", 5300.0)):
+        store.upsert_day({"date": wk, "endurance_score": score, "synced_at": TS})
+    out = run(FakeContext(store))
+    assert "Endurance Score" in out and "5300" in out
+
+
 def test_no_laps_means_no_efficiency_row(store):
     store.upsert_activity({"activity_id": 1, "date": "2026-07-01",
                            "sport": "running", "duration_s": 3600,

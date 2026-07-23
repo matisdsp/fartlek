@@ -62,7 +62,7 @@ _SWC_EXCEPTIONS: dict[str, tuple[str, float]] = {
 }
 
 # Garmin-smoothed series: direction + magnitude wording only, never p-language.
-_SMOOTHED_METRICS = frozenset({"vo2max"})
+_SMOOTHED_METRICS = frozenset({"vo2max", "endurance_score"})
 
 # Metrics whose rise is unwelcome — drives the wording, never the arithmetic.
 _LABELS: dict[str, str] = {
@@ -70,6 +70,8 @@ _LABELS: dict[str, str] = {
     "resting_hr": "resting HR",
     "ef": "efficiency factor",
     "vo2max": "VO2max",
+    "endurance_score": "Endurance Score",
+    "running_tolerance_pct": "running tolerance",
     "sleep_score": "sleep score",
     "sleep_duration_h": "sleep duration",
     "daily_load": "daily load",
