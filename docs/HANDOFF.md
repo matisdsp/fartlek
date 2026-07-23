@@ -37,7 +37,7 @@ Structuring corollary: **the LLM must never have to re-derive a statistic**. If 
 | Lint | ✅ `uv run ruff check fartlek/ tests/` |
 | Live PyPI version | **0.1.1** — local bumped to **0.2.0**, tag/push still to do (§6) |
 | Quality programme / CI gates | ✅ **5 gates delivered** (§6); reduced eval done (`docs/EVAL.md`) |
-| MCP prompts & resources | ⬜ not started (progressive enhancement, v0.2.1 candidate) |
+| MCP prompts & resources | ✅ 7 prompts + 2 resources (`prompts.py`, `server.py`); verified over JSON-RPC |
 
 **14 tools exposed** in total: 8 from Phase 1 (`garmin_brief`, `garmin_activities`, `garmin_activity`, `garmin_athlete`, `garmin_set_profile`, `garmin_log`, `garmin_sync`, `garmin_raw`) + 6 from Phase 2 (`garmin_recovery`, `garmin_load`, `garmin_fitness`, `garmin_week`, `garmin_whats_changed`, `garmin_reference`).
 

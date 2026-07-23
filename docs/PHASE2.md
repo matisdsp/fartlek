@@ -38,10 +38,10 @@ Scope decisions taken 2026-07-22: engine before tools · live Garmin probing all
 
 Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `tests/test_guardrails.py` as it lands — that set is the progress counter.
 
-## 3. MCP prompts & resources — *progressive enhancement, v0.2.1 candidate*
+## 3. MCP prompts & resources — *progressive enhancement (landed 2026-07-23)*
 
-⬜ Prompts: `morning_briefing`, `weekly_review`, `post_activity_debrief`, `race_readiness`, `plan_next_week`, `injury_risk_check`, `setup_athlete` (§4.6)
-⬜ Resources: `garmin://athlete/snapshot`, `garmin://reference/metrics-glossary`
+✅ Prompts (7, `fartlek/mcp_server/prompts.py`, registered in `server.py`): `morning_briefing`, `weekly_review`, `post_activity_debrief(activity_id)`, `race_readiness`, `plan_next_week`, `injury_risk_check`, `setup_athlete` — each a data+methodology conversation starter (directs the tool call, frames the Seiler/Friel review order, restates the honesty rules). Verified over JSON-RPC (`prompts/list` → 7).
+✅ Resources (2): `garmin://athlete/snapshot` (mirrors `garmin_athlete`), `garmin://reference/metrics-glossary` (mirrors `garmin_reference`). `resources/list` → 2. Tests in `test_prompts.py` (registration, phantom-tool guard on prompt content, resource-mirror wiring).
 
 ## 4. Quality programme (§4.5)
 
