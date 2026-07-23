@@ -124,10 +124,10 @@ printf '%s\n' \
 
 Two items, both **minor and non-blocking** for v0.2:
 
-- **Tanda + 3-model triangulation** (§3.2 #16): `race.py` has Riegel and the exponent fit, but Tanda (`Pm = 17.1 + 140·e^(−0.0053K) + 0.55P`) and Garmin/Tanda/Riegel triangulation remain to be written. **Limited impact**: the maintainer's target race is fixed-time (the fixed-time model, for its part, is done), and PRs aren't persisted anyway (see below). To be done once an athlete with a *distance* goal is tested.
+- **Tanda + 3-model triangulation** (§3.2 #16): `race.py` has Riegel and the exponent fit, but Tanda (`Pm = 17.1 + 140·e^(−0.0053K) + 0.55P`) and Garmin/Tanda/Riegel triangulation remain to be written. **Limited impact**: the maintainer's target race is fixed-time (the fixed-time model, for its part, is done). PRs are now persisted (see below), so the input side is ready; the Garmin race-prediction payload also needs digesting for the third model. To be finished once an athlete with a *distance* goal is tested.
 - **Capability-gated trends** (running tolerance / endurance score, §3.2 #23): no capability probe exists yet for these fields; cleanly omitted until a probe is added.
 
-**Hidden dependency worth knowing:** **PRs are never persisted** (`sync/engine.py` only *probes* `personal_records`). So the distance branch of `garmin_fitness` reads PRs from `athlete_profile` (keys `pr_5k`/`pr_10k`/`pr_half`/`pr_marathon` in `H:MM:SS`) — which nothing writes today. Riegel is therefore dormant for lack of input. Persisting PRs at sync time is the prerequisite for any distance race prediction.
+**PRs are now persisted (done 2026-07-23).** Tier 0 digests Garmin's personal-record payload (`digest_personal_records`, typeId 3/4/5/6 → 5k/10k/half/marathon, seconds) into `sync_state["personal_records"]` (same sync-derived boundary as HR zones, D8 — *not* `athlete_profile`, which stays user-typed). `garmin_fitness._personal_records(store)` reads them (with any typed `pr_*` profile key as a fallback), so the Riegel distance branch is no longer dormant. This unblocks the remaining Tanda triangulation below.
 
 ---
 

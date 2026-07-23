@@ -209,6 +209,19 @@ def test_distance_goal_with_prs_renders_riegel_only(store):
     assert "no consensus is claimed" in out
 
 
+def test_distance_goal_uses_synced_personal_records(store):
+    """PRs persisted at sync (not typed into the profile) drive Riegel — the
+    distance-race branch is no longer dormant now that sync stores them."""
+    seed_band(store)
+    set_goal(store, goal_distance="marathon", goal_race_date="2026-09-20", goal_time="2:59:00")
+    store.set_personal_records({
+        "10k": {"seconds": 2323.0, "date": "2026-05-01", "activity_id": 1},   # 38:43
+        "half": {"seconds": 5100.0, "date": "2026-04-10", "activity_id": 2},  # 1:25:00
+    })
+    out = run(FakeContext(store))
+    assert "Riegel" in out and "exponent" in out
+
+
 def test_no_goal_on_file_points_at_the_profile_tool(store):
     seed_band(store)
     out = run(FakeContext(store))

@@ -386,6 +386,39 @@ def digest_hr_zones(raw: Any) -> dict[str, Any] | None:
     }
 
 
+_PR_TYPE_TO_DISTANCE = {3: "5k", 4: "10k", 5: "half", 6: "marathon"}
+
+
+def digest_personal_records(raw: Any) -> dict[str, dict[str, Any]] | None:
+    """`/personalrecord-service/.../prs/{name}` payload → {distance: {seconds,
+    date, activity_id}} for the four standard run distances.
+
+    Garmin returns one entry per typeId; 3/4/5/6 are the 5K/10K/half/marathon
+    run PRs and `value` is the time in seconds. This typeId mapping is Garmin's
+    undocumented convention (confirmed against a real account, not a labelled
+    field — `prTypeLabelKey` comes back null). Only ACCEPTED entries with a
+    positive value are kept; a missing status is treated as acceptable so the
+    digest is lenient to partial payloads.
+    """
+    entries = raw if isinstance(raw, list) else []
+    out: dict[str, dict[str, Any]] = {}
+    for e in entries:
+        if not isinstance(e, dict) or e.get("status") not in (None, "ACCEPTED"):
+            continue
+        key = _PR_TYPE_TO_DISTANCE.get(e.get("typeId"))
+        value = e.get("value")
+        if not key or not isinstance(value, (int, float)) or value <= 0:
+            continue
+        stamp = (e.get("prStartTimeGmtFormatted")
+                 or e.get("activityStartDateTimeLocalFormatted") or "")
+        out[key] = {
+            "seconds": float(value),
+            "date": stamp[:10] or None,
+            "activity_id": e.get("activityId"),
+        }
+    return out or None
+
+
 def digest_activity(raw: dict[str, Any]) -> dict[str, Any]:
     """One activities-list entry → activities row.
 
@@ -728,7 +761,14 @@ class SyncEngine:
         if zones:
             self.store.set_hr_zones(zones)
 
-        self._probe("personal_records", f"/personalrecord-service/personalrecord/prs/{name}")
+        # Personal records → the distance-race branch of garmin_fitness can
+        # anchor Riegel on maximal efforts. Sync-derived, so persisted in
+        # sync_state (like zones); zero extra API cost (already probed).
+        pr_raw = self._probe(
+            "personal_records", f"/personalrecord-service/personalrecord/prs/{name}")
+        prs = digest_personal_records(pr_raw)
+        if prs:
+            self.store.set_personal_records(prs)
         self._probe("race_predictions", f"/metrics-service/metrics/racepredictions/latest/{name}")
         self._probe("training_status", f"/metrics-service/metrics/trainingstatus/aggregated/{t}")
         self._probe("training_readiness", f"/metrics-service/metrics/trainingreadiness/{t}")
