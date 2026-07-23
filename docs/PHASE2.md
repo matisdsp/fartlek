@@ -57,10 +57,11 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 | Description/signature consistency | ✅ `test_guardrails.py::test_description_call_args_are_registered_params` — every `garmin_x(arg=…)` in a description names a real param of x |
 | Session-cost gate ≤17K | ✅ `test_guardrails.py::test_session_cost_under_17k` — sum of hard caps at default args = 16,070 (basis §5 rule 8) |
 | Catalog ≤3.5K tokens | ✅ exists, must keep passing |
+| **Reduced eval harness (v0.2)** — ~10 tasks, Claude Code only | ✅ `docs/EVAL.md` — 10-task set defined, tasks A–F run live on the real account 2026-07-23; criteria 1–5 pass; surfaced 4 cross-tool coherence findings (E1–E4) |
 | Eval harness ~30 multi-tool tasks, Claude Code + Desktop + Cursor | ⬜ *(v0.2.1)* |
-| Token + calls-per-task regression gates | ⬜ |
+| Token + calls-per-task regression gates | ⬜ *(v0.2.1)* |
 | Transcript audits (every LLM-re-derived number = missing pre-computation) | ⬜ *(v0.2.1)* |
-| French-language eval tasks (server renders English, client translates) | ⬜ *(v0.2.1)* |
+| French-language eval tasks (server renders English, client translates) | ✅ v0.2 reduced: task D (`garmin_load`) answered in French, all numbers preserved (`docs/EVAL.md`). Full FR set → *(v0.2.1)* |
 | Engine validation vs intervals.icu golden data | ✅ decoupling validated against raw streams on 8 long runs: median diff 1.0 pt, 7/8 within 3 pts. Their derived fields (decoupling/EF) come back empty on this account, so the streams were used directly — a stronger check. NOTE: their CTL is TSS-scaled (15.6) vs ours Garmin-load-scaled (104.8); only ratios are comparable |
 | Anomaly-scanner threshold tuning on real multi-month data | ✅ 75 → 27 alerts, AMBER 27 → 4, anchored by the certified salmonella positive (2026-04-19..22) |
 
@@ -87,6 +88,8 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 | D3 | First `fartlek auth` persisted `di_refresh_token: null`, so the session died after ~20h and forced a full re-login. Re-auth stored one correctly; watch whether refresh rewrites the file | ⬜ monitor |
 | D4 | Steady-session EF qualifier yields too few sessions to trend on a real athlete | ✅ amended — pace bands primary |
 | D5 | `digest_laps` treated lap index 0 as missing (`or` on a falsy int) | ✅ fixed with the splits commit |
+| E1 | HRV-vs-band framed 3 ways across `brief`/`recovery`/`week` (above band / in band / left band) — different band windows; `recovery` doesn't print its band bounds so the disagreement is invisible | ⬜ from v0.2 eval (`docs/EVAL.md`); fix candidate: print band bounds + shared HRV-band resolver |
+| E2 | Sleep need differs 8h00 (`brief`/`athlete`, baseline) vs 8.8h (`week`, current Garmin `sleepNeed`) — unlabelled basis, drives a 32.8h vs 20.9h 14d-debt gap (E3) | ⬜ from v0.2 eval; fix candidate: label baseline vs current wherever need drives debt |
 
 ## 7. Release
 
