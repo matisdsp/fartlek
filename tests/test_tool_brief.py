@@ -153,6 +153,23 @@ async def test_all_marker_rows_present(store, monkeypatch):
     assert "−9%" in out and "productive −10…−30%" in out
 
 
+async def test_high_hrv_renders_informational_not_a_warning(store, monkeypatch):
+    """E1: a HRV rise above band is favorable-direction information, not a ⚠.
+    Fusion never credits high HRV ('above is never credited', §3.2 #8) and the
+    alert scanner is tuned so only the unfavorable direction interrupts, so the
+    daily surface must not alarm on good news."""
+    patch_fusion(monkeypatch)
+    # narrow low baseline, then a sharp rise in the last week → 7d roll above band
+    hrv = [90 if i % 2 else 80 for i in range(53)] + [135] * 7
+    for row in make_days(TODAY, 60, hrv_last_night=hrv, resting_hr=44,
+                         sleep_duration_h=8.0, sleep_need_h=8.0, sleep_score=80):
+        store.upsert_day(row)
+    out = await brief.run(FakeContext(store))
+    hrv_line = next(line for line in out.splitlines() if line.startswith("| HRV overnight"))
+    assert "above band" in hrv_line          # elevation is still disclosed
+    assert "⚠" not in hrv_line               # but it is not a warning
+
+
 async def test_absent_markers_omitted(store, monkeypatch):
     patch_fusion(monkeypatch, markers=("rhr",))
     for row in make_days(TODAY, 40, resting_hr=44):

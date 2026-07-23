@@ -133,7 +133,12 @@ def _hrv_row(store: Any, d: str) -> Row | None:
         run = baselines.streak(series, lambda v: v < lo)
         context = f"below band, {run}d"
     elif roll7 > hi:
-        pos, flag = "above band", "⚠ above band"
+        # High HRV is not a daily warning: fusion never credits or penalises it
+        # ("above is never credited", §3.2 #8), a rise is corroboration for the
+        # convergence audit, not a standalone alarm, and the alert scanner is
+        # tuned so only the unfavorable direction interrupts (HANDOFF §7). So we
+        # surface "above band" as information, not a ⚠.
+        pos, flag = "above band", "✓"
         run = baselines.streak(series, lambda v: v > hi)
         context = f"above band, {run}d"
     else:
