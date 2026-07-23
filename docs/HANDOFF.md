@@ -1,6 +1,6 @@
 # Handoff — Fartlek project state
 
-*Last updated: 2026-07-23. Phase 2 engine, 6 tools, **5 CI gates**, and **reduced eval harness** done; version bumped to **0.2.0** locally. Only the manual release steps remain (tag/push PyPI, `mcp-publisher`).*
+*Last updated: 2026-07-23. **v0.2.0 shipped to PyPI.** Since then, all on main and releasing as **v0.2.1**: the engine is now **fully complete** (race Garmin/Tanda/Riegel triangulation + capability-gated running-tolerance/endurance trends), 7 MCP prompts + 2 resources, and the E1/D2 fixes. 1000 tests green. Only the `mcp-publisher` step is human-gated.*
 
 This document is the **entry point** for an agent (or a human) picking up the project. It states **where the project stands**, **what has been verified**, **what remains**, and **the traps that cost time**. It does not duplicate the spec: the authority remains `docs/DESIGN.md` (the what/why), `ROADMAP.md` (the phase plan), and `docs/PHASE2.md` (the item-by-item Phase 2 checklist, kept up to date in the same commit as the work).
 
@@ -9,8 +9,8 @@ This document is the **entry point** for an agent (or a human) picking up the pr
 ## 0. TL;DR — start here
 
 1. **Read, in order:** this file → `docs/PHASE2.md` (exact checklist of what remains) → `docs/DESIGN.md` §3.2 (the metrics catalog, contract) → `CLAUDE.md` (project discipline).
-2. **Run** `uv run pytest -q` (expected: **971 pass**) and `uv run ruff check fartlek/ tests/` (clean).
-3. **The engine, the 14 tools, the 5 CI gates, and the reduced eval are finished and verified on a real Garmin account.** The version is already bumped to **0.2.0** (pyproject + server.json + uv.lock). All that remains is **tagging and publishing** (§6) — human steps. The heavy eval programme (30 tasks × 3 clients, transcript audits) is deferred to **v0.2.1**.
+2. **Run** `uv run pytest -q` (expected: **1000 pass**) and `uv run ruff check fartlek/ tests/` (clean).
+3. **The engine is fully complete** (every §3.2 item, incl. the race triangulation and capability-gated trends), plus 14 tools, 7 prompts + 2 resources, 5 CI gates, and the reduced eval — all verified on a real Garmin account. **v0.2.0 is on PyPI; v0.2.1 is bumped and tagged from here.** The heavy eval programme (30 tasks × 3 clients, transcript audits) is still deferred to a later v0.2.x.
 4. **A real test account is installed** in `~/.fartlek/` (see §4). Don't break it; never commit `~/.fartlek/` or `.env`.
 
 ---
@@ -29,13 +29,13 @@ Structuring corollary: **the LLM must never have to re-derive a statistic**. If 
 |---|---|
 | Phase 0 (foundation) | ✅ done |
 | Phase 1 (core read surface, v0.1) | ✅ done, **0.1.1 on PyPI** |
-| **Phase 2 — analytics engine** | ✅ **complete** (10 modules; 2 minor non-blocking items — see §5) |
+| **Phase 2 — analytics engine** | ✅ **fully complete** — every §3.2 item done, incl. race triangulation & capability-gated trends (2026-07-23) |
 | **Phase 2 — the 6 tools** | ✅ **delivered, wired, verified over real MCP** |
 | Alert detector | ✅ calibrated on 6 months of real data (75 → 27 alerts) |
 | External validation (intervals.icu) | ✅ cross-checked decoupling, median gap 1 pt |
-| Tests | ✅ **971 pass** (`uv run pytest -q`, ~4 s) |
+| Tests | ✅ **1000 pass** (`uv run pytest -q`, ~4 s) |
 | Lint | ✅ `uv run ruff check fartlek/ tests/` |
-| Live PyPI version | **0.1.1** — local bumped to **0.2.0**, tag/push still to do (§6) |
+| Live PyPI version | **0.2.0** on PyPI — releasing **0.2.1** (bumped; tag/push via OIDC, then `mcp-publisher`) |
 | Quality programme / CI gates | ✅ **5 gates delivered** (§6); reduced eval done (`docs/EVAL.md`) |
 | MCP prompts & resources | ✅ 7 prompts + 2 resources (`prompts.py`, `server.py`); verified over JSON-RPC |
 
@@ -92,7 +92,7 @@ Useful entry points: `mcp_server/context.py` (`ToolContext`, `ensure_ready()` co
 
 ```bash
 uv sync                          # install (dev group included)
-uv run pytest -q                 # 971 tests, ~4 s
+uv run pytest -q                 # 1000 tests, ~4 s
 uv run ruff check fartlek/ tests/
 uv run fartlek auth --replace    # Garmin login (email/password + MFA) — REQUIRES A REAL TERMINAL
 uv run fartlek doctor            # health check
