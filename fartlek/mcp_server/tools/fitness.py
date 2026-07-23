@@ -140,19 +140,24 @@ def _goal(profile: dict[str, str]) -> dict[str, Any]:
     return {"kind": "none"}
 
 
-def _personal_records(profile: dict[str, str]) -> list[tuple[float, float]]:
-    """[(metres, seconds)] from profile keys pr_5k / pr_10k / pr_half /
-    pr_marathon.
+def _personal_records(store: Any) -> list[tuple[float, float]]:
+    """[(metres, seconds)] of MAXIMAL efforts for 5k / 10k / half / marathon.
 
-    Only MAXIMAL efforts belong here: `race.fit_riegel_exponent` fits pacing
-    discipline rather than physiology when fed training runs (its docstring
-    documents the 0.99 exponent that produced). Sync does not persist Garmin's
-    PR payload in Phase 1, so this is normally empty and the Riegel line is
-    omitted rather than anchored on something that is not a PR.
+    Prefers Garmin's persisted PRs (sync-derived, tier 0) and falls back to a
+    user-entered profile pr_* key. Only MAXIMAL efforts belong here:
+    `race.fit_riegel_exponent` fits pacing discipline rather than physiology
+    when fed training runs (its docstring documents the 0.99 exponent that
+    produced), so the Riegel line is omitted rather than anchored on a non-PR.
     """
+    sync_prs = store.get_personal_records() or {}
+    profile = store.get_profile()
     out: list[tuple[float, float]] = []
     for key, metres in _DISTANCE_M.items():
-        secs = _parse_hms(profile.get(f"pr_{key}"))
+        record = sync_prs.get(key)
+        if record and record.get("seconds"):
+            secs: float | None = float(record["seconds"])
+        else:
+            secs = _parse_hms(profile.get(f"pr_{key}"))
         if secs:
             out.append((metres, secs))
     return sorted(out)
@@ -373,7 +378,7 @@ def _fixed_time_section(
 
 
 def _distance_section(
-    profile: dict[str, str], goal: dict[str, Any]
+    store: Any, goal: dict[str, Any]
 ) -> tuple[Section, str]:
     """Riegel-only race read for a distance goal.
 
@@ -382,7 +387,7 @@ def _distance_section(
     'consensus' with two invented members would be worse than one honest model.
     """
     head = goal["label"] + (f" — {format_date(goal['date'])}" if goal.get("date") else "")
-    prs = _personal_records(profile)
+    prs = _personal_records(store)
     if not prs:
         return (Section(title=None, header=None, prose=(
             f"**{head}** — no maximal performance (PR) on file, so no race-time "
@@ -512,7 +517,7 @@ async def run(ctx: Any, weeks: int = DEFAULT_WEEKS,
     if goal["kind"] == "fixed_time":
         section, clause = _fixed_time_section(store, goal, end, window_days)
     elif goal["kind"] == "distance":
-        section, clause = _distance_section(profile, goal)
+        section, clause = _distance_section(store, goal)
     elif goal["kind"] == "unknown":
         section, clause = None, (
             "a goal date is on file without a distance — "

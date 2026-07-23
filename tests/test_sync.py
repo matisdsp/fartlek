@@ -21,6 +21,7 @@ from fartlek.sync.engine import (
     digest_activity,
     digest_daily_summary,
     digest_hrv,
+    digest_personal_records,
     digest_sleep,
 )
 
@@ -199,7 +200,16 @@ def base_routes():
              "restingHeartRateUsed": 44, "zone1Floor": 99, "zone2Floor": 117,
              "zone3Floor": 139, "zone4Floor": 156, "zone5Floor": 178},
         ],
-        "/personalrecord-service/personalrecord/prs/": [{"typeId": 3, "value": 1200.0}],
+        "/personalrecord-service/personalrecord/prs/": [
+            {"typeId": 3, "value": 1112.65, "status": "ACCEPTED",
+             "prStartTimeGmtFormatted": "2026-06-18T17:45:28.0", "activityId": 111},
+            {"typeId": 4, "value": 2400.0, "status": "ACCEPTED",
+             "prStartTimeGmtFormatted": "2026-05-01T07:00:00.0", "activityId": 222},
+            {"typeId": 5, "value": 6152.0, "status": "ACCEPTED",
+             "prStartTimeGmtFormatted": "2026-04-10T08:00:00.0"},
+            {"typeId": 6, "value": 12560.0, "status": "ACCEPTED"},
+            {"typeId": 7, "value": 102717.0, "status": "ACCEPTED"},  # longest run (m) — ignored
+        ],
         "/metrics-service/metrics/racepredictions/latest/": {"time5K": 1500.0},
         "/metrics-service/metrics/trainingstatus/aggregated/": {"mostRecentTrainingStatus": {}},
         "/metrics-service/metrics/trainingreadiness/": [{"score": 55, "level": "MODERATE"}],
@@ -413,6 +423,23 @@ def test_digest_activity_missing_load_left_null_for_ladder():
     assert "trimp" not in row and "rpe" not in row
 
 
+def test_digest_personal_records_maps_run_typeids_and_filters():
+    raw = [
+        {"typeId": 3, "value": 1112.65, "status": "ACCEPTED",
+         "prStartTimeGmtFormatted": "2026-06-18T17:45:28.0", "activityId": 111},
+        {"typeId": 6, "value": 12560.0, "status": "ACCEPTED"},
+        {"typeId": 7, "value": 102717.0, "status": "ACCEPTED"},   # longest run (m) — not a time PR
+        {"typeId": 4, "value": -1.0, "status": "ACCEPTED"},       # bad value — dropped
+        {"typeId": 5, "value": 6152.0, "status": "PENDING"},      # not accepted — dropped
+    ]
+    out = digest_personal_records(raw)
+    assert set(out) == {"5k", "marathon"}
+    assert out["5k"] == {"seconds": 1112.65, "date": "2026-06-18", "activity_id": 111}
+    assert out["marathon"]["date"] is None       # no timestamp in payload
+    assert digest_personal_records([]) is None    # empty → None, not {}
+    assert digest_personal_records(None) is None   # non-list → None
+
+
 # --- tier 0 ------------------------------------------------------------------
 
 def test_tier0_populates_store_and_capability_map(store, tmp_path):
@@ -432,6 +459,14 @@ def test_tier0_populates_store_and_capability_map(store, tmp_path):
     assert zones["zone_floors"] == [99.0, 117.0, 139.0, 156.0, 178.0]
     # weight seeded from user-settings when the range endpoint has nothing
     assert store.get_day(TODAY)["weight_g"] == 70000
+
+    # personal records persisted: typeId 3/4/5/6 → 5k/10k/half/marathon (seconds),
+    # non-run typeId 7 (longest run, metres) excluded; date trimmed to YYYY-MM-DD
+    prs = store.get_personal_records()
+    assert set(prs) == {"5k", "10k", "half", "marathon"}
+    assert prs["5k"]["seconds"] == 1112.65
+    assert prs["10k"]["seconds"] == 2400.0
+    assert prs["5k"]["date"] == "2026-06-18"
 
     # today's rows: summary + sleep + hrv merged into one days row
     day = store.get_day(TODAY)

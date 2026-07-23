@@ -356,6 +356,16 @@ class Store:
         raw = self.get_sync_state("hr_zones")
         return json.loads(raw) if raw else None
 
+    def set_personal_records(self, records: dict[str, Any]) -> None:
+        """Persist Garmin's digested personal records ({distance: {seconds,
+        date, activity_id}}). Sync-derived (Garmin's own PR list), so kept in
+        sync_state, not athlete_profile — same boundary as HR zones (D8)."""
+        self.set_sync_state("personal_records", json.dumps(records))
+
+    def get_personal_records(self) -> dict[str, Any] | None:
+        raw = self.get_sync_state("personal_records")
+        return json.loads(raw) if raw else None
+
     def upsert_plan_entry(self, row: dict[str, Any]) -> int:
         if row.get("id") is not None:
             self._upsert("plan_calendar", row)
