@@ -198,3 +198,25 @@ def test_explicit_zero_stoppage_is_a_real_claim():
     assert zero["stoppage"] == 0.0
     assert any("0.0% of race time assumed stopped" in a for a in zero["assumptions"])
     assert zero["high_m"] > _project(stoppage=0.10)["high_m"]
+
+
+# --- Tanda marathon regression ----------------------------------------------
+
+def test_tanda_marathon_matches_the_published_formula():
+    """K=100 km/wk, P=240 s/km (4:00/km), hand-computed:
+    Pm = 17.1 + 140·e^(-0.53) + 0.55·240 = 231.505 s/km → 9768.3 s."""
+    r = race.tanda_marathon(100.0, 240.0)
+    assert r["pace_s_per_km"] == pytest.approx(231.505, abs=0.01)
+    assert r["seconds"] == pytest.approx(9768.3, abs=1.0)
+    assert r["in_domain"] is True
+    # levers: more volume → faster (negative), slower training pace → slower (positive)
+    assert r["seconds_per_km_per_week"] < 0
+    assert r["seconds_per_training_pace_s"] == pytest.approx(0.55 * 42.195, abs=1e-6)
+
+
+def test_tanda_domain_flag_and_positive_inputs():
+    assert race.tanda_marathon(20.0, 300.0)["in_domain"] is False   # below the 30 km/wk floor
+    assert race.tanda_marathon(200.0, 240.0)["in_domain"] is False  # above the 160 km/wk ceiling
+    for bad in ((0.0, 240.0), (100.0, 0.0)):
+        with pytest.raises(ValueError):
+            race.tanda_marathon(*bad)

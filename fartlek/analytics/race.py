@@ -40,6 +40,20 @@ FIXED_TIME_EXPONENT_BAND = (1.06, 1.15)
 MIN_REFERENCE_HOURS = 2.0        # below this, extrapolating to 24h is fantasy
 MAX_EXTRAPOLATION_RATIO = 6.0    # beyond 6x the reference duration, say so
 
+# Tanda's marathon regression (Tanda 2011; DESIGN §3.2 #16):
+#   Pm = 17.1 + 140·e^(−0.0053·K) + 0.55·P
+# K = mean weekly distance (km), P = mean training pace (s/km) over the ~8 weeks
+# before the race, Pm = predicted marathon race pace (s/km). It is
+# MARATHON-SPECIFIC and must never be applied to another distance. Coefficients
+# are the paper's fixed constants — a contract, not a fit.
+TANDA_MARATHON_M = 42195.0
+_TANDA_INTERCEPT = 17.1
+_TANDA_VOL_COEFF = 140.0
+_TANDA_VOL_RATE = -0.0053
+_TANDA_PACE_COEFF = 0.55
+# Domain of Tanda's own dataset; outside it the estimate is unsupported.
+TANDA_KM_RANGE = (30.0, 160.0)
+
 
 def riegel_time(t1_s: float, d1_m: float, d2_m: float, b: float = RIEGEL_DEFAULT_B) -> float:
     """T2 = T1 * (D2/D1)^b — predicted time for distance d2."""
@@ -92,6 +106,35 @@ def fit_riegel_exponent(performances: list[tuple[float, float]]) -> dict[str, An
     b = min(max(raw_b, RIEGEL_BOUNDS[0]), RIEGEL_BOUNDS[1])
     return {"b": b, "n": n, "r2": r2, "clamped": b != raw_b, "raw_b": raw_b,
             "quality": "good" if (r2 is not None and r2 >= 0.95) else "weak"}
+
+
+def tanda_marathon(weekly_km: float, mean_pace_s_per_km: float) -> dict[str, Any]:
+    """Tanda's regression: a predicted marathon time from training volume and
+    pace, independent of any PR (so it triangulates against Riegel).
+
+    Pm = 17.1 + 140·e^(−0.0053·K) + 0.55·P — see the constants above. Returns
+    the predicted `seconds` and `pace_s_per_km`, the inputs used, an
+    `in_domain` flag (Tanda fitted 30–160 km/wk; outside it the number is
+    extrapolation), and the two sensitivity levers a coach reasons with: the
+    change in predicted marathon time per +1 km/wk of volume (negative — more
+    volume, faster) and per +1 s/km of training pace (positive). Marathon-only:
+    callers must not feed it another target distance.
+    """
+    if weekly_km <= 0 or mean_pace_s_per_km <= 0:
+        raise ValueError("weekly_km and mean_pace must be positive")
+    km_factor = TANDA_MARATHON_M / 1000.0  # 42.195, s/km → whole-marathon seconds
+    decay = math.exp(_TANDA_VOL_RATE * weekly_km)
+    pace = _TANDA_INTERCEPT + _TANDA_VOL_COEFF * decay + _TANDA_PACE_COEFF * mean_pace_s_per_km
+    return {
+        "seconds": pace * km_factor,
+        "pace_s_per_km": pace,
+        "weekly_km": weekly_km,
+        "mean_pace_s_per_km": mean_pace_s_per_km,
+        "in_domain": TANDA_KM_RANGE[0] <= weekly_km <= TANDA_KM_RANGE[1],
+        # ∂Pm/∂K · km_factor and ∂Pm/∂P · km_factor
+        "seconds_per_km_per_week": _TANDA_VOL_COEFF * _TANDA_VOL_RATE * decay * km_factor,
+        "seconds_per_training_pace_s": _TANDA_PACE_COEFF * km_factor,
+    }
 
 
 def stoppage_ratio(laps: list[dict[str, Any]]) -> float | None:
