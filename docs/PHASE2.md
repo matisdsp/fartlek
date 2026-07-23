@@ -88,8 +88,9 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 | D3 | First `fartlek auth` persisted `di_refresh_token: null`, so the session died after ~20h and forced a full re-login. Re-auth stored one correctly; watch whether refresh rewrites the file | ⬜ monitor |
 | D4 | Steady-session EF qualifier yields too few sessions to trend on a real athlete | ✅ amended — pace bands primary |
 | D5 | `digest_laps` treated lap index 0 as missing (`or` on a falsy int) | ✅ fixed with the splits commit |
-| E1 | HRV-vs-band framed 3 ways across `brief`/`recovery`/`week` (above band / in band / left band) — different band windows; `recovery` doesn't print its band bounds so the disagreement is invisible | ⬜ from v0.2 eval (`docs/EVAL.md`); fix candidate: print band bounds + shared HRV-band resolver |
-| E2 | Sleep need differs 8h00 (`brief`/`athlete`, baseline) vs 8.8h (`week`, current Garmin `sleepNeed`) — unlabelled basis, drives a 32.8h vs 20.9h 14d-debt gap (E3) | ⬜ from v0.2 eval; fix candidate: label baseline vs current wherever need drives debt |
+| E1 | `brief` flagged an above-band HRV roll as ⚠ — a favorable-direction false positive (fusion never credits high HRV §3.2 #8; the alert scanner already tuned this out). Investigation corrected the eval's guess: both tools use a **60d** band, not different windows; the split is brief two-sided vs `recovery` floor-only | ✅ fixed — `brief` renders above-band as ✓ (display-only, no verdict change); `test_high_hrv_renders_informational_not_a_warning` |
+| E2-B | `week` 14d sleep-debt disagreed with `garmin_recovery` (20.9h vs 32.8h) run the same day — `_recovery` anchored the trailing 14d/7d windows at the future ISO-week Sunday, not today | ✅ fixed — trailing windows clamped to `min(end, today)`; `test_sleep_debt_anchors_at_today_not_the_future_week_end` |
+| E2-A | `athlete` showed sleep need as the latest single night under a "Baselines (60d)" header (mislabel); the 8h00-vs-8.8h gap is a point value vs a 14-night mean of the one `sleep_need_h` column | ✅ fixed — `athlete` uses the 60d median; `test_sleep_need_is_a_60d_baseline_not_the_latest_night` |
 
 ## 7. Release
 

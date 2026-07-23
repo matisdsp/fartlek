@@ -67,16 +67,16 @@ Every figure (84, 102, +21 %, +2,7 %, 84, +8 %, −3,6 %, 4–8 %, 0,73, 0,8–1
 
 The numbers *within* each tool are internally consistent, and CTL (102), TSB (+8 %), RHR (44 median / 40 today), weekly load (584), and monotony (1.2) agree across every tool that reports them. The concern is the metrics where two tools show **different values or framings for what a user reads as "the same" number**, because the product thesis is that the server, not the model, owns the numbers:
 
-| # | Metric | Divergence | Likely cause | Severity |
-|---|---|---|---|---|
-| E1 | HRV vs band | `brief` "above band" · `recovery` "in band" (101 ms 7d roll) · `week` "HRV left band this week / in band 1/2" | different band **windows** (brief: 60d band 84–95; recovery/week: shorter rolling band that has risen with the recent HRV uptrend). `recovery` does **not print its band bounds**, so the disagreement is invisible to the reader. | **medium** — three framings of one metric; the transparency gap (unprinted recovery band) is the fixable part |
-| E2 | Sleep need | `brief`/`athlete` 8h00 · `week` 8.8h | baseline need (60d) vs current dynamic Garmin `sleepNeed` (this week's avg). Both defensible; neither labels which basis it is. | **medium** — a 48-min gap on the denominator of sleep debt, unlabelled |
-| E3 | 14-day sleep debt | `recovery` 32.8h (12 nights) · `week` 20.9h | different night counts **and** the E2 need difference compound | low–medium — follows from E2 + window |
-| E4 | ACWR | `load` 0.73 (EWMA 7:28, anchored today) · `week` 0.38 (in-progress week) | correct-by-design different anchors; both label EWMA but not the anchor | low — each is right for its window |
+Each was traced to root cause by a dedicated investigation (2026-07-23); the table records the **corrected** cause, not the first-pass guess.
 
-**Recommendation.** None is a number-loss or fabrication (criteria 1–2 hold), so none blocks the v0.2 *gate* work. But E1 and E2 are the kind of "subtly confusing across a session" issue this project treats seriously (`HANDOFF` §7: a wrong-feeling number erodes trust). Suggested for a focused pass — **v0.2 if the maintainer wants coherence tight before the flagship, else v0.2.1**:
-- E1: have `garmin_recovery` (and `garmin_week`) **print the band bounds** they compare against, and reconcile whether the HRV-vs-band window should be shared across tools (candidate for a shared resolver like `_zones.resolve()`).
-- E2: label sleep need as *baseline* vs *current* wherever it drives a debt figure, or standardise on one basis.
+| # | Metric | Divergence | Root cause (investigated) | Disposition |
+|---|---|---|---|---|
+| E1 | HRV vs band | `brief` "⚠ above band" · `recovery` "in band" · `week` "in band 1/2" | *Not* different windows — **both use a 60d band.** `brief` is two-sided, `recovery` is floor-only. The real defect: brief's ⚠ on high HRV is a favorable-direction false positive — fusion treats high HRV as neutral ("above is never credited", §3.2 #8) and the alert scanner already tuned this exact case out. Display-only (never touched the verdict). | ✅ **fixed in v0.2** — brief renders above-band as ✓ (label kept). Fuller harmonisation (print recovery's band bounds, shared resolver) → v0.2.1 |
+| E2-B | 14-day sleep debt | `recovery` 32.8h · `week` 20.9h | Same `sleep_debt(window=14)`; `week._recovery` anchored the trailing window at the future ISO-week Sunday, so it counted a different 14 nights than recovery run the same day. | ✅ **fixed in v0.2** — trailing windows clamped to `min(end, today)` |
+| E2-A | Sleep need | `brief`/`athlete` 8h00 · `week` 8.8h | One `sleep_need_h` column; the values are a point value (today/latest) vs a 14-night mean, both valid. Concrete defect: `athlete` showed the *latest single night* under a "Baselines (60d)" header. | ✅ **fixed in v0.2** — athlete uses the 60d median; brief's per-night "today's need" is correct as-is |
+| E4 | ACWR | `load` 0.73 (anchored today) · `week` 0.38 (in-progress week) | Correct-by-design different anchors; both label EWMA. | ⬜ by-design; optional: label the anchor. v0.2.1 |
+
+**Outcome.** None was a number-loss or fabrication (criteria 1–2 always held). The two real bugs (E1 false-⚠, E2-B debt anchor) and the one mislabel (E2-A) were fixed in v0.2 with regression tests; E4 is by-design and E1's fuller band-transparency harmonisation is deferred to v0.2.1. This is the eval harness doing its job: run on real data, it caught three flagship-surface coherence defects that all unit tests had passed.
 
 ---
 
@@ -86,4 +86,4 @@ The numbers *within* each tool are internally consistent, and CTL (102), TSB (+8
 - Three clients (Claude Code **+ Desktop + Cursor**) — this run is Claude Code only.
 - Automated token- and calls-per-task **regression gates** (this run is a manual read).
 - Formal **transcript audits**: every model-stated number traced to the render that produced it (every re-derived number = a missing pre-computation).
-- Coherence fixes E1–E4 if not taken in v0.2.
+- Remaining coherence work: E1's band-transparency harmonisation (print recovery's band bounds; shared HRV-band resolver) and E4's anchor labelling. The two real bugs (E1 false-⚠, E2-B) and the E2-A mislabel were fixed in v0.2.
