@@ -85,7 +85,7 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 | D8 | HR zone boundaries and body weight fetched by tier 0 but never persisted | ✅ fixed — tier 0 persists the RUNNING zone config + seeds weight from user-settings; the 3 TID tools pro-rate via shared `_zones.resolve()` |
 | D7 | `body_battery_wake` still has 1 day: it is not in userstats and the dedicated body-battery endpoint only yields high/low. Readiness fusion weights it 0.10 | ⬜ |
 | D2 | `ACTIVITY_HISTORY_DAYS = 180` is not parameterisable — a long-cycle athlete cannot see their full season | ✅ fixed — `activity_history_days()` reads `FARTLEK_ACTIVITY_HISTORY_DAYS` (clamped 30–730, bad value → default 180); `test_activity_history_days_override` |
-| D3 | First `fartlek auth` persisted `di_refresh_token: null`, so the session died after ~20h and forced a full re-login. Re-auth stored one correctly; watch whether refresh rewrites the file | ⬜ monitor |
+| D3 | First `fartlek auth` persisted `di_refresh_token: null`, so the session died after ~20h and forced a full re-login. Re-auth stored one correctly; watch whether refresh rewrites the file | ✅ verified 2026-07-24 — token file mtime postdates re-login by ~32 h with a non-null `di_refresh_token`: the refresh rewrites the file |
 | D4 | Steady-session EF qualifier yields too few sessions to trend on a real athlete | ✅ amended — pace bands primary |
 | D5 | `digest_laps` treated lap index 0 as missing (`or` on a falsy int) | ✅ fixed with the splits commit |
 | E1 | `brief` flagged an above-band HRV roll as ⚠ — a favorable-direction false positive (fusion never credits high HRV §3.2 #8; the alert scanner already tuned this out). Investigation corrected the eval's guess: both tools use a **60d** band, not different windows; the split is brief two-sided vs `recovery` floor-only | ✅ fixed — `brief` renders above-band as ✓ (display-only). **Band transparency added**: `recovery` now shows a two-sided band + bounds (audit stays one-sided) and `week` prints its bounds. **Shared resolver DONE (2026-07-23):** `baselines.hrv_band`/`hrv_roll`/`hrv_position` — the canonical 60d **lnRMSSD mean ± 0.5·MAD-SD** (§3.2 #8) — now backs all four sites (brief, recovery, week, **fusion**), replacing the three divergent variants. Verified on the real account: band 85–95 ms, verdict unchanged (the log bounds land within ~1 ms of the old raw ones, so no reclassification). E1 fully closed. Tests: the four above + `test_hrv_band_is_60d_lnrmssd_mean_half_mad` et al. |
@@ -94,7 +94,6 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 
 ## 7. Release
 
-✅ Bumped to 0.2.0 — `pyproject.toml`, both `server.json` version fields, and `uv.lock` (`uv sync`), committed
-⬜ `git tag v0.2.0 && git push origin main v0.2.0` → PyPI via OIDC — **human step** (irreversible publish)
-⬜ Publish to the MCP registry — **needs a human** for `mcp-publisher login github` (device-code OAuth) then `mcp-publisher publish`
-⬜ Third-party directories (Glama, mcp.so, PulseMCP) — the maintainer handles submission
+✅ v0.2.0 and v0.2.1 released — tagged, pushed, on PyPI via the OIDC workflow
+✅ Official MCP registry — 0.2.1 published via `mcp-publisher`, `isLatest: true` (2026-07-24)
+⬜ Third-party directories — none list fartlek as of 2026-07-24. Glama and mcp.so need a manual submission; PulseMCP auto-syncs from the official registry (a manual claim at pulsemcp.com/submit speeds it up). Maintainer action.

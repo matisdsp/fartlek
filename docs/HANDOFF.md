@@ -1,6 +1,6 @@
 # Handoff — Fartlek project state
 
-*Last updated: 2026-07-23. **v0.2.0 shipped to PyPI.** Since then, all on main and releasing as **v0.2.1**: the engine is now **fully complete** (race Garmin/Tanda/Riegel triangulation + capability-gated running-tolerance/endurance trends), 7 MCP prompts + 2 resources, and the E1/D2 fixes. 1000 tests green. Only the `mcp-publisher` step is human-gated.*
+*Last updated: 2026-07-24. **v0.2.1 is live on PyPI and on the official MCP registry** (`isLatest`). The engine is **fully complete** (race Garmin/Tanda/Riegel triangulation + capability-gated running-tolerance/endurance trends), 7 MCP prompts + 2 resources, E1/E2/D2 fixed. 1004 tests green. One commit on main postdates the v0.2.1 tag (the canonical HRV band resolver — E1 fully closed); it ships with the next patch release.*
 
 This document is the **entry point** for an agent (or a human) picking up the project. It states **where the project stands**, **what has been verified**, **what remains**, and **the traps that cost time**. It does not duplicate the spec: the authority remains `docs/DESIGN.md` (the what/why), `ROADMAP.md` (the phase plan), and `docs/PHASE2.md` (the item-by-item Phase 2 checklist, kept up to date in the same commit as the work).
 
@@ -9,8 +9,8 @@ This document is the **entry point** for an agent (or a human) picking up the pr
 ## 0. TL;DR — start here
 
 1. **Read, in order:** this file → `docs/PHASE2.md` (exact checklist of what remains) → `docs/DESIGN.md` §3.2 (the metrics catalog, contract) → `CLAUDE.md` (project discipline).
-2. **Run** `uv run pytest -q` (expected: **1000 pass**) and `uv run ruff check fartlek/ tests/` (clean).
-3. **The engine is fully complete** (every §3.2 item, incl. the race triangulation and capability-gated trends), plus 14 tools, 7 prompts + 2 resources, 5 CI gates, and the reduced eval — all verified on a real Garmin account. **v0.2.0 is on PyPI; v0.2.1 is bumped and tagged from here.** The heavy eval programme (30 tasks × 3 clients, transcript audits) is still deferred to a later v0.2.x.
+2. **Run** `uv run pytest -q` (expected: **1004 pass**) and `uv run ruff check fartlek/ tests/` (clean).
+3. **The engine is fully complete** (every §3.2 item, incl. the race triangulation and capability-gated trends), plus 14 tools, 7 prompts + 2 resources, 5 CI gates, and the reduced eval — all verified on a real Garmin account. **v0.2.1 is live on PyPI and the MCP registry.** The heavy eval programme (30 tasks × 3 clients, transcript audits) is still deferred to a later v0.2.x.
 4. **A real test account is installed** in `~/.fartlek/` (see §4). Don't break it; never commit `~/.fartlek/` or `.env`.
 
 ---
@@ -23,7 +23,7 @@ Structuring corollary: **the LLM must never have to re-derive a statistic**. If 
 
 ---
 
-## 2. Current state — verified on 2026-07-23
+## 2. Current state — verified on 2026-07-24
 
 | Item | Status |
 |---|---|
@@ -33,9 +33,9 @@ Structuring corollary: **the LLM must never have to re-derive a statistic**. If 
 | **Phase 2 — the 6 tools** | ✅ **delivered, wired, verified over real MCP** |
 | Alert detector | ✅ calibrated on 6 months of real data (75 → 27 alerts) |
 | External validation (intervals.icu) | ✅ cross-checked decoupling, median gap 1 pt |
-| Tests | ✅ **1000 pass** (`uv run pytest -q`, ~4 s) |
+| Tests | ✅ **1004 pass** (`uv run pytest -q`, ~5 s) |
 | Lint | ✅ `uv run ruff check fartlek/ tests/` |
-| Live PyPI version | **0.2.0** on PyPI — releasing **0.2.1** (bumped; tag/push via OIDC, then `mcp-publisher`) |
+| Live version | **0.2.1** on PyPI **and** the official MCP registry (`isLatest: true`, verified 2026-07-24) |
 | Quality programme / CI gates | ✅ **5 gates delivered** (§6); reduced eval done (`docs/EVAL.md`) |
 | MCP prompts & resources | ✅ 7 prompts + 2 resources (`prompts.py`, `server.py`); verified over JSON-RPC |
 
@@ -92,7 +92,7 @@ Useful entry points: `mcp_server/context.py` (`ToolContext`, `ensure_ready()` co
 
 ```bash
 uv sync                          # install (dev group included)
-uv run pytest -q                 # 1000 tests, ~4 s
+uv run pytest -q                 # 1004 tests, ~5 s
 uv run ruff check fartlek/ tests/
 uv run fartlek auth --replace    # Garmin login (email/password + MFA) — REQUIRES A REAL TERMINAL
 uv run fartlek doctor            # health check
@@ -143,10 +143,8 @@ Two items, both **minor and non-blocking** for v0.2:
 
 **✅ Reduced eval harness done** (`docs/EVAL.md`): 10 tasks defined, A–F run live on the real account on 2026-07-23 (one of them in French, numbers preserved). It revealed 3 flagship consistency defects — **E1** (⚠ high HRV = false positive), **E2-B** (sleep debt `week` vs `recovery`), **E2-A** (need `athlete` mislabeled) — **all fixed** with regression tests (see PHASE2 §6). E4 (ACWR) is by-design; the HRV band transparency harmonization (E1) is deferred to v0.2.1.
 
-**v0.2 release — version ALREADY bumped to 0.2.0** (pyproject + the 2 `server.json` fields + `uv.lock`, committed). What remains, by hand (procedure verified in Phase 1, cf. §8):
-1. `git tag v0.2.0 && git push origin main v0.2.0` → the OIDC workflow publishes to PyPI.
-2. `mcp-publisher login github` (**device-code OAuth — requires a human**) then `mcp-publisher publish` for the MCP registry.
-3. Third-party directories (Glama, mcp.so, PulseMCP) — the maintainer submits.
+**v0.2 released.** v0.2.0 and v0.2.1 are both on PyPI (OIDC tag-push workflow) and on the official MCP registry (`mcp-publisher`, 0.2.1 `isLatest` — done 2026-07-24). Still open:
+- **Third-party directories** (checked 2026-07-24: fartlek listed on none of the three). **Glama** and **mcp.so** require a manual submission (Glama: "Add MCP Server" button on their servers page, GitHub-repo based, automated checks; mcp.so: submit form / GitHub issue). **PulseMCP** auto-crawls the official MCP registry, so it may pick fartlek up on its own; a manual claim at `pulsemcp.com/submit` speeds it up. The maintainer handles all three (account-holder actions).
 
 ---
 
@@ -162,7 +160,7 @@ Two items, both **minor and non-blocking** for v0.2:
 **Open** (non-blocking):
 - **D7**: `body_battery_wake` has only 1 day of history (absent from userstats, the dedicated endpoint only returns high/low). Weighs 0.10 in the readiness fusion.
 - ~~**D2**~~: **fixed** — `activity_history_days()` reads `FARTLEK_ACTIVITY_HISTORY_DAYS` (clamped 30–730, bad value falls back to the 180-day default), so a long-cycle athlete can pull a full season.
-- **D3** (to watch): the first `fartlek auth` had persisted `di_refresh_token: null` → session dead at ~20 h. The re-login stored a correct one; verify that the refresh does rewrite the file over time.
+- ~~**D3**~~: **verified 2026-07-24** — the token file holds a non-null `di_refresh_token` and its mtime (2026-07-23 22:29) postdates the re-login by ~32 h, so the refresh does rewrite the file. Closed.
 
 **The alert scanner's calibration (§7.4) is done and worth understanding**: replay over 116 real days → 75 alerts (one every 1.5 days, unworkable). Three rules decided with the athlete: (a) only the *unfavorable* direction alerts (31% of alerts flagged an *improvement*); (b) the load baseline only uses training days; (c) sleep requires 2 consecutive short nights. Result: 75 → 27, AMBER 27 → 4. **Anchored by a certified positive**: the athlete had salmonella on 2026-04-19..22 (5 deviant markers) — `test_salmonella_episode_is_still_detected` forbids any future tightening that would mask that day.
 
