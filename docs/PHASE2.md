@@ -70,8 +70,8 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 | # | Question | State |
 |---|---|---|
 | 1 | userstats RHR range on all account types | ✅ resolved — 205 days in one call, and the service serves a metricId per daily scalar over an arbitrary window (see `USERSTATS_DAILY_METRICS`) |
-| 2 | Body-battery max window / chunking | ⬜ 30-day chunks work (92 days stored); max window still unprobed — see D7 |
-| 3 | threshold-pace / race-prediction history availability | ⬜ |
+| 2 | Body-battery max window / chunking | ✅ resolved 2026-07-24 — 30 days IS the endpoint max (60d → `API Error 400 - requested date range is too big`); the existing 3×30d chunking already sits at the limit |
+| 3 | threshold-pace / race-prediction history availability | ✅ resolved 2026-07-24 — history IS available: `get_race_predictions(start, end, _type="daily"\|"monthly")` returns one entry per day, all 4 distances (60d live probe; library caps the span at ≤366d client-side). Fartlek still persists only the `/latest` snapshot — trending it is a possible future improvement (needs a DESIGN entry first) |
 | 4 | Anomaly-scanner false-positive rate | ✅ resolved — replay + athlete triage, see the quality table |
 | 6 | `directWorkoutRpe` / `directWorkoutFeel` real shape | ⬜ |
 | 7 | Enrolled Garmin Coach plans: calendar vs `get_training_plans` | ⬜ |
@@ -83,7 +83,7 @@ Each tool must clear the guardrail suite and be removed from `PHASE2_NAMES` in `
 | D1 | Daily wellness scalars (`steps`, `avg_stress`, `min_hr`, calories, distance, floors, intensity minutes) held 1 day each — the daily summary is only fetched for today, and the spec provided no backfill for them | ✅ fixed — userstats range call per metric, 2 → 181 days for 9 extra calls |
 | D6 | Rows written by a mid-day sync stayed frozen at their mid-day values forever (2026-07-20 held 6,847 steps vs an actual 18,664) | ✅ fixed by the same range backfill, which rewrites completed days |
 | D8 | HR zone boundaries and body weight fetched by tier 0 but never persisted | ✅ fixed — tier 0 persists the RUNNING zone config + seeds weight from user-settings; the 3 TID tools pro-rate via shared `_zones.resolve()` |
-| D7 | `body_battery_wake` still has 1 day: it is not in userstats and the dedicated body-battery endpoint only yields high/low. Readiness fusion weights it 0.10 | ⬜ |
+| D7 | `body_battery_wake` still has 1 day: it is not in userstats and the dedicated body-battery endpoint only yields high/low. Readiness fusion weights it 0.10 | ✅ fixed 2026-07-24 — `derive_body_battery_wake`: the sparse `bodyBatteryValuesArray` sample nearest the stored `sleep_end_ts` (≤60 min, else missing; calibrated median gap 5.6 min over 87 real days, cross-checked vs Garmin's own scalar on 2 days). Tier1 backfill, never overwrites a real Garmin value; real-account coverage 2 → 86/94 days; +6 hermetic tests |
 | D2 | `ACTIVITY_HISTORY_DAYS = 180` is not parameterisable — a long-cycle athlete cannot see their full season | ✅ fixed — `activity_history_days()` reads `FARTLEK_ACTIVITY_HISTORY_DAYS` (clamped 30–730, bad value → default 180); `test_activity_history_days_override` |
 | D3 | First `fartlek auth` persisted `di_refresh_token: null`, so the session died after ~20h and forced a full re-login. Re-auth stored one correctly; watch whether refresh rewrites the file | ✅ verified 2026-07-24 — token file mtime postdates re-login by ~32 h with a non-null `di_refresh_token`: the refresh rewrites the file |
 | D4 | Steady-session EF qualifier yields too few sessions to trend on a real athlete | ✅ amended — pace bands primary |

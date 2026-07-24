@@ -20,6 +20,7 @@ from fartlek.sync.engine import (
     SyncEngine,
     SyncLock,
     activity_history_days,
+    derive_body_battery_wake,
     digest_activity,
     digest_daily_summary,
     digest_endurance_score,
@@ -188,6 +189,25 @@ def userstats_range(path, params):
         {"calendarDate": "2026-07-18", "value": values[0]},
         {"calendarDate": "2026-07-19", "value": values[1]},
     ]}}}
+
+
+def bb_daily_entry(d: str, points_local: list[tuple[str, int]]) -> dict:
+    """A `bodyBattery/reports/daily` entry with a real GMT/local anchor pair
+    (+2h, this file's convention — see sleep_payload) and an array built from
+    (local time-of-day, value) pairs, for testing D7's wake-value derivation.
+    """
+    prev = (date.fromisoformat(d) - timedelta(days=1)).isoformat()
+    points = []
+    for t, v in points_local:
+        local_dt = datetime.fromisoformat(f"{d}T{t}")
+        gmt_ms = int((local_dt - timedelta(hours=2)).replace(tzinfo=UTC).timestamp() * 1000)
+        points.append([gmt_ms, v])
+    return {
+        "date": d, "charged": 60, "drained": 55,
+        "startTimestampGMT": f"{prev}T22:00:00.0",
+        "startTimestampLocal": f"{d}T00:00:00.0",
+        "bodyBatteryValuesArray": points,
+    }
 
 
 def base_routes():
@@ -366,6 +386,38 @@ def test_digest_daily_summary_maps_and_drops_negative_stress():
     assert row["calories_total"] == 2500
     assert "avg_stress" not in row          # -1 = Garmin "no data"
     assert digest_daily_summary({}, TODAY) == {"date": TODAY}
+
+
+def test_derive_body_battery_wake_picks_nearest_sample():
+    """D7: the array is sparse/event-driven, not a fixed-interval timeline —
+    the sample nearest in time to sleep_end wins, even when it sits before
+    wake rather than after."""
+    e = bb_daily_entry(TODAY, [("07:27:00", 99), ("08:00:00", 100), ("15:51:00", 46)])
+    # 07:52:49 is 7m11s from 08:00 vs 25m49s from 07:27 -> the 08:00 sample wins
+    assert derive_body_battery_wake(e, f"{TODAY}T07:52:49") == 100
+
+
+def test_derive_body_battery_wake_refuses_a_stale_sample():
+    e = bb_daily_entry(TODAY, [("04:00:00", 90), ("20:00:00", 20)])
+    # nearest sample (04:00) is 3h50 from a 07:50 wake -> past the 60min cap
+    assert derive_body_battery_wake(e, f"{TODAY}T07:50:00") is None
+    # just inside the cap: accepted
+    e2 = bb_daily_entry(TODAY, [("06:55:00", 62)])
+    assert derive_body_battery_wake(e2, f"{TODAY}T07:50:00") == 62
+
+
+def test_derive_body_battery_wake_defensive_on_absent_shapes():
+    """Never fabricates: missing/empty array, missing GMT/local anchor, or an
+    unparseable sleep_end_local all yield None, not a guessed value."""
+    assert derive_body_battery_wake(None, f"{TODAY}T07:50:00") is None
+    assert derive_body_battery_wake({}, f"{TODAY}T07:50:00") is None
+    assert derive_body_battery_wake(
+        {"date": TODAY, "bodyBatteryValuesArray": []}, f"{TODAY}T07:50:00"
+    ) is None
+    no_anchor = {"date": TODAY, "bodyBatteryValuesArray": [[1789000000000, 80]]}
+    assert derive_body_battery_wake(no_anchor, f"{TODAY}T07:50:00") is None
+    e = bb_daily_entry(TODAY, [("07:50:00", 80)])
+    assert derive_body_battery_wake(e, "not-a-timestamp") is None
 
 
 def test_digest_sleep_row_timeline_and_hrv():
@@ -618,6 +670,55 @@ def test_tier1_pagination_terminates_on_short_page(store, tmp_path):
     assert store.get_day("2026-07-01")["weight_g"] == 70500
     # body battery chunk landed
     assert store.get_day("2026-07-19")["body_battery_high"] == 90
+
+
+def test_tier1_derives_body_battery_wake_when_sleep_end_already_known(store, tmp_path):
+    """D7: once a date's sleep_end_ts is on file (from an earlier sleep sync),
+    tier1's body-battery chunk backfill derives the missing wake value from
+    the sparse timeline instead of leaving it stuck at 1 day of history."""
+    d = "2026-07-19"
+    store.upsert_day(
+        {"date": d, "sleep_end_ts": f"{d}T07:52:49", "synced_at": "2026-01-01T00:00:00"}
+    )
+    routes = base_routes()
+    routes["/wellness-service/wellness/bodyBattery/reports/daily"] = [
+        bb_daily_entry(d, [("07:50:00", 76)])
+    ]
+    engine, _ = make_engine(store, tmp_path, routes)
+    engine.tier1()
+    assert store.get_day(d)["body_battery_wake"] == 76
+    assert store.get_day(d)["body_battery_high"] == 76  # unaffected sibling column
+
+
+def test_tier1_never_overwrites_a_real_body_battery_wake_value(store, tmp_path):
+    """A derived value must never clobber Garmin's own scalar (e.g. one that
+    landed via today's daily summary)."""
+    d = "2026-07-19"
+    store.upsert_day({
+        "date": d, "sleep_end_ts": f"{d}T07:52:49", "body_battery_wake": 55,
+        "synced_at": "2026-01-01T00:00:00",
+    })
+    routes = base_routes()
+    routes["/wellness-service/wellness/bodyBattery/reports/daily"] = [
+        bb_daily_entry(d, [("07:50:00", 76)])
+    ]
+    engine, _ = make_engine(store, tmp_path, routes)
+    engine.tier1()
+    assert store.get_day(d)["body_battery_wake"] == 55  # untouched
+
+
+def test_tier1_leaves_body_battery_wake_null_without_a_known_sleep_end(store, tmp_path):
+    """Fabricate nothing: sleep hasn't synced for this date yet, so no proxy
+    is guessed — a later tier1 run (once sleep lands) will pick it up."""
+    d = "2026-07-19"
+    routes = base_routes()
+    routes["/wellness-service/wellness/bodyBattery/reports/daily"] = [
+        bb_daily_entry(d, [("07:50:00", 76)])
+    ]
+    engine, _ = make_engine(store, tmp_path, routes)
+    engine.tier1()
+    assert store.get_day(d)["body_battery_wake"] is None
+    assert store.get_day(d)["body_battery_high"] == 76
 
 
 def test_tier1_backfills_daily_wellness_scalars(store, tmp_path):

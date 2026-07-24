@@ -1,6 +1,6 @@
 # Handoff — Fartlek project state
 
-*Last updated: 2026-07-24. **v0.2.1 is live on PyPI and on the official MCP registry** (`isLatest`). The engine is **fully complete** (race Garmin/Tanda/Riegel triangulation + capability-gated running-tolerance/endurance trends), 7 MCP prompts + 2 resources, E1/E2/D2 fixed. 1004 tests green. One commit on main postdates the v0.2.1 tag (the canonical HRV band resolver — E1 fully closed); it ships with the next patch release.*
+*Last updated: 2026-07-24. **v0.2.1 is live on PyPI and on the official MCP registry** (`isLatest`). The engine is **fully complete** (race Garmin/Tanda/Riegel triangulation + capability-gated running-tolerance/endurance trends), 7 MCP prompts + 2 resources, E1/E2/D2/D3/D7 fixed — **no open defects**. 1010 tests green. Commits on main postdate the v0.2.1 tag (the canonical HRV band resolver closing E1, and the D7 body-battery-wake backfill); they ship as **v0.2.2**.*
 
 This document is the **entry point** for an agent (or a human) picking up the project. It states **where the project stands**, **what has been verified**, **what remains**, and **the traps that cost time**. It does not duplicate the spec: the authority remains `docs/DESIGN.md` (the what/why), `ROADMAP.md` (the phase plan), and `docs/PHASE2.md` (the item-by-item Phase 2 checklist, kept up to date in the same commit as the work).
 
@@ -9,7 +9,7 @@ This document is the **entry point** for an agent (or a human) picking up the pr
 ## 0. TL;DR — start here
 
 1. **Read, in order:** this file → `docs/PHASE2.md` (exact checklist of what remains) → `docs/DESIGN.md` §3.2 (the metrics catalog, contract) → `CLAUDE.md` (project discipline).
-2. **Run** `uv run pytest -q` (expected: **1004 pass**) and `uv run ruff check fartlek/ tests/` (clean).
+2. **Run** `uv run pytest -q` (expected: **1010 pass**) and `uv run ruff check fartlek/ tests/` (clean).
 3. **The engine is fully complete** (every §3.2 item, incl. the race triangulation and capability-gated trends), plus 14 tools, 7 prompts + 2 resources, 5 CI gates, and the reduced eval — all verified on a real Garmin account. **v0.2.1 is live on PyPI and the MCP registry.** The heavy eval programme (30 tasks × 3 clients, transcript audits) is still deferred to a later v0.2.x.
 4. **A real test account is installed** in `~/.fartlek/` (see §4). Don't break it; never commit `~/.fartlek/` or `.env`.
 
@@ -33,7 +33,7 @@ Structuring corollary: **the LLM must never have to re-derive a statistic**. If 
 | **Phase 2 — the 6 tools** | ✅ **delivered, wired, verified over real MCP** |
 | Alert detector | ✅ calibrated on 6 months of real data (75 → 27 alerts) |
 | External validation (intervals.icu) | ✅ cross-checked decoupling, median gap 1 pt |
-| Tests | ✅ **1004 pass** (`uv run pytest -q`, ~5 s) |
+| Tests | ✅ **1010 pass** (`uv run pytest -q`, ~5 s) |
 | Lint | ✅ `uv run ruff check fartlek/ tests/` |
 | Live version | **0.2.1** on PyPI **and** the official MCP registry (`isLatest: true`, verified 2026-07-24) |
 | Quality programme / CI gates | ✅ **5 gates delivered** (§6); reduced eval done (`docs/EVAL.md`) |
@@ -92,7 +92,7 @@ Useful entry points: `mcp_server/context.py` (`ToolContext`, `ensure_ready()` co
 
 ```bash
 uv sync                          # install (dev group included)
-uv run pytest -q                 # 1004 tests, ~5 s
+uv run pytest -q                 # 1010 tests, ~5 s
 uv run ruff check fartlek/ tests/
 uv run fartlek auth --replace    # Garmin login (email/password + MFA) — REQUIRES A REAL TERMINAL
 uv run fartlek doctor            # health check
@@ -158,7 +158,7 @@ Two items, both **minor and non-blocking** for v0.2:
 - Two bugs in `race.py` found while building `garmin_fitness`: `fit_riegel_exponent` missing `raw_b` on degenerate returns; `fixed_time_projection` treating `stoppage=None` as 0% **and reporting it as measured**.
 
 **Open** (non-blocking):
-- **D7**: `body_battery_wake` has only 1 day of history (absent from userstats, the dedicated endpoint only returns high/low). Weighs 0.10 in the readiness fusion.
+- ~~**D7**~~: **fixed 2026-07-24** — the wake value is now *derived*: the sparse `bodyBatteryValuesArray` sample nearest the day's stored `sleep_end_ts` (≤60 min gap, else missing; calibrated: median 5.6 min on 87 real days). Tier1 backfills it, never overwriting Garmin's own scalar. Real-account coverage went 2 → 86/94 days, so the fusion's 30d baseline (weight 0.10) actually forms. **Trap**: the array is *event-driven*, not periodic (~6 points/day) — don't assume a dense timeline. Note also that the CLI's `fartlek sync` re-runs tier1 backfills on every invocation (self-healing), while the MCP server only runs tier0+tier1 inline on a cold store.
 - ~~**D2**~~: **fixed** — `activity_history_days()` reads `FARTLEK_ACTIVITY_HISTORY_DAYS` (clamped 30–730, bad value falls back to the 180-day default), so a long-cycle athlete can pull a full season.
 - ~~**D3**~~: **verified 2026-07-24** — the token file holds a non-null `di_refresh_token` and its mtime (2026-07-23 22:29) postdates the re-login by ~32 h, so the refresh does rewrite the file. Closed.
 
