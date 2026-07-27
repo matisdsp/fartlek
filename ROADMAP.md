@@ -20,7 +20,7 @@
 - [x] Core metrics: PMC (CTL/ATL/TSB), form ratio, ACWR, monotony/strain; baseline engine; alerts table
 - [x] Planned-vs-executed workout matcher
 - [x] Shared response renderer: verdict grammar, token budgets, drop order, safety banner
-- [ ] CI guardrails incl. real-tokenizer budget regression gate *(basic CI — ruff + 244 tests — in place; tokenizer budget gate lands with the Phase-1 tools that have golden renders)*
+- [x] CI guardrails incl. real-tokenizer budget regression gate *(5 gates delivered with Phase 2: tiktoken budget gate over 16 golden renders, attribution language, description/signature consistency, session cost ≤17K, catalog ≤3.5K)*
 
 ## Phase 1 — Core read surface (3–4 weeks) · **ships v0.1**
 
@@ -33,15 +33,16 @@
 - [x] `fartlek auth` (full MFA flow, error taxonomy) + `fartlek doctor` + `accounts/switch/export/reset`
 - [x] Install paths: `uvx`/`pipx` one-liner, Docker image (`.mcpb`/`.dxt` Desktop extension packaging TBD)
 - [x] Client config snippets: Claude Code, Claude Desktop, Cursor
-- [x] Open-sourcing basics: MIT LICENSE, English README with "not affiliated with Garmin Ltd." disclaimer, PyPI `fartlek-mcp` publish (v0.1.1 live), official MCP registry entry `io.github.matisdsp/fartlek` (active) — third-party directories (Glama, mcp.so, PulseMCP) still open
+- [x] Open-sourcing basics: MIT LICENSE, English README with "not affiliated with Garmin Ltd." disclaimer, PyPI `fartlek-mcp` publish (v0.2.2 live), official MCP registry entry `io.github.matisdsp/fartlek` (0.2.2, `isLatest`) — third-party directories (Glama, mcp.so, PulseMCP) still open
 
-## Phase 2 — Trend suite & engine completion (4–5 weeks) · **ships v0.2, the flagship**
+## Phase 2 — Trend suite & engine completion (4–5 weeks) · **ships v0.2, the flagship** — done, v0.2.2 live
 
-- [ ] Tools: `garmin_whats_changed`, `garmin_week`, `garmin_load`, `garmin_fitness` (incl. race projection + taper window), `garmin_recovery`, `garmin_reference` (metrics glossary)
-- [ ] Engine: Tier-2 history backfill, EF/decoupling/durability, sleep timeline + SRI, TID mapping, race triangulation, trend significance (per-metric SWC), overtraining convergence audit, attribution rules
-- [ ] MCP prompts + resources (progressive enhancement)
-- [ ] Evaluation harness: ~30 multi-tool coaching tasks across clients, token/calls regression gates; engine validation vs. intervals.icu golden data
-- [ ] Anomaly-scanner threshold tuning on real multi-month data
+- [x] Tools: `garmin_whats_changed`, `garmin_week`, `garmin_load`, `garmin_fitness` (incl. race projection + taper window), `garmin_recovery`, `garmin_reference` (metrics glossary)
+- [x] Engine: Tier-2 history backfill, EF/decoupling/durability, sleep timeline + SRI, TID mapping, race triangulation, trend significance (per-metric SWC), overtraining convergence audit, attribution rules
+- [x] MCP prompts + resources (progressive enhancement) — 7 prompts + 2 resources
+- [x] Engine validation vs. intervals.icu golden data (decoupling cross-checked on 8 long runs, median gap 1 pt)
+- [x] Anomaly-scanner threshold tuning on real multi-month data (75 → 27 alerts over 116 days)
+- [ ] Evaluation harness: ~30 multi-tool coaching tasks across clients, token/calls regression gates, transcript audits *(deferred to a later v0.2.x; a reduced 10-task harness shipped — see `docs/EVAL.md`)*
 
 ## Phase 3 — The closed loop (3 weeks) · **ships v0.3**
 
