@@ -4,12 +4,12 @@ version = "0.2.2"
 description = "Fartlek — a coach's morning report from your Garmin data, for any LLM via MCP"
 readme = "README.md"
 requires-python = ">=3.12"
-license = "MIT"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 keywords = ["garmin", "mcp", "coaching", "running", "training", "llm"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: End Users/Desktop",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.12",

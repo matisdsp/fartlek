@@ -33,7 +33,7 @@
 - [x] `fartlek auth` (full MFA flow, error taxonomy) + `fartlek doctor` + `accounts/switch/export/reset`
 - [x] Install paths: `uvx`/`pipx` one-liner, Docker image (`.mcpb`/`.dxt` Desktop extension packaging TBD)
 - [x] Client config snippets: Claude Code, Claude Desktop, Cursor
-- [x] Open-sourcing basics: MIT LICENSE, English README with "not affiliated with Garmin Ltd." disclaimer, PyPI `fartlek-mcp` publish (v0.2.2 live), official MCP registry entry `io.github.matisdsp/fartlek` (0.2.2, `isLatest`) — third-party directories (Glama, mcp.so, PulseMCP) still open
+- [x] Open-sourcing basics: Apache 2.0 LICENSE (relicensed from MIT 2026-07-27), English README with "not affiliated with Garmin Ltd." disclaimer, PyPI `fartlek-mcp` publish (v0.2.2 live), official MCP registry entry `io.github.matisdsp/fartlek` (0.2.2, `isLatest`) — third-party directories (Glama, mcp.so, PulseMCP) still open
 
 ## Phase 2 — Trend suite & engine completion (4–5 weeks) · **ships v0.2, the flagship** — done, v0.2.2 live
 

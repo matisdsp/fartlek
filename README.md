@@ -139,4 +139,4 @@ Local-first: stdio transport, your credentials and health data never leave your 
 
 ## License & trademark
 
-MIT. Fartlek is an independent open-source project, **not affiliated with, endorsed by, or sponsored by Garmin Ltd.** "Garmin" is used only to describe compatibility with Garmin Connect data.
+Apache 2.0. Fartlek is an independent open-source project, **not affiliated with, endorsed by, or sponsored by Garmin Ltd.** "Garmin" is used only to describe compatibility with Garmin Connect data.
