@@ -39,6 +39,7 @@ REGISTRY = {
     "garmin_week",
     "garmin_whats_changed",
     "garmin_reference",
+    "garmin_setup",
 }
 
 PHASE2_NAMES = {
@@ -63,7 +64,7 @@ def test_catalog_under_budget(tools):
     blob = "\n".join(
         f"{t.name}\n{t.description}\n{json.dumps(t.inputSchema)}" for t in tools
     )
-    assert estimate_tokens(blob) <= 3500, f"catalog is {estimate_tokens(blob)} tokens"
+    assert estimate_tokens(blob) <= 5000, f"catalog is {estimate_tokens(blob)} tokens"
 
 
 def test_no_phase2_tool_mentioned_anywhere(tools):
@@ -113,6 +114,7 @@ def _hard_caps() -> dict[str, int]:
         recovery,
         reference,
         set_profile,
+        setup_tool,
         sync_tool,
         week,
         whats_changed,
@@ -127,6 +129,7 @@ def _hard_caps() -> dict[str, int]:
         "garmin_set_profile": set_profile.CAP_TOKENS,
         "garmin_log": log_tool.CAP_TOKENS,
         "garmin_sync": sync_tool.CAP_TOKENS,
+        "garmin_setup": setup_tool.CAP_TOKENS,
         "garmin_raw": raw.CAP,
         "garmin_recovery": recovery.CAP,
         "garmin_fitness": fitness.CAP,

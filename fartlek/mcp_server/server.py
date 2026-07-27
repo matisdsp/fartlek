@@ -16,7 +16,7 @@ from mcp.server.fastmcp import FastMCP
 from pydantic import Field
 
 from fartlek.health.exceptions import GarminAuthError
-from fartlek.mcp_server import prompts
+from fartlek.mcp_server import prompts, setup_state
 from fartlek.mcp_server.context import ToolContext
 from fartlek.mcp_server.tools import (
     activities as t_activities,
@@ -52,6 +52,9 @@ from fartlek.mcp_server.tools import (
     set_profile as t_set_profile,
 )
 from fartlek.mcp_server.tools import (
+    setup_tool as t_setup,
+)
+from fartlek.mcp_server.tools import (
     sync_tool as t_sync,
 )
 from fartlek.mcp_server.tools import (
@@ -68,8 +71,12 @@ logging.basicConfig(
 log = logging.getLogger("fartlek-mcp")
 
 AUTH_ERROR = "Garmin session expired — the user must re-run `fartlek auth`. Retrying will not help."
+NOT_CONFIGURED = (
+    "Fartlek has no Garmin credentials on this machine — call garmin_setup() to configure it. "
+    "Retrying will not help."
+)
 
-INSTRUCTIONS = (
+ROUTING = (
     "Garmin coaching server. Routing: questions about **today** — readiness, whether to "
     "train, current state — start with `garmin_brief` (zero arguments). Browse or find "
     "sessions → `garmin_activities`. One session in depth → `garmin_activity` (by id, date, "
@@ -79,8 +86,13 @@ INSTRUCTIONS = (
     "pre-computed against this athlete's personal baselines: do not re-derive statistics or "
     "aggregates — but athlete-reported state (illness, pain, exhaustion) always outranks a "
     "sensor-based GREEN; if the user reports feeling unwell, advise caution regardless of "
-    "the verdict, and log it. Dates include weekdays; trust them."
+    "the verdict, and log it. Dates include weekdays; trust them. If setup or configuration "
+    "comes up, call garmin_setup — never describe this server's own state from memory."
 )
+
+# Computed at start, not hardcoded: an unconfigured machine says so in the
+# initialize handshake, so the model never has to guess (DESIGN §2.4).
+INSTRUCTIONS = setup_state.instructions(ROUTING)
 
 mcp = FastMCP("fartlek", instructions=INSTRUCTIONS)
 _ctx = ToolContext()
@@ -93,7 +105,9 @@ async def _guard(coro):
     try:
         return await coro
     except GarminAuthError:
-        return AUTH_ERROR
+        # Day 1 and day 200 fail the same way but need opposite instructions:
+        # a first-time user never had a session to expire (DESIGN §2.4).
+        return AUTH_ERROR if setup_state.probe().has_tokens else NOT_CONFIGURED
 
 
 @mcp.tool(
@@ -252,14 +266,27 @@ async def garmin_log(
     annotations={"readOnlyHint": False, "destructiveHint": False},
     description=(
         "Force a refresh and report freshness, or start a resumable historical backfill "
-        "(backfill_days > 0, deepens sleep/HRV history). Use only if data looks stale — "
-        "every other tool auto-refreshes."
+        "(backfill_days > 0, deepens sleep/HRV history). Use only if data looks stale — other "
+        "tools refresh in the background and answer from cache meanwhile."
     ),
 )
 async def garmin_sync(
     backfill_days: Annotated[int, Field(ge=0, le=365)] = 0,
 ) -> str:
     return await _guard(t_sync.run(_ctx, backfill_days=backfill_days))
+
+
+@mcp.tool(
+    annotations={"readOnlyHint": False, "destructiveHint": False, "idempotentHint": True},
+    description=(
+        "Is this server configured, and what is missing? Call whenever setup, credentials or "
+        "installation comes up, and before describing this server's own state — never do "
+        "that from memory. launch_login=True opens a terminal for the Garmin login; "
+        "credentials never pass through here."
+    ),
+)
+async def garmin_setup(launch_login: bool = False) -> str:
+    return await _guard(t_setup.run(_ctx, launch_login=launch_login))
 
 
 @mcp.tool(
