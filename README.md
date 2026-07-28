@@ -137,6 +137,19 @@ The `release` workflow builds, runs tests, and uploads to PyPI. A published vers
 
 Local-first: stdio transport, your credentials and health data never leave your machine. The server only talks to Garmin's API with your own tokens, sequentially and rate-limited. `fartlek export` gives you everything; `fartlek reset` removes everything.
 
+## How Fartlek reaches your data — read this before connecting an account
+
+Garmin has an official developer programme, and Fartlek is **not** part of it. Like every other open-source Garmin client, it signs in with your own credentials and reads the same endpoints the Garmin Connect apps use. Those endpoints are not published for third-party use, and Garmin's [Terms of Use](https://www.garmin.com/en-US/legal/terms-of-use/) list, among examples of prohibited conduct, *"using any process, whether automated or manual, that accesses, copies, or scrapes content from the Site through any means not purposely made available through the Site."*
+
+What that means in practice:
+
+- **Your account is yours to risk.** Garmin can rate-limit, block, or suspend accounts for automated access. Fartlek is deliberately polite — sequential calls, backoff on 429, and Garmin is contacted only by the sync process, never per question — but politeness is not permission.
+- **It can break without warning.** Garmin changed its login in March 2026 and broke every third-party client for weeks. This will happen again.
+- **Read-only, by decision.** Fartlek never writes to Garmin: no workouts pushed to your watch, no training plans, no edits to your activities. The two tools that write (`garmin_log`, `garmin_set_profile`) write to the local SQLite store and nothing else. Pushing structured workouts was specified and then dropped — see `docs/DESIGN.md` §2.4. Garmin's Training API is the sanctioned route for that, and it requires a cloud-to-cloud integration, which would mean your data leaving your machine.
+- **Nothing is redistributed.** Your data stays on your disk. Fartlek's own responses are derived from it and are shown only to you and the LLM client you chose.
+
+If that trade-off is not one you want to make, do not connect an account. This is stated here rather than buried, because it is the kind of thing you should decide before installing, not discover afterwards.
+
 ## License & trademark
 
 Apache 2.0. Fartlek is an independent open-source project, **not affiliated with, endorsed by, or sponsored by Garmin Ltd.** "Garmin" is used only to describe compatibility with Garmin Connect data.

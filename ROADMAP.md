@@ -44,11 +44,21 @@
 - [x] Anomaly-scanner threshold tuning on real multi-month data (75 → 27 alerts over 116 days)
 - [ ] Evaluation harness: ~30 multi-tool coaching tasks across clients, token/calls regression gates, transcript audits *(deferred to a later v0.2.x; a reduced 10-task harness shipped — see `docs/EVAL.md`)*
 
-## Phase 3 — The closed loop (3 weeks) · **ships v0.3**
+## Phase 3 — ~~The closed loop~~ **cancelled 2026-07-28 · Fartlek stays read-only**
 
-- [ ] `garmin_apply_plan`: dry-run-first structured workouts pushed to the watch, guardrail simulation, token-bound confirmation
-- [ ] `garmin_reference` workout-schema topic; prescription-side compliance in the debrief
+The write path is dropped, permanently. Rationale in [`docs/DESIGN.md`](docs/DESIGN.md) §2.4, in short: Garmin's Terms of Use already cover the read path we ship, Garmin *does* sanction third-party writes through the Connect Developer Program's Training API, and taking that sanctioned route would force a cloud-to-cloud integration — surrendering the local-first property the project exists to defend. Reading your own data locally is defensible; routing around a write API that exists is not.
+
+- [x] ~~`garmin_apply_plan`~~ — dropped (spec kept in DESIGN §2.4 for the record)
+- [x] ~~`garmin_reference` workout-schema topic; prescription-side compliance~~ — dropped with it
+- [x] First-run onboarding — `garmin_setup`, state-aware `instructions`, day-1-vs-expired errors (v0.2.3)
 - [ ] `setup_athlete` elicitation flow
+
+## v0.3 — Read-side depth & the quality programme
+
+- [ ] Eval harness: ~30 multi-tool tasks across Claude Code / Desktop / Cursor
+- [ ] Token + calls-per-task regression gates
+- [ ] Transcript audits — every number the LLM re-derives is a missing server-side pre-computation
+- [ ] Depth items promoted from Phase 4 as they earn it
 
 ## Phase 4 — Depth extensions (ongoing)
 
@@ -56,4 +66,4 @@ Cycling power depth · swim CSS · menstrual-cycle-aware baselines (clinician-re
 
 ---
 
-**Total to v0.3: ~3–3.5 months solo.** Each phase ships a working, useful server.
+**Each phase ships a working, useful server.** The original plan put the closed loop at v0.3; that phase is cancelled, so v0.3 is a read-side release built on the quality programme deferred from v0.2.
