@@ -7,8 +7,11 @@ from __future__ import annotations
 
 import argparse
 import getpass
+import logging
 import shutil
 import sys
+from collections.abc import Iterator
+from contextlib import contextmanager
 from pathlib import Path
 
 from garminconnect import (
@@ -50,6 +53,53 @@ def _prompt_mfa() -> str:
     return _ask("MFA code (check your email/authenticator app): ")
 
 
+class _LoginProgress(logging.Handler):
+    """Turn garminconnect's per-strategy warnings into one human line each.
+
+    The library tries five login strategies in turn and logs a warning for each
+    one that fails. Unfiltered, a first-time user reads `mobile+cffi returned
+    429: Mobile login returned 429 — IP rate limited by Garmin` and concludes
+    the login crashed — while it is in fact still running, and usually about to
+    succeed on a later strategy. The CLI is a human surface: it reports that a
+    method was refused and that another is being tried, and keeps the strategy
+    names for the log level nobody reads.
+    """
+
+    def __init__(self) -> None:
+        super().__init__(level=logging.WARNING)
+        self.refused = 0
+
+    def emit(self, record: logging.LogRecord) -> None:
+        message = record.getMessage()
+        if "429" in message:
+            reason = "rate-limited by Garmin"
+        elif "failed" in message or "rejected" in message:
+            reason = "refused"
+        else:
+            return
+        self.refused += 1
+        # stdout, like the prompts around it: progress is not an error, and
+        # splitting the streams scrambles the order as soon as output is piped.
+        print(f"  · sign-in method {self.refused} {reason} — trying another…", flush=True)
+
+
+@contextmanager
+def _curated_login_output() -> Iterator[None]:
+    """Route garminconnect's log lines through _LoginProgress for the duration
+    of a login, then put the logger back exactly as it was."""
+    logger = logging.getLogger("garminconnect")
+    handler = _LoginProgress()
+    propagate, level = logger.propagate, logger.level
+    logger.propagate = False  # keep the raw record off the root handler
+    logger.setLevel(logging.WARNING)
+    logger.addHandler(handler)
+    try:
+        yield
+    finally:
+        logger.removeHandler(handler)
+        logger.propagate, logger.level = propagate, level
+
+
 def cmd_auth(args: argparse.Namespace) -> int:
     tokenstore = default_tokenstore()
     token_file = _token_file(tokenstore)
@@ -75,11 +125,15 @@ def cmd_auth(args: argparse.Namespace) -> int:
         return 1
 
     client = Garmin(email=email, password=password, prompt_mfa=_prompt_mfa)
+    print("\nSigning in — Garmin has several sign-in methods and this can take a minute.")
     try:
-        client.login(tokenstore=str(tokenstore))
+        with _curated_login_output():
+            client.login(tokenstore=str(tokenstore))
     except GarminConnectTooManyRequestsError:
         print(
-            "\nGarmin is rate-limiting login attempts. Wait a few minutes and retry.",
+            "\nGarmin is rate-limiting login attempts from this network — every "
+            "sign-in method was refused. Wait about fifteen minutes and retry; "
+            "retrying sooner extends the block.",
             file=sys.stderr,
         )
         return 1
@@ -106,7 +160,8 @@ def cmd_doctor(_args: argparse.Namespace) -> int:
         print(f"✓ tokens present at {token_file}")
         try:
             client = Garmin()
-            client.login(tokenstore=str(tokenstore))
+            with _curated_login_output():
+                client.login(tokenstore=str(tokenstore))
             print(f"✓ Garmin session OK (logged in as {client.display_name})")
         except Exception as exc:  # noqa: BLE001 — doctor reports, never crashes
             print(f"✗ Garmin session failed: {exc}")

@@ -7,6 +7,7 @@ that can be skipped.
 from __future__ import annotations
 
 import argparse
+import logging
 
 import pytest
 
@@ -110,3 +111,36 @@ def test_flags_are_wired(monkeypatch, argv, attr):
     with pytest.raises(SystemExit):
         cli.main()
     assert parser_args[attr] is True
+
+
+# --- login output curation (first-run UX) -----------------------------------
+
+
+def test_login_progress_translates_strategy_warnings(capsys):
+    """A first-time user must not read `mobile+cffi returned 429` and conclude
+    the login crashed while it is still trying other methods."""
+    logger = logging.getLogger("garminconnect.client")
+    with cli._curated_login_output():
+        logger.warning("%s returned 429: %s", "mobile+cffi", "IP rate limited by Garmin")
+        logger.warning("%s failed: %s", "widget+cffi", "boom")
+    captured = capsys.readouterr()
+    assert captured.err == "", "progress is not an error; it must share stdout with the prompts"
+    out = captured.out
+    assert "mobile+cffi" not in out and "429" not in out
+    assert "sign-in method 1 rate-limited by Garmin — trying another" in out
+    assert "sign-in method 2 refused — trying another" in out
+
+
+def test_curated_login_output_restores_the_logger():
+    logger = logging.getLogger("garminconnect")
+    before = (logger.propagate, logger.level, len(logger.handlers))
+    with cli._curated_login_output():
+        assert logger.propagate is False
+    assert (logger.propagate, logger.level, len(logger.handlers)) == before
+
+
+def test_login_progress_ignores_unrelated_records(capsys):
+    with cli._curated_login_output():
+        logging.getLogger("garminconnect.client").warning("some unrelated notice")
+    captured = capsys.readouterr()
+    assert captured.out == "" and captured.err == ""
