@@ -11,6 +11,9 @@ Lifecycle (DESIGN §3.3 sync policy):
   INLINE (~30 calls, the first-minute cold start; the calling tool discloses
   it), then tier2 starts in a daemon background thread. Warm store stale
   >6h → background incremental() thread (serve current cache immediately).
+  ensure_ready(background_refresh=False) + join_background() opt out of that
+  race — garmin_sync syncs in the foreground and must be able to report what
+  its own call ingested.
 - ensure_fresh_today() (garmin_brief only): if today's days row is missing
   wellness (no sleep_score AND no resting_hr) and last_sync > 30 min → run
   incremental() INLINE (bounded, ~5 calls) before rendering.
@@ -58,14 +61,23 @@ class ToolContext:
 
     # --- lifecycle ---
 
-    async def ensure_ready(self) -> None:
+    async def ensure_ready(self, background_refresh: bool = True) -> None:
         if self._engine is None:
             async with self._init_lock:
                 if self._engine is None:
                     await self._init()
                     if self.cold_started:
                         return  # tier2 already running in the background
-        self._maybe_background_refresh()
+        if background_refresh:
+            self._maybe_background_refresh()
+
+    async def join_background(self, timeout: float = 120.0) -> None:
+        """Wait for an in-flight background refresh to finish, so the caller
+        reads a settled store. Only garmin_sync needs this: every other tool
+        deliberately serves the current cache while the thread runs."""
+        thread = self._bg_thread
+        if thread is not None and thread.is_alive():
+            await asyncio.to_thread(thread.join, timeout)
 
     async def _init(self) -> None:
         """Connect Garmin, open the per-account store, build the engine.

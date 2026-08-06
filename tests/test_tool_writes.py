@@ -25,13 +25,19 @@ class FakeContext:
         self.sync_stats = sync_stats or {"calls": 0, "new_activities": 0, "errors": []}
         self.ready_calls = 0
         self.sync_calls: list[int] = []
+        self.background_refresh_flags: list[bool] = []
+        self.joined = 0
 
     @property
     def store(self):
         return self._store
 
-    async def ensure_ready(self) -> None:
+    async def ensure_ready(self, background_refresh: bool = True) -> None:
         self.ready_calls += 1
+        self.background_refresh_flags.append(background_refresh)
+
+    async def join_background(self) -> None:
+        self.joined += 1
 
     async def ensure_fresh_today(self) -> None:
         pass
@@ -310,6 +316,17 @@ async def test_sync_backfill_reports_nights_and_resume(store):
     assert "28 nights backfilled" in out
     assert "garmin_sync(backfill_days=30)" in out
     assert estimate_tokens(out) <= sync_tool.CAP_TOKENS
+
+
+async def test_sync_suppresses_and_joins_the_background_refresher(store):
+    """A concurrent background incremental() would ingest the new activities
+    first, leaving the foreground pass to report '0 new' on a store that just
+    grew. garmin_sync opts out of the refresh and waits for any live thread."""
+    store.set_sync_state("last_sync", "2026-07-20T07:41:00")
+    ctx = FakeContext(store, sync_stats={"calls": 5, "new_activities": 3, "errors": []})
+    await sync_tool.run(ctx, backfill_days=0)
+    assert ctx.background_refresh_flags == [False]
+    assert ctx.joined == 1
 
 
 async def test_sync_skipped_passthrough(store):

@@ -2,7 +2,9 @@
 
 Delegates the fetch to ctx.run_sync(backfill_days) (inline incremental(),
 plus tier2(backfill_days) when requested — the engine's sync.lock guards
-concurrency). Reports freshness before/after (sync_state['last_sync']),
+concurrency). Runs with the background refresher suppressed and joined first,
+so the counts it reports are its own. Reports freshness before/after
+(sync_state['last_sync']),
 calls made, new activities, nights backfilled, and passes the engine's
 "skipped: another sync holds the lock" state through. Short plain string,
 banner-prefixed when an alert is active (§4.4).
@@ -38,7 +40,13 @@ def _fmt_ts(iso: str | None) -> str | None:
 
 
 async def run(ctx, backfill_days: int = 0) -> str:
-    await ctx.ensure_ready()
+    # No background refresh, and wait out any thread already in flight: this
+    # tool syncs in the foreground, so it must own every row it reports. Let a
+    # background incremental() run concurrently and it ingests the new
+    # activities first, leaving the foreground pass to report "0 new" on a
+    # store that just grew — the freshness line then reads as a failed sync.
+    await ctx.ensure_ready(background_refresh=False)
+    await ctx.join_background()
     banner = ctx.banner()
 
     if backfill_days < 0:
