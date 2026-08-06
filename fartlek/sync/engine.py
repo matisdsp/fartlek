@@ -1724,6 +1724,28 @@ class SyncEngine:
             "errors": errors,
         }
 
+    GEAR_CATCHUP_PER_RUN = 20
+
+    def daily_catchup(self) -> dict[str, Any]:
+        """incremental() plus a bounded gear-attribution pass.
+
+        What the BACKGROUND refresh runs, never the inline paths. Attribution
+        is one call per historical session, so a fresh install would otherwise
+        show a 90-day rotation resting on the handful of sessions synced since
+        install until someone happened to call garmin_sync(backfill_days=…) —
+        tier 2 is the only other place it runs, and a warm store never reaches
+        it on its own. Self-limiting: the work list empties and the pass costs
+        nothing thereafter.
+        """
+        result = dict(self.incremental())
+        gear = self.backfill_gear(limit=self.GEAR_CATCHUP_PER_RUN)
+        result["calls"] = int(result.get("calls") or 0) + int(gear.get("calls") or 0)
+        result["gear_linked"] = int(result.get("gear_linked") or 0) + gear["linked"]
+        result["gear_remaining"] = gear["remaining"]
+        if gear["errors"]:
+            result.setdefault("errors", []).extend(gear["errors"])
+        return result
+
     # --- derived state ---
 
     def recompute_derived(self) -> None:

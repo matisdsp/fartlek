@@ -64,6 +64,10 @@ class FakeEngine:
         self.calls.append("incremental")
         return {"calls": 3, "new_activities": 1, "errors": []}
 
+    def daily_catchup(self):
+        self.calls.append("daily_catchup")
+        return {"calls": 5, "new_activities": 1, "gear_linked": 2, "errors": []}
+
     def is_stale(self, hours=6.0):
         return self.stale
 
@@ -106,13 +110,16 @@ async def test_ensure_ready_warm_fresh_no_sync_work(ctx, tmp_path):
     assert ctx._bg_thread is None
 
 
-async def test_ensure_ready_warm_stale_spawns_background_incremental(ctx, tmp_path, monkeypatch):
+async def test_ensure_ready_warm_stale_spawns_background_catchup(ctx, tmp_path, monkeypatch):
+    """daily_catchup, not bare incremental: the background thread is the only
+    place the per-session gear attribution can afford to run."""
     _seed_warm_store(tmp_path)
     monkeypatch.setattr(FakeEngine, "stale", True)
     await ctx.ensure_ready()
     assert ctx.cold_started is False
     ctx._bg_thread.join(timeout=5)
-    assert "incremental" in ctx._engine.calls
+    assert "daily_catchup" in ctx._engine.calls
+    assert "incremental" not in ctx._engine.calls
 
 
 async def test_ensure_ready_idempotent_single_connect(ctx, tmp_path):

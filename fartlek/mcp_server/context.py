@@ -104,15 +104,20 @@ class ToolContext:
             self._start_background(engine.tier2)
 
     def _maybe_background_refresh(self) -> None:
-        """Warm store gone stale (>6h) → one background incremental() thread;
-        the current cache is served immediately."""
+        """Warm store gone stale (>6h) → one background daily_catchup() thread;
+        the current cache is served immediately.
+
+        daily_catchup rather than plain incremental: it also chips away at the
+        gear-attribution work list, which costs a call per historical session
+        and so belongs on a thread nobody is waiting for. The inline paths
+        (ensure_fresh_today, garmin_sync) stay on incremental."""
         engine = self._engine
         if engine is None:
             return
         if self._bg_thread is not None and self._bg_thread.is_alive():
             return
         if engine.is_stale(STALE_HOURS):
-            self._start_background(engine.incremental)
+            self._start_background(engine.daily_catchup)
 
     def _start_background(self, target: Callable[[], Any]) -> None:
         def _run() -> None:

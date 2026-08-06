@@ -273,3 +273,34 @@ def test_backfill_does_not_filter_by_sport(store: Store, tmp_path: Path, sport: 
     store.upsert_activity(act_row(1, sport=sport))
     engine, _ = make_engine(store, tmp_path, gear_routes_for({1: ["shoe-a"]}))
     assert engine.backfill_gear(days=30)["linked"] == 1
+
+
+def test_daily_catchup_chips_away_at_the_work_list(store: Store, tmp_path: Path):
+    """A warm store never reaches tier 2 on its own, so the background refresh
+    is what keeps attribution moving — bounded, and free once it is done."""
+    for aid in range(1, 4):
+        store.upsert_activity(act_row(aid, date=f"2026-07-{15 + aid}"))
+    routes = gear_routes_for({1: ["shoe-a"], 2: ["shoe-a"], 3: ["shoe-b"]})
+    # no new sessions on the wire: isolate the catch-up from incremental's own
+    # attribution of what it just ingested
+    routes["/activitylist-service/activities/search/activities"] = []
+    engine, _ = make_engine(store, tmp_path, routes)
+    engine.GEAR_CATCHUP_PER_RUN = 2
+
+    first = engine.daily_catchup()
+    assert first["gear_linked"] == 2 and first["gear_remaining"] == 1
+
+    second = engine.daily_catchup()
+    assert second["gear_linked"] == 1 and second["gear_remaining"] == 0
+
+    # work list empty → the pass stops costing anything
+    engine2, fetch2 = make_engine(store, tmp_path, gear_routes_for({}))
+    engine2.daily_catchup()
+    assert fetch2.paths("/gear-service/gear/stats/") == []
+
+
+def test_daily_catchup_still_does_the_incremental_work(store: Store, tmp_path: Path):
+    engine, _ = make_engine(store, tmp_path, base_routes())
+    res = engine.daily_catchup()
+    assert res["new_activities"] == 2
+    assert store.get_day(TODAY)["steps"] == 9000
