@@ -1,0 +1,367 @@
+- generic [active] [ref=e1]:
+  - list [ref=e2]:
+    - listitem [ref=e3]:
+      - link "Rechercher" [ref=e4] [cursor=pointer]:
+        - /url: "#search-input-header-modal"
+    - listitem [ref=e5]:
+      - link "Voir le contenu" [ref=e6] [cursor=pointer]:
+        - /url: "#content"
+    - listitem [ref=e7]:
+      - link "Accéder au haut de la page" [ref=e8] [cursor=pointer]:
+        - /url: "#footer"
+  - region "Banner" [ref=e10]:
+    - generic [ref=e11]:
+      - generic [ref=e12]:
+        - generic [ref=e14]:
+          - generic [ref=e15]:
+            - generic [ref=e16]: "Vente flash : Jusqu'à -30%"
+            - link "J'en profite" [ref=e17] [cursor=pointer]:
+              - /url: https://www.decathlon.fr/deals/decath-flash
+          - paragraph [ref=e23]:
+            - timer [ref=e24]:
+              - generic [ref=e25]:
+                - generic [ref=e26]:
+                  - generic [ref=e27]: "01"
+                  - text: j
+                - generic [ref=e28]:
+                  - generic [ref=e29]: "11"
+                  - text: h
+                - generic [ref=e30]:
+                  - generic [ref=e31]: "34"
+                  - text: m
+                - generic [ref=e32]:
+                  - generic [ref=e33]: "34"
+                  - text: s
+              - generic [ref=e34]: "Encore {{jours}} {{heures}} et {{compte}} minutes."
+        - generic:
+          - generic:
+            - text: Livraison en point relais offerte tout l'été !
+            - link:
+              - /url: https://www.decathlon.fr/boutiques/ete
+              - generic: Découvrez notre sélection été
+      - generic [ref=e35]:
+        - button "Suspendre la bannière" [ref=e36] [cursor=pointer]
+        - button "Fermer" [ref=e39] [cursor=pointer]
+  - banner [ref=e42]:
+    - generic [ref=e44]:
+      - link "Retourner à la page d'accueil" [ref=e46] [cursor=pointer]:
+        - /url: /
+        - img "Decathlon logo" [ref=e48]
+      - search [ref=e53]:
+        - generic [ref=e54]:
+          - searchbox "Rechercher" [ref=e57]: superblast 3
+          - button "Fermer" [ref=e59] [cursor=pointer]
+      - navigation "Options" [ref=e63]:
+        - list [ref=e65]:
+          - listitem [ref=e66]:
+            - link "Choisir un magasin préféré" [ref=e67] [cursor=pointer]:
+              - /url: /store-locator
+          - listitem [ref=e70]:
+            - button "Aide" [ref=e71] [cursor=pointer]
+          - listitem [ref=e75]:
+            - link "Se connecter ou s'inscrire" [ref=e76] [cursor=pointer]:
+              - /url: /api/auth/signin/dkt-login?locale=fr-FR&callbackUrl=%2Faccount%2Fdashboard
+          - listitem [ref=e79]:
+            - link "Mon panier 0 items" [ref=e80] [cursor=pointer]:
+              - /url: /checkout/cart
+    - navigation "Menu principal" [ref=e84]:
+      - list [ref=e87]:
+        - listitem [ref=e88]:
+          - button "Tous les sports" [ref=e89] [cursor=pointer]
+        - listitem [ref=e90]:
+          - button "Femme" [ref=e91] [cursor=pointer]
+        - listitem [ref=e92]:
+          - button "Homme" [ref=e93] [cursor=pointer]
+        - listitem [ref=e94]:
+          - button "Enfant & bébé" [ref=e95] [cursor=pointer]
+        - listitem [ref=e96]:
+          - button "Equipements & loisirs" [ref=e97] [cursor=pointer]
+        - listitem [ref=e98]:
+          - button "Électronique" [ref=e99] [cursor=pointer]
+        - listitem [ref=e100]:
+          - button "Nutrition & Santé" [ref=e101] [cursor=pointer]
+        - listitem [ref=e102]:
+          - button "Seconde vie" [ref=e103] [cursor=pointer]
+        - listitem [ref=e104]:
+          - button "Soldes & bons plans" [ref=e105] [cursor=pointer]
+        - listitem [ref=e106]:
+          - button "Services et voyages" [ref=e107] [cursor=pointer]
+        - listitem [ref=e108]:
+          - link "Carte cadeau" [ref=e109] [cursor=pointer]:
+            - /url: /giftcard
+  - main [ref=e110]:
+    - heading "3 résultats pour ‘superblast 3’" [level=1] [ref=e113]
+    - generic [ref=e114]:
+      - button "Masquer les filtres, 0 filtres appliqués" [pressed] [ref=e118] [cursor=pointer]:
+        - generic "Masquer les filtres, 0 filtres appliqués" [ref=e121]: Masquer les filtres
+      - generic [ref=e122]:
+        - generic [ref=e124]:
+          - button "Pourquoi ces produits s'affichent-ils en premier ?" [ref=e125]
+          - generic [ref=e128]: 3 articles
+        - combobox "Le plus pertinent (Trier par)" [ref=e132] [cursor=pointer]:
+          - generic [ref=e133]: Le plus pertinent
+    - generic [ref=e137]:
+      - generic [ref=e142]:
+        - generic [ref=e143]:
+          - button "Vendeurs" [ref=e144] [cursor=pointer]
+          - region "Vendeurs"
+        - generic [ref=e149]:
+          - button "Type de produit" [ref=e150] [cursor=pointer]
+          - region "Type de produit"
+        - generic [ref=e155]:
+          - button "sports" [ref=e156] [cursor=pointer]
+          - region "sports"
+        - generic [ref=e161]:
+          - button "marques" [ref=e162] [cursor=pointer]
+          - region "marques"
+        - generic [ref=e167]:
+          - button "tailles" [ref=e168] [cursor=pointer]
+          - region "tailles"
+        - generic [ref=e173]:
+          - button "couleurs" [ref=e174] [cursor=pointer]
+          - region "couleurs"
+      - list [ref=e182]:
+        - listitem [ref=e183]:
+          - article [ref=e184]:
+            - generic [ref=e185]:
+              - link "picture" [ref=e190] [cursor=pointer]:
+                - /url: /p/mp/pedalier-mono-plateau-sram-sram-x01-eagle-superboost-dm-32d-xsync2-lunar-oxy-b/1c6a012e-59bf-444e-8b9f-3dd9c6a2a4bd/c1
+                - img "SRAM picture" [ref=e191]
+              - generic [ref=e196]:
+                - heading [level=2] [ref=e199]:
+                  - link "SRAM Pédalier mono plateau Sram Sram X01 Eagle SuperBoost+ DM 32D Xsync2 Lunar Oxy (B" [ref=e200] [cursor=pointer]:
+                    - /url: /p/mp/pedalier-mono-plateau-sram-sram-x01-eagle-superboost-dm-32d-xsync2-lunar-oxy-b/1c6a012e-59bf-444e-8b9f-3dd9c6a2a4bd/c1
+                - generic [ref=e201]:
+                  - generic [ref=e203]:
+                    - generic [ref=e204]:
+                      - generic [ref=e205]: 256,35 €
+                      - generic "Ancien prix" [ref=e206]: 288,35 €
+                      - generic [ref=e207]: 32 € de réduction
+                      - generic [ref=e208]: 256,35 €/unité
+                    - generic [ref=e209]: Dès le 23/07/2026 et jusqu'à épuisement du stock
+                  - generic [ref=e210]: Vendu et expédié par Sports Lab FR
+        - listitem [ref=e211]:
+          - article [ref=e212]:
+            - generic [ref=e213]:
+              - link "picture" [ref=e218] [cursor=pointer]:
+                - /url: /p/mp/pedalier-mono-plateau-sram-sram-x01-eagle-superboost-dm-32d-xsync2-lunar-oxy-b/33f2fa34-82e5-414d-aedb-41a30e120778/c1
+                - img "SRAM picture" [ref=e219]
+              - generic [ref=e224]:
+                - heading [level=2] [ref=e227]:
+                  - link "SRAM Pédalier mono plateau Sram Sram X01 Eagle SuperBoost+ DM 32D Xsync2 Lunar Oxy (B" [ref=e228] [cursor=pointer]:
+                    - /url: /p/mp/pedalier-mono-plateau-sram-sram-x01-eagle-superboost-dm-32d-xsync2-lunar-oxy-b/33f2fa34-82e5-414d-aedb-41a30e120778/c1
+                - generic [ref=e229]:
+                  - generic [ref=e232]:
+                    - generic [ref=e233]: 345,04 €
+                    - generic [ref=e234]: 345,04 €/unité
+                  - generic [ref=e235]: Vendu et expédié par Fahrrad-teile.shop
+        - listitem [ref=e236]:
+          - article [ref=e237]:
+            - generic [ref=e238]:
+              - link "picture" [ref=e243] [cursor=pointer]:
+                - /url: /p/mp/pedalier-mono-plateau-sram-sram-x01-eagle-superboost-dub-dm-32d-xsync2-lunar-po/c48503f8-c411-4a3c-96f9-675824a6ab98/c1
+                - img "SRAM picture" [ref=e244]
+              - generic [ref=e249]:
+                - heading [level=2] [ref=e252]:
+                  - link "SRAM Pédalier mono plateau Sram Sram X01 Eagle SuperBoost+ DUB DM 32D Xsync2 Lunar Po" [ref=e253] [cursor=pointer]:
+                    - /url: /p/mp/pedalier-mono-plateau-sram-sram-x01-eagle-superboost-dub-dm-32d-xsync2-lunar-po/c48503f8-c411-4a3c-96f9-675824a6ab98/c1
+                - generic [ref=e254]:
+                  - generic [ref=e257]:
+                    - generic [ref=e258]: 277,65 €
+                    - generic [ref=e259]: 277,65 €/unité
+                  - generic [ref=e260]: Vendu et expédié par Sports Lab FR
+  - contentinfo [ref=e261]:
+    - generic [ref=e262]:
+      - list [ref=e263]:
+        - listitem [ref=e264]:
+          - link "Livraison offerte En point relais du 1 juillet au 31 août 2026" [ref=e265] [cursor=pointer]:
+            - /url: https://www.decathlon.fr/lp/i/modes-livraison
+            - generic [ref=e266]: Livraison offerte
+            - generic [ref=e267]: En point relais du 1 juillet au 31 août 2026
+        - listitem [ref=e268]:
+          - link "Retrait en 1h en magasin (1)" [ref=e269] [cursor=pointer]:
+            - /url: https://www.decathlon.fr/lp/i/modes-livraison
+            - generic [ref=e270]: Retrait en 1h
+            - generic [ref=e271]: en magasin (1)
+        - listitem [ref=e272]:
+          - link "Retours et échanges offerts jusqu'à 365 jours (1)" [ref=e273] [cursor=pointer]:
+            - /url: https://www.decathlon.fr/lp/i/retour-echange
+            - generic [ref=e274]: Retours et échanges
+            - generic [ref=e275]: offerts jusqu'à 365 jours (1)
+        - listitem [ref=e276]:
+          - link "Service client à votre écoute" [ref=e277] [cursor=pointer]:
+            - /url: https://www.decathlon.fr/help/app/home
+            - generic [ref=e278]: Service client
+            - generic [ref=e279]: à votre écoute
+      - generic [ref=e280]:
+        - generic [ref=e281]:
+          - list [ref=e283]:
+            - listitem [ref=e284]:
+              - link "Téléchargez notre application" [ref=e285] [cursor=pointer]:
+                - /url: https://www.decathlon.fr/lp/i/application-decathlon-shopping
+            - listitem [ref=e288]:
+              - link "Compte fidélité" [ref=e289] [cursor=pointer]:
+                - /url: https://membership.decathlon.com/fr-FR/home/
+          - generic [ref=e292]:
+            - link "Lien Facebook" [ref=e294] [cursor=pointer]:
+              - /url: https://www.facebook.com/Decathlon.France
+            - link "Lien Twitter" [ref=e298] [cursor=pointer]:
+              - /url: https://x.com/decathlon
+            - link "Lien YouTube" [ref=e302] [cursor=pointer]:
+              - /url: https://www.youtube.com/user/decathfrance
+            - link "Lien Instagram" [ref=e306] [cursor=pointer]:
+              - /url: https://www.instagram.com/decathlon/
+        - generic [ref=e312]:
+          - generic [ref=e314]:
+            - heading "Notre entreprise" [level=3] [ref=e315]
+            - list [ref=e317]:
+              - listitem [ref=e318]:
+                - link "Qui sommes-nous ?" [ref=e319] [cursor=pointer]:
+                  - /url: https://engagements.decathlon.fr/
+              - listitem [ref=e321]:
+                - link "Nos magasins" [ref=e322] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/store-locator
+              - listitem [ref=e324]:
+                - link "Recrutement" [ref=e325] [cursor=pointer]:
+                  - /url: https://recrutement.decathlon.fr/
+              - listitem [ref=e327]:
+                - link "Presse et actualité" [ref=e328] [cursor=pointer]:
+                  - /url: https://www.decathlon.media/
+              - listitem [ref=e330]:
+                - link "La vie de nos produits" [ref=e331] [cursor=pointer]:
+                  - /url: https://engagements.decathlon.fr/la-vie-de-nos-produits
+              - listitem [ref=e333]:
+                - link "Engagements durables" [ref=e334] [cursor=pointer]:
+                  - /url: https://engagements.decathlon.fr/
+              - listitem [ref=e336]:
+                - link "Fondation Decathlon" [ref=e337] [cursor=pointer]:
+                  - /url: https://www.fondationdecathlon.com/
+              - listitem [ref=e339]:
+                - link "Decathlon Pulse" [ref=e340] [cursor=pointer]:
+                  - /url: https://www.decathlonpulse.com/
+              - listitem [ref=e342]:
+                - link "Decathlon Lab" [ref=e343] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/c/lp/decathlon-lab-nos-histoires-de-conception_b5a014fb-f96c-4dfa-9378-43d6dde83109
+          - generic [ref=e346]:
+            - heading "Besoin d'aide ?" [level=3] [ref=e347]
+            - list [ref=e349]:
+              - listitem [ref=e350]:
+                - link "Modes de livraison" [ref=e351] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/lp/i/modes-livraison
+              - listitem [ref=e353]:
+                - link "Retour et échange" [ref=e354] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/lp/i/retour-echange
+              - listitem [ref=e356]:
+                - link "Moyens de paiement" [ref=e357] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/lp/i/moyens-de-paiements
+              - listitem [ref=e359]:
+                - link "Compte fidélité" [ref=e360] [cursor=pointer]:
+                  - /url: https://membership.decathlon.com/fr-FR/home/?utm_source=decathlon.fr&utm_medium=referral&utm_campaign=footer_v2/
+              - listitem [ref=e362]:
+                - link "Comment choisir votre produit ?" [ref=e363] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/contents
+              - listitem [ref=e365]:
+                - link "Tendances sportives" [ref=e366] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/tendances-sportives_lp-C7TVNB
+              - listitem [ref=e368]:
+                - link "Une question ?" [ref=e369] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/help/app/home
+              - listitem [ref=e371]:
+                - link "Service clients sourds et malentendants" [ref=e372] [cursor=pointer]:
+                  - /url: https://app.acce-o.fr/client/decathlon
+              - listitem [ref=e374]:
+                - link "Découvrir la marketplace" [ref=e375] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/c/lp/landing-page-seller-devenez-partenaire-decathlon-marketplace_40334289-2f58-4524-8a13-f9bf19c913f5
+              - listitem [ref=e377]:
+                - link "Signaler un contenu illicite" [ref=e378] [cursor=pointer]:
+                  - /url: https://dktmarketplace.retool.com/form/acc0cf0d-6eee-4098-bb2e-849dad5a93b8?locale=FR
+              - listitem [ref=e380]:
+                - link "Bons réflexes phishing" [ref=e381] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/lp/i/information-phishing
+              - listitem [ref=e383]:
+                - link "Reprise légale" [ref=e384] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/Reprise-legale_lp-QHX2T5
+              - listitem [ref=e386]:
+                - link "Codes promo et conditions des offres" [ref=e387] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/lp/i/code-promo-decathlon-et-conditions-des-offres
+              - listitem [ref=e389]:
+                - link "Gestion des réactions cutanées et allergies" [ref=e390] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/lp/c/allergies-et-reactions-cutanees
+          - generic [ref=e393]:
+            - heading "Nos services" [level=3] [ref=e394]
+            - list [ref=e396]:
+              - listitem [ref=e397]:
+                - link "Entretenir et réparer" [ref=e398] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/Services_Entretien-et-reparation_lp-4D8P0B
+              - listitem [ref=e400]:
+                - link "Louer votre matériel" [ref=e401] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/location_lp-I551ZC
+              - listitem [ref=e403]:
+                - link "Revendre votre matériel" [ref=e404] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/reprise-materiel-de-sport_lp-R85EF5
+              - listitem [ref=e406]:
+                - link "Personnaliser vos produits" [ref=e407] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/services/personnalisation
+              - listitem [ref=e409]:
+                - link "Financement" [ref=e410] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/Services_Financement_lp-9BQFCB
+              - listitem [ref=e412]:
+                - link "Assurance" [ref=e413] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/Service-assurance_lp-OMCP39
+              - listitem [ref=e415]:
+                - link "Carte cadeau" [ref=e416] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/giftcard
+              - listitem [ref=e418]:
+                - link "Decathlon Pro" [ref=e419] [cursor=pointer]:
+                  - /url: https://www.decathlonpro.fr/
+              - listitem [ref=e421]:
+                - link "Decat'Live" [ref=e422] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/live
+          - generic [ref=e425]:
+            - heading "Faire du sport" [level=3] [ref=e426]
+            - list [ref=e428]:
+              - listitem [ref=e429]:
+                - link "Conseils sportifs" [ref=e430] [cursor=pointer]:
+                  - /url: https://conseilsport.decathlon.fr/
+              - listitem [ref=e432]:
+                - link "Appli de sport gratuite" [ref=e433] [cursor=pointer]:
+                  - /url: https://www.decathloncoach.com/fr/home/
+              - listitem [ref=e435]:
+                - link "Réserver une activité sportive" [ref=e436] [cursor=pointer]:
+                  - /url: https://activites.decathlon.fr/fr-FR
+              - listitem [ref=e438]:
+                - link "Cours de fitness en ligne" [ref=e439] [cursor=pointer]:
+                  - /url: https://www.decathlon.fr/lp/i/conseils-pratique-sport
+              - listitem [ref=e441]:
+                - link "Application de randonnée" [ref=e442] [cursor=pointer]:
+                  - /url: https://www.decathlon-outdoor.com/fr-fr/app
+              - listitem [ref=e444]:
+                - link "Vacances sportives" [ref=e445] [cursor=pointer]:
+                  - /url: https://www.decathlontravel.com/voyages
+      - link "Retourner à la page d'accueil" [ref=e448] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e452]:
+        - generic [ref=e453]:
+          - link "Transparence classement des produits" [ref=e454] [cursor=pointer]:
+            - /url: /lp/i/transparence-classement
+          - link "Rapport annuel de transparence" [ref=e456] [cursor=pointer]:
+            - /url: /c/legal/rapport-annuel-de-transparence_c8b75455-8240-49e5-b7bd-236420330fa4
+          - link "Conditions Générales" [ref=e458] [cursor=pointer]:
+            - /url: /lp/i/conditions-generales
+          - link "Mentions légales" [ref=e460] [cursor=pointer]:
+            - /url: /lp/i/mentions-legales
+          - link "Données personnelles" [ref=e462] [cursor=pointer]:
+            - /url: /c/lp/donnees-personnelles-decathlon_8a12a93f-1dca-45be-8459-6a9ba0643208
+          - button "Paramétrer mes cookies" [ref=e464] [cursor=pointer]
+          - link "Politique cookies" [ref=e466] [cursor=pointer]:
+            - /url: /lp/i/cookie-policy
+          - 'link "Accessibilité: non conforme" [ref=e468] [cursor=pointer]':
+            - /url: /lp/i/declaration-accessibilite
+          - link "Aide / FAQ / Contact" [ref=e470] [cursor=pointer]:
+            - /url: /help/app/home
+          - link "Signaler une vulnérabilité" [ref=e472] [cursor=pointer]:
+            - /url: https://vdp.decathlon.net/p/Policy
+        - generic [ref=e474]: (1) À l’exception des produits vendus par nos partenaires / (2) Hors produits d’investissement
+      - generic [ref=e476]: ©2026 Decathlon
+  - button [ref=e478] [cursor=pointer]
+  - alert [ref=e483]

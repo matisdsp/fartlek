@@ -1,0 +1,235 @@
+- generic [ref=f15e1]:
+  - generic [ref=f15e2]:
+    - list [ref=f15e4]:
+      - listitem [ref=f15e5]:
+        - link "Click&collect 2h en magasin" [ref=f15e6] [cursor=pointer]:
+          - /url: /shop/Infos/Services#29
+      - listitem [ref=f15e7]:
+        - link "Retrait gratuit en magasin" [ref=f15e8] [cursor=pointer]:
+          - /url: /shop/Infos/Services#4
+      - listitem [ref=f15e9]:
+        - link "Paiement 3x ou 4x sans frais" [ref=f15e10] [cursor=pointer]:
+          - /url: /shop/Infos/Services#15
+      - listitem [ref=f15e11]:
+        - link "les meilleures marques running" [ref=f15e12] [cursor=pointer]:
+          - /url: /shop/Marques/Liste
+    - generic [ref=f15e14]:
+      - link [ref=f15e16] [cursor=pointer]:
+        - /url: /
+        - img "Logo Foulées" [ref=f15e17]
+      - generic [ref=f15e18]:
+        - generic [ref=f15e19]:
+          - searchbox "Je cherche des chaussures de running ..." [ref=f15e21]
+          - navigation [ref=f15e22]:
+            - listitem [ref=f15e23]:
+              - link [ref=f15e24] [cursor=pointer]:
+                - /url: /shop/Compte/GestionCommandes
+                - img "Mon compte" [ref=f15e25]
+                - paragraph [ref=f15e26]: Mon compte
+            - listitem [ref=f15e27]:
+              - link [ref=f15e28] [cursor=pointer]:
+                - /url: /shop/Panier/Afficher
+                - img "Panier" [ref=f15e29]
+                - paragraph [ref=f15e31]: Panier
+        - list [ref=f15e33]:
+          - listitem [ref=f15e34]:
+            - link "magasins" [ref=f15e35] [cursor=pointer]:
+              - /url: /-magasins-
+          - listitem [ref=f15e36]:
+            - link "Chaussure Homme" [ref=f15e37] [cursor=pointer]:
+              - /url: /shop/chaussures-course-pied-homme
+              - text: ChaussureHomme
+          - listitem [ref=f15e38]:
+            - link "Chaussure Femme" [ref=f15e39] [cursor=pointer]:
+              - /url: /shop/chaussures-course-pied-femme
+              - text: ChaussureFemme
+          - listitem [ref=f15e40]:
+            - link "Textile Homme" [ref=f15e41] [cursor=pointer]:
+              - /url: /shop/textile-running-homme
+              - text: TextileHomme
+          - listitem [ref=f15e42]:
+            - link "Textile Femme" [ref=f15e43] [cursor=pointer]:
+              - /url: /shop/textile-running-femme
+              - text: TextileFemme
+          - listitem [ref=f15e44]:
+            - link "Electronique" [ref=f15e45] [cursor=pointer]:
+              - /url: /shop/electronique
+          - listitem [ref=f15e46]:
+            - link "Diététique" [ref=f15e47] [cursor=pointer]:
+              - /url: /shop/dietetique-running
+          - listitem [ref=f15e48]:
+            - link "Accessoires" [ref=f15e49] [cursor=pointer]:
+              - /url: /shop/accessoires-running
+          - listitem [ref=f15e50]:
+            - link "Promotions" [ref=f15e51] [cursor=pointer]:
+              - /url: /shop/Neufs/Liste
+  - text: ✕
+  - generic [ref=f15e53]:
+    - heading "Informations - retour-annulation" [level=2] [ref=f15e54]
+    - list [ref=f15e55]:
+      - listitem [ref=f15e56]:
+        - link "Accueil" [ref=f15e57] [cursor=pointer]:
+          - /url: /
+        - text: /
+      - listitem [ref=f15e58]: Informations - retour-annulation
+    - generic [ref=f15e62]:
+      - heading "Comment annuler ma commande et retourner un produit ?" [level=2] [ref=f15e63]
+      - paragraph [ref=f15e64]:
+        - text: Vous disposez d'un délai de rétractation de
+        - strong [ref=f15e65]: 14 jours
+        - text: à compter de la date de réception de votre produit pour exercer votre droit de rétractation.
+      - paragraph [ref=f15e66]:
+        - text: Le produit doit être
+        - strong [ref=f15e67]: dans son état d'origine, non utilisé et dans son emballage d'origine
+        - text: pour pouvoir être repris.
+      - paragraph [ref=f15e68]: "Suivant le type de commande (Click & Collect ou commande internet classique), la procédure peut varier. Merci de suivre la préocédure suivante :"
+      - list [ref=f15e69]:
+        - listitem [ref=f15e70]:
+          - text: Connectez-vous à
+          - strong [ref=f15e71]:
+            - link "votre espace Client" [ref=f15e72] [cursor=pointer]:
+              - /url: /shop/Compte/GestionCommandes
+          - text: et cliquez sur "mes commandes".
+        - listitem [ref=f15e73]:
+          - strong [ref=f15e74]: Sélectionner la commande
+          - text: et cliquer sur
+          - strong [ref=f15e75]: "\"annuler\""
+          - text: .
+        - listitem [ref=f15e76]:
+          - strong [ref=f15e77]: Suivre les instructions
+          - text: affichées spécifiquement pour votre commande.
+      - paragraph
+      - paragraph [ref=f15e78]: Si votre retour est dû à une erreur de notre part ou bien à un produit défectueux, contactez-nous par email ou téléphone afin que nous puissions vous fournir une étiquette de retour Colissimo pré-affranchie. Dans le cas contraire, les frais de retour seront à votre charge.
+      - paragraph [ref=f15e79]: A la réception de la marchandise, nous procéderons au remboursement du produit retourné par recrédit de votre carte bancaire.
+  - generic [ref=f15e80]:
+    - generic [ref=f15e82]:
+      - generic [ref=f15e86]:
+        - paragraph [ref=f15e89]: S'inscrire à notre Newsletter
+        - paragraph [ref=f15e93]: Nouveautés, promos, exclusivités...
+        - paragraph [ref=f15e97]: Pour en profiter, faut souvent arriver en premier, alors recevez l'info avant les autres !
+        - generic [ref=f15e98]:
+          - textbox "Mon adresse mail" [ref=f15e104]
+          - button "S'inscrire" [ref=f15e107] [cursor=pointer]
+      - generic [ref=f15e108]:
+        - paragraph [ref=f15e109]: Suivez-nous
+        - link [ref=f15e110] [cursor=pointer]:
+          - /url: https://www.instagram.com/foulees_france/
+          - img "Suivez-nous sur instagram" [ref=f15e111]
+        - link [ref=f15e112] [cursor=pointer]:
+          - /url: https://www.facebook.com/magasinsfoulees
+          - img "Suivez-nous sur Facebook" [ref=f15e113]
+        - link [ref=f15e114] [cursor=pointer]:
+          - /url: https://fr.linkedin.com/company/magasins-foul%C3%A9es
+          - img "Suivez-nous sur Linkedin" [ref=f15e115]
+    - generic [ref=f15e119]:
+      - generic [ref=f15e120]:
+        - img "Paiement sécurisé" [ref=f15e121]
+        - paragraph [ref=f15e122]: Paiement sécurisé
+      - generic [ref=f15e123]:
+        - img "Paiement en 3x et 4x sans frais" [ref=f15e124]
+        - paragraph [ref=f15e125]: Paiement en 3x et 4x sans frais
+      - generic [ref=f15e126]:
+        - img "Paiement CB, Visa, Mastercard et Paypal" [ref=f15e127]
+        - paragraph [ref=f15e128]: Paiement CB, Visa, Mastercard et Paypal
+    - contentinfo [ref=f15e129]:
+      - generic [ref=f15e132]:
+        - generic [ref=f15e133]:
+          - link [ref=f15e134] [cursor=pointer]:
+            - /url: /catalogue-foulees-2026
+            - img "Catalogue" [ref=f15e135]
+          - link "Feuilleter" [ref=f15e136] [cursor=pointer]:
+            - /url: /catalogue-foulees-2026
+        - generic [ref=f15e137]:
+          - heading "Mes services en ligne" [level=4] [ref=f15e138]
+          - list [ref=f15e139]:
+            - listitem [ref=f15e140]:
+              - link "Click & Collect" [ref=f15e141] [cursor=pointer]:
+                - /url: /shop/Infos/Services#29
+            - listitem [ref=f15e142]:
+              - link "Avantages fidélité" [ref=f15e143] [cursor=pointer]:
+                - /url: /shop/Infos/Services#2
+            - listitem [ref=f15e144]:
+              - link "e-Chèque cadeau" [ref=f15e145] [cursor=pointer]:
+                - /url: /shop/Infos/Services#14
+            - listitem [ref=f15e146]:
+              - link "Livraison Chronopost" [ref=f15e147] [cursor=pointer]:
+                - /url: /shop/Infos/Services#12
+            - listitem [ref=f15e148]:
+              - link "Livraison en magasin" [ref=f15e149] [cursor=pointer]:
+                - /url: /shop/Infos/Services#4
+            - listitem [ref=f15e150]:
+              - link "Livraison Colissimo" [ref=f15e151] [cursor=pointer]:
+                - /url: /shop/Infos/Services#10
+            - listitem [ref=f15e152]:
+              - link "Paiement 3X sans frais" [ref=f15e153] [cursor=pointer]:
+                - /url: /shop/Infos/Services#15
+            - listitem [ref=f15e154]:
+              - link "Paiement sécurisé" [ref=f15e155] [cursor=pointer]:
+                - /url: /shop/Infos/Services#11
+        - generic [ref=f15e156]:
+          - heading "Services des magasins" [level=4] [ref=f15e157]
+          - list [ref=f15e158]:
+            - listitem [ref=f15e159]:
+              - link "Analyse de la foulée sur tapis" [ref=f15e160] [cursor=pointer]:
+                - /url: /le-labo-l-analyse-de-foulees-au-service-de-vos-pieds
+            - listitem [ref=f15e161]:
+              - link "Conseil d’experts" [ref=f15e162] [cursor=pointer]:
+                - /url: /les-experts-foulees-sont-la-pour-vous-conseiller
+            - listitem [ref=f15e163]:
+              - link "Service après vente" [ref=f15e164] [cursor=pointer]:
+                - /url: /chez-foulees-vous-pouvez-acheter-en-toute
+            - listitem [ref=f15e165]:
+              - link "Carte fidélité" [ref=f15e166] [cursor=pointer]:
+                - /url: /carte-de-fidelite-foulees-venez-vous-etes-recompenses
+            - listitem [ref=f15e167]:
+              - link "Chèque cadeau" [ref=f15e168] [cursor=pointer]:
+                - /url: /cheque-cadeau-foulees-du-plaisir-sans-se-tromper
+        - generic [ref=f15e169]:
+          - heading "Service client" [level=4] [ref=f15e170]
+          - list [ref=f15e171]:
+            - listitem [ref=f15e172]:
+              - link "Retour produit" [ref=f15e173] [cursor=pointer]:
+                - /url: /shop/Infos/Infos/page/retour-annulation
+            - listitem [ref=f15e174]:
+              - link "Mon compte" [ref=f15e175] [cursor=pointer]:
+                - /url: /shop/Compte/GestionCommandes
+            - listitem [ref=f15e176]:
+              - link "Nous contacter" [ref=f15e177] [cursor=pointer]:
+                - /url: /shop/Contact/Index
+            - listitem [ref=f15e178]:
+              - link "CGV" [ref=f15e179] [cursor=pointer]:
+                - /url: /shop/Infos/Infos/page/CGV
+            - listitem [ref=f15e180]:
+              - link "Mentions légales" [ref=f15e181] [cursor=pointer]:
+                - /url: /shop/Infos/Infos/page/Mentions-legales
+            - listitem [ref=f15e182]:
+              - link "Gestion des cookies" [ref=f15e183] [cursor=pointer]:
+                - /url: javascript:tarteaucitron.userInterface.openPanel();
+        - generic [ref=f15e184]:
+          - heading "L'entreprise" [level=4] [ref=f15e185]
+          - list [ref=f15e186]:
+            - listitem [ref=f15e187]:
+              - link "Contact" [ref=f15e188] [cursor=pointer]:
+                - /url: /nous-contacter
+            - listitem [ref=f15e189]:
+              - link "Ouvrir un magasin" [ref=f15e190] [cursor=pointer]:
+                - /url: /ouvrir-un-magasin-de-running-avec-foulees
+            - listitem [ref=f15e191]:
+              - link "Recrutement" [ref=f15e192] [cursor=pointer]:
+                - /url: /-emploi-
+            - listitem [ref=f15e193]:
+              - link "Qui sommes-nous" [ref=f15e194] [cursor=pointer]:
+                - /url: /nos-magasins-foul-es
+        - img "Logo Foulees" [ref=f15e196]
+      - generic [ref=f15e197]: ® 2026 Foulées
+  - generic:
+    - text: ✓ ✗ ✛ ✓ ✛ ✓ ✗ ✛ ✛ ✛ ✛ ✛ ✛ ✛
+    - generic [active] [ref=f15e199]:
+      - generic [ref=f15e200]: En poursuivant votre navigation, vous acceptez l'utilisation de services tiers pouvant installer des cookies
+      - button "✓ Tout accepter" [ref=f15e201] [cursor=pointer]:
+        - generic [ref=f15e202]: ✓
+        - text: Tout accepter
+      - button "✗ Tout refuser" [ref=f15e203] [cursor=pointer]:
+        - generic [ref=f15e204]: ✗
+        - text: Tout refuser
+      - button "Personnaliser" [ref=f15e205] [cursor=pointer]

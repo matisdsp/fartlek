@@ -155,6 +155,14 @@ class ToolContext:
         assert self._engine is not None, "ensure_ready() first"
         return self._engine.display_name
 
+    @property
+    def profile_id(self) -> str | None:
+        """Garmin's numeric userProfilePk, which the gear service keys on —
+        not display_name (a GUID). Captured by the sync engine from the social
+        profile; None until a sync has run."""
+        assert self._store is not None, "ensure_ready() first"
+        return self._store.get_sync_state("profile_id")
+
     def today(self) -> str:
         """Server-local date (§3.3 timezone rules)."""
         return date.today().isoformat()

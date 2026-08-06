@@ -1,0 +1,300 @@
+- generic [ref=f94e1]:
+  - generic [ref=f94e2]:
+    - list [ref=f94e4]:
+      - listitem [ref=f94e5]:
+        - link "Click&collect 2h en magasin" [ref=f94e6] [cursor=pointer]:
+          - /url: /shop/Infos/Services#29
+      - listitem [ref=f94e7]:
+        - link "Retrait gratuit en magasin" [ref=f94e8] [cursor=pointer]:
+          - /url: /shop/Infos/Services#4
+      - listitem [ref=f94e9]:
+        - link "Paiement 3x ou 4x sans frais" [ref=f94e10] [cursor=pointer]:
+          - /url: /shop/Infos/Services#15
+      - listitem [ref=f94e11]:
+        - link "les meilleures marques running" [ref=f94e12] [cursor=pointer]:
+          - /url: /shop/Marques/Liste
+    - generic [ref=f94e14]:
+      - link [ref=f94e16] [cursor=pointer]:
+        - /url: /
+        - img "Logo Foulées" [ref=f94e17]
+      - generic [ref=f94e18]:
+        - generic [ref=f94e19]:
+          - searchbox "Je cherche des chaussures de running ..." [ref=f94e21]
+          - navigation [ref=f94e22]:
+            - listitem [ref=f94e23]:
+              - link [ref=f94e24] [cursor=pointer]:
+                - /url: /shop/Compte/GestionCommandes
+                - img "Mon compte" [ref=f94e25]
+                - paragraph [ref=f94e26]: Mon compte
+            - listitem [ref=f94e27]:
+              - link [ref=f94e28] [cursor=pointer]:
+                - /url: /shop/Panier/Afficher
+                - img "Panier" [ref=f94e29]
+                - paragraph [ref=f94e31]: Panier
+        - list [ref=f94e33]:
+          - listitem [ref=f94e34]:
+            - link "magasins" [ref=f94e35] [cursor=pointer]:
+              - /url: /-magasins-
+          - listitem [ref=f94e36]:
+            - link "Chaussure Homme" [ref=f94e37] [cursor=pointer]:
+              - /url: /shop/chaussures-course-pied-homme
+              - text: ChaussureHomme
+          - listitem [ref=f94e38]:
+            - link "Chaussure Femme" [ref=f94e39] [cursor=pointer]:
+              - /url: /shop/chaussures-course-pied-femme
+              - text: ChaussureFemme
+          - listitem [ref=f94e40]:
+            - link "Textile Homme" [ref=f94e41] [cursor=pointer]:
+              - /url: /shop/textile-running-homme
+              - text: TextileHomme
+          - listitem [ref=f94e42]:
+            - link "Textile Femme" [ref=f94e43] [cursor=pointer]:
+              - /url: /shop/textile-running-femme
+              - text: TextileFemme
+          - listitem [ref=f94e44]:
+            - link "Electronique" [ref=f94e45] [cursor=pointer]:
+              - /url: /shop/electronique
+          - listitem [ref=f94e46]:
+            - link "Diététique" [ref=f94e47] [cursor=pointer]:
+              - /url: /shop/dietetique-running
+          - listitem [ref=f94e48]:
+            - link "Accessoires" [ref=f94e49] [cursor=pointer]:
+              - /url: /shop/accessoires-running
+          - listitem [ref=f94e50]:
+            - link "Promotions" [ref=f94e51] [cursor=pointer]:
+              - /url: /shop/Neufs/Liste
+  - text: ✕
+  - generic [ref=f94e53]:
+    - heading "Nos services" [level=2] [ref=f94e54]
+    - list [ref=f94e55]:
+      - listitem [ref=f94e56]:
+        - link "Accueil" [ref=f94e57] [cursor=pointer]:
+          - /url: /
+        - text: /
+      - listitem [ref=f94e58]:
+        - link "Nos services" [ref=f94e59] [cursor=pointer]:
+          - /url: ""
+    - generic [ref=f94e63]:
+      - article [ref=f94e64]:
+        - generic [ref=f94e67]:
+          - heading "Avantages fidélité" [level=3] [ref=f94e68]
+          - paragraph
+          - paragraph [ref=f94e69]:
+            - text: Gagnez des points en achetant en magasin et en ligne! Notre enseigne Foulées vous propose une carte de fidélité très avantageuse qui vous permet de cumuler rapidement des points et de les convertir en Euros pour en bénéficier sur vos prochains achats. Foulées étant un réseau de magasins indépendants, chaque magasin est libre de proposer ce service ou non et la carte de fidélité est propre à chaque magasin (elle ne permet de cumuler des points valables uniquement dans ce magasin).
+            - strong [ref=f94e70]: La souscription de la carte de fidélité n'est possible que en magasin.
+            - text: Rendez-vous sur
+            - link "votre compte" [ref=f94e71] [cursor=pointer]:
+              - /url: /shop/index.php/Compte/GestionCommandes
+            - text: dès maintenant pour associer votre carte de fidélité à votre compte internet. Si vous n’avez pas encore la carte de fidélité, demandez là vite dans votre magasin !
+          - heading "Achat en magasin :" [level=4] [ref=f94e72]
+          - paragraph [ref=f94e73]: Vos achats, hors promotions et soldes, vont vous permettre de cumuler des points de fidélité que vous pouvez utiliser dès que vous le souhaitez dans votre magasin préféré, sous réserve que le magasin propose la carte de fidélité. Un avantage non négligeable car ce cumul de point correspond à une remise moyenne de 5%. Votre fidélité pourra être plus largement récompensée lors de nos opérations commerciales. Chaque magasin peut adopter une politique propre de récompense des achats de ses clients fidélisés, en fonction des produits achetés. Merci de vous renseigner directement auprès du magasin si besoin.
+          - heading "Achat en ligne :" [level=4] [ref=f94e74]
+          - paragraph [ref=f94e75]: "Vos achats permettent de cumuler des points sur votre carte fidélité uniquement si :"
+          - list [ref=f94e76]:
+            - listitem [ref=f94e77]: Vous possédez déjà une carte fidélité dans un des magasins et qu'elle est reliée à votre compte client internet
+            - listitem [ref=f94e78]: Que vous passez commande en click & Collect auprès de ce magasin ou que vous sélectionnez ce magasin comme magasin référent pour votre commande internet
+            - listitem [ref=f94e79]: Que le magasin prévoit l'octroi de points sur ces produits (politique de récompense variable suivant le magasin)
+          - text: Chaque magasin peut adopter une politique propre de récompense des achats de ces clients fidélisés, en fonction des produits achetés. Se renseigner directement auprès du magasin si besoin.
+          - paragraph
+          - heading "Conversion des points en euros :" [level=4] [ref=f94e80]
+          - paragraph [ref=f94e81]: "Une conversion facile des points : 1 point = 1 Euro. Les points cumulés ne sont valables que pour une certaine durée et ne sont dépensable que en magasin. Se renseigner auprès de votre magasin si besoin."
+          - paragraph
+      - article [ref=f94e82]:
+        - generic [ref=f94e85]:
+          - heading "Chèques cadeaux" [level=3] [ref=f94e86]
+          - paragraph [ref=f94e87]:
+            - text: "Pour acheter un chèque cadeau :"
+            - link "Cliquez ici" [ref=f94e88] [cursor=pointer]:
+              - /url: http://www.foulees.com/shop/index.php/Chkdo/Index
+      - article [ref=f94e89]:
+        - generic [ref=f94e92]:
+          - heading "Click & Collect" [level=3] [ref=f94e93]
+          - paragraph
+          - paragraph [ref=f94e94]: Vos magasins Foulées mettent en place un nouveau service de Click&Collect pour faciliter vos achats de produits en stock dans votre magasin de proximité. Chaussures, montre GPS, vestes, maillots, shorts... commandez en ligne puis retirez votre commande 2h après en magasin. Simple et efficace pour gagner du temps !
+          - paragraph [ref=f94e95]: 1. Vous ajoutez vos articles dans le panier en sélectionnant "Ajouter au panier (stock magasin)" et finalisez votre commande
+          - paragraph [ref=f94e96]: 2. Vous allez recevoir un mail de confirmation de commande.
+          - paragraph [ref=f94e97]: 3. Votre commande sera préparé sous 2h en magasin, sauf pour les vélos qui nécessite un temps de montage et réglage supplémentaire.
+          - paragraph [ref=f94e98]: 4. Rendez-vous en magasin pour récupérer votre commande avec votre carte d'identité.
+          - paragraph [ref=f94e99]:
+            - text: Le Click & Collect est disponible dans les magasins ayant activé ce service.
+            - link "Liste des magasins proposant le service Click & Collect Foulees" [ref=f94e100] [cursor=pointer]:
+              - /url: https://foulees.com/Click-Collect
+          - text: .
+          - paragraph
+      - article [ref=f94e101]:
+        - generic [ref=f94e104]:
+          - heading "Livraison Chronopost" [level=3] [ref=f94e105]
+          - paragraph [ref=f94e106]:
+            - text: "Avec Chronopost, vous avez le choix entre 2 solutions de livraison et un grand réseau de points de retrait, partout en France métropolitaine et la Corse pour toutes vos commandes en ligne. Bénéficiez du maillage unique permettant de couvrir l’ensemble de la France Métropolitaine. Pour vous assurer la meilleure qualité de service, Chronopost a développé un réseau très dense avec 70 sites en propres et 15 000 points de proximité (12000 bureaux de poste et 3100 points Chrono Relais). Une livraison sûre et très rapide pour les clients souhaitant un délai très court entre l'expédition et la réception de leur colis. Les 2 modes de livraison sont :"
+            - strong [ref=f94e107]: A domicile
+            - text: Livraison au domicile privé avec dépôt en bureau de poste ou agence Chronopost en cas de présentation infructueuse
+            - strong [ref=f94e108]: En point Chrono relais
+            - text: Livraison en point Chrono Relais, de très nombreux points mis à votre disposition avec des horaires d’ouverture élargis et un retrait rapide Pour plus d'information sur Chronopost
+            - link "cliquez ici" [ref=f94e109] [cursor=pointer]:
+              - /url: http://www.chronopost.fr
+      - article [ref=f94e110]:
+        - generic [ref=f94e113]:
+          - heading "Livraison Colissimo" [level=3] [ref=f94e114]
+          - paragraph [ref=f94e115]:
+            - text: Avec SoColissimo, vous avez le choix entre vous faire livrer à domicile ou en points de retrait, partout en France métropolitaine et la Corse pour toutes commandes en ligne, avec livraison en 48h. SoColissimo :à partir de 5.99€ (offert à partir de 99€ de commande). Pour plus d'information sur SoColissimo
+            - link "cliquez ici" [ref=f94e116] [cursor=pointer]:
+              - /url: https://www.laposte.fr/colissimo
+      - article [ref=f94e117]:
+        - generic [ref=f94e120]:
+          - heading "Livraison Magasin" [level=3] [ref=f94e121]
+          - paragraph [ref=f94e122]:
+            - strong [ref=f94e123]: Livraison en magasin offerte pour toutes vos commandes à partir de 30€ !
+            - text: Quand vous commandez sur notre site, vous pouvez choisir de vous faire livrer dans l’un des magasins du réseau proposant le service e-commerce au tarif de 3€ (offert à partir de 30€ d'achat). Dès que votre colis est mis à votre disposition vous êtes averti par e-mail et un conseiller vous remet votre colis en magasin. L'occasion de discuter de votre achat avec un spécialiste.
+      - article [ref=f94e124]:
+        - generic [ref=f94e127]:
+          - heading "Paiement 3X ou 4X sans frais" [level=3] [ref=f94e128]
+          - paragraph [ref=f94e129]: "Sur notre site, vous pouvez régler vos achats en 3 ou 4 fois sans frais. Offre de crédit en 3 ou 4 fois sans frais (TAEG 0%), par carte bancaire, pour un achat compris entre 90€ et 4000€. Le coût du crédit est pris en charge par votre magasin. Vous disposez d'un droit légal de rétractation. Ce financement n'est pas soumis à la réglementation du crédit à la consommation. Offre valable pour une durée inférieure ou égale à 90 jours. Le premier paiement intervient le jour de l'achat. Sous réserve d'acceptation par le prêteur : CA Consumer Finance dont Sofinco est une marque - SA au capital de 596 485 149€ -1 rue Victor Basch - CS 70001 - 91068 MASSY Cedex RCS Evry 542 097 522. Intermédiaire en assurance inscrit à l'ORIAS sous le numéro 07 008 079 (www.orias.fr). Cette publicité est diffusée par Peloton, (SASU au capital social de 10 000 €, 2 rue du Commandant Cousteau 32600 L’Isle Jourdain) immatriculée au RCS d'Auch sous le numéro 527 712 822, qui est intermédiaire de crédit non exclusif de CA Consumer Finance. Cet intermédiaire apporte son concours à la réalisation d'opérations de crédit à la consommation sans agir en qualité de Prêteur."
+      - article [ref=f94e130]:
+        - generic [ref=f94e133]:
+          - heading "Paiement sécurisé" [level=3] [ref=f94e134]
+          - paragraph
+          - paragraph [ref=f94e135]: "Nous travaillons en partenariat avec le leader mondial des solutions de paiement Ingenico Payment Services. Toutes les transactions sont authetifiés via la procédure dite 3D-Secure. En cas d'authentification erronée du service 3D-Secure, le paiement ne sera pas confirmé sur votre compte bancaire et la commande ne sera alors pas confirmée. Sur notre site, vous pouvez payer par carte bancaire Carte Bleue, Visa ou MasterCard et via PayPal. ATTENTION, il faut impérativement que votre carte soit Française. Les carte d'origines étrangères ne seront pas acceptées. Les informations qui vous seront demandées lors de votre paiement seront : -le numéro de la carte -la date de validité de la carte -le cryptogramme visuel au dos de la carte -une information complémentaire peut vous être demandée en fonction de votre banque (système 3D-Secure)."
+          - paragraph
+          - paragraph [ref=f94e136]: Il faut également noter que les paiements qui seront tentés depuis une adresse IP (adresse informatique de votre terminal) hors-France seront refusés.
+          - paragraph
+      - article [ref=f94e137]:
+        - generic [ref=f94e140]:
+          - heading "PayPal" [level=3] [ref=f94e141]
+          - paragraph [ref=f94e142]: Nous vous proposons en plus des cartes bancaires traditionnelles, le système de paiement PayPal. Au moment de régler votre commande vous aurez le choix entre le paiment par cartes ou PayPal, il vous suffira alors de cliquer sur le logo PayPal et vous serez rediriger vers une page sécurisée gérée par PayPal, nous n'avons jamais accès à vos données bancaires. Grâce à son système de paiement parmi les plus fiables, PayPal effectue vos transactions sans jamais communiquer vos données bancaires aux bénéficiaires, votre adresse email et votre mot de passe suffisent. Il n'est pas nécessaire d'alimenter son compte PayPal à l'avance. La source d'approvisionnement que vous avez choisie (carte de paiement ou compte bancaire) est automatiquement débitée au moment de la transaction. Depuis plus de 10 ans, PayPal est leader des paiements en ligne et sécurise les transactions dans le monde entier. C’est pourquoi 7 millions d’utilisateurs en France font aujourd’hui confiance à PayPal.
+      - article [ref=f94e143]:
+        - generic [ref=f94e146]:
+          - heading "Réseaux" [level=3] [ref=f94e147]
+          - paragraph [ref=f94e148]: Un site, des magasins, une expertise de spécialiste - Avec notre site, faites l’expérience d’une nouvelle approche e-running. Nous vous proposons une offre large et complète d’accessoires et d’équipements pour vous et votre pratique. Vous disposez d’un réseau de magasins aux compétences éprouvées pour vous aider et vous accompagner dans votre choix. Une question suite à un problème de taille ou de compatibilité, les magasins du réseau sont à votre disposition pour trouver la meilleure solution.
+  - generic [ref=f94e149]:
+    - generic [ref=f94e151]:
+      - generic [ref=f94e155]:
+        - paragraph [ref=f94e158]: S'inscrire à notre Newsletter
+        - paragraph [ref=f94e162]: Nouveautés, promos, exclusivités...
+        - paragraph [ref=f94e166]: Pour en profiter, faut souvent arriver en premier, alors recevez l'info avant les autres !
+        - generic [ref=f94e167]:
+          - textbox "Mon adresse mail" [ref=f94e173]
+          - button "S'inscrire" [ref=f94e176] [cursor=pointer]
+      - generic [ref=f94e177]:
+        - paragraph [ref=f94e178]: Suivez-nous
+        - link "Suivez-nous sur instagram" [ref=f94e179] [cursor=pointer]:
+          - /url: https://www.instagram.com/foulees_france/
+          - img "Suivez-nous sur instagram"
+        - link "Suivez-nous sur Facebook" [ref=f94e180] [cursor=pointer]:
+          - /url: https://www.facebook.com/magasinsfoulees
+          - img "Suivez-nous sur Facebook"
+        - link "Suivez-nous sur Linkedin" [ref=f94e181] [cursor=pointer]:
+          - /url: https://fr.linkedin.com/company/magasins-foul%C3%A9es
+          - img "Suivez-nous sur Linkedin"
+    - generic [ref=f94e185]:
+      - generic [ref=f94e186]:
+        - img "Paiement sécurisé" [ref=f94e187]
+        - paragraph [ref=f94e188]: Paiement sécurisé
+      - generic [ref=f94e189]:
+        - img "Paiement en 3x et 4x sans frais" [ref=f94e190]
+        - paragraph [ref=f94e191]: Paiement en 3x et 4x sans frais
+      - generic [ref=f94e192]:
+        - img "Paiement CB, Visa, Mastercard et Paypal"
+        - paragraph [ref=f94e193]: Paiement CB, Visa, Mastercard et Paypal
+    - contentinfo [ref=f94e194]:
+      - generic [ref=f94e197]:
+        - generic [ref=f94e198]:
+          - link [ref=f94e199] [cursor=pointer]:
+            - /url: /catalogue-foulees-2026
+            - img "Catalogue" [ref=f94e200]
+          - link "Feuilleter" [ref=f94e201] [cursor=pointer]:
+            - /url: /catalogue-foulees-2026
+        - generic [ref=f94e202]:
+          - heading "Mes services en ligne" [level=4] [ref=f94e203]
+          - list [ref=f94e204]:
+            - listitem [ref=f94e205]:
+              - link "Click & Collect" [ref=f94e206] [cursor=pointer]:
+                - /url: /shop/Infos/Services#29
+            - listitem [ref=f94e207]:
+              - link "Avantages fidélité" [ref=f94e208] [cursor=pointer]:
+                - /url: /shop/Infos/Services#2
+            - listitem [ref=f94e209]:
+              - link "e-Chèque cadeau" [ref=f94e210] [cursor=pointer]:
+                - /url: /shop/Infos/Services#14
+            - listitem [ref=f94e211]:
+              - link "Livraison Chronopost" [ref=f94e212] [cursor=pointer]:
+                - /url: /shop/Infos/Services#12
+            - listitem [ref=f94e213]:
+              - link "Livraison en magasin" [ref=f94e214] [cursor=pointer]:
+                - /url: /shop/Infos/Services#4
+            - listitem [ref=f94e215]:
+              - link "Livraison Colissimo" [ref=f94e216] [cursor=pointer]:
+                - /url: /shop/Infos/Services#10
+            - listitem [ref=f94e217]:
+              - link "Paiement 3X sans frais" [ref=f94e218] [cursor=pointer]:
+                - /url: /shop/Infos/Services#15
+            - listitem [ref=f94e219]:
+              - link "Paiement sécurisé" [ref=f94e220] [cursor=pointer]:
+                - /url: /shop/Infos/Services#11
+        - generic [ref=f94e221]:
+          - heading "Services des magasins" [level=4] [ref=f94e222]
+          - list [ref=f94e223]:
+            - listitem [ref=f94e224]:
+              - link "Analyse de la foulée sur tapis" [ref=f94e225] [cursor=pointer]:
+                - /url: /le-labo-l-analyse-de-foulees-au-service-de-vos-pieds
+            - listitem [ref=f94e226]:
+              - link "Conseil d’experts" [ref=f94e227] [cursor=pointer]:
+                - /url: /les-experts-foulees-sont-la-pour-vous-conseiller
+            - listitem [ref=f94e228]:
+              - link "Service après vente" [ref=f94e229] [cursor=pointer]:
+                - /url: /chez-foulees-vous-pouvez-acheter-en-toute
+            - listitem [ref=f94e230]:
+              - link "Carte fidélité" [ref=f94e231] [cursor=pointer]:
+                - /url: /carte-de-fidelite-foulees-venez-vous-etes-recompenses
+            - listitem [ref=f94e232]:
+              - link "Chèque cadeau" [ref=f94e233] [cursor=pointer]:
+                - /url: /cheque-cadeau-foulees-du-plaisir-sans-se-tromper
+        - generic [ref=f94e234]:
+          - heading "Service client" [level=4] [ref=f94e235]
+          - list [ref=f94e236]:
+            - listitem [ref=f94e237]:
+              - link "Retour produit" [ref=f94e238] [cursor=pointer]:
+                - /url: /shop/Infos/Infos/page/retour-annulation
+            - listitem [ref=f94e239]:
+              - link "Mon compte" [ref=f94e240] [cursor=pointer]:
+                - /url: /shop/Compte/GestionCommandes
+            - listitem [ref=f94e241]:
+              - link "Nous contacter" [ref=f94e242] [cursor=pointer]:
+                - /url: /shop/Contact/Index
+            - listitem [ref=f94e243]:
+              - link "CGV" [ref=f94e244] [cursor=pointer]:
+                - /url: /shop/Infos/Infos/page/CGV
+            - listitem [ref=f94e245]:
+              - link "Mentions légales" [ref=f94e246] [cursor=pointer]:
+                - /url: /shop/Infos/Infos/page/Mentions-legales
+            - listitem [ref=f94e247]:
+              - link "Gestion des cookies" [ref=f94e248] [cursor=pointer]:
+                - /url: javascript:tarteaucitron.userInterface.openPanel();
+        - generic [ref=f94e249]:
+          - heading "L'entreprise" [level=4] [ref=f94e250]
+          - list [ref=f94e251]:
+            - listitem [ref=f94e252]:
+              - link "Contact" [ref=f94e253] [cursor=pointer]:
+                - /url: /nous-contacter
+            - listitem [ref=f94e254]:
+              - link "Ouvrir un magasin" [ref=f94e255] [cursor=pointer]:
+                - /url: /ouvrir-un-magasin-de-running-avec-foulees
+            - listitem [ref=f94e256]:
+              - link "Recrutement" [ref=f94e257] [cursor=pointer]:
+                - /url: /-emploi-
+            - listitem [ref=f94e258]:
+              - link "Qui sommes-nous" [ref=f94e259] [cursor=pointer]:
+                - /url: /nos-magasins-foul-es
+        - generic [ref=f94e260]:
+          - img "Logo Foulees"
+      - generic [ref=f94e261]: ® 2026 Foulées
+  - generic:
+    - text: ✓ ✗ ✛ ✓ ✛ ✓ ✗ ✛ ✛ ✛ ✛ ✛ ✛ ✛
+    - generic [active] [ref=f94e263]:
+      - generic [ref=f94e264]: En poursuivant votre navigation, vous acceptez l'utilisation de services tiers pouvant installer des cookies
+      - button "✓ Tout accepter" [ref=f94e265] [cursor=pointer]:
+        - generic [ref=f94e266]: ✓
+        - text: Tout accepter
+      - button "✗ Tout refuser" [ref=f94e267] [cursor=pointer]:
+        - generic [ref=f94e268]: ✗
+        - text: Tout refuser
+      - button "Personnaliser" [ref=f94e269] [cursor=pointer]

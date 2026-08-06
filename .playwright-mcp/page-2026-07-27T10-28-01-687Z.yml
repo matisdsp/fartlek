@@ -1,0 +1,226 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - button "Passer directement au contenu principal" [ref=e5] [cursor=pointer]
+      - region [ref=e9]:
+        - generic [ref=e11]:
+          - group [ref=e12]:
+            - link [ref=e14] [cursor=pointer]:
+              - /url: /fr/fr-fr/login/?onsite_feature=login-content-header-banner
+              - generic [ref=e15]:
+                - paragraph [ref=e16]: Livraison gratuite et 90 jours d'essai pour l'équipement pour les membres OneASI...
+                - button [ref=e17]:
+                  - paragraph [ref=e19]: plus
+          - group [ref=e20]:
+            - generic [ref=e22]:
+              - paragraph [ref=e23]: Livraison standard gratuite pour commandes supérieures à 50€ et retours gratuits...
+              - button [ref=e24] [cursor=pointer]:
+                - paragraph [ref=e26]: plus
+        - button "Previous slide" [ref=e27] [cursor=pointer]
+        - button "Next slide" [ref=e32] [cursor=pointer]
+      - generic [ref=e39]:
+        - button [ref=e40] [cursor=pointer]:
+          - paragraph [ref=e45]: France (Français)
+        - link "Aide" [ref=e46] [cursor=pointer]:
+          - /url: /fr/fr-fr/contact-us/
+          - paragraph [ref=e48]: Aide
+        - link "Localisateur de magasin" [ref=e49] [cursor=pointer]:
+          - /url: /fr/fr-fr/store-locator/
+          - paragraph [ref=e51]: Trouver un magasin
+        - link "Avantages OneASICS" [ref=e52] [cursor=pointer]:
+          - /url: /fr/fr-fr/oneasics/
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - link "Naviguer vers l'accueil" [ref=e58] [cursor=pointer]:
+            - /url: /fr/fr-fr/
+          - navigation "Main" [ref=e62]:
+            - list [ref=e64]:
+              - listitem [ref=e65]:
+                - button "Soldes d'été" [ref=e66] [cursor=pointer]
+              - listitem [ref=e67]:
+                - button "Homme" [ref=e68] [cursor=pointer]
+              - listitem [ref=e69]:
+                - button "Femme" [ref=e70] [cursor=pointer]
+              - listitem [ref=e71]:
+                - button "Enfant" [ref=e72] [cursor=pointer]
+              - listitem [ref=e73]:
+                - button "Sports" [ref=e74] [cursor=pointer]
+              - listitem [ref=e75]:
+                - button "SportStyle" [ref=e76] [cursor=pointer]
+              - listitem [ref=e77]:
+                - button "Nos marques" [ref=e78] [cursor=pointer]
+              - listitem [ref=e79]:
+                - button "Inside ASICS" [ref=e80] [cursor=pointer]
+        - generic [ref=e82]:
+          - button "Rechercher" [ref=e86] [cursor=pointer]
+          - link "Mon compte" [ref=e92] [cursor=pointer]:
+            - /url: /fr/fr-fr/
+          - link "Liste de souhaits" [ref=e98] [cursor=pointer]:
+            - /url: /fr/fr-fr/wishlist/
+          - link "Panier" [ref=e105] [cursor=pointer]:
+            - /url: /fr/fr-fr/cart/
+    - main [ref=e110]:
+      - generic [ref=e114]:
+        - generic [ref=e117]:
+          - paragraph [ref=e118]: Assistance
+          - generic [ref=e119]:
+            - link [ref=e120] [cursor=pointer]:
+              - /url: /fr/fr-fr/contact-us/
+              - paragraph [ref=e121]: Contacter ASICS
+            - link [ref=e122] [cursor=pointer]:
+              - /url: /fr/fr-fr/ordersearch/
+              - paragraph [ref=e123]: Suivre une commande
+            - link [ref=e124] [cursor=pointer]:
+              - /url: /fr/fr-fr/customer-service/shipping-information/
+              - paragraph [ref=e125]: Livraison
+            - link [ref=e126] [cursor=pointer]:
+              - /url: /fr/fr-fr/customer-service/returns-policy/
+              - paragraph [ref=e127]: Retours
+            - link [ref=e128] [cursor=pointer]:
+              - /url: /fr/fr-fr/product-claim/
+              - paragraph [ref=e129]: Réclamations
+            - link [ref=e130] [cursor=pointer]:
+              - /url: /fr/fr-fr/customer-service/payment-information/
+              - paragraph [ref=e131]: Modes de paiement
+            - link [ref=e132] [cursor=pointer]:
+              - /url: /fr/fr-fr/store-locator/
+              - paragraph [ref=e133]: Trouver Un Magasin
+            - link [ref=e134] [cursor=pointer]:
+              - /url: /fr/fr-fr/customer-service/promotions/
+              - paragraph [ref=e135]: Promotions
+            - link [ref=e136] [cursor=pointer]:
+              - /url: /fr/fr-fr/customer-service/faq/
+              - paragraph [ref=e137]: Questions fréquentes
+          - generic [ref=e138]:
+            - heading [level=3] [ref=e140]:
+              - button [ref=e141] [cursor=pointer]:
+                - paragraph [ref=e142]: Information produit
+            - heading [level=3] [ref=e146]:
+              - button [ref=e147] [cursor=pointer]:
+                - paragraph [ref=e148]: Adhésion à OneASICS™
+            - heading [level=3] [ref=e152]:
+              - button [ref=e153] [cursor=pointer]:
+                - paragraph [ref=e154]: À propos d’ASICS
+        - generic [ref=e157]:
+          - heading "Retour" [level=1] [ref=e162]
+          - paragraph [ref=e169]: Nous tenons à ce que vous soyez pleinement satisfaits de nos produits. Mais si ce n'est pas le cas ou si vous remarquez des anomalies, voici ce que vous pouvez faire.
+          - generic [ref=e175]:
+            - heading [level=3] [ref=e177]:
+              - button "Retour de produit acheté en magasin" [ref=e178] [cursor=pointer]
+            - heading [level=3] [ref=e183]:
+              - button "Comment procéder au retour" [ref=e184] [cursor=pointer]
+            - heading [level=3] [ref=e189]:
+              - button "Politique de retours pour les membres OneASICS" [ref=e190] [cursor=pointer]
+    - contentinfo [ref=e195]:
+      - generic [ref=e196]:
+        - generic [ref=e198]:
+          - generic [ref=e199]:
+            - generic [ref=e200]:
+              - paragraph [ref=e201]: S'inscrire à notre newsletter
+              - paragraph [ref=e202]: Soyez au courant de nos nouveautés, événements exclusifs et offres en ligne avant tout le monde
+              - button "S'inscrire" [ref=e203] [cursor=pointer]
+            - generic [ref=e205]:
+              - paragraph [ref=e206]: Nous suivre
+              - generic [ref=e207]:
+                - link "Facebook" [ref=e208] [cursor=pointer]:
+                  - /url: https://web.facebook.com/ASICS
+                - link "X (anciennement Twitter)" [ref=e211] [cursor=pointer]:
+                  - /url: https://x.com/ASICSeurope
+                - link "Instagram" [ref=e215] [cursor=pointer]:
+                  - /url: https://www.instagram.com/asicsrunning/
+                - link "YouTube" [ref=e220] [cursor=pointer]:
+                  - /url: https://www.youtube.com/channel/UCT135eauXPA36lioy-cmjzw
+                - link "LinkedIn" [ref=e224] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/company/asics-emea/
+          - generic [ref=e229]:
+            - paragraph [ref=e230]: Service client
+            - generic [ref=e231]:
+              - link "Contacter ASICS" [ref=e233] [cursor=pointer]:
+                - /url: /fr/fr-fr/contact-us/
+              - link "Retours" [ref=e235] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/returns-policy/
+              - link "Livraison" [ref=e237] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/shipping-information/
+              - link "Modes de paiement" [ref=e239] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/payment-information/
+              - link "Réclamations" [ref=e241] [cursor=pointer]:
+                - /url: /fr/fr-fr/product-claim/
+              - link "Questions fréquentes" [ref=e243] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/faq/
+              - link "Suivre une commande" [ref=e245] [cursor=pointer]:
+                - /url: /fr/fr-fr/ordersearch/
+              - link "Trouver Un Magasin" [ref=e247] [cursor=pointer]:
+                - /url: /fr/fr-fr/store-locator/
+              - link "Se rétracter du contrat" [ref=e249] [cursor=pointer]:
+                - /url: https://returns.narvar.com/asics/returns?locale=fr_FR
+          - generic [ref=e252]:
+            - paragraph [ref=e253]: À propos d’ASICS
+            - generic [ref=e254]:
+              - link "Notre Histoire" [ref=e256] [cursor=pointer]:
+                - /url: /fr/fr-fr/mk/about-asics/
+              - link "RSE" [ref=e258] [cursor=pointer]:
+                - /url: http://corp.asics.com/en/csr
+              - link "Revue de presse" [ref=e260] [cursor=pointer]:
+                - /url: https://news-emea.asics.com/
+              - link "Relations investisseurs" [ref=e262] [cursor=pointer]:
+                - /url: https://corp.asics.com/en/press
+              - link "Carrières" [ref=e264] [cursor=pointer]:
+                - /url: /fr/fr-fr/mk/careers/search-jobs/
+              - link "Sound Mind, Sound Body Impact" [ref=e266] [cursor=pointer]:
+                - /url: /fr/fr-fr/mk/sound-mind-sound-body-impact/
+              - link "Réductions étudiants" [ref=e268] [cursor=pointer]:
+                - /url: /fr/fr-fr/unidays/
+              - link "ASICS conseil" [ref=e270] [cursor=pointer]:
+                - /url: /fr/fr-fr/asics-advice/
+              - link "Index égalité professionnelle" [ref=e272] [cursor=pointer]:
+                - /url: /fr/fr-fr/professional-equality-index/
+              - link "Qualités environnementales fiche produit" [ref=e274] [cursor=pointer]:
+                - /url: /fr/fr-fr/environmental-detail-of-products/
+              - link "Appli ASICS" [ref=e276] [cursor=pointer]:
+                - /url: /fr/fr-fr/asics-mobile-app/
+          - generic [ref=e279]:
+            - paragraph [ref=e280]: Tailles et pointures
+            - generic [ref=e281]:
+              - link "Tableaux et guides des tailles" [ref=e283] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/size-fit-guide/
+              - link "Guide de la pronation" [ref=e285] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/pronation-guide/
+          - generic [ref=e288]:
+            - paragraph [ref=e289]: ADHÉSION À OneASICS™
+            - generic [ref=e290]:
+              - link "Créer un compte gratuit" [ref=e292] [cursor=pointer]:
+                - /url: /fr/fr-fr/login/?onsite_feature=login-content-footer-create-free-account
+              - link "S'inscrire" [ref=e294] [cursor=pointer]:
+                - /url: /fr/fr-fr/login/?onsite_feature=login-content-footer-sign-in
+              - link "À propos de OneASICS" [ref=e296] [cursor=pointer]:
+                - /url: /fr/fr-fr/oneasics/
+              - link "FAQ OneASICS" [ref=e298] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/faqs-oneasics/
+              - link "OneASICS Conditions générales" [ref=e300] [cursor=pointer]:
+                - /url: https://legal.asics.com/fr-fr/legal/welcome-to-oneasics/
+              - link "Programme de réduction" [ref=e302] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/discount-programs/
+        - generic [ref=e303]:
+          - generic [ref=e304]:
+            - button [ref=e305] [cursor=pointer]:
+              - paragraph [ref=e310]: France (Français)
+            - link [ref=e311] [cursor=pointer]:
+              - /url: https://legal.asics.com/fr-fr/legal/privacy-policy
+              - paragraph [ref=e312]: Politique de confidentialité
+            - link [ref=e313] [cursor=pointer]:
+              - /url: https://legal.asics.com/fr-fr/legal/cookie-policy
+              - paragraph [ref=e314]: Politique en matière de cookies
+            - link [ref=e315] [cursor=pointer]:
+              - /url: "#manage-cookies"
+              - paragraph [ref=e316]: Gérer les préférences de cookies
+            - link [ref=e317] [cursor=pointer]:
+              - /url: /fr/fr-fr/customer-service/terms/
+              - paragraph [ref=e318]: Conditions générales
+            - link [ref=e319] [cursor=pointer]:
+              - /url: /fr/fr-fr/customer-service/disclaimer/
+              - paragraph [ref=e320]: Mentions légales
+          - paragraph [ref=e321]: © 2026 ASICS Europe
+    - region "Notifications (F8)":
+      - list
+  - button [ref=e322]
+  - button "Bonjour, vous avez une question ? Parlons-en." [ref=e327] [cursor=pointer]

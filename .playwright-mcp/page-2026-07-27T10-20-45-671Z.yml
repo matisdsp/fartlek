@@ -1,0 +1,834 @@
+- generic [ref=e2]:
+  - navigation "Accès rapide" [ref=e3]:
+    - list [ref=e4]:
+      - listitem [ref=e5]:
+        - link "Contenu" [ref=e6] [cursor=pointer]:
+          - /url: "#content"
+      - listitem [ref=e7]:
+        - link "Recherche" [ref=e8] [cursor=pointer]:
+          - /url: "#search"
+      - listitem [ref=e9]:
+        - link "Pied de page" [ref=e10] [cursor=pointer]:
+          - /url: "#footer"
+  - link "Livraison offerte dès 60€ 💥SOLDES ! JUSQU'À -50 %💥 5% de cashback retour 30 jours* Expédition en 24h" [ref=e12] [cursor=pointer]:
+    - /url: /promos/soldes/
+    - generic [ref=e13]: Livraison offerte dès 60€
+    - generic [ref=e14]:
+      - generic [ref=e15]: 💥SOLDES !
+      - list [ref=e17]:
+        - listitem [ref=e18]: JUSQU'À -50 %💥
+        - listitem [ref=e19]: 5% de cashback
+        - listitem [ref=e20]: retour 30 jours*
+    - generic [ref=e21]: Expédition en 24h
+  - banner [ref=e22]:
+    - generic [ref=e23]:
+      - link "Retour à la page d'accueil I-run" [ref=e24] [cursor=pointer]:
+        - /url: /
+        - img "logo i-Run" [ref=e26]
+      - generic [ref=e27]:
+        - text: 
+        - link "Magasins" [ref=e28] [cursor=pointer]:
+          - /url: /magasins/
+          - generic [ref=e29]: 
+        - link "Mon compte" [ref=e31] [cursor=pointer]:
+          - /url: /client/
+          - generic [ref=e32]: 
+        - link "Mon panier" [ref=e34] [cursor=pointer]:
+          - /url: /panier.html
+          - generic [ref=e35]: 
+      - navigation "Menu mobile"
+      - navigation "Menu desktop" [ref=e37]:
+        - list [ref=e38]:
+          - listitem [ref=e39] [cursor=pointer]:
+            - link "Chaussures homme Chaussure running homme":
+              - /url: /chaussures_homme/
+              - text: Chaussures homme
+              - generic: Chaussure running homme
+            - list
+          - listitem [ref=e40] [cursor=pointer]:
+            - link "Chaussures femme Chaussure running femme":
+              - /url: /chaussures_femme/
+              - text: Chaussures femme
+              - generic: Chaussure running femme
+            - list
+          - listitem [ref=e41] [cursor=pointer]:
+            - link "Vêtements homme Vêtements running homme":
+              - /url: /vetement_sport_homme/
+              - text: Vêtements homme
+              - generic: Vêtements running homme
+            - list
+          - listitem [ref=e42] [cursor=pointer]:
+            - link "Vêtements femme Vêtements running femme":
+              - /url: /vetement_sport_femme/
+              - text: Vêtements femme
+              - generic: Vêtements running femme
+            - list
+          - listitem [ref=e43] [cursor=pointer]:
+            - link "électronique Montres de sport, cardio-gps, electrostimulation, bracelets d'activité":
+              - /url: /electronique/
+              - text: électronique
+              - generic: Montres de sport, cardio-gps, electrostimulation, bracelets d'activité
+            - list
+          - listitem [ref=e44] [cursor=pointer]:
+            - 'link "Accessoires Accessoires: chaussettes, sacs à dos & hydrobag"':
+              - /url: /accessoires/
+              - text: Accessoires
+              - generic: "Accessoires: chaussettes, sacs à dos & hydrobag"
+            - list
+          - listitem [ref=e45] [cursor=pointer]:
+            - 'link "Diététique Diététique du sport: protéines, compléments alimentaires, spiruline"':
+              - /url: /dietetique/
+              - text: Diététique
+              - generic: "Diététique du sport: protéines, compléments alimentaires, spiruline"
+            - list
+          - listitem [ref=e46] [cursor=pointer]:
+            - link "Espaces marques marques running":
+              - /url: /marques.html
+              - text: Espaces marques
+              - generic: marques running
+            - list
+    - region "Recherche" [ref=e47]:
+      - generic [ref=e48]:
+        - generic [ref=e49]:
+          - status
+          - textbox "Rechercher" [ref=e50]
+          - button "Rechercher un produit" [ref=e51] [cursor=pointer]:
+            - generic [ref=e52]: 
+        - text: 
+  - main [ref=e53]:
+    - generic [ref=e54]:
+      - navigation "Vous êtes ici :" [ref=e55]:
+        - list [ref=e56]:
+          - listitem "Accueil" [ref=e57]:
+            - link "Accueil" [ref=e58] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e59]: 
+              - text: Accueil
+          - listitem "ASICS" [ref=e60]:
+            - link "ASICS" [ref=e61] [cursor=pointer]:
+              - /url: /asics/
+          - listitem "Superblast" [ref=e62]:
+            - link "Superblast" [ref=e63] [cursor=pointer]:
+              - /url: /asics/asics-superblast/
+          - listitem "Superblast 3" [ref=e64]:
+            - link "Superblast 3":
+              - /url: ""
+      - heading [level=1] [ref=e65]: ASICS Superblast 3
+      - generic [ref=e69]:
+        - generic [ref=e70]:
+          - heading "ASICS SUPERBLAST 3" [level=2] [ref=e71]
+          - paragraph [ref=e72]: Pensée pour enchaîner les kilomètres avec aisance, la ASICS Superblast 3 s’adresse aux coureurs exigeants à la recherche d’un amorti maximal et d’une excellente réactivité. Elle vous accompagne aussi bien lors de vos entraînements intensifs que le jour de la course.
+          - paragraph [ref=e73]:
+            - link "CHAUSSURES ASICS SUPERBLAST 3 HOMME" [ref=e74] [cursor=pointer]:
+              - /url: /chaussures_homme/Running_c23/Asics_m1/Asics-Superblast-3_Asics_fiche_146403.html
+            - link "CHAUSSURES ASICS SUPERBLAST 3 FEMME" [ref=e75] [cursor=pointer]:
+              - /url: /chaussures_femme/Running_c24/Asics_m1/Asics-Superblast-3_Asics_fiche_146413.html
+          - paragraph
+        - img "ASICS SUPERBLAST 3" [ref=e78]
+      - generic [ref=e79]:
+        - heading "Découvrez les chaussures ASICS Superblast 3 sur i-Run !" [level=2] [ref=e80]
+        - generic [ref=e81]:
+          - generic [ref=e83]:
+            - article [ref=e84]:
+              - link "Asics Superblast 3 Soldes -9% Asics Superblast 3 Homme 4.7  Noté 4.7 sur 5 Au lieu de 220€ Vendu 200€" [ref=e85] [cursor=pointer]:
+                - /url: /chaussures_homme/Running_c23/Asics_m1/Asics-Superblast-3_Asics_fiche_146403.html?v=03
+                - generic [ref=e86]:
+                  - img "Asics Superblast 3" [ref=e88]
+                  - generic [ref=e89]: Soldes -9%
+                - generic [ref=e90]:
+                  - generic [ref=e91]: Asics
+                  - generic [ref=e92]: Superblast 3
+                  - generic "Homme" [ref=e93]
+                  - generic [ref=e94]:
+                    - generic [ref=e95]:
+                      - generic [ref=e96]: "4.7"
+                      - generic [ref=e97]: 
+                      - generic [ref=e98]: (47 avis)
+                    - generic [ref=e99]: Noté 4.7 sur 5
+                  - generic [ref=e100]:
+                    - generic [ref=e101]: 220€
+                    - generic [ref=e102]: Au lieu de 220€
+                    - generic [ref=e103]: 200€
+                    - generic [ref=e104]: Vendu 200€
+              - text:          
+            - article [ref=e105]:
+              - link "Asics Superblast 3 Soldes -9% Asics Superblast 3 Femme 4.9  Noté 4.9 sur 5 Au lieu de 220€ Vendu 200€" [ref=e106] [cursor=pointer]:
+                - /url: /chaussures_femme/Running_c24/Asics_m1/Asics-Superblast-3_Asics_fiche_146413.html?v=03
+                - generic [ref=e107]:
+                  - img "Asics Superblast 3" [ref=e109]
+                  - generic [ref=e110]: Soldes -9%
+                - generic [ref=e111]:
+                  - generic [ref=e112]: Asics
+                  - generic [ref=e113]: Superblast 3
+                  - generic "Femme" [ref=e114]
+                  - generic [ref=e115]:
+                    - generic [ref=e116]:
+                      - generic [ref=e117]: "4.9"
+                      - generic [ref=e118]: 
+                      - generic [ref=e119]: (10 avis)
+                    - generic [ref=e120]: Noté 4.9 sur 5
+                  - generic [ref=e121]:
+                    - generic [ref=e122]: 220€
+                    - generic [ref=e123]: Au lieu de 220€
+                    - generic [ref=e124]: 200€
+                    - generic [ref=e125]: Vendu 200€
+              - text:          
+            - article [ref=e126]:
+              - link "Asics Superblast 3 New Asics Superblast 3 Homme 4.7  Noté 4.7 sur 5 Vendu 220€" [ref=e127] [cursor=pointer]:
+                - /url: /chaussures_homme/Running_c23/Asics_m1/Asics-Superblast-3_Asics_fiche_146403.html
+                - generic [ref=e128]:
+                  - img "Asics Superblast 3" [ref=e130]
+                  - generic [ref=e131]: New
+                - generic [ref=e132]:
+                  - generic [ref=e133]: Asics
+                  - generic [ref=e134]: Superblast 3
+                  - generic "Homme" [ref=e135]
+                  - generic [ref=e136]:
+                    - generic [ref=e137]:
+                      - generic [ref=e138]: "4.7"
+                      - generic [ref=e139]: 
+                      - generic [ref=e140]: (47 avis)
+                    - generic [ref=e141]: Noté 4.7 sur 5
+                  - generic [ref=e142]:
+                    - generic [ref=e143]: 220€
+                    - generic [ref=e144]: Vendu 220€
+              - text:          
+            - article [ref=e145]:
+              - link "Asics Superblast 3 Soldes -11% Asics Superblast 3 Femme 4.9  Noté 4.9 sur 5 Au lieu de 220€ Vendu 195€" [ref=e146] [cursor=pointer]:
+                - /url: /chaussures_femme/Running_c24/Asics_m1/Asics-Superblast-3_Asics_fiche_146413.html
+                - generic [ref=e147]:
+                  - img "Asics Superblast 3" [ref=e149]
+                  - generic [ref=e150]: Soldes -11%
+                - generic [ref=e151]:
+                  - generic [ref=e152]: Asics
+                  - generic [ref=e153]: Superblast 3
+                  - generic "Femme" [ref=e154]
+                  - generic [ref=e155]:
+                    - generic [ref=e156]:
+                      - generic [ref=e157]: "4.9"
+                      - generic [ref=e158]: 
+                      - generic [ref=e159]: (10 avis)
+                    - generic [ref=e160]: Noté 4.9 sur 5
+                  - generic [ref=e161]:
+                    - generic [ref=e162]: 220€
+                    - generic [ref=e163]: Au lieu de 220€
+                    - generic [ref=e164]: 195€
+                    - generic [ref=e165]: Vendu 195€
+              - text:          
+            - article [ref=e166]:
+              - link "Asics Superblast 3 Soldes -9% Asics Superblast 3 Homme 4.7  Noté 4.7 sur 5 Au lieu de 220€ Vendu 200€" [ref=e167] [cursor=pointer]:
+                - /url: /chaussures_homme/Running_c23/Asics_m1/Asics-Superblast-3_Asics_fiche_146403.html?v=01
+                - generic [ref=e168]:
+                  - img "Asics Superblast 3" [ref=e170]
+                  - generic [ref=e171]: Soldes -9%
+                - generic [ref=e172]:
+                  - generic [ref=e173]: Asics
+                  - generic [ref=e174]: Superblast 3
+                  - generic "Homme" [ref=e175]
+                  - generic [ref=e176]:
+                    - generic [ref=e177]:
+                      - generic [ref=e178]: "4.7"
+                      - generic [ref=e179]: 
+                      - generic [ref=e180]: (47 avis)
+                    - generic [ref=e181]: Noté 4.7 sur 5
+                  - generic [ref=e182]:
+                    - generic [ref=e183]: 220€
+                    - generic [ref=e184]: Au lieu de 220€
+                    - generic [ref=e185]: 200€
+                    - generic [ref=e186]: Vendu 200€
+              - text:          
+            - article [ref=e187]:
+              - link "Asics Superblast 3 Soldes -9% Asics Superblast 3 Femme 4.9  Noté 4.9 sur 5 Au lieu de 220€ Vendu 200€" [ref=e188] [cursor=pointer]:
+                - /url: /chaussures_femme/Running_c24/Asics_m1/Asics-Superblast-3_Asics_fiche_146413.html?v=01
+                - generic [ref=e189]:
+                  - img "Asics Superblast 3" [ref=e191]
+                  - generic [ref=e192]: Soldes -9%
+                - generic [ref=e193]:
+                  - generic [ref=e194]: Asics
+                  - generic [ref=e195]: Superblast 3
+                  - generic "Femme" [ref=e196]
+                  - generic [ref=e197]:
+                    - generic [ref=e198]:
+                      - generic [ref=e199]: "4.9"
+                      - generic [ref=e200]: 
+                      - generic [ref=e201]: (10 avis)
+                    - generic [ref=e202]: Noté 4.9 sur 5
+                  - generic [ref=e203]:
+                    - generic [ref=e204]: 220€
+                    - generic [ref=e205]: Au lieu de 220€
+                    - generic [ref=e206]: 200€
+                    - generic [ref=e207]: Vendu 200€
+              - text:          
+          - generic [ref=e208] [cursor=pointer]: 
+          - generic: 
+      - generic [ref=e211]:
+        - generic [ref=e213]:
+          - 'heading "ASICS Superblast 3 : la chaussure de running confortable et dynamique pour les longues distances" [level=2] [ref=e214]'
+          - paragraph [ref=e215]:
+            - text: Conçue pour enchaîner les kilomètres avec fluidité, la
+            - strong [ref=e216]: ASICS Superblast 3
+            - text: combine
+            - strong [ref=e217]: amorti
+            - text: ","
+            - strong [ref=e218]: stabilité
+            - text: et un excellent
+            - strong [ref=e219]: retour d’énergie
+            - text: pour accompagner les coureurs sur leurs sorties longues comme en compétition. Inscrivez-vous à notre
+            - link "newsletter" [ref=e220] [cursor=pointer]:
+              - /url: /enregistrement/newsletter.html
+            - text: pour rester informé de nos nouveautés et choisir la chaussure idéale pour vos entraînements.
+          - heading "Pourquoi choisir la ASICS Superblast 3 ?" [level=2] [ref=e221]
+          - paragraph [ref=e222]:
+            - text: La
+            - strong [ref=e223]: Superblast 3
+            - text: "est une chaussure pensée pour aller plus loin, plus longtemps et avec moins de fatigue :"
+          - list [ref=e224]:
+            - listitem [ref=e225]:
+              - strong [ref=e226]: Semelle intermédiaire à double mousse
+              - text: ": elle absorbe efficacement les chocs à chaque impact tout en restituant l’énergie nécessaire pour conserver une foulée fluide et dynamique."
+            - listitem [ref=e227]:
+              - strong [ref=e228]: Tige en mesh technique, légère et respirante
+              - text: ": elle maintient le pied sans le comprimer et favorise la circulation de l’air, ce qui limite la surchauffe et améliore le confort sur les sorties longues."
+            - listitem [ref=e229]:
+              - strong [ref=e230]: Languette fine et légèrement rembourrée
+              - text: ": elle réduit les points de pression sur le dessus du pied et permet un laçage confortable, sans gêne ni irritation."
+            - listitem [ref=e231]:
+              - strong [ref=e232]: Stabilité renforcée sur la durée
+              - text: ": la plateforme large et bien équilibrée sécurise chaque foulée, ce qui aide à conserver une bonne posture et à limiter la fatigue musculaire en fin de course."
+            - listitem [ref=e233]:
+              - strong [ref=e234]: Semelle extérieure adhérente
+              - text: ": elle garantit une accroche fiable sur route, même lorsque le rythme augmente ou que le revêtement devient plus exigeant, pour courir en toute confiance."
+        - paragraph [ref=e237]:
+          - img "Pourquoi choisir la ASICS Superblast 3 ?" [ref=e238]
+      - generic [ref=e241]:
+        - generic [ref=e243]:
+          - 'heading "Superblast 3 d’ASICS : quelle utilisation ?" [level=2] [ref=e244]'
+          - paragraph [ref=e245]: "À privilégier si :"
+          - list [ref=e246]:
+            - listitem [ref=e247]:
+              - text: Vous recherchez une
+              - strong [ref=e248]: chaussure polyvalente
+              - text: ", à la fois"
+              - strong [ref=e249]: confortable et dynamique
+            - listitem [ref=e250]:
+              - text: Vous alternez entre
+              - strong [ref=e251]: entraînements quotidiens et courses longues
+            - listitem [ref=e252]:
+              - text: Vous souhaitez une
+              - strong [ref=e253]: sensation de légèreté
+              - text: ", même avec une semelle épaisse et protectrice"
+        - generic [ref=e255]:
+          - heading "Quelles nouveautés par rapport à la Superblast 2 ?" [level=2] [ref=e256]
+          - paragraph [ref=e257]: "La ASICS Superblast 3 se distingue de la version précédente grâce à plusieurs évolutions majeures :"
+          - list [ref=e258]:
+            - listitem [ref=e259]:
+              - strong [ref=e260]: Tige allégée et plus respirante
+              - text: ", pour un confort amélioré sur les longues sorties"
+            - listitem [ref=e261]:
+              - strong [ref=e262]: Poids global réduit
+              - text: ", offrant une foulée plus fluide et moins fatigante"
+            - listitem [ref=e263]:
+              - strong [ref=e264]: Nouvelle mousse FlyteFoam LEAP
+              - text: ", plus souple, plus légère et plus réactive"
+            - listitem [ref=e265]:
+              - strong [ref=e266]: Retour d’énergie optimisé
+              - text: ", pour conserver du dynamisme du premier au dernier kilomètre"
+      - list [ref=e269]:
+        - listitem [ref=e270]:
+          - generic [ref=e271]: "Surface :"
+          - text: Route
+        - listitem [ref=e272]:
+          - generic [ref=e273]: "Usage :"
+          - text: Intensif
+        - listitem [ref=e274]:
+          - generic [ref=e275]: "Poids du coureur :"
+          - text: Moins de 85kg
+        - listitem [ref=e276]:
+          - generic [ref=e277]: "Drop :"
+          - text: 8 mm
+        - listitem [ref=e278]:
+          - generic [ref=e279]: "Stabilité :"
+          - text: Neutre
+        - listitem [ref=e280]:
+          - generic [ref=e281]: "Dynamisme :"
+          - text: Excellent
+        - listitem [ref=e282]:
+          - generic [ref=e283]: "Amorti :"
+          - text: Excellent
+        - listitem [ref=e284]:
+          - generic [ref=e285]: "Poids :"
+          - text: 227g
+      - heading "Tout savoir sur les ASICS Superblast 3" [level=2] [ref=e287]
+      - generic [ref=e292]:
+        - generic [ref=e296]:
+          - heading "Pour quels coureurs ?" [level=3] [ref=e297]
+          - paragraph [ref=e298]: "La Superblast 3 est idéale pour :"
+          - list [ref=e299]:
+            - listitem [ref=e300]:
+              - text: Les
+              - strong [ref=e301]: coureurs intermédiaires à confirmés
+            - listitem [ref=e302]:
+              - text: Les sportifs qui privilégient le
+              - strong [ref=e303]: confort, la stabilité et un amorti généreux
+            - listitem [ref=e304]:
+              - text: Les athlètes recherchant une
+              - strong [ref=e305]: chaussure fiable
+              - text: pour accumuler du volume sans fatigue excessive
+          - paragraph [ref=e306]:
+            - text: Elle convient parfaitement aux coureurs qui veulent
+            - strong [ref=e307]: préserver leurs articulations
+            - text: tout en conservant une foulée fluide et dynamique.
+        - generic [ref=e311]:
+          - heading "Pour quels parcours ?" [level=3] [ref=e312]
+          - paragraph [ref=e313]: "Cette chaussure est conçue principalement pour :"
+          - list [ref=e314]:
+            - listitem [ref=e315]:
+              - text: La
+              - strong [ref=e316]: route
+            - listitem [ref=e317]:
+              - text: Les
+              - strong [ref=e318]: surfaces urbaines régulières
+            - listitem [ref=e319]:
+              - text: Les
+              - strong [ref=e320]: pistes
+          - paragraph [ref=e321]: Sa semelle extérieure adhérente assure une excellente accroche, même lorsque le rythme s’accélère.
+        - generic [ref=e325]:
+          - heading "Pour quelles distances ?" [level=3] [ref=e326]
+          - paragraph [ref=e327]: "La Asics Superblast 3 révèle tout son potentiel sur les longues distances :"
+          - list [ref=e328]:
+            - listitem [ref=e329]:
+              - strong [ref=e330]:
+                - link "Semi-marathon" [ref=e331] [cursor=pointer]:
+                  - /url: /running/choisir-chaussures-running-semi-marathon.html
+            - listitem [ref=e332]:
+              - strong [ref=e333]:
+                - link "Marathon" [ref=e334] [cursor=pointer]:
+                  - /url: /running/choisir-chaussures-running-marathon.html
+            - listitem [ref=e335]:
+              - strong [ref=e336]: Sorties longues
+              - text: à l’entraînement
+            - listitem [ref=e337]:
+              - strong [ref=e338]: Séances tempo
+              - text: et endurance active
+          - paragraph [ref=e339]: Grâce à son amorti performant et à son retour d’énergie efficace, elle reste confortable même après plusieurs dizaines de kilomètres.
+      - paragraph [ref=e345]:
+        - link "CHAUSSURES ASICS SUPERBLAST 3 HOMME" [ref=e346] [cursor=pointer]:
+          - /url: /chaussures_homme/Running_c23/Asics_m1/Asics-Superblast-3_Asics_fiche_146403.html
+        - link "CHAUSSURES ASICS SUPERBLAST 3 FEMME" [ref=e347] [cursor=pointer]:
+          - /url: /chaussures_femme/Running_c24/Asics_m1/Asics-Superblast-3_Asics_fiche_146413.html
+      - generic [ref=e348]:
+        - heading "ASICS Superblast 3, les questions les plus fréquentes" [level=2] [ref=e349]
+        - generic [ref=e350]:
+          - generic [ref=e351]:
+            - heading [level=3] [ref=e353]:
+              - button "La ASICS Superblast 3 est-elle adaptée au marathon ?" [ref=e354] [cursor=pointer]
+            - heading [level=3] [ref=e356]:
+              - button "Quelle est la différence entre la ASICS Superblast 3 et la Superblast 2 ?" [ref=e357] [cursor=pointer]
+          - generic [ref=e358]:
+            - heading [level=3] [ref=e360]:
+              - button "Pour quel type de coureur la Superblast 3 est-elle recommandée ?" [ref=e361] [cursor=pointer]
+            - heading [level=3] [ref=e363]:
+              - button "La ASICS Superblast 3 convient-elle pour les entraînements quotidiens ?" [ref=e364] [cursor=pointer]
+      - paragraph [ref=e370]:
+        - link "Découvrez tous nos rayons Asics" [ref=e371] [cursor=pointer]:
+          - /url: /asics/
+      - generic [ref=e374]:
+        - generic [ref=e375]: Tous nos chaussures Superblast
+        - list [ref=e378]:
+          - listitem [ref=e379]:
+            - link "ASICS Superblast 2" [ref=e380] [cursor=pointer]:
+              - /url: /asics/asics-superblast/asics-superblast-2.html
+          - listitem [ref=e381]:
+            - link "ASICS Superblast" [ref=e382] [cursor=pointer]:
+              - /url: /asics/asics-superblast/
+      - generic [ref=e385]:
+        - generic [ref=e386]: Toutes nos chaussures de running ASICS
+        - list [ref=e389]:
+          - listitem [ref=e390]:
+            - link "ASICS Gel-Nimbus 28" [ref=e391] [cursor=pointer]:
+              - /url: /asics/asics-gel-nimbus/asics-gel-nimbus-28.html
+          - listitem [ref=e392]:
+            - link "ASICS Gel-Nimbus 27" [ref=e393] [cursor=pointer]:
+              - /url: /asics/asics-gel-nimbus/asics-gel-nimbus-27.html
+          - listitem [ref=e394]:
+            - link "ASICS Gel-Nimbus 26" [ref=e395] [cursor=pointer]:
+              - /url: /asics/asics-gel-nimbus/asics-gel-nimbus-26.html
+          - listitem [ref=e396]:
+            - link "ASICS Gel-Nimbus 25" [ref=e397] [cursor=pointer]:
+              - /url: /asics/asics-gel-nimbus/asics-gel-nimbus-25.html
+          - listitem [ref=e398]:
+            - link "ASICS Gel-Kayano 32" [ref=e399] [cursor=pointer]:
+              - /url: /asics/asics-gel-kayano/asics-gel-kayano-32.html
+          - listitem [ref=e400]:
+            - link "ASICS Gel-Kayano 31" [ref=e401] [cursor=pointer]:
+              - /url: /asics/asics-gel-kayano/asics-gel-kayano-31.html
+          - listitem [ref=e402]:
+            - link "ASICS Gel-Kayano 30" [ref=e403] [cursor=pointer]:
+              - /url: /asics/asics-gel-kayano/asics-gel-kayano-30.html
+          - listitem [ref=e404]:
+            - link "ASICS Gel-Cumulus 27" [ref=e405] [cursor=pointer]:
+              - /url: /asics/asics-gel-cumulus/asics-gel-cumulus-27.html
+          - listitem [ref=e406]:
+            - link "ASICS Gel-Cumulus 26" [ref=e407] [cursor=pointer]:
+              - /url: /asics/asics-gel-cumulus/asics-gel-cumulus-26.html
+      - generic [ref=e410]:
+        - generic [ref=e411]: Encore + d'ASICS de running
+        - list [ref=e414]:
+          - listitem [ref=e415]:
+            - link "ASICS running" [ref=e416] [cursor=pointer]:
+              - /url: /asics/asics-running/
+          - listitem [ref=e417]:
+            - link "ASICS Novablast 5" [ref=e418] [cursor=pointer]:
+              - /url: /asics/asics-novablast/asics-novablast-5.html
+          - listitem [ref=e419]:
+            - link "ASICS Gel-Cumulus 28" [ref=e420] [cursor=pointer]:
+              - /url: /asics/asics-gel-cumulus/asics-gel-cumulus-28.html
+          - listitem [ref=e421]:
+            - link "ASICS Noosa Tri 16" [ref=e422] [cursor=pointer]:
+              - /url: /asics/asics-noosa/asics-noosa-tri-16.html
+          - listitem [ref=e423]:
+            - link "ASICS GT 2000-15" [ref=e424] [cursor=pointer]:
+              - /url: /asics/asics-gt-2000/asics-gt-2000-15.html
+      - generic [ref=e427]:
+        - generic [ref=e428]: Zoom sur toutes nos chaussures de trail Asics
+        - list [ref=e431]:
+          - listitem [ref=e432]:
+            - link "ASICS Gel Trabuco 14" [ref=e433] [cursor=pointer]:
+              - /url: /asics/asics-gel-trabuco/asics-gel-trabuco-14.html
+          - listitem [ref=e434]:
+            - link "ASICS Gel Trabuco 13" [ref=e435] [cursor=pointer]:
+              - /url: /asics/asics-gel-trabuco/asics-gel-trabuco-13.html
+          - listitem [ref=e436]:
+            - link "ASICS Gel Trabuco 12" [ref=e437] [cursor=pointer]:
+              - /url: /asics/asics-gel-trabuco/asics-gel-trabuco-12.html
+          - listitem [ref=e438]:
+            - link "ASICS Trabuco Max 5" [ref=e439] [cursor=pointer]:
+              - /url: /asics/asics-trabuco/asics-trabuco-max-5.html
+          - listitem [ref=e440]:
+            - link "ASICS Trabuco Max 4" [ref=e441] [cursor=pointer]:
+              - /url: /asics/asics-trabuco/asics-trabuco-max-4.html
+  - contentinfo [ref=e442]:
+    - generic [ref=e445]:
+      - button "Expédié sous 24h" [ref=e446] [cursor=pointer]:
+        - generic [ref=e447]: 
+      - button "Retour sous 30 jours" [ref=e449] [cursor=pointer]:
+        - generic [ref=e450]: 
+      - button [ref=e452] [cursor=pointer]:
+        - generic [ref=e453]: 
+      - button "5% Avantage Fidélité" [ref=e455] [cursor=pointer]:
+        - generic [ref=e456]: 
+      - link "4,8 sur 5 sur Avis vérifiés 37888 avis sur les 12 derniers mois" [ref=e459] [cursor=pointer]:
+        - /url: https://www.avis-verifies.com/avis-clients/i-run.fr
+        - generic "4,8 sur 5 sur Avis vérifiés" [ref=e461]:
+          - generic [ref=e462]: 4,8/5
+          - generic [ref=e463]:
+            - generic [ref=e464]:
+              - generic [ref=e465]: 
+              - generic [ref=e466]: 
+              - generic [ref=e467]: 
+              - generic [ref=e468]: 
+              - generic [ref=e469]: 
+            - generic [ref=e470]:
+              - generic [ref=e471]: 
+              - generic [ref=e472]: 
+              - generic [ref=e473]: 
+              - generic [ref=e474]: 
+              - generic [ref=e475]: 
+        - generic [ref=e476]: 37888 avis sur les 12 derniers mois
+    - generic [ref=e477]:
+      - generic [ref=e478]:
+        - generic [ref=e479]: Contact
+        - text: Besoin d'un conseil pour votre commande ?
+        - list [ref=e482]:
+          - listitem [ref=e483]:
+            - generic [ref=e484]:
+              - generic [ref=e485]: 
+              - link "Appelez-nous au 05 31 61 99 16" [ref=e486] [cursor=pointer]:
+                - /url: tel:+33531619916
+                - text: 05 31 61 99 16
+            - generic "Lundi - Samedi · 08:00 - 18:00 Heure de Paris (UTC+1)" [ref=e487]
+          - listitem [ref=e488]:
+            - generic [ref=e489]:
+              - generic [ref=e490]: 
+              - link "Envoyez-nous un e-mail" [ref=e491] [cursor=pointer]:
+                - /url: /contact.html
+      - generic [ref=e492]:
+        - generic [ref=e493]:
+          - img "Icône moyen de paiment" [ref=e494]
+          - generic "Nos moyens de paiement sont:" [ref=e495]: Moyens de paiement
+        - list [ref=e496]:
+          - listitem:
+            - generic [ref=e497]: Carte visa
+          - listitem:
+            - generic [ref=e498]: Carte master card
+          - listitem:
+            - generic [ref=e499]: Carte paypal
+          - listitem:
+            - generic [ref=e500]: Carte amex
+          - listitem [ref=e501]:
+            - link "Paiement sécurisé 2 ou 3 fois sans frais" [ref=e502] [cursor=pointer]:
+              - /url: /infos-pratiques/paiement-sans-frais.html
+      - generic [ref=e503]:
+        - generic [ref=e504]:
+          - img "Icône livraison" [ref=e505]
+          - generic "Nos moyens de livraison sont:" [ref=e506]: Moyens de livraison
+        - list [ref=e507]:
+          - listitem:
+            - generic [ref=e508]: Colissimo, Chronopost, Chrono relais ou retrait en magasin
+          - listitem [ref=e509]:
+            - link "Délais & frais de livraison" [ref=e510] [cursor=pointer]:
+              - /url: /infos-pratiques/livraison.html
+      - generic [ref=e511]:
+        - button "Icône de point d'intérrogation Aide":
+          - img "Icône de point d'intérrogation"
+          - generic: Aide
+        - list [ref=e513]:
+          - listitem [ref=e514]:
+            - link "Questions fréquentes" [ref=e515] [cursor=pointer]:
+              - /url: /infos-pratiques/
+          - listitem [ref=e516]:
+            - link "Suivre ma commande" [ref=e517] [cursor=pointer]:
+              - /url: /client/commandes.html
+          - listitem [ref=e518]:
+            - link "Retourner un produit" [ref=e519] [cursor=pointer]:
+              - /url: /infos-pratiques/retourner-un-produit.html
+          - listitem [ref=e520]:
+            - link "Guide des tailles et pointures" [ref=e521] [cursor=pointer]:
+              - /url: /infos-pratiques/guide-des-tailles/
+          - listitem [ref=e522]:
+            - link "Parrainer un ami" [ref=e523] [cursor=pointer]:
+              - /url: /infos-pratiques/parrainage.html
+      - generic [ref=e524]:
+        - button "Icône de cadeau Cartes cadeaux":
+          - img "Icône de cadeau"
+          - generic: Cartes cadeaux
+        - list [ref=e526]:
+          - listitem [ref=e527]:
+            - link "Offrir des cartes cadeaux" [ref=e528] [cursor=pointer]:
+              - /url: /accessoires/Cartes-Cadeau_c1016/
+          - listitem [ref=e529]:
+            - link "Utiliser ma carte cadeau" [ref=e530] [cursor=pointer]:
+              - /url: /infos-pratiques/carte-cadeau.html
+      - generic [ref=e531]:
+        - button "Icône de magasin Nos magasins":
+          - img "Icône de magasin"
+          - generic: Nos magasins
+        - list [ref=e533]:
+          - listitem [ref=e534]:
+            - link "Les Magasins i-Run" [ref=e535] [cursor=pointer]:
+              - /url: /magasins/
+          - listitem [ref=e536]:
+            - link "Magasins Paris" [ref=e537] [cursor=pointer]:
+              - /url: /magasins/paris/
+          - listitem [ref=e538]:
+            - link "Magasins Toulouse" [ref=e539] [cursor=pointer]:
+              - /url: /magasins/toulouse/
+          - listitem [ref=e540]:
+            - link "Magasins Montpellier" [ref=e541] [cursor=pointer]:
+              - /url: /magasins/montpellier/
+          - listitem [ref=e542]:
+            - link "Magasins Marseille" [ref=e543] [cursor=pointer]:
+              - /url: /magasins/marseille/
+          - listitem [ref=e544]:
+            - link "Magasins Nice" [ref=e545] [cursor=pointer]:
+              - /url: /magasins/nice/
+          - listitem [ref=e546]:
+            - link "Magasins Rennes" [ref=e547] [cursor=pointer]:
+              - /url: /magasins/rennes/
+          - listitem [ref=e548]:
+            - link "Magasins Lyon" [ref=e549] [cursor=pointer]:
+              - /url: /magasins/lyon/
+          - listitem [ref=e550]:
+            - link "Magasins Grenoble" [ref=e551] [cursor=pointer]:
+              - /url: /magasins/grenoble/
+          - listitem [ref=e552]:
+            - link "Magasins Annecy" [ref=e553] [cursor=pointer]:
+              - /url: /magasins/annecy/
+          - listitem [ref=e554]:
+            - link "Magasins Lille" [ref=e555] [cursor=pointer]:
+              - /url: /magasins/lille/
+          - listitem [ref=e556]:
+            - link "Magasins Bordeaux" [ref=e557] [cursor=pointer]:
+              - /url: /magasins/bordeaux/
+      - generic [ref=e558]:
+        - button "Icône de main pointant du doigt Nos expertises":
+          - img "Icône de main pointant du doigt"
+          - generic: Nos expertises
+        - list [ref=e560]:
+          - listitem [ref=e561]:
+            - link "Running" [ref=e562] [cursor=pointer]:
+              - /url: /running/
+          - listitem [ref=e563]:
+            - link "Randonnée" [ref=e564] [cursor=pointer]:
+              - /url: /randonnee/
+          - listitem [ref=e565]:
+            - link "Trail" [ref=e566] [cursor=pointer]:
+              - /url: /trail/
+          - listitem [ref=e567]:
+            - link "Fitness" [ref=e568] [cursor=pointer]:
+              - /url: /fitness/
+          - listitem [ref=e569]:
+            - link "Montre Sport GPS" [ref=e570] [cursor=pointer]:
+              - /url: /montre-gps/
+          - listitem [ref=e571]:
+            - link "Montres connectées" [ref=e572] [cursor=pointer]:
+              - /url: /montre-gps/montre-connectee/
+          - listitem [ref=e573]:
+            - link "Trouvez votre chaussure de running" [ref=e574] [cursor=pointer]:
+              - /url: /running/choisir-chaussure-running/
+      - generic [ref=e575]:
+        - button "Icône de vêtements Nos rayons":
+          - img "Icône de vêtements"
+          - generic: Nos rayons
+        - list [ref=e577]:
+          - listitem [ref=e578]:
+            - link "Chaussures homme" [ref=e579] [cursor=pointer]:
+              - /url: /chaussures_homme/
+          - listitem [ref=e580]:
+            - link "Chaussures femme" [ref=e581] [cursor=pointer]:
+              - /url: /chaussures_femme/
+          - listitem [ref=e582]:
+            - link "Vêtements homme" [ref=e583] [cursor=pointer]:
+              - /url: /vetement_sport_homme/
+          - listitem [ref=e584]:
+            - link "Vêtements femme" [ref=e585] [cursor=pointer]:
+              - /url: /vetement_sport_femme/
+          - listitem [ref=e586]:
+            - link "Electronique" [ref=e587] [cursor=pointer]:
+              - /url: /electronique/
+          - listitem [ref=e588]:
+            - link "Accessoires" [ref=e589] [cursor=pointer]:
+              - /url: /accessoires/
+          - listitem [ref=e590]:
+            - link "Diététique du sport" [ref=e591] [cursor=pointer]:
+              - /url: /dietetique/
+          - listitem [ref=e592]:
+            - link "Promotions" [ref=e593] [cursor=pointer]:
+              - /url: /promos/
+      - generic [ref=e594]:
+        - button "Logo d'i-Run A propos d'i-Run":
+          - img "Logo d'i-Run"
+          - generic: A propos d'i-Run
+        - list [ref=e596]:
+          - listitem [ref=e597]:
+            - link "Notre entreprise" [ref=e598] [cursor=pointer]:
+              - /url: /entreprise/
+          - listitem [ref=e599]:
+            - link "Notre politique RSE" [ref=e600] [cursor=pointer]:
+              - /url: /entreprise/rse/
+          - listitem [ref=e601]:
+            - link "Rejoindre l'équipe i-Run" [ref=e602] [cursor=pointer]:
+              - /url: /entreprise/nous-rejoindre/
+          - listitem [ref=e603]:
+            - link "Programme d'affiliation" [ref=e604] [cursor=pointer]:
+              - /url: /entreprise/affiliation.html
+          - listitem [ref=e605]:
+            - link "Nos courses partenaires" [ref=e606] [cursor=pointer]:
+              - /url: /entreprise/courses-partenaires/
+          - listitem [ref=e607]:
+            - link "Nos évènements" [ref=e608] [cursor=pointer]:
+              - /url: /entreprise/evenements-partenaires/
+          - listitem [ref=e609]:
+            - link "Nos athlètes" [ref=e610] [cursor=pointer]:
+              - /url: /entreprise/nos-athletes-et-ambassadeurs/
+          - listitem [ref=e611]:
+            - link "S'inscrire à notre newsletter" [ref=e612] [cursor=pointer]:
+              - /url: /enregistrement/newsletter.html
+          - listitem [ref=e613]:
+            - link "i-Run Club" [ref=e614] [cursor=pointer]:
+              - /url: https://i-run.club/
+      - generic [ref=e616]:
+        - link [ref=e617] [cursor=pointer]:
+          - /url: /entreprise/
+          - img "Entreprise française" [ref=e618]
+        - generic [ref=e619]: Boutique officielle de la
+        - link "Fédération française d'athlétisme" [ref=e620] [cursor=pointer]:
+          - /url: https://boutique-officielle.athle.fr/
+        - generic [ref=e623]:
+          - generic [ref=e624]: Suivez-nous
+          - list [ref=e625]:
+            - listitem [ref=e626]:
+              - link "instagram Icône d'instagram" [ref=e627] [cursor=pointer]:
+                - /url: https://www.instagram.com/irunfr/
+                - generic [ref=e628]: instagram
+                - img "Icône d'instagram" [ref=e629]
+            - listitem [ref=e630]:
+              - link "facebook Icône de facebook" [ref=e631] [cursor=pointer]:
+                - /url: https://www.facebook.com/i.run.running.trail
+                - generic [ref=e632]: facebook
+                - img "Icône de facebook" [ref=e633]
+            - listitem [ref=e634]:
+              - link "strava Icône de Strava" [ref=e635] [cursor=pointer]:
+                - /url: https://www.strava.com/clubs/i-run-285902?hl=fr-FR
+                - generic [ref=e636]: strava
+                - img "Icône de Strava" [ref=e637]
+            - listitem [ref=e638]:
+              - link "youtube Icône de Youtube" [ref=e639] [cursor=pointer]:
+                - /url: https://www.youtube.com/user/irunteam
+                - generic [ref=e640]: youtube
+                - img "Icône de Youtube" [ref=e641]
+    - generic [ref=e643]:
+      - generic [ref=e644]: "Langues :"
+      - generic [ref=e645]:
+        - 'link "i-Run.fr : spécialiste chaussures, vêtement et accessoires de running i-Run.fr" [ref=e646] [cursor=pointer]':
+          - /url: https://www.i-run.fr
+          - 'img "i-Run.fr : spécialiste chaussures, vêtement et accessoires de running" [ref=e647]'
+          - generic [ref=e648]: i-Run.fr
+        - 'link "i-Run.com : Running Shoes, Clothing & Accessories i-Run.com" [ref=e649] [cursor=pointer]':
+          - /url: https://www.i-run.com
+          - 'img "i-Run.com : Running Shoes, Clothing & Accessories" [ref=e650]'
+          - generic [ref=e651]: i-Run.com
+        - 'link "i-Run.ie : Running Shoes, Clothing & Accessories i-Run.ie" [ref=e652] [cursor=pointer]':
+          - /url: https://www.i-run.ie
+          - 'img "i-Run.ie : Running Shoes, Clothing & Accessories" [ref=e653]'
+          - generic [ref=e654]: i-Run.ie
+        - 'link "i-Run.nl : specialist in hardloopschoenen, kleding en accessoires i-Run.nl" [ref=e655] [cursor=pointer]':
+          - /url: https://www.i-run.nl
+          - 'img "i-Run.nl : specialist in hardloopschoenen, kleding en accessoires" [ref=e656]'
+          - generic [ref=e657]: i-Run.nl
+        - 'link "i-Run.es : zapatillas y ropas de running i-Run.es" [ref=e658] [cursor=pointer]':
+          - /url: https://www.i-run.es
+          - 'img "i-Run.es : zapatillas y ropas de running" [ref=e659]'
+          - generic [ref=e660]: i-Run.es
+        - 'link "i-Run.pt : especialista em tênis, roupas e acessórios para corrida i-Run.pt" [ref=e661] [cursor=pointer]':
+          - /url: https://www.i-run.pt
+          - 'img "i-Run.pt : especialista em tênis, roupas e acessórios para corrida" [ref=e662]'
+          - generic [ref=e663]: i-Run.pt
+        - 'link "i-Run.de : Schuhe und Bekleidung für Laufsport i-Run.de" [ref=e664] [cursor=pointer]':
+          - /url: https://www.i-run.de
+          - 'img "i-Run.de : Schuhe und Bekleidung für Laufsport" [ref=e665]'
+          - generic [ref=e666]: i-Run.de
+        - 'link "i-Run.at : den Online-Spezialisten für Running, Trailrunning, Wandern und Fitness i-Run.at" [ref=e667] [cursor=pointer]':
+          - /url: https://www.i-run.at
+          - 'img "i-Run.at : den Online-Spezialisten für Running, Trailrunning, Wandern und Fitness" [ref=e668]'
+          - generic [ref=e669]: i-Run.at
+        - 'link "i-Run.be : spécialiste chaussures, vêtement et accessoires de running i-Run.be" [ref=e670] [cursor=pointer]':
+          - /url: https://www.i-run.be
+          - 'img "i-Run.be : spécialiste chaussures, vêtement et accessoires de running" [ref=e671]'
+          - generic [ref=e672]: i-Run.be
+        - 'link "i-Run.it : lo specialista online di running, trail, trekking e fitness i-Run.it" [ref=e673] [cursor=pointer]':
+          - /url: https://www.i-run.it
+          - 'img "i-Run.it : lo specialista online di running, trail, trekking e fitness" [ref=e674]'
+          - generic [ref=e675]: i-Run.it
+    - list [ref=e676]:
+      - listitem [ref=e677]:
+        - link "CGV" [ref=e678] [cursor=pointer]:
+          - /url: /infos-pratiques/cgv.html
+      - listitem [ref=e679]:
+        - link "Mention Légales" [ref=e680] [cursor=pointer]:
+          - /url: /infos-pratiques/mentions-legales.html
+      - listitem [ref=e681]:
+        - link "Politique de confidentialité" [ref=e682] [cursor=pointer]:
+          - /url: /infos-pratiques/politique-de-confidentialite.html
+      - listitem [ref=e683]:
+        - link "Politique de cookies" [ref=e684] [cursor=pointer]:
+          - /url: /infos-pratiques/politique-cookies.html
+      - listitem [ref=e685]:
+        - link "Paramètres des cookies" [ref=e686] [cursor=pointer]:
+          - /url: javascript:Didomi.preferences.show()
+      - listitem [ref=e687]:
+        - link "Accessibilité" [ref=e688] [cursor=pointer]:
+          - /url: /infos-pratiques/accessibilite.html
+      - listitem [ref=e689]:
+        - link "Plan du site" [ref=e690] [cursor=pointer]:
+          - /url: /infos-pratiques/sitemap.html

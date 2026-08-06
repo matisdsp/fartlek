@@ -1,0 +1,467 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e10]:
+        - link " Envío gratis a partir de 49 €*" [ref=e13] [cursor=pointer]:
+          - /url: /stc/shipment#shipment-costs
+          - generic [ref=e14]: 
+          - generic [ref=e15]: Envío gratis a partir de 49 €*
+        - link " Entrega en 24 horas" [ref=e18] [cursor=pointer]:
+          - /url: /stc/shipment#delivery-time
+          - generic [ref=e19]: 
+          - generic [ref=e20]: Entrega en 24 horas
+        - link " Devolución de 30 días*" [ref=e23] [cursor=pointer]:
+          - /url: /stc/return
+          - generic [ref=e24]: 
+          - generic [ref=e25]: Devolución de 30 días*
+        - link " DeporXperience" [ref=e28] [cursor=pointer]:
+          - /url: /dpx/deporxperience
+          - generic [ref=e29]: 
+          - generic [ref=e30]: DeporXperience
+        - link " TrustpilotExcelente 4.4 sobre 5" [ref=e33] [cursor=pointer]:
+          - /url: https://es.trustpilot.com/review/www.deporvillage.com?utm_medium=trustbox&utm_source=MicroTrustScore
+          - generic [ref=e34]: 
+          - generic [ref=e35]: TrustpilotExcelente 4.4 sobre 5
+        - link " Asesoramiento personalizado" [ref=e38] [cursor=pointer]:
+          - /url: /stc/asesoramiento-personalizado
+          - generic [ref=e39]: 
+          - generic [ref=e40]: Asesoramiento personalizado
+      - generic [ref=e43]:
+        - generic [ref=e44] [cursor=pointer]:
+          - generic [ref=e45]: Enviar a
+          - generic [ref=e46]: España
+          - text: 
+        - text: 
+    - banner [ref=e47]:
+      - link [ref=e49] [cursor=pointer]:
+        - /url: //www.deporvillage.com
+        - img "Deporvillage logo" [ref=e52]
+      - generic [ref=e57]:
+        - generic [ref=e58] [cursor=pointer]: ¿Qué estás buscando?
+        - generic [ref=e59] [cursor=pointer]: 
+      - generic [ref=e61]:
+        - generic [ref=e64]:
+          - button "Únete al club" [ref=e67] [cursor=pointer]
+          - generic [ref=e70]: 
+        - generic [ref=e76] [cursor=pointer]:
+          - text: 
+          - generic [ref=e77]: "1"
+        - link "Mis favoritos" [ref=e80] [cursor=pointer]:
+          - /url: //www.deporvillage.com/customer/wishlist
+          - generic [ref=e81]: 
+        - generic [ref=e82]: 
+      - navigation [ref=e89]:
+        - generic [ref=e90]:
+          - generic [ref=e91]:
+            - link "Rebajas" [ref=e93] [cursor=pointer]:
+              - /url: //www.deporvillage.com/rebajas-1
+            - link "Ciclismo" [ref=e96] [cursor=pointer]:
+              - /url: //www.deporvillage.com/ciclismo
+            - link "Running" [ref=e99] [cursor=pointer]:
+              - /url: //www.deporvillage.com/running
+            - link "Outdoor" [ref=e102] [cursor=pointer]:
+              - /url: //www.deporvillage.com/outdoor
+            - link "Acampada" [ref=e105] [cursor=pointer]:
+              - /url: //www.deporvillage.com/cmg/acampada
+            - link "Natación" [ref=e108] [cursor=pointer]:
+              - /url: //www.deporvillage.com/natacion
+            - link "Triatlón" [ref=e111] [cursor=pointer]:
+              - /url: //www.deporvillage.com/triatlon
+            - link "Training" [ref=e114] [cursor=pointer]:
+              - /url: //www.deporvillage.com/fitness
+            - link "Pádel" [ref=e117] [cursor=pointer]:
+              - /url: //www.deporvillage.com/padel
+            - link "Tenis" [ref=e120] [cursor=pointer]:
+              - /url: //www.deporvillage.com/tenis
+            - link "Más deportes" [ref=e123] [cursor=pointer]:
+              - /url: //www.deporvillage.com/mas_deportes
+            - link "Nutrición y recuperación" [ref=e126] [cursor=pointer]:
+              - /url: //www.deporvillage.com/nutricion
+            - link "Urban" [ref=e129] [cursor=pointer]:
+              - /url: //www.deporvillage.com/sportswear
+            - link "Marcas" [ref=e132] [cursor=pointer]:
+              - /url: //www.deporvillage.com/nuestras-marcas
+            - link "Outlet" [ref=e135] [cursor=pointer]:
+              - /url: //www.deporvillage.com/outlet
+          - generic [ref=e137]:
+            - button [disabled] [ref=e138]:
+              - generic [ref=e139]: 
+            - button [ref=e142] [cursor=pointer]:
+              - generic [ref=e143]: 
+  - main [ref=e147]:
+    - paragraph [ref=e151]:
+      - link "Centro de Ayuda" [ref=e152] [cursor=pointer]:
+        - /url: https://www.deporvillage.com/stc/help
+      - text: / Devoluciones
+    - heading "¿En qué podemos ayudarte?" [level=2] [ref=e157]
+    - generic [ref=e158]:
+      - link [ref=e161] [cursor=pointer]:
+        - /url: https://www.deporvillage.com/stc/purchase
+        - img "Comprar" [ref=e163]
+      - link [ref=e166] [cursor=pointer]:
+        - /url: https://www.deporvillage.com/stc/orders
+        - img "Pedidos" [ref=e168]
+      - link [ref=e171] [cursor=pointer]:
+        - /url: https://www.deporvillage.com/stc/shipment
+        - img "Envíos" [ref=e173]
+      - link [ref=e176] [cursor=pointer]:
+        - /url: https://www.deporvillage.com/stc/return
+        - img "Devoluciones" [ref=e178]
+      - link [ref=e181] [cursor=pointer]:
+        - /url: https://www.deporvillage.com/stc/payment
+        - img "Pagos" [ref=e183]
+      - link [ref=e186] [cursor=pointer]:
+        - /url: https://www.deporvillage.com/stc/account
+        - img "Mi cuenta" [ref=e188]
+    - heading "Devoluciones" [level=3] [ref=e192]
+    - generic [ref=e195]:
+      - generic [ref=e202]:
+        - paragraph [ref=e203]:
+          - generic [ref=e204]: En punto de recogida
+        - list [ref=e205]:
+          - listitem [ref=e206]:
+            - paragraph [ref=e207]: Con etiqueta o QR
+          - listitem [ref=e208]:
+            - paragraph [ref=e209]: Coste 1,99 €
+          - listitem [ref=e210]:
+            - paragraph [ref=e211]: "Plazo para el abono: 10 a 15 días laborables"
+        - paragraph [ref=e212]:
+          - link "Ver instrucciones" [ref=e213] [cursor=pointer]:
+            - /url: "#point-return"
+      - generic [ref=e222]:
+        - paragraph [ref=e223]:
+          - generic [ref=e224]: Recogida a domicilio
+        - list [ref=e225]:
+          - listitem [ref=e226]:
+            - paragraph [ref=e227]: Sin etiqueta
+          - listitem [ref=e228]:
+            - paragraph [ref=e229]: Coste 4,99 €
+          - listitem [ref=e230]:
+            - paragraph [ref=e231]: "Plazo para el abono: 5 a 9 días laborables"
+        - paragraph [ref=e232]:
+          - link "Ver instrucciones" [ref=e233] [cursor=pointer]:
+            - /url: "#home-return"
+      - generic [ref=e242]:
+        - paragraph [ref=e243]:
+          - generic [ref=e244]: Por tus propios medios
+        - list [ref=e245]:
+          - listitem [ref=e246]:
+            - paragraph [ref=e247]:
+              - generic [ref=e248]: Productos en la
+              - link "tabla de excepciones" [ref=e249] [cursor=pointer]:
+                - /url: /stc/return#exceptions
+          - listitem [ref=e252]:
+            - paragraph [ref=e253]:
+              - generic [ref=e254]: Plazo y precio según servicio contratado con transportista
+        - paragraph [ref=e255]:
+          - link "Ver instrucciones" [ref=e256] [cursor=pointer]:
+            - /url: "#own-means"
+    - generic [ref=e262]:
+      - button "Button ¿Qué plazo tengo para hacer una devolución?" [ref=e263] [cursor=pointer]:
+        - generic [ref=e264]:
+          - button "Button" [ref=e265]:
+            - generic [ref=e266]: 
+          - generic [ref=e267]: ¿Qué plazo tengo para hacer una devolución?
+      - button "Button ¿La devolución tiene algún coste?" [ref=e268] [cursor=pointer]:
+        - generic [ref=e269]:
+          - button "Button" [ref=e270]:
+            - generic [ref=e271]: 
+          - generic [ref=e272]: ¿La devolución tiene algún coste?
+      - button "Button ¿Puedo hacer un cambio de producto por otro?" [ref=e273] [cursor=pointer]:
+        - generic [ref=e274]:
+          - button "Button" [ref=e275]:
+            - generic [ref=e276]: 
+          - generic [ref=e277]: ¿Puedo hacer un cambio de producto por otro?
+      - button "Button ¿Puedo devolver un producto si lo he probado?" [ref=e278] [cursor=pointer]:
+        - generic [ref=e279]:
+          - button "Button" [ref=e280]:
+            - generic [ref=e281]: 
+          - generic [ref=e282]: ¿Puedo devolver un producto si lo he probado?
+      - button "Button ¿Cuál es el plazo para recibir un abono?" [ref=e283] [cursor=pointer]:
+        - generic [ref=e284]:
+          - button "Button" [ref=e285]:
+            - generic [ref=e286]: 
+          - generic [ref=e287]: ¿Cuál es el plazo para recibir un abono?
+      - button "Button Pasos para realizar una devolución en punto de recogida" [ref=e288] [cursor=pointer]:
+        - generic [ref=e289]:
+          - button "Button" [ref=e290]:
+            - generic [ref=e291]: 
+          - generic [ref=e292]: Pasos para realizar una devolución en punto de recogida
+      - button "Button Instrucciones para la devolución con código QR" [ref=e293] [cursor=pointer]:
+        - generic [ref=e294]:
+          - button "Button" [ref=e295]:
+            - generic [ref=e296]: 
+          - generic [ref=e297]: Instrucciones para la devolución con código QR
+      - button "Button Pasos para realizar una devolución con recogida a domicilio" [ref=e298] [cursor=pointer]:
+        - generic [ref=e299]:
+          - button "Button" [ref=e300]:
+            - generic [ref=e301]: 
+          - generic [ref=e302]: Pasos para realizar una devolución con recogida a domicilio
+      - button "Button Devolución por tus propios medios" [ref=e303] [cursor=pointer]:
+        - generic [ref=e304]:
+          - button "Button" [ref=e305]:
+            - generic [ref=e306]: 
+          - generic [ref=e307]: Devolución por tus propios medios
+      - button "Button Mi devolución no ha sido recogida. ¿Cómo puedo programar una nueva recogida?" [ref=e308] [cursor=pointer]:
+        - generic [ref=e309]:
+          - button "Button" [ref=e310]:
+            - generic [ref=e311]: 
+          - generic [ref=e312]: Mi devolución no ha sido recogida. ¿Cómo puedo programar una nueva recogida?
+      - button "Button Excepciones en devoluciones" [ref=e313] [cursor=pointer]:
+        - generic [ref=e314]:
+          - button "Button" [ref=e315]:
+            - generic [ref=e316]: 
+          - generic [ref=e317]: Excepciones en devoluciones
+      - button "Button ¿Qué debo hacer si el pedido que he recibido es incorrecto o incompleto?" [ref=e318] [cursor=pointer]:
+        - generic [ref=e319]:
+          - button "Button" [ref=e320]:
+            - generic [ref=e321]: 
+          - generic [ref=e322]: ¿Qué debo hacer si el pedido que he recibido es incorrecto o incompleto?
+      - button "Button ¿Qué tengo que hacer si recibo un producto dañado o un paquete en mal estado?" [ref=e323] [cursor=pointer]:
+        - generic [ref=e324]:
+          - button "Button" [ref=e325]:
+            - generic [ref=e326]: 
+          - generic [ref=e327]: ¿Qué tengo que hacer si recibo un producto dañado o un paquete en mal estado?
+      - button "Button ¿Hay algún artículo que no pueda devolver ni cambiar?" [ref=e328] [cursor=pointer]:
+        - generic [ref=e329]:
+          - button "Button" [ref=e330]:
+            - generic [ref=e331]: 
+          - generic [ref=e332]: ¿Hay algún artículo que no pueda devolver ni cambiar?
+      - button "Button ¿Puedo devolver productos que formen parte de un pack?" [ref=e333] [cursor=pointer]:
+        - generic [ref=e334]:
+          - button "Button" [ref=e335]:
+            - generic [ref=e336]: 
+          - generic [ref=e337]: ¿Puedo devolver productos que formen parte de un pack?
+      - button "Button ¿Puedo enviar devoluciones de distintos pedidos en un mismo paquete?" [ref=e338] [cursor=pointer]:
+        - generic [ref=e339]:
+          - button "Button" [ref=e340]:
+            - generic [ref=e341]: 
+          - generic [ref=e342]: ¿Puedo enviar devoluciones de distintos pedidos en un mismo paquete?
+      - button "Button ¿Puedo realizar una devolución desde una de vuestras tiendas físicas?" [ref=e343] [cursor=pointer]:
+        - generic [ref=e344]:
+          - button "Button" [ref=e345]:
+            - generic [ref=e346]: 
+          - generic [ref=e347]: ¿Puedo realizar una devolución desde una de vuestras tiendas físicas?
+      - button "Button Devoluciones desde fuera de España o fuera de la península" [ref=e348] [cursor=pointer]:
+        - generic [ref=e349]:
+          - button "Button" [ref=e350]:
+            - generic [ref=e351]: 
+          - generic [ref=e352]: Devoluciones desde fuera de España o fuera de la península
+      - button "Button ¿Puedo solicitar una devolución a una tarjeta diferente a la usada en el pago?" [ref=e353] [cursor=pointer]:
+        - generic [ref=e354]:
+          - button "Button" [ref=e355]:
+            - generic [ref=e356]: 
+          - generic [ref=e357]: ¿Puedo solicitar una devolución a una tarjeta diferente a la usada en el pago?
+      - button "Button ¿Cómo se devuelve el importe de pedidos pagados a plazos?" [ref=e358] [cursor=pointer]:
+        - generic [ref=e359]:
+          - button "Button" [ref=e360]:
+            - generic [ref=e361]: 
+          - generic [ref=e362]: ¿Cómo se devuelve el importe de pedidos pagados a plazos?
+      - 'button "Button Devolución o Garantía: ¿Cuál es la diferencia?" [ref=e363] [cursor=pointer]':
+        - generic [ref=e364]:
+          - button "Button" [ref=e365]:
+            - generic [ref=e366]: 
+          - generic [ref=e367]: "Devolución o Garantía: ¿Cuál es la diferencia?"
+      - button "Button ¿Cómo puedo gestionar una garantía?" [ref=e368] [cursor=pointer]:
+        - generic [ref=e369]:
+          - button "Button" [ref=e370]:
+            - generic [ref=e371]: 
+          - generic [ref=e372]: ¿Cómo puedo gestionar una garantía?
+      - button "Button Proceso y condiciones de garantía" [ref=e373] [cursor=pointer]:
+        - generic [ref=e374]:
+          - button "Button" [ref=e375]:
+            - generic [ref=e376]: 
+          - generic [ref=e377]: Proceso y condiciones de garantía
+      - button "Button ¿Cuánto dura la garantía de un producto reparado o sustituido?" [ref=e378] [cursor=pointer]:
+        - generic [ref=e379]:
+          - button "Button" [ref=e380]:
+            - generic [ref=e381]: 
+          - generic [ref=e382]: ¿Cuánto dura la garantía de un producto reparado o sustituido?
+    - generic [ref=e385]:
+      - paragraph [ref=e386]: ¿No encuentras lo que buscas? Contacta con nosotros.
+      - button [ref=e388] [cursor=pointer]
+  - contentinfo [ref=e394]:
+    - generic [ref=e395]:
+      - list [ref=e396]:
+        - listitem [ref=e397]:
+          - strong [ref=e398]: Sobre Deporvillage
+        - listitem [ref=e399]:
+          - link "Quiénes somos" [ref=e400] [cursor=pointer]:
+            - /url: https://corporate.deporvillage.com/quienes-somos
+        - listitem [ref=e401]:
+          - link "DeporXperience" [ref=e402] [cursor=pointer]:
+            - /url: /dpx/deporxperience
+        - listitem [ref=e403]:
+          - link "Sala de prensa" [ref=e404] [cursor=pointer]:
+            - /url: https://corporate.deporvillage.com/sala-de-prensa
+        - listitem [ref=e405]:
+          - link "Ventajas" [ref=e406] [cursor=pointer]:
+            - /url: /ventajas-deporvillage
+        - listitem [ref=e407]:
+          - link "Trabaja con nosotros" [ref=e408] [cursor=pointer]:
+            - /url: https://corporate.deporvillage.com/trabaja-con-nosotros
+        - listitem [ref=e409]:
+          - link "Tienda" [ref=e410] [cursor=pointer]:
+            - /url: /stc/tienda-deporvillage-alcorcon
+      - list [ref=e411]:
+        - listitem [ref=e412]:
+          - strong [ref=e413]: Garantías
+        - listitem [ref=e414]:
+          - link "Devoluciones" [ref=e415] [cursor=pointer]:
+            - /url: /stc/return
+        - listitem [ref=e416]:
+          - link "Plazos de entrega" [ref=e417] [cursor=pointer]:
+            - /url: /stc/shipment#delivery-time
+        - listitem [ref=e418]:
+          - link "Métodos de pago" [ref=e419] [cursor=pointer]:
+            - /url: /stc/purchase#payment-methods
+        - listitem [ref=e420]:
+          - link "Compra segura" [ref=e421] [cursor=pointer]:
+            - /url: /ventajas-deporvillage#seguridad
+      - list [ref=e422]:
+        - listitem [ref=e423]:
+          - strong [ref=e424]: Atención al cliente
+        - listitem [ref=e425]:
+          - link "Ayuda" [ref=e426] [cursor=pointer]:
+            - /url: /stc/help
+        - listitem [ref=e427]:
+          - link "Seguimiento pedidos" [ref=e428] [cursor=pointer]:
+            - /url: /stc/orders#tracking
+        - listitem [ref=e429]:
+          - link "Gastos de envío" [ref=e430] [cursor=pointer]:
+            - /url: /stc/shipment#shipment-costs
+        - listitem [ref=e431]:
+          - link "Cambio de talla" [ref=e432] [cursor=pointer]:
+            - /url: /stc/return#size-change
+        - listitem [ref=e433]:
+          - link "Facturas" [ref=e434] [cursor=pointer]:
+            - /url: /stc/payment#invoice
+      - list [ref=e435]:
+        - listitem [ref=e436]:
+          - strong [ref=e437]: Más Deporvillage
+        - listitem [ref=e438]:
+          - link "Eventos patrocinados" [ref=e439] [cursor=pointer]:
+            - /url: https://corporate.deporvillage.com/eventos-patrocinados
+        - listitem [ref=e440]:
+          - link "Blog" [ref=e441] [cursor=pointer]:
+            - /url: https://magazine.deporvillage.com?utm_source=deporvillage.com&utm_medium=footer
+      - list [ref=e442]:
+        - listitem [ref=e443]:
+          - strong [ref=e444]: Deporvillage en
+        - listitem [ref=e445]:
+          - generic "Français" [ref=e446]:
+            - img "fr - Français" [ref=e449]
+            - text: Français
+        - listitem [ref=e450]:
+          - generic "Italiano" [ref=e451]:
+            - img "it - Italiano" [ref=e454]
+            - text: Italiano
+        - listitem [ref=e455]:
+          - generic "Português" [ref=e456]:
+            - img "pt - Português" [ref=e459]
+            - text: Português
+        - listitem [ref=e460]:
+          - generic "Deutsch" [ref=e461]:
+            - img "de - Deutsch" [ref=e464]
+            - text: Deutsch
+        - listitem [ref=e465]:
+          - generic "English" [ref=e466]:
+            - img "gb - English" [ref=e469]
+            - text: English
+    - separator [ref=e470]
+    - generic [ref=e471]:
+      - generic [ref=e472]:
+        - paragraph [ref=e473]:
+          - strong [ref=e474]: Formas de pago
+        - generic [ref=e475]:
+          - generic [ref=e478]:
+            - img "Mastercard"
+          - link [ref=e479] [cursor=pointer]:
+            - /url: https://www.paypal.com/es/webapps/mpp/paypal-popup
+            - generic [ref=e481]:
+              - img "Paypal"
+          - generic [ref=e484]:
+            - img "Visa"
+          - generic [ref=e487]:
+            - img "Bizum"
+          - generic [ref=e490]:
+            - img "ClickToPay"
+          - generic [ref=e493]:
+            - img "Klarna"
+          - generic [ref=e496]:
+            - img "Transferencia"
+          - generic [ref=e499]:
+            - img "Cofidis"
+          - generic [ref=e502]:
+            - img "Aplazame"
+      - generic [ref=e504]:
+        - paragraph [ref=e505]:
+          - strong [ref=e506]: Envíos realizados con
+        - generic [ref=e507]:
+          - generic [ref=e510]:
+            - img "GLS"
+          - generic [ref=e513]:
+            - img "DHL"
+          - generic [ref=e516]:
+            - img "Punto Pack"
+          - generic [ref=e519]:
+            - img "Correos Express"
+      - generic [ref=e521]:
+        - paragraph [ref=e522]:
+          - strong [ref=e523]: Seguridad
+        - generic [ref=e527]:
+          - img "Pago seguro"
+      - generic [ref=e529]:
+        - paragraph [ref=e530]:
+          - strong [ref=e531]: App Deporvillage
+        - generic [ref=e532]:
+          - link [ref=e533] [cursor=pointer]:
+            - /url: https://reskyt.com/app/deporvillage
+            - generic [ref=e535]:
+              - img "App Store"
+          - link [ref=e536] [cursor=pointer]:
+            - /url: https://reskyt.com/app/deporvillage
+            - generic [ref=e538]:
+              - img "Google Play"
+    - list [ref=e540]:
+      - listitem [ref=e541]:
+        - strong [ref=e542]: Fulfillment por
+      - listitem [ref=e543]:
+        - generic [ref=e545]:
+          - img "ESBO"
+    - generic [ref=e546]:
+      - link "Facebook" [ref=e547] [cursor=pointer]:
+        - /url: https://facebook.com/deporvillage
+        - generic [ref=e548]: 
+      - link "Instagram" [ref=e549] [cursor=pointer]:
+        - /url: https://www.instagram.com/deporvillage
+        - generic [ref=e550]: 
+      - link "Strava" [ref=e551] [cursor=pointer]:
+        - /url: https://www.strava.com/clubs/610143
+        - generic [ref=e552]: 
+      - link "Youtube" [ref=e553] [cursor=pointer]:
+        - /url: https://www.youtube.com/user/deporvillagecom
+        - generic [ref=e554]: 
+      - link "X" [ref=e555] [cursor=pointer]:
+        - /url: https://www.twitter.com/deporvillage
+        - generic [ref=e556]: 
+    - generic [ref=e557]:
+      - paragraph [ref=e558]: Deporvillage es una tienda de deportes online especializada en primeras marcas.
+      - paragraph [ref=e559]:
+        - text: © 2011-2026 Deporvillage, S.L. - Todos los derechos reservados |
+        - link "Condiciones legales" [ref=e560] [cursor=pointer]:
+          - /url: /condiciones-legales
+        - text: "|"
+        - link "Política de privacidad" [ref=e561] [cursor=pointer]:
+          - /url: /politica-de-privacidad
+        - text: "|"
+        - link "Política de cookies" [ref=e562] [cursor=pointer]:
+          - /url: /politica-de-cookies
+        - text: "|"
+        - link "Condiciones generales de compra web/app" [ref=e563] [cursor=pointer]:
+          - /url: /condiciones-generales-compra-web-app
+        - text: "|"
+        - link "Canal y Sistema Interno de Información - Whistleblowing" [ref=e564] [cursor=pointer]:
+          - /url: /canal-de-denuncias
+      - paragraph [ref=e565]: C.I.F. B65272742. Inscrita en el Registro Mercantil Barcelona. tomo 41710. folio 172. Hoja B 394154. Inscripción 1.
+  - alert [ref=e566]

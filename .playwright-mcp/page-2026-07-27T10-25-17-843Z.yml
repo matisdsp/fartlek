@@ -1,0 +1,960 @@
+- generic [active] [ref=e1]:
+  - list [ref=e2]:
+    - listitem [ref=e3]:
+      - link "Rechercher" [ref=e4] [cursor=pointer]:
+        - /url: "#search-input-header-modal"
+    - listitem [ref=e5]:
+      - link "Voir le contenu" [ref=e6] [cursor=pointer]:
+        - /url: "#content"
+    - listitem [ref=e7]:
+      - link "Accéder au haut de la page" [ref=e8] [cursor=pointer]:
+        - /url: "#footer"
+  - region "Banner" [ref=e10]:
+    - generic [ref=e11]:
+      - generic [ref=e12]:
+        - generic [ref=e14]:
+          - generic [ref=e15]:
+            - generic [ref=e16]: "Vente flash : Jusqu'à -30%"
+            - link "J'en profite" [ref=e17] [cursor=pointer]:
+              - /url: https://www.decathlon.fr/deals/decath-flash
+          - paragraph [ref=e23]:
+            - timer [ref=e24]:
+              - generic [ref=e25]:
+                - generic [ref=e26]:
+                  - generic [ref=e27]: "01"
+                  - text: j
+                - generic [ref=e28]:
+                  - generic [ref=e29]: "11"
+                  - text: h
+                - generic [ref=e30]:
+                  - generic [ref=e31]: "34"
+                  - text: m
+                - generic [ref=e32]:
+                  - generic [ref=e33]: "42"
+                  - text: s
+              - generic [ref=e34]: "Encore {{jours}} {{heures}} et {{compte}} minutes."
+        - generic:
+          - generic:
+            - text: Livraison en point relais offerte tout l'été !
+            - link:
+              - /url: https://www.decathlon.fr/boutiques/ete
+              - generic: Découvrez notre sélection été
+      - generic [ref=e35]:
+        - button "Suspendre la bannière" [ref=e36] [cursor=pointer]
+        - button "Fermer" [ref=e39] [cursor=pointer]
+  - banner [ref=e42]:
+    - generic [ref=e44]:
+      - link "Retourner à la page d'accueil" [ref=e46] [cursor=pointer]:
+        - /url: /
+        - img "Decathlon logo" [ref=e48]
+      - search [ref=e53]:
+        - searchbox "Rechercher" [ref=e57]
+      - navigation "Options" [ref=e60]:
+        - list [ref=e62]:
+          - listitem [ref=e63]:
+            - link [ref=e64] [cursor=pointer]:
+              - /url: /store-locator
+          - listitem [ref=e67]:
+            - button [ref=e68] [cursor=pointer]
+          - listitem [ref=e72]:
+            - link "Se connecter ou s'inscrire" [ref=e73] [cursor=pointer]:
+              - /url: /api/auth/signin/dkt-login?locale=fr-FR&callbackUrl=%2Faccount%2Fdashboard
+          - listitem [ref=e76]:
+            - link "Mon panier 0 items" [ref=e77] [cursor=pointer]:
+              - /url: /checkout/cart
+    - navigation "Menu principal" [ref=e81]:
+      - list [ref=e84]:
+        - listitem [ref=e85]:
+          - button "Tous les sports" [ref=e86] [cursor=pointer]
+        - listitem [ref=e87]:
+          - button "Femme" [ref=e88] [cursor=pointer]
+        - listitem [ref=e89]:
+          - button "Homme" [ref=e90] [cursor=pointer]
+        - listitem [ref=e91]:
+          - button "Enfant & bébé" [ref=e92] [cursor=pointer]
+        - listitem [ref=e93]:
+          - button "Equipements & loisirs" [ref=e94] [cursor=pointer]
+        - listitem [ref=e95]:
+          - button "Électronique" [ref=e96] [cursor=pointer]
+        - listitem [ref=e97]:
+          - button "Nutrition & Santé" [ref=e98] [cursor=pointer]
+        - listitem [ref=e99]:
+          - button "Seconde vie" [ref=e100] [cursor=pointer]
+        - listitem [ref=e101]:
+          - button "Soldes & bons plans" [ref=e102] [cursor=pointer]
+        - listitem [ref=e103]:
+          - button "Services et voyages" [ref=e104] [cursor=pointer]
+        - listitem [ref=e105]:
+          - link "Carte cadeau" [ref=e106] [cursor=pointer]:
+            - /url: /giftcard
+  - main [ref=e107]:
+    - generic [ref=e108]:
+      - generic [ref=e110]:
+        - navigation "Breadcrumb" [ref=e111]:
+          - list [ref=e112]:
+            - listitem [ref=e113]:
+              - link "Tous les sports" [ref=e115] [cursor=pointer]:
+                - /url: /tous-les-sports
+            - listitem [ref=e119]:
+              - link "Marche" [ref=e121] [cursor=pointer]:
+                - /url: /tous-les-sports/marche
+            - listitem [ref=e125]:
+              - link "Chaussures" [ref=e127] [cursor=pointer]:
+                - /url: /tous-les-sports/marche/chaussures-de-marche
+            - listitem [ref=e131]:
+              - link "Chaussures femme" [ref=e133] [cursor=pointer]:
+                - /url: /tous-les-sports/marche/chaussures-de-marche-femme
+            - listitem [ref=e137]:
+              - generic [ref=e138]: Asics
+        - generic [ref=e141]:
+          - heading "Baskets femme Asics" [level=1] [ref=e143]
+          - paragraph [ref=e148]: Découvrez vite notre large gamme de baskets femme Asics et profitez d’un confort exceptionnel pendant vos balades en ville ou à la campagne. Avec ces baskets, vous pourrez très facilement parcourir des kilomètres ou simplement faire vos trajets du quotidien à pied. Du blanc, du noir, du bleu… les nombreux coloris qui se présentent à vous chez Decathlon vous permettront par ailleurs de dénicher une paire de baskets Asics qui répond le mieux à vos attentes. Reconditionnées ou non, à vous de choisir les chaussures qui vous ressemblent !
+      - list [ref=e151]:
+        - listitem [ref=e152]:
+          - link "Decathlon" [ref=e160] [cursor=pointer]:
+            - /url: /tous-les-sports/marche/chaussures-femme-newfeel
+        - listitem [ref=e161]:
+          - link "Skechers" [ref=e169] [cursor=pointer]:
+            - /url: /tous-les-sports/marche/chaussures-femme-skechers
+        - listitem [ref=e170]:
+          - link "Adidas" [ref=e178] [cursor=pointer]:
+            - /url: /tous-les-sports/marche/chaussures-femme-adidas
+        - listitem [ref=e179]:
+          - link "Reebok" [ref=e187] [cursor=pointer]:
+            - /url: /tous-les-sports/marche/chaussures-femme-reebok
+        - listitem [ref=e188]:
+          - link "Puma" [ref=e196] [cursor=pointer]:
+            - /url: /tous-les-sports/marche/chaussures-femme-puma
+        - listitem [ref=e197]:
+          - link "Kappa" [ref=e205] [cursor=pointer]:
+            - /url: /tous-les-sports/marche/chaussures-femme-kappa
+        - listitem [ref=e206]:
+          - link "TBS" [ref=e214] [cursor=pointer]:
+            - /url: /tous-les-sports/marche/chaussures-femme-tbs
+        - listitem [ref=e215]:
+          - link "Toutes les marques" [ref=e223] [cursor=pointer]:
+            - /url: /tous-les-sports/marche/toutes-les-marques
+      - generic [ref=e224]:
+        - button "Voir les filtres, 0 filtres appliqués" [ref=e228] [cursor=pointer]:
+          - generic "Voir les filtres, 0 filtres appliqués" [ref=e231]: Filtres
+        - generic [ref=e232]:
+          - generic [ref=e234]:
+            - button "Pourquoi ces produits s'affichent-ils en premier ?" [ref=e235]
+            - generic [ref=e238]: 648 articles
+          - generic [ref=e241]:
+            - combobox [ref=e242] [cursor=pointer]:
+              - generic [ref=e243]: Le plus pertinent
+            - combobox [ref=e246]
+      - generic [ref=e249]:
+        - list [ref=e251]:
+          - listitem [ref=e252]:
+            - article [ref=e253]:
+              - generic [ref=e254]: Soldes
+              - generic [ref=e257]:
+                - link "picture" [ref=e262] [cursor=pointer]:
+                  - /url: /p/baskets-asics-femme-gel-quantum-kei-beige-rose/381594/c30m9002327
+                  - img "ASICS picture" [ref=e263]
+                - generic [ref=e268]:
+                  - heading [level=2] [ref=e271]:
+                    - link "ASICS Baskets ASICS Femme GEL QUANTUM KEI, beige, rose" [ref=e272] [cursor=pointer]:
+                      - /url: /p/baskets-asics-femme-gel-quantum-kei-beige-rose/381594/c30m9002327
+                  - generic [ref=e273]:
+                    - generic [ref=e275]:
+                      - img "Note de 5,0 sur 5" [ref=e278]
+                      - generic [ref=e289]: (6)
+                    - generic [ref=e291]:
+                      - generic [ref=e292]:
+                        - generic [ref=e293]: 59,99 €
+                        - generic "Ancien prix" [ref=e294]: 99,99 €
+                        - generic [ref=e295]: 40% de réduction
+                      - generic [ref=e296]: Promotion du 21/07/2026 au 27/07/2026
+                    - generic [ref=e297]: Chez vous en 48h
+          - listitem [ref=e298]:
+            - article [ref=e299]:
+              - generic [ref=e300]:
+                - link "picture" [ref=e305] [cursor=pointer]:
+                  - /url: /p/mp/gel-kayano-14-white-midnight/71d9f839-8673-4567-917e-8684688fd2d7/c4
+                  - img "ASICS picture" [ref=e306]
+                - generic [ref=e311]:
+                  - heading [level=2] [ref=e314]:
+                    - link "ASICS Gel-Kayano 14 White Midnight" [ref=e315] [cursor=pointer]:
+                      - /url: /p/mp/gel-kayano-14-white-midnight/71d9f839-8673-4567-917e-8684688fd2d7/c4
+                  - generic [ref=e316]:
+                    - generic [ref=e317]: 2 couleurs
+                    - generic [ref=e320]:
+                      - generic [ref=e321]: Dès
+                      - generic [ref=e322]: 220,00 €
+                    - generic [ref=e323]: Vendu et expédié par Wethenew
+          - listitem [ref=e324]:
+            - article [ref=e325]:
+              - generic [ref=e326]:
+                - link "picture" [ref=e331] [cursor=pointer]:
+                  - /url: /p/mp/asics-gel-kayano-14-obsidian-grey-pure-silver/4a2d0cbe-31c3-44a1-8ddc-ac81694070db/c251
+                  - img "ASICS picture" [ref=e332]
+                - generic [ref=e337]:
+                  - heading [level=2] [ref=e340]:
+                    - link "ASICS ASICS Gel-Kayano 14 Obsidian Grey Pure Silver" [ref=e341] [cursor=pointer]:
+                      - /url: /p/mp/asics-gel-kayano-14-obsidian-grey-pure-silver/4a2d0cbe-31c3-44a1-8ddc-ac81694070db/c251
+                  - generic [ref=e342]:
+                    - generic [ref=e343]: 217,09 €
+                    - generic [ref=e347]: Vendu et expédié par W.Sneakers
+          - listitem [ref=e348]:
+            - article [ref=e349]:
+              - generic [ref=e350]:
+                - link "picture" [ref=e355] [cursor=pointer]:
+                  - /url: /p/mp/baskets-asics-gel-nyc-adulte/b76a0691-156a-4e82-bc02-2fa961494658/c6c10
+                  - img "ASICS picture" [ref=e356]
+                - generic [ref=e361]:
+                  - heading [level=2] [ref=e364]:
+                    - link "ASICS Baskets Asics Gel-Nyc Adulte" [ref=e365] [cursor=pointer]:
+                      - /url: /p/mp/baskets-asics-gel-nyc-adulte/b76a0691-156a-4e82-bc02-2fa961494658/c6c10
+                  - generic [ref=e366]:
+                    - generic [ref=e367]: 3 couleurs
+                    - generic [ref=e368]: 161,00 €
+                    - generic [ref=e372]: Vendu et expédié par Sports Lab FR
+          - listitem [ref=e373]:
+            - article [ref=e374]:
+              - generic [ref=e375]:
+                - link "picture" [ref=e380] [cursor=pointer]:
+                  - /url: /p/mp/baskets-asics-gel-nyc-adulte/b76a0691-156a-4e82-bc02-2fa961494658/c6
+                  - img "ASICS picture" [ref=e381]
+                - generic [ref=e386]:
+                  - heading [level=2] [ref=e389]:
+                    - link "ASICS Baskets Asics Gel-Nyc Adulte" [ref=e390] [cursor=pointer]:
+                      - /url: /p/mp/baskets-asics-gel-nyc-adulte/b76a0691-156a-4e82-bc02-2fa961494658/c6
+                  - generic [ref=e391]:
+                    - generic [ref=e392]: 3 couleurs
+                    - generic [ref=e393]: 161,05 €
+                    - generic [ref=e397]: Vendu et expédié par Sports Lab FR
+          - listitem [ref=e398]:
+            - article [ref=e399]:
+              - generic [ref=e400]:
+                - link "picture" [ref=e405] [cursor=pointer]:
+                  - /url: /p/mp/sneakers-asics-gel-nyc-adulte/edc120be-0f61-443e-adad-1702cc1e9243/c4c211c12
+                  - img "ASICS picture" [ref=e406]
+                - generic [ref=e411]:
+                  - heading [level=2] [ref=e414]:
+                    - link "ASICS Sneakers Asics Gel-Nyc Adulte" [ref=e415] [cursor=pointer]:
+                      - /url: /p/mp/sneakers-asics-gel-nyc-adulte/edc120be-0f61-443e-adad-1702cc1e9243/c4c211c12
+                  - generic [ref=e416]:
+                    - generic [ref=e417]: 8 couleurs
+                    - generic [ref=e418]: 132,00 €
+                    - generic [ref=e422]: Vendu et expédié par Wethenew
+          - listitem [ref=e423]:
+            - article [ref=e424]:
+              - generic [ref=e425]: Soldes
+              - generic [ref=e428]:
+                - link "picture" [ref=e433] [cursor=pointer]:
+                  - /url: /p/baskets-femme-asics-gel-lyte-classic-summer-beige/353442/m8968469
+                  - img "ASICS picture" [ref=e434]
+                - generic [ref=e439]:
+                  - heading [level=2] [ref=e442]:
+                    - link "ASICS Baskets femme - Asics gel lyte classic summer - beige" [ref=e443] [cursor=pointer]:
+                      - /url: /p/baskets-femme-asics-gel-lyte-classic-summer-beige/353442/m8968469
+                  - generic [ref=e444]:
+                    - generic [ref=e446]:
+                      - img "Note de 4,6 sur 5" [ref=e449]
+                      - generic [ref=e461]: (363)
+                    - generic [ref=e463]:
+                      - generic [ref=e464]:
+                        - generic [ref=e465]: 43,99 €
+                        - generic "Ancien prix" [ref=e466]: 49,99 €
+                        - generic [ref=e467]: 12% de réduction
+                      - generic [ref=e468]: Promotion du 23/06/2026 au 27/07/2026
+                    - generic [ref=e469]: Chez vous en 48h
+          - listitem [ref=e470]:
+            - article [ref=e471]:
+              - generic [ref=e472]:
+                - link "picture" [ref=e477] [cursor=pointer]:
+                  - /url: /p/mp/basket-asics-tiger-runner-ii/3a8f0f33-e2cd-47e8-9bb7-c8950f3fe30d/c43
+                  - img "ASICS picture" [ref=e478]
+                - generic [ref=e483]:
+                  - heading [level=2] [ref=e486]:
+                    - link "ASICS Basket Asics TIGER RUNNER II" [ref=e487] [cursor=pointer]:
+                      - /url: /p/mp/basket-asics-tiger-runner-ii/3a8f0f33-e2cd-47e8-9bb7-c8950f3fe30d/c43
+                  - generic [ref=e488]:
+                    - generic [ref=e489]: 73,85 €
+                    - generic [ref=e493]: Vendu et expédié par Sports Lab FR
+          - listitem [ref=e494]:
+            - article [ref=e495]:
+              - generic [ref=e496]:
+                - link "picture" [ref=e501] [cursor=pointer]:
+                  - /url: /p/mp/asics-gel-contend-8/d46a5c7d-795f-4356-9efe-1f81a39035c0/c255
+                  - img "ASICS picture" [ref=e502]
+                - generic [ref=e507]:
+                  - heading [level=2] [ref=e510]:
+                    - link "ASICS ASICS GEL-CONTEND 8" [ref=e511] [cursor=pointer]:
+                      - /url: /p/mp/asics-gel-contend-8/d46a5c7d-795f-4356-9efe-1f81a39035c0/c255
+                  - generic [ref=e512]:
+                    - generic [ref=e514]:
+                      - generic [ref=e515]:
+                        - generic [ref=e516]: Dès
+                        - generic [ref=e517]: 49,90 €
+                        - generic "Ancien prix" [ref=e518]: 54,90 €
+                        - generic [ref=e519]: 9% de réduction
+                      - generic [ref=e520]: Dès le 30/06/2026 et jusqu'à épuisement du stock
+                    - generic [ref=e521]: Vendu et expédié par FRTSSM
+          - listitem [ref=e522]:
+            - article [ref=e523]:
+              - generic [ref=e524]:
+                - link "picture" [ref=e529] [cursor=pointer]:
+                  - /url: /p/mp/offre-temporaire-produit-a-prix-reduit/d3c58e96-9972-41df-bfb0-1045273382e2/c4c9c24
+                  - img "ASICS picture" [ref=e530]
+                - generic [ref=e535]:
+                  - heading [level=2] [ref=e538]:
+                    - link "ASICS Offre temporaire – produit à prix réduit" [ref=e539] [cursor=pointer]:
+                      - /url: /p/mp/offre-temporaire-produit-a-prix-reduit/d3c58e96-9972-41df-bfb0-1045273382e2/c4c9c24
+                  - generic [ref=e540]:
+                    - generic [ref=e542]:
+                      - img "Note de 4,5 sur 5" [ref=e545]
+                      - generic [ref=e557]: (2)
+                    - generic [ref=e558]: 10 couleurs
+                    - generic [ref=e561]:
+                      - generic [ref=e562]: 49,50 €
+                      - generic [ref=e563]: 49,50 €/unité
+                    - generic [ref=e564]: Vendu et expédié par SPORTMINEDOR
+          - listitem [ref=e565]:
+            - article [ref=e566]:
+              - generic [ref=e567]:
+                - link "picture" [ref=e572] [cursor=pointer]:
+                  - /url: /p/mp/sneakers-pour-femmes-asics-japan-s-pf/91823c7e-07db-40bf-9990-03502a0ffee3/c4
+                  - img "ASICS picture" [ref=e573]
+                - generic [ref=e578]:
+                  - heading [level=2] [ref=e581]:
+                    - link "ASICS Sneakers pour femmes ASICS Japan S PF" [ref=e582] [cursor=pointer]:
+                      - /url: /p/mp/sneakers-pour-femmes-asics-japan-s-pf/91823c7e-07db-40bf-9990-03502a0ffee3/c4
+                  - generic [ref=e583]:
+                    - generic [ref=e585]:
+                      - img "Note de 4,0 sur 5" [ref=e588]
+                      - generic [ref=e599]: (1)
+                    - generic [ref=e601]:
+                      - generic [ref=e602]:
+                        - generic [ref=e603]: Dès
+                        - generic [ref=e604]: 121,55 €
+                        - generic "Ancien prix" [ref=e605]: 131,08 €
+                        - generic [ref=e606]: 9,53 € de réduction
+                      - generic [ref=e607]: Dès le 12/06/2026 et jusqu'à épuisement du stock
+                    - generic [ref=e608]: Vendu et expédié par Stateside
+          - listitem [ref=e609]:
+            - article [ref=e610]:
+              - generic [ref=e611]:
+                - link "picture" [ref=e616] [cursor=pointer]:
+                  - /url: /p/mp/chaussures-de-sport-homme-gel-quantum-lyte-2-noir/11bf4820-1b8a-4841-932f-a34e21de4d6e/c1
+                  - img "ASICS picture" [ref=e617]
+                - generic [ref=e622]:
+                  - heading [level=2] [ref=e625]:
+                    - link "ASICS Chaussures de sport Homme GEL QUANTUM LYTE 2 Noir" [ref=e626] [cursor=pointer]:
+                      - /url: /p/mp/chaussures-de-sport-homme-gel-quantum-lyte-2-noir/11bf4820-1b8a-4841-932f-a34e21de4d6e/c1
+                  - generic [ref=e627]:
+                    - generic [ref=e629]:
+                      - img "Note de 4,3 sur 5" [ref=e632]
+                      - generic [ref=e644]: (3)
+                    - generic [ref=e645]: 89,85 €
+                    - generic [ref=e649]: Vendu et expédié par Sports Lab FR
+          - listitem [ref=e650]:
+            - article [ref=e651]:
+              - generic [ref=e652]:
+                - link "picture" [ref=e657] [cursor=pointer]:
+                  - /url: /p/mp/chaussures-de-running-pour-femmes-gel-quantum-180-2-mx/913441dc-e601-4f09-bce2-93032fe889d0/c251
+                  - img "ASICS picture" [ref=e658]
+                - generic [ref=e663]:
+                  - heading [level=2] [ref=e666]:
+                    - link "ASICS Chaussures de running pour femmes Gel-Quantum 180 2 MX" [ref=e667] [cursor=pointer]:
+                      - /url: /p/mp/chaussures-de-running-pour-femmes-gel-quantum-180-2-mx/913441dc-e601-4f09-bce2-93032fe889d0/c251
+                  - generic [ref=e668]:
+                    - generic [ref=e669]: 79,00 €
+                    - generic [ref=e673]: Vendu et expédié par Butyjana
+          - listitem [ref=e674]:
+            - article [ref=e675]:
+              - generic [ref=e676]:
+                - link "picture" [ref=e681] [cursor=pointer]:
+                  - /url: /p/mp/chaussures-sportstyle-gel-1130-pour-adulte/2cdde1a5-879a-4970-a37d-a0df3e7bd8d9/c1
+                  - img "ASICS picture" [ref=e682]
+                - generic [ref=e687]:
+                  - heading [level=2] [ref=e690]:
+                    - link "ASICS Chaussures SportStyle Gel 1130 pour adulte" [ref=e691] [cursor=pointer]:
+                      - /url: /p/mp/chaussures-sportstyle-gel-1130-pour-adulte/2cdde1a5-879a-4970-a37d-a0df3e7bd8d9/c1
+                  - generic [ref=e692]:
+                    - generic [ref=e693]: 2 couleurs
+                    - generic [ref=e696]:
+                      - generic [ref=e697]: 99,00 €
+                      - generic [ref=e698]: 99,00 €/unité
+                    - generic [ref=e699]: Vendu et expédié par Butyjana
+          - listitem [ref=e700]:
+            - article [ref=e701]:
+              - generic [ref=e702]:
+                - link "picture" [ref=e707] [cursor=pointer]:
+                  - /url: /p/mp/chaussures-gel-1130-white-neutral-pink/57dc2a68-7c0b-48e7-b6e0-a13d757df4e1/c4
+                  - img "ASICS picture" [ref=e708]
+                - generic [ref=e713]:
+                  - heading [level=2] [ref=e716]:
+                    - link "ASICS Chaussures Gel-1130 White Neutral Pink" [ref=e717] [cursor=pointer]:
+                      - /url: /p/mp/chaussures-gel-1130-white-neutral-pink/57dc2a68-7c0b-48e7-b6e0-a13d757df4e1/c4
+                  - generic [ref=e718]:
+                    - generic [ref=e719]: 5 couleurs
+                    - generic [ref=e720]: 175,90 €
+                    - generic [ref=e724]: Vendu et expédié par Limited Resell EU
+          - listitem [ref=e725]:
+            - article [ref=e726]:
+              - generic [ref=e727]:
+                - link "picture" [ref=e732] [cursor=pointer]:
+                  - /url: /p/mp/chaussures-gel-nyc-black-graphite-grey/04b0be98-aa0e-45cb-bde9-ef122ee9114c/c1
+                  - img "ASICS picture" [ref=e733]
+                - generic [ref=e738]:
+                  - heading [level=2] [ref=e741]:
+                    - link "ASICS Chaussures Gel-NYC Black Graphite Grey" [ref=e742] [cursor=pointer]:
+                      - /url: /p/mp/chaussures-gel-nyc-black-graphite-grey/04b0be98-aa0e-45cb-bde9-ef122ee9114c/c1
+                  - generic [ref=e743]:
+                    - generic [ref=e744]: 3 couleurs
+                    - generic [ref=e747]:
+                      - generic [ref=e748]: Dès
+                      - generic [ref=e749]: 159,90 €
+                    - generic [ref=e750]: Vendu et expédié par Limited Resell EU
+          - listitem [ref=e751]:
+            - article [ref=e752]:
+              - generic [ref=e753]:
+                - link "picture" [ref=e758] [cursor=pointer]:
+                  - /url: /p/mp/baskets-mode-homme-japan-s-blanc/aca7813d-93e8-4b03-b145-56e0c868e37c/c4
+                  - img "ASICS picture" [ref=e759]
+                - generic [ref=e764]:
+                  - heading [level=2] [ref=e767]:
+                    - link "ASICS Baskets mode Homme JAPAN S Blanc" [ref=e768] [cursor=pointer]:
+                      - /url: /p/mp/baskets-mode-homme-japan-s-blanc/aca7813d-93e8-4b03-b145-56e0c868e37c/c4
+                  - generic [ref=e769]:
+                    - generic [ref=e770]: 123,95 €
+                    - generic [ref=e774]: Vendu et expédié par Stateside
+          - listitem [ref=e775]:
+            - article [ref=e776]:
+              - generic [ref=e777]:
+                - link "picture" [ref=e782] [cursor=pointer]:
+                  - /url: /p/mp/chaussures-de-running-asics-gel-kinsei-femme/8dc7d3f5-e422-4e88-95c0-b390922a3425/c9
+                  - img "ASICS picture" [ref=e783]
+                - generic [ref=e788]:
+                  - heading [level=2] [ref=e791]:
+                    - link "ASICS Chaussures De Running Asics Gel-Kinsei Femme" [ref=e792] [cursor=pointer]:
+                      - /url: /p/mp/chaussures-de-running-asics-gel-kinsei-femme/8dc7d3f5-e422-4e88-95c0-b390922a3425/c9
+                  - generic [ref=e793]:
+                    - generic [ref=e794]: 211,90 €
+                    - generic [ref=e798]: Vendu et expédié par IdoBuy
+          - listitem [ref=e799]:
+            - article [ref=e800]:
+              - generic [ref=e801]:
+                - link "picture" [ref=e806] [cursor=pointer]:
+                  - /url: /p/mp/chaussures-asics-gelquantum-360-viii-noir-confort-et-stabilite/860f48f2-6f37-4b58-aca0-a2399a49d26f/c1
+                  - img "ASICS picture" [ref=e807]
+                - generic [ref=e812]:
+                  - heading [level=2] [ref=e815]:
+                    - link "ASICS Chaussures ASICS Gelquantum 360 VIII noir confort et stabilité" [ref=e816] [cursor=pointer]:
+                      - /url: /p/mp/chaussures-asics-gelquantum-360-viii-noir-confort-et-stabilite/860f48f2-6f37-4b58-aca0-a2399a49d26f/c1
+                  - generic [ref=e817]:
+                    - generic [ref=e818]: 3 couleurs
+                    - generic [ref=e819]: 147,95 €
+                    - generic [ref=e823]: Vendu et expédié par Sports Lab FR
+          - listitem [ref=e824]:
+            - article [ref=e825]:
+              - generic [ref=e826]:
+                - link "picture" [ref=e831] [cursor=pointer]:
+                  - /url: /p/mp/chaussures-de-sport-femme-gel-venture-6-gs-noir/c17c6b30-f8cd-42f0-baa9-370e3d80de9e/c1
+                  - img "ASICS picture" [ref=e832]
+                - generic [ref=e837]:
+                  - heading [level=2] [ref=e840]:
+                    - link "ASICS Chaussures de sport Femme GEL VENTURE 6 GS Noir" [ref=e841] [cursor=pointer]:
+                      - /url: /p/mp/chaussures-de-sport-femme-gel-venture-6-gs-noir/c17c6b30-f8cd-42f0-baa9-370e3d80de9e/c1
+                  - generic [ref=e842]:
+                    - generic [ref=e845]:
+                      - generic [ref=e846]: Dès
+                      - generic [ref=e847]: 79,90 €
+                    - generic [ref=e848]: Vendu et expédié par G.A SHOES
+          - listitem [ref=e849]:
+            - article [ref=e850]:
+              - generic [ref=e851]:
+                - link "picture" [ref=e856] [cursor=pointer]:
+                  - /url: /p/mp/chaussures-de-running-pour-adultes-running-asics-gt-1000-11-noir/467e1886-629a-4cca-9f6e-9fe65fcebc1b/c1
+                  - img "ASICS picture" [ref=e857]
+                - generic [ref=e862]:
+                  - heading [level=2] [ref=e865]:
+                    - link "ASICS Chaussures de Running pour Adultes Running Asics GT-1000 11 Noir" [ref=e866] [cursor=pointer]:
+                      - /url: /p/mp/chaussures-de-running-pour-adultes-running-asics-gt-1000-11-noir/467e1886-629a-4cca-9f6e-9fe65fcebc1b/c1
+                  - generic [ref=e867]:
+                    - generic [ref=e868]: 156,61 €
+                    - generic [ref=e872]: Vendu et expédié par Stateside
+          - listitem [ref=e873]:
+            - article [ref=e874]:
+              - generic [ref=e875]:
+                - link "picture" [ref=e880] [cursor=pointer]:
+                  - /url: /p/mp/basket-asics-gel-quantum-360/2d4478e2-b7b8-4d21-a224-75672f5b7f4a/c1
+                  - img "ASICS picture" [ref=e881]
+                - generic [ref=e886]:
+                  - heading [level=2] [ref=e889]:
+                    - link "ASICS Basket Asics Gel Quantum 360" [ref=e890] [cursor=pointer]:
+                      - /url: /p/mp/basket-asics-gel-quantum-360/2d4478e2-b7b8-4d21-a224-75672f5b7f4a/c1
+                  - generic [ref=e891]:
+                    - generic [ref=e894]:
+                      - generic [ref=e895]: Dès
+                      - generic [ref=e896]: 137,70 €
+                    - generic [ref=e897]: Vendu et expédié par Sports Lab FR
+          - listitem [ref=e898]:
+            - article [ref=e899]:
+              - generic [ref=e900]:
+                - link "picture" [ref=e905] [cursor=pointer]:
+                  - /url: /p/mp/baskets-mode-homme-gel-1090v2-gris/3374af83-a2f5-4ee6-97e2-e4feb990d4bb/c251
+                  - img "ASICS picture" [ref=e906]
+                - generic [ref=e911]:
+                  - heading [level=2] [ref=e914]:
+                    - link "ASICS Baskets mode Homme GEL 1090V2 Gris" [ref=e915] [cursor=pointer]:
+                      - /url: /p/mp/baskets-mode-homme-gel-1090v2-gris/3374af83-a2f5-4ee6-97e2-e4feb990d4bb/c251
+                  - generic [ref=e916]:
+                    - generic [ref=e917]: 120,00 €
+                    - generic [ref=e921]: Vendu et expédié par Downtown Stock
+          - listitem [ref=e922]:
+            - article [ref=e923]:
+              - generic [ref=e924]:
+                - link "picture" [ref=e929] [cursor=pointer]:
+                  - /url: /p/mp/chaussures-gel-1130-white-malachite-green/2cdde1a5-879a-4970-a37d-a0df3e7bd8d9/c4
+                  - img "ASICS picture" [ref=e930]
+                - generic [ref=e935]:
+                  - heading [level=2] [ref=e938]:
+                    - link "ASICS Chaussures Gel-1130 White Malachite Green" [ref=e939] [cursor=pointer]:
+                      - /url: /p/mp/chaussures-gel-1130-white-malachite-green/2cdde1a5-879a-4970-a37d-a0df3e7bd8d9/c4
+                  - generic [ref=e940]:
+                    - generic [ref=e941]: 2 couleurs
+                    - generic [ref=e944]:
+                      - generic [ref=e945]: 99,00 €
+                      - generic [ref=e946]: 99,00 €/unité
+                    - generic [ref=e947]: Vendu et expédié par Butyjana
+          - listitem [ref=e948]:
+            - article [ref=e949]:
+              - generic [ref=e950]:
+                - link "picture" [ref=e955] [cursor=pointer]:
+                  - /url: /p/mp/chaussures-de-sport-asics-trail-scout-3-bleu/e1b5f920-7760-46ff-a544-a62c24c0c506/c5
+                  - img "ASICS picture" [ref=e956]
+                - generic [ref=e961]:
+                  - heading [level=2] [ref=e964]:
+                    - link "ASICS Chaussures de sport Asics TRAIL SCOUT 3 Bleu" [ref=e965] [cursor=pointer]:
+                      - /url: /p/mp/chaussures-de-sport-asics-trail-scout-3-bleu/e1b5f920-7760-46ff-a544-a62c24c0c506/c5
+                  - generic [ref=e966]:
+                    - generic [ref=e967]: 64,90 €
+                    - generic [ref=e971]: Vendu et expédié par Mode Shoes
+          - listitem [ref=e972]:
+            - article [ref=e973]:
+              - generic [ref=e974]:
+                - link "picture" [ref=e979] [cursor=pointer]:
+                  - /url: /p/mp/chaussures-de-sport-asics-jolt-4-noir/e36389f3-633c-41a5-91bb-97afa94d1346/c1
+                  - img "ASICS picture" [ref=e980]
+                - generic [ref=e985]:
+                  - heading [level=2] [ref=e988]:
+                    - link "ASICS Chaussures de sport Asics JOLT 4 Noir" [ref=e989] [cursor=pointer]:
+                      - /url: /p/mp/chaussures-de-sport-asics-jolt-4-noir/e36389f3-633c-41a5-91bb-97afa94d1346/c1
+                  - generic [ref=e990]:
+                    - generic [ref=e991]: 59,90 €
+                    - generic [ref=e995]: Vendu et expédié par Mode Shoes
+          - listitem [ref=e996]:
+            - article [ref=e997]:
+              - generic [ref=e998]:
+                - link "picture" [ref=e1003] [cursor=pointer]:
+                  - /url: /p/mp/basket-asics-gel-quantum-90-junior/cb9cf59a-67fd-4383-baab-54c1803b1142/c49
+                  - img "ASICS picture" [ref=e1004]
+                - generic [ref=e1009]:
+                  - heading [level=2] [ref=e1012]:
+                    - link "ASICS Basket Asics GEL QUANTUM 90 Junior" [ref=e1013] [cursor=pointer]:
+                      - /url: /p/mp/basket-asics-gel-quantum-90-junior/cb9cf59a-67fd-4383-baab-54c1803b1142/c49
+                  - generic [ref=e1014]:
+                    - generic [ref=e1015]: 73,65 €
+                    - generic [ref=e1019]: Vendu et expédié par Sports Lab FR
+          - listitem [ref=e1020]:
+            - article [ref=e1021]:
+              - generic [ref=e1022]:
+                - link "picture" [ref=e1027] [cursor=pointer]:
+                  - /url: /p/mp/chaussures-de-sport-femme-gel-excite-10-bleu/ad7a7c09-e14f-4a94-8049-78992407a2a3/c5
+                  - img "ASICS picture" [ref=e1028]
+                - generic [ref=e1033]:
+                  - heading [level=2] [ref=e1036]:
+                    - link "ASICS Chaussures de sport Femme GEL EXCITE 10 Bleu" [ref=e1037] [cursor=pointer]:
+                      - /url: /p/mp/chaussures-de-sport-femme-gel-excite-10-bleu/ad7a7c09-e14f-4a94-8049-78992407a2a3/c5
+                  - generic [ref=e1038]:
+                    - generic [ref=e1039]: 123,95 €
+                    - generic [ref=e1043]: Vendu et expédié par Stateside
+          - listitem [ref=e1044]:
+            - article [ref=e1045]:
+              - generic [ref=e1046]:
+                - link "picture" [ref=e1051] [cursor=pointer]:
+                  - /url: /p/mp/basket-asics-gel-1130/146c4fd2-2d64-408d-b81f-81c2f912c923/c4c249c2
+                  - img "ASICS picture" [ref=e1052]
+                - generic [ref=e1057]:
+                  - heading [level=2] [ref=e1060]:
+                    - link "ASICS Basket Asics GEL-1130" [ref=e1061] [cursor=pointer]:
+                      - /url: /p/mp/basket-asics-gel-1130/146c4fd2-2d64-408d-b81f-81c2f912c923/c4c249c2
+                  - generic [ref=e1062]:
+                    - generic [ref=e1063]: 110,00 €
+                    - generic [ref=e1067]: Vendu et expédié par Downtown Stock
+          - listitem [ref=e1068]:
+            - article [ref=e1069]:
+              - generic [ref=e1070]:
+                - link "picture" [ref=e1075] [cursor=pointer]:
+                  - /url: /p/mp/basket-asics-gel-nimbus-9/528f148c-70d5-4d00-b2de-c9781e093a2a/c4c64
+                  - img "ASICS picture" [ref=e1076]
+                - generic [ref=e1081]:
+                  - heading [level=2] [ref=e1084]:
+                    - link "ASICS Basket Asics GEL NIMBUS 9" [ref=e1085] [cursor=pointer]:
+                      - /url: /p/mp/basket-asics-gel-nimbus-9/528f148c-70d5-4d00-b2de-c9781e093a2a/c4c64
+                  - generic [ref=e1086]:
+                    - generic [ref=e1087]: 313,00 €
+                    - generic [ref=e1091]: Vendu et expédié par Wethenew
+          - listitem [ref=e1092]:
+            - article [ref=e1093]:
+              - generic [ref=e1094]:
+                - link "picture" [ref=e1099] [cursor=pointer]:
+                  - /url: /p/mp/basket-asics-gel-quantum-360-viii/860f48f2-6f37-4b58-aca0-a2399a49d26f/c1c4
+                  - img "ASICS picture" [ref=e1100]
+                - generic [ref=e1105]:
+                  - heading [level=2] [ref=e1108]:
+                    - link "ASICS Basket Asics GEL QUANTUM 360 VIII" [ref=e1109] [cursor=pointer]:
+                      - /url: /p/mp/basket-asics-gel-quantum-360-viii/860f48f2-6f37-4b58-aca0-a2399a49d26f/c1c4
+                  - generic [ref=e1110]:
+                    - generic [ref=e1111]: 3 couleurs
+                    - generic [ref=e1112]: 114,00 €
+                    - generic [ref=e1116]: Vendu et expédié par Wethenew
+          - listitem [ref=e1117]:
+            - article [ref=e1118]:
+              - generic [ref=e1119]:
+                - link "picture" [ref=e1124] [cursor=pointer]:
+                  - /url: /p/mp/basket-asics-japan-s-st/63cb8ec2-3dea-4494-a1bc-22be8dba207a/c4c1
+                  - img "ASICS picture" [ref=e1125]
+                - generic [ref=e1130]:
+                  - heading [level=2] [ref=e1133]:
+                    - link "ASICS Basket Asics JAPAN S ST" [ref=e1134] [cursor=pointer]:
+                      - /url: /p/mp/basket-asics-japan-s-st/63cb8ec2-3dea-4494-a1bc-22be8dba207a/c4c1
+                  - generic [ref=e1135]:
+                    - generic [ref=e1136]: 100,00 €
+                    - generic [ref=e1140]: Vendu et expédié par Downtown Stock
+          - listitem [ref=e1141]:
+            - article [ref=e1142]:
+              - generic [ref=e1143]:
+                - link "picture" [ref=e1148] [cursor=pointer]:
+                  - /url: /p/mp/basket-asics-gel-quantum-360-viii/06a869ea-e541-40e3-8699-80155d07c529/c1c4
+                  - img "ASICS picture" [ref=e1149]
+                - generic [ref=e1154]:
+                  - heading [level=2] [ref=e1157]:
+                    - link "ASICS Basket Asics GEL QUANTUM 360 VIII" [ref=e1158] [cursor=pointer]:
+                      - /url: /p/mp/basket-asics-gel-quantum-360-viii/06a869ea-e541-40e3-8699-80155d07c529/c1c4
+                  - generic [ref=e1159]:
+                    - generic [ref=e1160]: 3 couleurs
+                    - generic [ref=e1161]: 114,00 €
+                    - generic [ref=e1165]: Vendu et expédié par Wethenew
+          - listitem [ref=e1166]:
+            - article [ref=e1167]:
+              - generic [ref=e1168]:
+                - link "picture" [ref=e1173] [cursor=pointer]:
+                  - /url: /p/mp/basket-asics-gel-kayano-30/fa2ed413-6620-4005-9013-a96669299a4f/c1c251
+                  - img "ASICS picture" [ref=e1174]
+                - generic [ref=e1179]:
+                  - heading [level=2] [ref=e1182]:
+                    - link "ASICS Basket Asics GEL KAYANO 30" [ref=e1183] [cursor=pointer]:
+                      - /url: /p/mp/basket-asics-gel-kayano-30/fa2ed413-6620-4005-9013-a96669299a4f/c1c251
+                  - generic [ref=e1184]:
+                    - generic [ref=e1187]:
+                      - generic [ref=e1188]: Dès
+                      - generic [ref=e1189]: 141,70 €
+                    - generic [ref=e1190]: Vendu et expédié par Sports Lab FR
+          - listitem [ref=e1191]:
+            - article [ref=e1192]:
+              - generic [ref=e1193]:
+                - link "picture" [ref=e1198] [cursor=pointer]:
+                  - /url: /p/mp/basket-asics-gel-quantum-360-viii/06a869ea-e541-40e3-8699-80155d07c529/c1
+                  - img "ASICS picture" [ref=e1199]
+                - generic [ref=e1204]:
+                  - heading [level=2] [ref=e1207]:
+                    - link "ASICS Basket Asics GEL QUANTUM 360 VIII" [ref=e1208] [cursor=pointer]:
+                      - /url: /p/mp/basket-asics-gel-quantum-360-viii/06a869ea-e541-40e3-8699-80155d07c529/c1
+                  - generic [ref=e1209]:
+                    - generic [ref=e1210]: 3 couleurs
+                    - generic [ref=e1211]: 114,00 €
+                    - generic [ref=e1215]: Vendu et expédié par Wethenew
+          - listitem [ref=e1216]:
+            - article [ref=e1217]:
+              - generic [ref=e1218]:
+                - link "picture" [ref=e1223] [cursor=pointer]:
+                  - /url: /p/mp/chaussures-gel-nyc-strawberries-cream/d02b6dfd-ee65-44d6-bdc8-d4d0dec1b55f/c24
+                  - img "ASICS picture" [ref=e1224]
+                - generic [ref=e1229]:
+                  - heading [level=2] [ref=e1232]:
+                    - link "ASICS Chaussures Gel-NYC Strawberries Cream" [ref=e1233] [cursor=pointer]:
+                      - /url: /p/mp/chaussures-gel-nyc-strawberries-cream/d02b6dfd-ee65-44d6-bdc8-d4d0dec1b55f/c24
+                  - generic [ref=e1234]:
+                    - generic [ref=e1235]: 2 couleurs
+                    - generic [ref=e1238]:
+                      - generic [ref=e1239]: Dès
+                      - generic [ref=e1240]: 171,20 €
+                    - generic [ref=e1241]: Vendu et expédié par Sports Lab FR
+          - listitem [ref=e1242]:
+            - article [ref=e1243]:
+              - generic [ref=e1244]:
+                - link "picture" [ref=e1249] [cursor=pointer]:
+                  - /url: /p/mp/laufschuh-gel-excite-10-damen-asics/d991fad3-3e4c-497e-8af0-c36372f1d262/c5
+                  - img "ASICS picture" [ref=e1250]
+                - generic [ref=e1255]:
+                  - heading [level=2] [ref=e1258]:
+                    - link "ASICS Laufschuh Gel-Excite 10 Damen ASICS" [ref=e1259] [cursor=pointer]:
+                      - /url: /p/mp/laufschuh-gel-excite-10-damen-asics/d991fad3-3e4c-497e-8af0-c36372f1d262/c5
+                  - generic [ref=e1260]:
+                    - generic [ref=e1261]: 114,85 €
+                    - generic [ref=e1265]: Vendu et expédié par Stateside
+          - listitem [ref=e1266]:
+            - article [ref=e1267]:
+              - generic [ref=e1268]:
+                - link "picture" [ref=e1273] [cursor=pointer]:
+                  - /url: /p/mp/chaussures-de-sport-pour-enfants-gel-venture-6-gs/6872e845-8297-4833-a0a7-4bde902618a0/c1
+                  - img "ASICS picture" [ref=e1274]
+                - generic [ref=e1279]:
+                  - heading [level=2] [ref=e1282]:
+                    - link "ASICS Chaussures de sport pour enfants GEL-VENTURE 6 GS" [ref=e1283] [cursor=pointer]:
+                      - /url: /p/mp/chaussures-de-sport-pour-enfants-gel-venture-6-gs/6872e845-8297-4833-a0a7-4bde902618a0/c1
+                  - generic [ref=e1284]:
+                    - generic [ref=e1286]:
+                      - img "Note de 5,0 sur 5" [ref=e1289]
+                      - generic [ref=e1300]: (1)
+                    - generic [ref=e1301]: 99,70 €
+                    - generic [ref=e1305]: Vendu et expédié par Sports Lab FR
+          - listitem [ref=e1306]:
+            - article [ref=e1307]:
+              - generic [ref=e1308]:
+                - link "picture" [ref=e1313] [cursor=pointer]:
+                  - /url: /p/mp/chaussures-asics-gel-kayano-14-cream-black-metallic-plum/27cbc4b9-e7cc-4d2c-ba49-3243374ac529/c5
+                  - img "ASICS picture" [ref=e1314]
+                - generic [ref=e1319]:
+                  - heading [level=2] [ref=e1322]:
+                    - link "ASICS Chaussures ASICS Gel-Kayano 14 Cream Black Metallic Plum" [ref=e1323] [cursor=pointer]:
+                      - /url: /p/mp/chaussures-asics-gel-kayano-14-cream-black-metallic-plum/27cbc4b9-e7cc-4d2c-ba49-3243374ac529/c5
+                  - generic [ref=e1324]:
+                    - generic [ref=e1325]: 331,90 €
+                    - generic [ref=e1329]: Vendu et expédié par Limited Resell EU
+          - listitem [ref=e1330]:
+            - article [ref=e1331]:
+              - generic [ref=e1332]:
+                - link "picture" [ref=e1337] [cursor=pointer]:
+                  - /url: /p/mp/chaussures-ub6-s-gt-2160-kiko-kostadinov-grey-floss-brown-storm/2d0ca65b-4e85-4102-ba10-4b00f060c47c/c27
+                  - img "ASICS picture" [ref=e1338]
+                - generic [ref=e1343]:
+                  - heading [level=2] [ref=e1346]:
+                    - link "ASICS Chaussures UB6-S GT-2160 Kiko Kostadinov Grey Floss Brown Storm" [ref=e1347] [cursor=pointer]:
+                      - /url: /p/mp/chaussures-ub6-s-gt-2160-kiko-kostadinov-grey-floss-brown-storm/2d0ca65b-4e85-4102-ba10-4b00f060c47c/c27
+                  - generic [ref=e1348]:
+                    - generic [ref=e1349]: 232,90 €
+                    - generic [ref=e1353]: Vendu et expédié par Limited Resell EU
+        - navigation [ref=e1354]:
+          - button "Retour à la page précédente" [disabled] [ref=e1355]
+          - generic [ref=e1358]: 1 sur 17
+          - status [ref=e1359]: Page 1 sur 17
+          - link "Aller à la page suivante" [ref=e1360] [cursor=pointer]:
+            - /url: /tous-les-sports/marche/chaussures-femme-asics?from=40&size=40
+    - generic [ref=e1364]:
+      - generic [ref=e1366]:
+        - img "Note de 4.6 sur 5" [ref=e1368]
+        - generic [ref=e1380]: 4.6/5 sur 428 Note moyenne des avis produits sur cette page.
+      - generic [ref=e1383]:
+        - generic [ref=e1384]:
+          - 'heading "Baskets femme Asics : marchez sur un petit nuage de confort" [level=2] [ref=e1385]'
+          - paragraph [ref=e1386]: Fondée en 1949, la marque japonaise Asics a très rapidement réussi à imposer son nom dans le milieu des chaussures de sport. Même si elle est plus spécialisée dans les baskets de running, Asics est aussi à l’origine de plusieurs paires pour le volley-ball, le tennis ou encore l’athlétisme. Les nombreuses technologies proposées par Asics, à l’image de la semelle GEL ou encore du matériau Solyte, vous garantissent une qualité optimale. Si vous avez l’habitude de courir ou de marcher régulièrement, la marque japonaise pourrait par conséquent tout à fait vous convenir.
+          - heading "Comment choisir des baskets femme Asics ?" [level=2] [ref=e1387]
+          - paragraph [ref=e1388]: Dans un premier temps, nous vous conseillons de prêter attention au sport recommandé pour chaque paire de baskets. Cela est essentiel puisque les caractéristiques d’une basket de running et d’une chaussure de marche ne sont pas les mêmes. Dans le cadre du running, vous pourriez notamment vous laisser tenter par les collections Asics Gel Windhawk, les Asics Gel Quantum 90 ou encore les GT 1000. Ces baskets pour femme sont parfaitement adaptés aux besoins d’une adepte de course à pied puisque l’amorti et la respirabilité sont privilégiés. Les chaussures de marche, comme les Asics Lyte Classic sont, de leur côté, idéales pour les sorties du quotidien.
+          - 'heading "Marche : trouvez la tenue idéale avec Decathlon !" [level=2] [ref=e1389]'
+          - paragraph [ref=e1390]: La marche et la course à pied sont deux activités sportives très appréciées par les Françaises. Pour que vos sorties outdoor se déroulent dans les meilleures conditions possibles, il est important de commencer par trouver une bonne paire de baskets. Puis, nous vous invitons à rechercher une tenue de sport pour femme conforme à vos besoins. T-shirt respirant pour l’été, sweatshirt chaud pour l’hiver, casquette pour le soleil, veste imperméable pour les journées pluvieuses… tout cela se trouve chez Decathlon ! À vous de jouer !
+        - button "En savoir plus" [ref=e1392] [cursor=pointer]
+  - contentinfo [ref=e1394]:
+    - generic [ref=e1395]:
+      - list [ref=e1396]:
+        - listitem [ref=e1397]:
+          - link "Livraison offerte En point relais du 1 juillet au 31 août 2026" [ref=e1398] [cursor=pointer]:
+            - /url: https://www.decathlon.fr/lp/i/modes-livraison
+            - generic [ref=e1399]: Livraison offerte
+            - generic [ref=e1400]: En point relais du 1 juillet au 31 août 2026
+        - listitem [ref=e1401]:
+          - link "Retrait en 1h en magasin (1)" [ref=e1402] [cursor=pointer]:
+            - /url: https://www.decathlon.fr/lp/i/modes-livraison
+            - generic [ref=e1403]: Retrait en 1h
+            - generic [ref=e1404]: en magasin (1)
+        - listitem [ref=e1405]:
+          - link "Retours et échanges offerts jusqu'à 365 jours (1)" [ref=e1406] [cursor=pointer]:
+            - /url: https://www.decathlon.fr/lp/i/retour-echange
+            - generic [ref=e1407]: Retours et échanges
+            - generic [ref=e1408]: offerts jusqu'à 365 jours (1)
+        - listitem [ref=e1409]:
+          - link "Service client à votre écoute" [ref=e1410] [cursor=pointer]:
+            - /url: https://www.decathlon.fr/help/app/home
+            - generic [ref=e1411]: Service client
+            - generic [ref=e1412]: à votre écoute
+      - generic [ref=e1413]:
+        - generic [ref=e1414]:
+          - list [ref=e1416]:
+            - listitem [ref=e1417]:
+              - link "Téléchargez notre application" [ref=e1418] [cursor=pointer]:
+                - /url: https://www.decathlon.fr/lp/i/application-decathlon-shopping
+            - listitem [ref=e1421]:
+              - link "Compte fidélité" [ref=e1422] [cursor=pointer]:
+                - /url: https://membership.decathlon.com/fr-FR/home/
+          - generic [ref=e1425]:
+            - link "Lien Facebook" [ref=e1427] [cursor=pointer]:
+              - /url: https://www.facebook.com/Decathlon.France
+            - link "Lien Twitter" [ref=e1431] [cursor=pointer]:
+              - /url: https://x.com/decathlon
+            - link "Lien YouTube" [ref=e1435] [cursor=pointer]:
+              - /url: https://www.youtube.com/user/decathfrance
+            - link "Lien Instagram" [ref=e1439] [cursor=pointer]:
+              - /url: https://www.instagram.com/decathlon/
+        - generic [ref=e1445]:
+          - generic [ref=e1447]:
+            - button "Notre entreprise" [ref=e1448] [cursor=pointer]
+            - region:
+              - list [ref=e1455]:
+                - listitem [ref=e1456]:
+                  - link "Qui sommes-nous ?" [ref=e1457] [cursor=pointer]:
+                    - /url: https://engagements.decathlon.fr/
+                - listitem [ref=e1459]:
+                  - link "Nos magasins" [ref=e1460] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/store-locator
+                - listitem [ref=e1462]:
+                  - link "Recrutement" [ref=e1463] [cursor=pointer]:
+                    - /url: https://recrutement.decathlon.fr/
+                - listitem [ref=e1465]:
+                  - link "Presse et actualité" [ref=e1466] [cursor=pointer]:
+                    - /url: https://www.decathlon.media/
+                - listitem [ref=e1468]:
+                  - link "La vie de nos produits" [ref=e1469] [cursor=pointer]:
+                    - /url: https://engagements.decathlon.fr/la-vie-de-nos-produits
+                - listitem [ref=e1471]:
+                  - link "Engagements durables" [ref=e1472] [cursor=pointer]:
+                    - /url: https://engagements.decathlon.fr/
+                - listitem [ref=e1474]:
+                  - link "Fondation Decathlon" [ref=e1475] [cursor=pointer]:
+                    - /url: https://www.fondationdecathlon.com/
+                - listitem [ref=e1477]:
+                  - link "Decathlon Pulse" [ref=e1478] [cursor=pointer]:
+                    - /url: https://www.decathlonpulse.com/
+                - listitem [ref=e1480]:
+                  - link "Decathlon Lab" [ref=e1481] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/c/lp/decathlon-lab-nos-histoires-de-conception_b5a014fb-f96c-4dfa-9378-43d6dde83109
+          - generic [ref=e1484]:
+            - button "Besoin d'aide ?" [ref=e1485] [cursor=pointer]
+            - region:
+              - list [ref=e1492]:
+                - listitem [ref=e1493]:
+                  - link "Modes de livraison" [ref=e1494] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/lp/i/modes-livraison
+                - listitem [ref=e1496]:
+                  - link "Retour et échange" [ref=e1497] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/lp/i/retour-echange
+                - listitem [ref=e1499]:
+                  - link "Moyens de paiement" [ref=e1500] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/lp/i/moyens-de-paiements
+                - listitem [ref=e1502]:
+                  - link "Compte fidélité" [ref=e1503] [cursor=pointer]:
+                    - /url: https://membership.decathlon.com/fr-FR/home/?utm_source=decathlon.fr&utm_medium=referral&utm_campaign=footer_v2/
+                - listitem [ref=e1505]:
+                  - link "Comment choisir votre produit ?" [ref=e1506] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/contents
+                - listitem [ref=e1508]:
+                  - link "Tendances sportives" [ref=e1509] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/tendances-sportives_lp-C7TVNB
+                - listitem [ref=e1511]:
+                  - link "Une question ?" [ref=e1512] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/help/app/home
+                - listitem [ref=e1514]:
+                  - link "Service clients sourds et malentendants" [ref=e1515] [cursor=pointer]:
+                    - /url: https://app.acce-o.fr/client/decathlon
+                - listitem [ref=e1517]:
+                  - link "Découvrir la marketplace" [ref=e1518] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/c/lp/landing-page-seller-devenez-partenaire-decathlon-marketplace_40334289-2f58-4524-8a13-f9bf19c913f5
+                - listitem [ref=e1520]:
+                  - link "Signaler un contenu illicite" [ref=e1521] [cursor=pointer]:
+                    - /url: https://dktmarketplace.retool.com/form/acc0cf0d-6eee-4098-bb2e-849dad5a93b8?locale=FR
+                - listitem [ref=e1523]:
+                  - link "Bons réflexes phishing" [ref=e1524] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/lp/i/information-phishing
+                - listitem [ref=e1526]:
+                  - link "Reprise légale" [ref=e1527] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/Reprise-legale_lp-QHX2T5
+                - listitem [ref=e1529]:
+                  - link "Codes promo et conditions des offres" [ref=e1530] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/lp/i/code-promo-decathlon-et-conditions-des-offres
+                - listitem [ref=e1532]:
+                  - link "Gestion des réactions cutanées et allergies" [ref=e1533] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/lp/c/allergies-et-reactions-cutanees
+          - generic [ref=e1536]:
+            - button "Nos services" [ref=e1537] [cursor=pointer]
+            - region:
+              - list [ref=e1544]:
+                - listitem [ref=e1545]:
+                  - link "Entretenir et réparer" [ref=e1546] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/Services_Entretien-et-reparation_lp-4D8P0B
+                - listitem [ref=e1548]:
+                  - link "Louer votre matériel" [ref=e1549] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/location_lp-I551ZC
+                - listitem [ref=e1551]:
+                  - link "Revendre votre matériel" [ref=e1552] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/reprise-materiel-de-sport_lp-R85EF5
+                - listitem [ref=e1554]:
+                  - link "Personnaliser vos produits" [ref=e1555] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/services/personnalisation
+                - listitem [ref=e1557]:
+                  - link "Financement" [ref=e1558] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/Services_Financement_lp-9BQFCB
+                - listitem [ref=e1560]:
+                  - link "Assurance" [ref=e1561] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/Service-assurance_lp-OMCP39
+                - listitem [ref=e1563]:
+                  - link "Carte cadeau" [ref=e1564] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/giftcard
+                - listitem [ref=e1566]:
+                  - link "Decathlon Pro" [ref=e1567] [cursor=pointer]:
+                    - /url: https://www.decathlonpro.fr/
+                - listitem [ref=e1569]:
+                  - link "Decat'Live" [ref=e1570] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/live
+          - generic [ref=e1573]:
+            - button "Faire du sport" [ref=e1574] [cursor=pointer]
+            - region:
+              - list [ref=e1581]:
+                - listitem [ref=e1582]:
+                  - link "Conseils sportifs" [ref=e1583] [cursor=pointer]:
+                    - /url: https://conseilsport.decathlon.fr/
+                - listitem [ref=e1585]:
+                  - link "Appli de sport gratuite" [ref=e1586] [cursor=pointer]:
+                    - /url: https://www.decathloncoach.com/fr/home/
+                - listitem [ref=e1588]:
+                  - link "Réserver une activité sportive" [ref=e1589] [cursor=pointer]:
+                    - /url: https://activites.decathlon.fr/fr-FR
+                - listitem [ref=e1591]:
+                  - link "Cours de fitness en ligne" [ref=e1592] [cursor=pointer]:
+                    - /url: https://www.decathlon.fr/lp/i/conseils-pratique-sport
+                - listitem [ref=e1594]:
+                  - link "Application de randonnée" [ref=e1595] [cursor=pointer]:
+                    - /url: https://www.decathlon-outdoor.com/fr-fr/app
+                - listitem [ref=e1597]:
+                  - link "Vacances sportives" [ref=e1598] [cursor=pointer]:
+                    - /url: https://www.decathlontravel.com/voyages
+      - link "Retourner à la page d'accueil" [ref=e1601] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e1605]:
+        - generic [ref=e1606]:
+          - link "Transparence classement des produits" [ref=e1607] [cursor=pointer]:
+            - /url: /lp/i/transparence-classement
+          - link "Rapport annuel de transparence" [ref=e1609] [cursor=pointer]:
+            - /url: /c/legal/rapport-annuel-de-transparence_c8b75455-8240-49e5-b7bd-236420330fa4
+          - link "Conditions Générales" [ref=e1611] [cursor=pointer]:
+            - /url: /lp/i/conditions-generales
+          - link "Mentions légales" [ref=e1613] [cursor=pointer]:
+            - /url: /lp/i/mentions-legales
+          - link "Données personnelles" [ref=e1615] [cursor=pointer]:
+            - /url: /c/lp/donnees-personnelles-decathlon_8a12a93f-1dca-45be-8459-6a9ba0643208
+          - button "Paramétrer mes cookies" [ref=e1617] [cursor=pointer]
+          - link "Politique cookies" [ref=e1619] [cursor=pointer]:
+            - /url: /lp/i/cookie-policy
+          - 'link "Accessibilité: non conforme" [ref=e1621] [cursor=pointer]':
+            - /url: /lp/i/declaration-accessibilite
+          - link "Aide / FAQ / Contact" [ref=e1623] [cursor=pointer]:
+            - /url: /help/app/home
+          - link "Signaler une vulnérabilité" [ref=e1625] [cursor=pointer]:
+            - /url: https://vdp.decathlon.net/p/Policy
+        - generic [ref=e1627]: (1) À l’exception des produits vendus par nos partenaires / (2) Hors produits d’investissement
+      - generic [ref=e1629]: ©2026 Decathlon
+  - button [ref=e1631] [cursor=pointer]

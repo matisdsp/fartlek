@@ -1,0 +1,320 @@
+- generic [active] [ref=f69e1]:
+  - generic [ref=f69e3]:
+    - generic [ref=f69e4]:
+      - button "Passer directement au contenu principal" [ref=f69e5] [cursor=pointer]
+      - region [ref=f69e9]:
+        - generic [ref=f69e11]:
+          - group [ref=f69e12]:
+            - link [ref=f69e14] [cursor=pointer]:
+              - /url: /fr/fr-fr/login/?onsite_feature=login-content-header-banner
+              - generic [ref=f69e15]:
+                - paragraph [ref=f69e16]: Livraison gratuite et 90 jours d'essai pour l'équipement pour les membres OneASI...
+                - button [ref=f69e17]:
+                  - paragraph [ref=f69e19]: plus
+          - group [ref=f69e20]:
+            - generic [ref=f69e22]:
+              - paragraph [ref=f69e23]: Livraison standard gratuite pour commandes supérieures à 50€ et retours gratuits...
+              - button [ref=f69e24] [cursor=pointer]:
+                - paragraph [ref=f69e26]: plus
+        - button "Previous slide" [ref=f69e27] [cursor=pointer]
+        - button "Next slide" [ref=f69e32] [cursor=pointer]
+      - generic [ref=f69e39]:
+        - button [ref=f69e40] [cursor=pointer]:
+          - paragraph [ref=f69e45]: France (Français)
+        - link "Aide" [ref=f69e46] [cursor=pointer]:
+          - /url: /fr/fr-fr/contact-us/
+          - paragraph [ref=f69e48]: Aide
+        - link "Localisateur de magasin" [ref=f69e49] [cursor=pointer]:
+          - /url: /fr/fr-fr/store-locator/
+          - paragraph [ref=f69e51]: Trouver un magasin
+        - link "Avantages OneASICS" [ref=f69e52] [cursor=pointer]:
+          - /url: /fr/fr-fr/oneasics/
+      - generic [ref=f69e56]:
+        - generic [ref=f69e57]:
+          - link "Naviguer vers l'accueil" [ref=f69e58] [cursor=pointer]:
+            - /url: /fr/fr-fr/
+          - navigation "Main" [ref=f69e62]:
+            - list [ref=f69e64]:
+              - listitem [ref=f69e65]:
+                - button "Soldes d'été" [ref=f69e66] [cursor=pointer]
+              - listitem [ref=f69e67]:
+                - button "Homme" [ref=f69e68] [cursor=pointer]
+              - listitem [ref=f69e69]:
+                - button "Femme" [ref=f69e70] [cursor=pointer]
+              - listitem [ref=f69e71]:
+                - button "Enfant" [ref=f69e72] [cursor=pointer]
+              - listitem [ref=f69e73]:
+                - button "Sports" [ref=f69e74] [cursor=pointer]
+              - listitem [ref=f69e75]:
+                - button "SportStyle" [ref=f69e76] [cursor=pointer]
+              - listitem [ref=f69e77]:
+                - button "Nos marques" [ref=f69e78] [cursor=pointer]
+              - listitem [ref=f69e79]:
+                - button "Inside ASICS" [ref=f69e80] [cursor=pointer]
+        - generic [ref=f69e82]:
+          - button "Rechercher" [ref=f69e86] [cursor=pointer]
+          - link "Mon compte" [ref=f69e92] [cursor=pointer]:
+            - /url: /fr/fr-fr/
+          - link "Liste de souhaits" [ref=f69e98] [cursor=pointer]:
+            - /url: /fr/fr-fr/wishlist/
+          - link "Panier" [ref=f69e105] [cursor=pointer]:
+            - /url: /fr/fr-fr/cart/
+    - main [ref=f69e110]:
+      - generic [ref=f69e111]:
+        - heading "ASICS Chaussures de course à pied et vêtements officiels" [level=1] [ref=f69e113]
+        - generic [ref=f69e114]:
+          - generic [ref=f69e121]:
+            - generic "NOVABLAST 6" [ref=f69e123]
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - heading "NOVABLAST™ 6" [level=2]:
+                            - paragraph: NOVABLAST™ 6
+                    - generic:
+                      - generic:
+                        - paragraph: Une légèreté et un rebond inédits, avec une énergie explosive.
+                    - generic:
+                      - link "Acheter maintenant" [ref=f69e125] [cursor=pointer]:
+                        - /url: /fr/fr-fr/novablast/c/as88000005/
+                      - link "En savoir plus" [ref=f69e128] [cursor=pointer]:
+                        - /url: /fr/fr-fr/novablast-campaign/
+          - generic [ref=f69e135]:
+            - heading "Acheter par catégorie" [level=3] [ref=f69e137]
+            - region [ref=f69e139]:
+              - generic [ref=f69e142]:
+                - group [ref=f69e143]:
+                  - link [ref=f69e145] [cursor=pointer]:
+                    - /url: /fr/fr-fr/running-shoes/c/as40101000/
+                    - img "Chaussures de course à pied" [ref=f69e147]
+                    - paragraph [ref=f69e148]: Chaussures de course à pied
+                - group [ref=f69e149]:
+                  - link [ref=f69e151] [cursor=pointer]:
+                    - /url: /fr/fr-fr/running-clothing/c/as40102000/
+                    - img "Vêtements de course" [ref=f69e153]
+                    - paragraph [ref=f69e154]: Vêtements de course
+                - group [ref=f69e155]:
+                  - link [ref=f69e157] [cursor=pointer]:
+                    - /url: /fr/fr-fr/trail-running-hiking-shoes/c/as41801000/
+                    - img "Chaussures trail running" [ref=f69e159]
+                    - paragraph [ref=f69e160]: Chaussures trail running
+                - group [ref=f69e161]:
+                  - link [ref=f69e163] [cursor=pointer]:
+                    - /url: /fr/fr-fr/tennis-gear/c/as40400000/
+                    - img "Tennis" [ref=f69e165]
+                    - paragraph [ref=f69e166]: Tennis
+                - group [ref=f69e167]:
+                  - link [ref=f69e169] [cursor=pointer]:
+                    - /url: /fr/fr-fr/sportstyle/c/as50000000/
+                    - img "SportStyle" [ref=f69e171]
+                    - paragraph [ref=f69e172]: SportStyle
+          - generic [ref=f69e180]:
+            - generic "Metafuji" [ref=f69e184]
+            - generic:
+              - generic:
+                - generic:
+                  - generic:
+                    - generic:
+                      - paragraph: Bientôt disponible
+                      - generic:
+                        - generic:
+                          - heading "METAFUJI™ 2 TRAIL" [level=2]:
+                            - paragraph: METAFUJI™ 2 TRAIL
+                    - generic:
+                      - generic:
+                        - paragraph: Soyez parmi les premiers à profiter de la vitesse plébiscitée par les athlètes et de performances exceptionnelles en compétition. Abonnez-vous pour recevoir une alerte dès son lancement.
+                    - generic:
+                      - link "Me prévenir" [ref=f69e186] [cursor=pointer]:
+                        - /url: /fr/fr-fr/metafuji-trail-2/p/1013A178-750.html
+                      - link "En savoir plus" [ref=f69e189] [cursor=pointer]:
+                        - /url: /fr/fr-fr/metafuji-campaign/#blt6a35b2eb71c2b3af
+          - generic [ref=f69e196]:
+            - generic [ref=f69e198]:
+              - paragraph [ref=f69e201]: Plus de légèreté. Plus de vitesse.
+              - paragraph [ref=f69e205]: Alliez vitesse et confiance de la tête aux pieds avec la collection METASPEED™ faite pour la compétition.
+              - link "Acheter maintenant" [ref=f69e208] [cursor=pointer]:
+                - /url: /fr/fr-fr/metaspeed/c/as93010000/
+            - link [ref=f69e211] [cursor=pointer]:
+              - /url: /fr/fr-fr/metaspeed/c/as93010000/
+              - img "Metaspeed" [ref=f69e213]
+          - generic [ref=f69e220]:
+            - link [ref=f69e221] [cursor=pointer]:
+              - /url: /fr/fr-fr/tennis-gear/c/as40400000/
+              - generic [ref=f69e222]:
+                - img "Tennis" [ref=f69e224]
+                - generic [ref=f69e226]:
+                  - paragraph [ref=f69e227]: Tennis
+                  - paragraph [ref=f69e230]: Au service de votre style de jeu
+            - link [ref=f69e235] [cursor=pointer]:
+              - /url: /fr/fr-fr/handball-gear/c/as41600000/
+              - generic [ref=f69e236]:
+                - img "ASICS Handball" [ref=f69e238]
+                - paragraph [ref=f69e243]: Handball
+            - link [ref=f69e248] [cursor=pointer]:
+              - /url: /fr/fr-fr/padel-gear/c/as42500000/
+              - generic [ref=f69e249]:
+                - img "ASICS Padel" [ref=f69e251]
+                - paragraph [ref=f69e256]: Padel
+            - link [ref=f69e261] [cursor=pointer]:
+              - /url: /fr/fr-fr/volleyball-gear/c/as40500000/
+              - generic [ref=f69e262]:
+                - img "ASICS Volleyball" [ref=f69e264]
+                - paragraph [ref=f69e269]: Volleyball
+            - link [ref=f69e274] [cursor=pointer]:
+              - /url: /fr/fr-fr/rugby-gear/c/as40700000/
+              - generic [ref=f69e275]:
+                - img "ASICS Rugby" [ref=f69e277]
+                - paragraph [ref=f69e282]: Rugby
+          - generic [ref=f69e292]:
+            - generic [ref=f69e294]:
+              - paragraph [ref=f69e297]: À la recherche de la chaussure idéale ?
+              - paragraph [ref=f69e301]: En quelques clics, trouvez votre chaussure de sport pour des performances optimales.
+              - link "Lancer le Shoe Finder" [ref=f69e304] [cursor=pointer]:
+                - /url: /fr/fr-fr/product-assistant/
+            - link [ref=f69e307] [cursor=pointer]:
+              - /url: /fr/fr-fr/product-assistant/
+              - img "Shoe Fidner" [ref=f69e309]
+          - link [ref=f69e317] [cursor=pointer]:
+            - generic [ref=f69e318]:
+              - img "Anna Sawai wearing the Sensory Bloom Collection" [ref=f69e321]
+              - generic [ref=f69e325]:
+                - generic [ref=f69e326]:
+                  - paragraph [ref=f69e327]: Nouveautés
+                  - heading [level=2] [ref=f69e330]:
+                    - paragraph [ref=f69e331]: Sensory Bloom Collection
+                - paragraph [ref=f69e334]: Le style dans toute sa splendeur. Un confort absolu à chaque pas.
+                - generic [ref=f69e335]:
+                  - link "En savoir plus" [ref=f69e337]:
+                    - /url: /fr/fr-fr/asics-sportstyle-summer-arrivals/#blt8f0390e6d129c9d4
+                  - link "Acheter maintenant" [ref=f69e340]:
+                    - /url: /fr/fr-fr/asics-sportstyle-summer-arrivals/#bltcd1588d1756d3f3a
+    - contentinfo [ref=f69e344]:
+      - generic [ref=f69e345]:
+        - generic [ref=f69e347]:
+          - generic [ref=f69e348]:
+            - generic [ref=f69e349]:
+              - paragraph [ref=f69e350]: S'inscrire à notre newsletter
+              - paragraph [ref=f69e351]: Soyez au courant de nos nouveautés, événements exclusifs et offres en ligne avant tout le monde
+              - button "S'inscrire" [ref=f69e352] [cursor=pointer]
+            - generic [ref=f69e354]:
+              - paragraph [ref=f69e355]: Nous suivre
+              - generic [ref=f69e356]:
+                - link "Facebook" [ref=f69e357] [cursor=pointer]:
+                  - /url: https://web.facebook.com/ASICS
+                - link "X (anciennement Twitter)" [ref=f69e360] [cursor=pointer]:
+                  - /url: https://x.com/ASICSeurope
+                - link "Instagram" [ref=f69e364] [cursor=pointer]:
+                  - /url: https://www.instagram.com/asicsrunning/
+                - link "YouTube" [ref=f69e369] [cursor=pointer]:
+                  - /url: https://www.youtube.com/channel/UCT135eauXPA36lioy-cmjzw
+                - link "LinkedIn" [ref=f69e373] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/company/asics-emea/
+          - generic [ref=f69e378]:
+            - paragraph [ref=f69e379]: Service client
+            - generic [ref=f69e380]:
+              - link "Contacter ASICS" [ref=f69e382] [cursor=pointer]:
+                - /url: /fr/fr-fr/contact-us/
+              - link "Retours" [ref=f69e384] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/returns-policy/
+              - link "Livraison" [ref=f69e386] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/shipping-information/
+              - link "Modes de paiement" [ref=f69e388] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/payment-information/
+              - link "Réclamations" [ref=f69e390] [cursor=pointer]:
+                - /url: /fr/fr-fr/product-claim/
+              - link "Questions fréquentes" [ref=f69e392] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/faq/
+              - link "Suivre une commande" [ref=f69e394] [cursor=pointer]:
+                - /url: /fr/fr-fr/ordersearch/
+              - link "Trouver Un Magasin" [ref=f69e396] [cursor=pointer]:
+                - /url: /fr/fr-fr/store-locator/
+              - link "Se rétracter du contrat" [ref=f69e398] [cursor=pointer]:
+                - /url: https://returns.narvar.com/asics/returns?locale=fr_FR
+          - generic [ref=f69e401]:
+            - paragraph [ref=f69e402]: À propos d’ASICS
+            - generic [ref=f69e403]:
+              - link "Notre Histoire" [ref=f69e405] [cursor=pointer]:
+                - /url: /fr/fr-fr/mk/about-asics/
+              - link "RSE" [ref=f69e407] [cursor=pointer]:
+                - /url: http://corp.asics.com/en/csr
+              - link "Revue de presse" [ref=f69e409] [cursor=pointer]:
+                - /url: https://news-emea.asics.com/
+              - link "Relations investisseurs" [ref=f69e411] [cursor=pointer]:
+                - /url: https://corp.asics.com/en/press
+              - link "Carrières" [ref=f69e413] [cursor=pointer]:
+                - /url: /fr/fr-fr/mk/careers/search-jobs/
+              - link "Sound Mind, Sound Body Impact" [ref=f69e415] [cursor=pointer]:
+                - /url: /fr/fr-fr/mk/sound-mind-sound-body-impact/
+              - link "Réductions étudiants" [ref=f69e417] [cursor=pointer]:
+                - /url: /fr/fr-fr/unidays/
+              - link "ASICS conseil" [ref=f69e419] [cursor=pointer]:
+                - /url: /fr/fr-fr/asics-advice/
+              - link "Index égalité professionnelle" [ref=f69e421] [cursor=pointer]:
+                - /url: /fr/fr-fr/professional-equality-index/
+              - link "Qualités environnementales fiche produit" [ref=f69e423] [cursor=pointer]:
+                - /url: /fr/fr-fr/environmental-detail-of-products/
+              - link "Appli ASICS" [ref=f69e425] [cursor=pointer]:
+                - /url: /fr/fr-fr/asics-mobile-app/
+          - generic [ref=f69e428]:
+            - paragraph [ref=f69e429]: Tailles et pointures
+            - generic [ref=f69e430]:
+              - link "Tableaux et guides des tailles" [ref=f69e432] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/size-fit-guide/
+              - link "Guide de la pronation" [ref=f69e434] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/pronation-guide/
+          - generic [ref=f69e437]:
+            - paragraph [ref=f69e438]: ADHÉSION À OneASICS™
+            - generic [ref=f69e439]:
+              - link "Créer un compte gratuit" [ref=f69e441] [cursor=pointer]:
+                - /url: /fr/fr-fr/login/?onsite_feature=login-content-footer-create-free-account
+              - link "S'inscrire" [ref=f69e443] [cursor=pointer]:
+                - /url: /fr/fr-fr/login/?onsite_feature=login-content-footer-sign-in
+              - link "À propos de OneASICS" [ref=f69e445] [cursor=pointer]:
+                - /url: /fr/fr-fr/oneasics/
+              - link "FAQ OneASICS" [ref=f69e447] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/faqs-oneasics/
+              - link "OneASICS Conditions générales" [ref=f69e449] [cursor=pointer]:
+                - /url: https://legal.asics.com/fr-fr/legal/welcome-to-oneasics/
+              - link "Programme de réduction" [ref=f69e451] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/discount-programs/
+        - generic [ref=f69e452]:
+          - generic [ref=f69e453]:
+            - button [ref=f69e454] [cursor=pointer]:
+              - paragraph [ref=f69e459]: France (Français)
+            - link [ref=f69e460] [cursor=pointer]:
+              - /url: https://legal.asics.com/fr-fr/legal/privacy-policy
+              - paragraph [ref=f69e461]: Politique de confidentialité
+            - link [ref=f69e462] [cursor=pointer]:
+              - /url: https://legal.asics.com/fr-fr/legal/cookie-policy
+              - paragraph [ref=f69e463]: Politique en matière de cookies
+            - link [ref=f69e464] [cursor=pointer]:
+              - /url: "#manage-cookies"
+              - paragraph [ref=f69e465]: Gérer les préférences de cookies
+            - link [ref=f69e466] [cursor=pointer]:
+              - /url: /fr/fr-fr/customer-service/terms/
+              - paragraph [ref=f69e467]: Conditions générales
+            - link [ref=f69e468] [cursor=pointer]:
+              - /url: /fr/fr-fr/customer-service/disclaimer/
+              - paragraph [ref=f69e469]: Mentions légales
+          - paragraph [ref=f69e470]: © 2026 ASICS Europe
+    - region "Notifications (F8)":
+      - list
+  - button [ref=f69e471]
+  - region "Cookie banner" [ref=f69e477]:
+    - dialog "Vos paramètres de cookies" [ref=f69e478]:
+      - generic [ref=f69e479]:
+        - generic [ref=f69e480]:
+          - generic:
+            - heading "Vos paramètres de cookies" [level=2] [ref=f69e481]
+            - generic [ref=f69e482]:
+              - text: "Chez ASICS, votre tranquillité d'esprit est notre priorité. Nous tenons à respecter votre vie privée et le traitement de vos données. Avec nos partenaires, nous utilisons les cookies afin d'améliorer votre expérience sur notre site et nos échanges. Nos objectifs sont les suivants : analyser les performances de notre site, fournir du contenu commercial sur mesure sur le site ASICS.com ainsi que sur les autres sites et prendre en compte votre avis. En cliquant sur « Tout accepter », vous acceptez l'utilisation de tous les cookies. De cette manière, nous pourrons vous offrir l'expérience utilisateur la plus pertinente possible. Les paramètres de cookies peuvent être modifiés à tout moment en cliquant sur « Gérer les préférences de cookies ». En cliquant sur « Uniquement les cookies nécessaires », seuls les cookies nécessaires au bon fonctionnement du site Web sont acceptés."
+              - link "En savoir plus ici" [ref=f69e483] [cursor=pointer]:
+                - /url: https://legal.asics.com/fr-fr/legal/privacy-policy
+        - generic [ref=f69e485]:
+          - button "Gérer les préférences de cookies" [ref=f69e486] [cursor=pointer]
+          - generic [ref=f69e487]:
+            - button "Uniquement les cookies nécessaires" [ref=f69e488] [cursor=pointer]
+            - button "Tout accepter" [ref=f69e489] [cursor=pointer]

@@ -1,0 +1,406 @@
+- generic [active] [ref=f48e1]:
+  - generic [ref=f48e2]:
+    - list [ref=f48e4]:
+      - listitem [ref=f48e5]:
+        - link "Click&collect 2h en magasin" [ref=f48e6] [cursor=pointer]:
+          - /url: /shop/Infos/Services#29
+      - listitem [ref=f48e7]:
+        - link "Retrait gratuit en magasin" [ref=f48e8] [cursor=pointer]:
+          - /url: /shop/Infos/Services#4
+      - listitem [ref=f48e9]:
+        - link "Paiement 3x ou 4x sans frais" [ref=f48e10] [cursor=pointer]:
+          - /url: /shop/Infos/Services#15
+      - listitem [ref=f48e11]:
+        - link "les meilleures marques running" [ref=f48e12] [cursor=pointer]:
+          - /url: /shop/Marques/Liste
+    - generic [ref=f48e14]:
+      - link [ref=f48e16] [cursor=pointer]:
+        - /url: /
+        - img "Logo Foulées" [ref=f48e17]
+      - generic [ref=f48e18]:
+        - generic [ref=f48e19]:
+          - searchbox "Je cherche des chaussures de running ..." [ref=f48e21]
+          - navigation [ref=f48e22]:
+            - listitem [ref=f48e23]:
+              - link [ref=f48e24] [cursor=pointer]:
+                - /url: /shop/Compte/GestionCommandes
+                - img "Mon compte" [ref=f48e25]
+                - paragraph [ref=f48e26]: Mon compte
+            - listitem [ref=f48e27]:
+              - link [ref=f48e28] [cursor=pointer]:
+                - /url: /shop/Panier/Afficher
+                - img "Panier" [ref=f48e29]
+                - paragraph [ref=f48e31]: Panier
+        - list [ref=f48e33]:
+          - listitem [ref=f48e34]:
+            - link "magasins" [ref=f48e35] [cursor=pointer]:
+              - /url: /-magasins-
+          - listitem [ref=f48e36]:
+            - link "Chaussure Homme" [ref=f48e37] [cursor=pointer]:
+              - /url: /shop/chaussures-course-pied-homme
+              - text: ChaussureHomme
+          - listitem [ref=f48e38]:
+            - link "Chaussure Femme" [ref=f48e39] [cursor=pointer]:
+              - /url: /shop/chaussures-course-pied-femme
+              - text: ChaussureFemme
+          - listitem [ref=f48e40]:
+            - link "Textile Homme" [ref=f48e41] [cursor=pointer]:
+              - /url: /shop/textile-running-homme
+              - text: TextileHomme
+          - listitem [ref=f48e42]:
+            - link "Textile Femme" [ref=f48e43] [cursor=pointer]:
+              - /url: /shop/textile-running-femme
+              - text: TextileFemme
+          - listitem [ref=f48e44]:
+            - link "Electronique" [ref=f48e45] [cursor=pointer]:
+              - /url: /shop/electronique
+          - listitem [ref=f48e46]:
+            - link "Diététique" [ref=f48e47] [cursor=pointer]:
+              - /url: /shop/dietetique-running
+          - listitem [ref=f48e48]:
+            - link "Accessoires" [ref=f48e49] [cursor=pointer]:
+              - /url: /shop/accessoires-running
+          - listitem [ref=f48e50]:
+            - link "Promotions" [ref=f48e51] [cursor=pointer]:
+              - /url: /shop/Neufs/Liste
+  - text: ✕
+  - generic [ref=f48e52]:
+    - generic [ref=f48e53]:
+      - link "Retour" [ref=f48e54] [cursor=pointer]:
+        - /url: javascript:history.back()
+      - link "Accueil" [ref=f48e58] [cursor=pointer]:
+        - /url: /
+      - text: ›
+      - link "Chaussure Homme" [ref=f48e59] [cursor=pointer]:
+        - /url: /shop/chaussures-course-pied-homme
+      - text: ›
+      - link "Running" [ref=f48e60] [cursor=pointer]:
+        - /url: /shop/chaussures-running-homme
+      - text: ›
+      - link "Chaussure de compétition Homme" [ref=f48e61] [cursor=pointer]:
+        - /url: /shop/chaussures-running-course-homme
+    - generic [ref=f48e62]:
+      - generic [ref=f48e63]:
+        - heading "Asics superblast 3" [level=1] [ref=f48e64]
+        - link "Asics" [ref=f48e65] [cursor=pointer]:
+          - /url: /shop/Asics
+      - generic [ref=f48e66]:
+        - img "Asics SUPERBLAST 3" [ref=f48e67]
+        - list [ref=f48e77]:
+          - listitem [ref=f48e78]:
+            - img "Asics SUPERBLAST 3" [ref=f48e79] [cursor=pointer]
+          - listitem [ref=f48e80]:
+            - img "Asics SUPERBLAST 3" [ref=f48e81] [cursor=pointer]
+          - listitem [ref=f48e82]:
+            - img "Asics SUPERBLAST 3" [ref=f48e83] [cursor=pointer]
+          - listitem [ref=f48e84]:
+            - img "Asics SUPERBLAST 3" [ref=f48e85] [cursor=pointer]
+          - listitem [ref=f48e86]:
+            - img "Asics SUPERBLAST 3" [ref=f48e87] [cursor=pointer]
+          - listitem [ref=f48e88]:
+            - img "Asics SUPERBLAST 3" [ref=f48e89] [cursor=pointer]
+          - listitem [ref=f48e90]:
+            - img "Asics SUPERBLAST 3" [ref=f48e91] [cursor=pointer]
+          - listitem [ref=f48e92]:
+            - img "Asics SUPERBLAST 3" [ref=f48e93] [cursor=pointer]
+        - generic [ref=f48e94]: Photo non contractuelle
+      - generic [ref=f48e96]:
+        - generic [ref=f48e98]:
+          - generic [ref=f48e99]:
+            - generic [ref=f48e100]:
+              - text: Solde
+              - generic [ref=f48e101]: "-15%"
+            - generic [ref=f48e102]: homme
+          - generic [ref=f48e103]:
+            - generic [ref=f48e104]:
+              - text: "187"
+              - superscript [ref=f48e105]: €
+            - generic [ref=f48e106]:
+              - text: "220"
+              - superscript [ref=f48e107]: €
+          - generic [ref=f48e108]:
+            - paragraph [ref=f48e109]: 62,34€ puis 2x 62,33€
+            - paragraph [ref=f48e110]: Payer en 3x ou 4x sans frais avec
+        - generic [ref=f48e113]:
+          - text: Taille
+          - combobox "Taille" [ref=f48e114] [cursor=pointer]:
+            - option "Choisissez" [selected]
+            - option "41,5"
+            - option "42,5"
+            - option "44"
+        - link "Quelle taille choisir ?" [ref=f48e115] [cursor=pointer]:
+          - /url: "#"
+        - generic [ref=f48e116]:
+          - text: "Les autres versions :"
+          - link [ref=f48e117] [cursor=pointer]:
+            - /url: /shop/superblast-3-451398
+            - img "Asics superblast 3 SEASHELL/SUN CORAL" [ref=f48e118]
+          - link [ref=f48e119] [cursor=pointer]:
+            - /url: /shop/superblast-3-451399
+            - img "Asics superblast 3 COBALT BURST/LIGHT ORANGE" [ref=f48e120]
+          - link [ref=f48e121] [cursor=pointer]:
+            - /url: /shop/superblast-3-470261
+            - img "Asics superblast 3 BLACK/BLACK" [ref=f48e122]
+          - link [ref=f48e123] [cursor=pointer]:
+            - /url: /shop/superblast-3-470263
+            - img "Asics superblast 3 ILLUMINATE YELLOW/ENERGY AQUA" [ref=f48e124]
+        - generic [ref=f48e125]:
+          - generic [ref=f48e126]: Achat en ligne
+          - generic [ref=f48e129]:
+            - generic [ref=f48e130]: Veuillez sélectionner une taille/couleur
+            - generic [ref=f48e134]: Ajouter au panier
+            - link:
+              - /url: "#"
+        - list [ref=f48e138]:
+          - listitem [ref=f48e139]: Retrait magasin ou livraison à domicile
+          - listitem [ref=f48e140]: Paiment en 3x ou 4x sans frais
+          - listitem [ref=f48e141]: Paiement sécurité par CB et Paypal
+      - group [ref=f48e143]:
+        - generic "Description" [ref=f48e144] [cursor=pointer]
+        - paragraph [ref=f48e145]:
+          - text: Conçue pour les coureurs en quête de vitesse et de légèreté sur route, la
+          - strong [ref=f48e146]: ASICS SUPERBLAST 3
+          - text: repousse les limites du running quotidien grâce à des technologies directement héritées des modèles de compétition.
+        - paragraph [ref=f48e147]:
+          - text: Sa semelle intermédiaire enrichie d'une
+          - strong [ref=f48e148]: mousse FF LEAP
+          - text: ", inspirée de la gamme METASPEED, offre un"
+          - strong [ref=f48e149]: retour d'énergie exceptionnel
+          - text: à chaque foulée. Avec seulement 239 grammes sur la balance, elle figure parmi les
+          - strong [ref=f48e150]: chaussures maximalistes les plus légères du marché
+          - text: ", idéale aussi bien pour les entraînements que pour les courses sur bitume."
+        - paragraph [ref=f48e151]:
+          - text: Une capsule à effet trampoline, stratégiquement intégrée dans la semelle extérieure, booste la réactivité et propulse chaque impulsion avec une énergie décuplée. Polyvalente et unisexe, la
+          - strong [ref=f48e152]: ASICS SUPERBLAST 3
+          - text: est la compagne parfaite des runners exigeants qui veulent aller plus vite, plus longtemps, sans sacrifier le confort.
+        - heading "Caractéristiques techniques" [level=3] [ref=f48e153]
+        - list [ref=f48e154]:
+          - listitem [ref=f48e155]:
+            - strong [ref=f48e156]: "Poids :"
+            - text: 239 g
+          - listitem [ref=f48e157]:
+            - strong [ref=f48e158]: "Drop :"
+            - text: 8 mm
+          - listitem [ref=f48e159]:
+            - strong [ref=f48e160]: "Stabilité :"
+            - text: Bonne
+          - listitem [ref=f48e161]:
+            - strong [ref=f48e162]: "Amorti :"
+            - text: Excellent
+          - listitem [ref=f48e163]:
+            - strong [ref=f48e164]: "Dynamisme :"
+            - text: Excellent
+        - heading "Technologies" [level=3] [ref=f48e165]
+        - paragraph [ref=f48e166]:
+          - strong [ref=f48e167]: FF LEAP
+          - text: ": Nouvelle mousse de semelle intermédiaire issue des modèles de compétition METASPEED, légère et hautement réactive pour un rendement énergétique maximal à chaque appui."
+        - paragraph [ref=f48e168]:
+          - strong [ref=f48e169]: Capsule à effet trampoline
+          - text: ": Élément innovant intégré dans la semelle extérieure qui amplifie la réactivité et génère une impulsion ultra-dynamique, pour une foulée propulsive et fluide."
+        - paragraph [ref=f48e170]:
+          - strong [ref=f48e171]: Amorti élevé
+          - text: ": Hauteur de semelle généreuse qui absorbe efficacement les chocs sur bitume, protégeant les articulations sur les longues distances."
+        - paragraph [ref=f48e172]:
+          - strong [ref=f48e173]: Plateforme unisexe
+          - text: ": Conçue pour s'adapter aussi bien aux hommes qu'aux femmes, pour un maintien optimal et un confort immédiat dès la première sortie."
+        - paragraph [ref=f48e174]:
+          - text: Que vous prépariez un marathon, un semi ou que vous cherchiez simplement à pimenter vos sorties du quotidien, la
+          - strong [ref=f48e175]: ASICS SUPERBLAST 3
+          - text: est la chaussure qui transforme chaque kilomètre en plaisir. Ne passez pas à côté de cette nouvelle référence et ressentez la différence à la première foulée !
+      - group [ref=f48e177]:
+        - generic "Caractéristiques" [ref=f48e178] [cursor=pointer]
+      - group [ref=f48e180]:
+        - generic "FOIRE AUX QUESTIONS" [ref=f48e181] [cursor=pointer]
+    - generic [ref=f48e182]:
+      - heading "Articles similaires" [level=2] [ref=f48e183]
+      - generic [ref=f48e184]:
+        - link "Asics METASPEED EDGE TOKYO Solde -15% homme Asics Asics metaspeed edge tokyo 229,50€ 270,00€ Disponible en magasin sous 2H" [ref=f48e186] [cursor=pointer]:
+          - /url: /shop/metaspeed-edge-tokyo-439456?source=rech
+          - img "Asics METASPEED EDGE TOKYO" [ref=f48e187]
+          - generic [ref=f48e188]:
+            - generic [ref=f48e189]:
+              - generic [ref=f48e190]:
+                - text: Solde
+                - generic [ref=f48e191]: "-15%"
+              - generic [ref=f48e192]: homme
+            - generic [ref=f48e193]: Asics
+            - heading "Asics metaspeed edge tokyo" [level=2] [ref=f48e194]
+            - generic [ref=f48e195]:
+              - generic [ref=f48e196]: 229,50€
+              - text: 270,00€
+            - paragraph [ref=f48e198]:
+              - text: Disponible
+              - strong [ref=f48e199]: en magasin sous 2H
+        - link "Asics METASPEED SKY TOKYO Solde -15% homme Asics Asics metaspeed sky tokyo 229,50€ 270,00€ Disponible en magasin sous 2H" [ref=f48e201] [cursor=pointer]:
+          - /url: /shop/metaspeed-sky-tokyo-439455?source=rech
+          - img "Asics METASPEED SKY TOKYO" [ref=f48e202]
+          - generic [ref=f48e203]:
+            - generic [ref=f48e204]:
+              - generic [ref=f48e205]:
+                - text: Solde
+                - generic [ref=f48e206]: "-15%"
+              - generic [ref=f48e207]: homme
+            - generic [ref=f48e208]: Asics
+            - heading "Asics metaspeed sky tokyo" [level=2] [ref=f48e209]
+            - generic [ref=f48e210]:
+              - generic [ref=f48e211]: 229,50€
+              - text: 270,00€
+            - paragraph [ref=f48e213]:
+              - text: Disponible
+              - strong [ref=f48e214]: en magasin sous 2H
+        - link "Asics SUPERBLAST 3 Solde -15% homme Asics Asics superblast 3 187,00€ 220,00€ Disponible en magasin sous 2H" [ref=f48e216] [cursor=pointer]:
+          - /url: /shop/superblast-3-451399?source=rech
+          - img "Asics SUPERBLAST 3" [ref=f48e217]
+          - generic [ref=f48e218]:
+            - generic [ref=f48e219]:
+              - generic [ref=f48e220]:
+                - text: Solde
+                - generic [ref=f48e221]: "-15%"
+              - generic [ref=f48e222]: homme
+            - generic [ref=f48e223]: Asics
+            - heading "Asics superblast 3" [level=2] [ref=f48e224]
+            - generic [ref=f48e225]:
+              - generic [ref=f48e226]: 187,00€
+              - text: 220,00€
+            - paragraph [ref=f48e228]:
+              - text: Disponible
+              - strong [ref=f48e229]: en magasin sous 2H
+        - link "Asics MAGIC SPEED 5 Solde -15% homme Asics Asics magic speed 5 161,50€ 190,00€ Disponible en magasin sous 2H" [ref=f48e231] [cursor=pointer]:
+          - /url: /shop/magic-speed-5-451303?source=rech
+          - img "Asics MAGIC SPEED 5" [ref=f48e232]
+          - generic [ref=f48e233]:
+            - generic [ref=f48e234]:
+              - generic [ref=f48e235]:
+                - text: Solde
+                - generic [ref=f48e236]: "-15%"
+              - generic [ref=f48e237]: homme
+            - generic [ref=f48e238]: Asics
+            - heading "Asics magic speed 5" [level=2] [ref=f48e239]
+            - generic [ref=f48e240]:
+              - generic [ref=f48e241]: 161,50€
+              - text: 190,00€
+            - paragraph [ref=f48e243]:
+              - text: Disponible
+              - strong [ref=f48e244]: en magasin sous 2H
+  - generic [ref=f48e245]:
+    - generic [ref=f48e247]:
+      - generic [ref=f48e251]:
+        - paragraph [ref=f48e254]: S'inscrire à notre Newsletter
+        - paragraph [ref=f48e258]: Nouveautés, promos, exclusivités...
+        - paragraph [ref=f48e262]: Pour en profiter, faut souvent arriver en premier, alors recevez l'info avant les autres !
+        - generic [ref=f48e263]:
+          - textbox "Mon adresse mail" [ref=f48e269]
+          - button "S'inscrire" [ref=f48e272] [cursor=pointer]
+      - generic [ref=f48e273]:
+        - paragraph [ref=f48e274]: Suivez-nous
+        - link "Suivez-nous sur instagram" [ref=f48e275] [cursor=pointer]:
+          - /url: https://www.instagram.com/foulees_france/
+          - img "Suivez-nous sur instagram"
+        - link "Suivez-nous sur Facebook" [ref=f48e276] [cursor=pointer]:
+          - /url: https://www.facebook.com/magasinsfoulees
+          - img "Suivez-nous sur Facebook"
+        - link "Suivez-nous sur Linkedin" [ref=f48e277] [cursor=pointer]:
+          - /url: https://fr.linkedin.com/company/magasins-foul%C3%A9es
+          - img "Suivez-nous sur Linkedin"
+    - generic [ref=f48e281]:
+      - generic [ref=f48e282]:
+        - img "Paiement sécurisé" [ref=f48e283]
+        - paragraph [ref=f48e284]: Paiement sécurisé
+      - generic [ref=f48e285]:
+        - img "Paiement en 3x et 4x sans frais" [ref=f48e286]
+        - paragraph [ref=f48e287]: Paiement en 3x et 4x sans frais
+      - generic [ref=f48e288]:
+        - img "Paiement CB, Visa, Mastercard et Paypal"
+        - paragraph [ref=f48e289]: Paiement CB, Visa, Mastercard et Paypal
+    - contentinfo [ref=f48e290]:
+      - generic [ref=f48e293]:
+        - generic [ref=f48e294]:
+          - link [ref=f48e295] [cursor=pointer]:
+            - /url: /catalogue-foulees-2026
+            - img "Catalogue" [ref=f48e296]
+          - link "Feuilleter" [ref=f48e297] [cursor=pointer]:
+            - /url: /catalogue-foulees-2026
+        - generic [ref=f48e298]:
+          - heading "Mes services en ligne" [level=4] [ref=f48e299]
+          - list [ref=f48e300]:
+            - listitem [ref=f48e301]:
+              - link "Click & Collect" [ref=f48e302] [cursor=pointer]:
+                - /url: /shop/Infos/Services#29
+            - listitem [ref=f48e303]:
+              - link "Avantages fidélité" [ref=f48e304] [cursor=pointer]:
+                - /url: /shop/Infos/Services#2
+            - listitem [ref=f48e305]:
+              - link "e-Chèque cadeau" [ref=f48e306] [cursor=pointer]:
+                - /url: /shop/Infos/Services#14
+            - listitem [ref=f48e307]:
+              - link "Livraison Chronopost" [ref=f48e308] [cursor=pointer]:
+                - /url: /shop/Infos/Services#12
+            - listitem [ref=f48e309]:
+              - link "Livraison en magasin" [ref=f48e310] [cursor=pointer]:
+                - /url: /shop/Infos/Services#4
+            - listitem [ref=f48e311]:
+              - link "Livraison Colissimo" [ref=f48e312] [cursor=pointer]:
+                - /url: /shop/Infos/Services#10
+            - listitem [ref=f48e313]:
+              - link "Paiement 3X sans frais" [ref=f48e314] [cursor=pointer]:
+                - /url: /shop/Infos/Services#15
+            - listitem [ref=f48e315]:
+              - link "Paiement sécurisé" [ref=f48e316] [cursor=pointer]:
+                - /url: /shop/Infos/Services#11
+        - generic [ref=f48e317]:
+          - heading "Services des magasins" [level=4] [ref=f48e318]
+          - list [ref=f48e319]:
+            - listitem [ref=f48e320]:
+              - link "Analyse de la foulée sur tapis" [ref=f48e321] [cursor=pointer]:
+                - /url: /le-labo-l-analyse-de-foulees-au-service-de-vos-pieds
+            - listitem [ref=f48e322]:
+              - link "Conseil d’experts" [ref=f48e323] [cursor=pointer]:
+                - /url: /les-experts-foulees-sont-la-pour-vous-conseiller
+            - listitem [ref=f48e324]:
+              - link "Service après vente" [ref=f48e325] [cursor=pointer]:
+                - /url: /chez-foulees-vous-pouvez-acheter-en-toute
+            - listitem [ref=f48e326]:
+              - link "Carte fidélité" [ref=f48e327] [cursor=pointer]:
+                - /url: /carte-de-fidelite-foulees-venez-vous-etes-recompenses
+            - listitem [ref=f48e328]:
+              - link "Chèque cadeau" [ref=f48e329] [cursor=pointer]:
+                - /url: /cheque-cadeau-foulees-du-plaisir-sans-se-tromper
+        - generic [ref=f48e330]:
+          - heading "Service client" [level=4] [ref=f48e331]
+          - list [ref=f48e332]:
+            - listitem [ref=f48e333]:
+              - link "Retour produit" [ref=f48e334] [cursor=pointer]:
+                - /url: /shop/Infos/Infos/page/retour-annulation
+            - listitem [ref=f48e335]:
+              - link "Mon compte" [ref=f48e336] [cursor=pointer]:
+                - /url: /shop/Compte/GestionCommandes
+            - listitem [ref=f48e337]:
+              - link "Nous contacter" [ref=f48e338] [cursor=pointer]:
+                - /url: /shop/Contact/Index
+            - listitem [ref=f48e339]:
+              - link "CGV" [ref=f48e340] [cursor=pointer]:
+                - /url: /shop/Infos/Infos/page/CGV
+            - listitem [ref=f48e341]:
+              - link "Mentions légales" [ref=f48e342] [cursor=pointer]:
+                - /url: /shop/Infos/Infos/page/Mentions-legales
+            - listitem [ref=f48e343]:
+              - link "Gestion des cookies" [ref=f48e344] [cursor=pointer]:
+                - /url: javascript:tarteaucitron.userInterface.openPanel();
+        - generic [ref=f48e345]:
+          - heading "L'entreprise" [level=4] [ref=f48e346]
+          - list [ref=f48e347]:
+            - listitem [ref=f48e348]:
+              - link "Contact" [ref=f48e349] [cursor=pointer]:
+                - /url: /nous-contacter
+            - listitem [ref=f48e350]:
+              - link "Ouvrir un magasin" [ref=f48e351] [cursor=pointer]:
+                - /url: /ouvrir-un-magasin-de-running-avec-foulees
+            - listitem [ref=f48e352]:
+              - link "Recrutement" [ref=f48e353] [cursor=pointer]:
+                - /url: /-emploi-
+            - listitem [ref=f48e354]:
+              - link "Qui sommes-nous" [ref=f48e355] [cursor=pointer]:
+                - /url: /nos-magasins-foul-es
+        - generic [ref=f48e356]:
+          - img "Logo Foulees"
+      - generic [ref=f48e357]: ® 2026 Foulées

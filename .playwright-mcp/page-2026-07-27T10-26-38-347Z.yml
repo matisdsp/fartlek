@@ -1,0 +1,335 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - button "Passer directement au contenu principal" [ref=e5] [cursor=pointer]
+      - region [ref=e9]:
+        - generic [ref=e11]:
+          - group [ref=e12]:
+            - link [ref=e14] [cursor=pointer]:
+              - /url: /fr/fr-fr/login/?onsite_feature=login-content-header-banner
+              - generic [ref=e15]:
+                - paragraph [ref=e16]: Livraison gratuite et 90 jours d'essai pour l'équipement pour les membres OneASI...
+                - button [ref=e17]:
+                  - paragraph [ref=e19]: plus
+          - group [ref=e20]:
+            - generic [ref=e22]:
+              - paragraph [ref=e23]: Livraison standard gratuite pour commandes supérieures à 50€ et retours gratuits...
+              - button [ref=e24] [cursor=pointer]:
+                - paragraph [ref=e26]: plus
+        - button "Previous slide" [ref=e27] [cursor=pointer]
+        - button "Next slide" [ref=e32] [cursor=pointer]
+      - generic [ref=e39]:
+        - button [ref=e40] [cursor=pointer]:
+          - paragraph [ref=e45]: France (Français)
+        - link "Aide" [ref=e46] [cursor=pointer]:
+          - /url: /fr/fr-fr/contact-us/
+          - paragraph [ref=e48]: Aide
+        - link "Localisateur de magasin" [ref=e49] [cursor=pointer]:
+          - /url: /fr/fr-fr/store-locator/
+          - paragraph [ref=e51]: Trouver un magasin
+        - link "Avantages OneASICS" [ref=e52] [cursor=pointer]:
+          - /url: /fr/fr-fr/oneasics/
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - link "Naviguer vers l'accueil" [ref=e58] [cursor=pointer]:
+            - /url: /fr/fr-fr/
+          - navigation "Main" [ref=e62]:
+            - list [ref=e64]:
+              - listitem [ref=e65]:
+                - button "Soldes d'été" [ref=e66] [cursor=pointer]
+              - listitem [ref=e67]:
+                - button "Homme" [ref=e68] [cursor=pointer]
+              - listitem [ref=e69]:
+                - button "Femme" [ref=e70] [cursor=pointer]
+              - listitem [ref=e71]:
+                - button "Enfant" [ref=e72] [cursor=pointer]
+              - listitem [ref=e73]:
+                - button "Sports" [ref=e74] [cursor=pointer]
+              - listitem [ref=e75]:
+                - button "SportStyle" [ref=e76] [cursor=pointer]
+              - listitem [ref=e77]:
+                - button "Nos marques" [ref=e78] [cursor=pointer]
+              - listitem [ref=e79]:
+                - button "Inside ASICS" [ref=e80] [cursor=pointer]
+        - generic [ref=e82]:
+          - button "Rechercher" [ref=e86] [cursor=pointer]
+          - link "Mon compte" [ref=e92] [cursor=pointer]:
+            - /url: /fr/fr-fr/
+          - link "Liste de souhaits" [ref=e98] [cursor=pointer]:
+            - /url: /fr/fr-fr/wishlist/
+          - link "Panier" [ref=e105] [cursor=pointer]:
+            - /url: /fr/fr-fr/cart/
+    - main [ref=e110]:
+      - generic [ref=e114]:
+        - generic [ref=e117]:
+          - generic [ref=e118]:
+            - button "SUPERBLAST 3, Image 1 sur 8" [ref=e119]:
+              - img "SUPERBLAST 3, Image 1 sur 8" [ref=e120]
+            - button "SUPERBLAST 3, Image 2 sur 8" [ref=e121]:
+              - img "SUPERBLAST 3, Image 2 sur 8" [ref=e122]
+            - button "SUPERBLAST 3, Image 3 sur 8" [ref=e123]:
+              - img "SUPERBLAST 3, Image 3 sur 8" [ref=e124]
+            - button "SUPERBLAST 3, Image 4 sur 8" [ref=e125]:
+              - img "SUPERBLAST 3, Image 4 sur 8" [ref=e126]
+            - button "SUPERBLAST 3, Image 5 sur 8" [ref=e127]:
+              - img "SUPERBLAST 3, Image 5 sur 8" [ref=e128]
+          - button [ref=e129] [cursor=pointer]
+        - generic [ref=e134]:
+          - generic [ref=e135]:
+            - navigation "Fil d'Ariane" [ref=e136]:
+              - list [ref=e137]:
+                - listitem [ref=e138]:
+                  - link "Unisexe" [ref=e139] [cursor=pointer]:
+                    - /url: /fr/fr-fr/unisex-gear/c/AS220000000/
+                - listitem [ref=e140]: •
+                - listitem [ref=e141]:
+                  - link "Chaussures unisexes" [ref=e142] [cursor=pointer]:
+                    - /url: /fr/fr-fr/unisex-shoes/c/AS220100000/
+                - listitem [ref=e143]: •
+                - listitem [ref=e144]:
+                  - link "Chaussures de Running unisexes" [ref=e145] [cursor=pointer]:
+                    - /url: /fr/fr-fr/unisex-running-shoes/c/AS220101000/
+            - generic [ref=e147]:
+              - heading "SUPERBLAST 3" [level=1] [ref=e149]
+              - button "Ajouter à la liste de souhaits" [ref=e150] [cursor=pointer]
+            - generic [ref=e154]: € 220
+          - generic [ref=e157]:
+            - generic [ref=e158]:
+              - generic [ref=e159]:
+                - paragraph [ref=e160]: Couleur
+                - paragraph [ref=e162]: Black/Black
+              - generic [ref=e163]:
+                - 'button "Couleur sélectionnée : Black/Black" [ref=e167] [cursor=pointer]':
+                  - img "Black/Black" [ref=e168]
+                - 'button "Sélectionnez la couleur : White/Black" [ref=e172] [cursor=pointer]':
+                  - img "White/Black" [ref=e173]
+                - 'button "Sélectionnez la couleur : Cobalt Burst/Light Orange" [ref=e177] [cursor=pointer]':
+                  - img "Cobalt Burst/Light Orange" [ref=e178]
+                - 'button "Sélectionnez la couleur : Illuminate Yellow/Energy Aqua" [ref=e182] [cursor=pointer]':
+                  - img "Illuminate Yellow/Energy Aqua" [ref=e183]
+                - 'button "Sélectionnez la couleur : Seashell/Sun Coral" [ref=e187] [cursor=pointer]':
+                  - img "Seashell/Sun Coral" [ref=e188]
+            - generic [ref=e189]:
+              - generic [ref=e192]:
+                - heading "Largeur" [level=2] [ref=e193]
+                - paragraph [ref=e194]: Standard
+              - generic [ref=e196]:
+                - generic [ref=e197]:
+                  - paragraph [ref=e199]: Taille
+                  - button [ref=e200] [cursor=pointer]:
+                    - paragraph [ref=e203]: Guide des tailles
+                - generic [ref=e205]:
+                  - 'button "Sélectionnez la taille : 35.5" [ref=e207] [cursor=pointer]': "35.5"
+                  - 'button "Sélectionnez la taille : 36" [ref=e209] [cursor=pointer]': "36"
+                  - 'button "Sélectionnez la taille : 37" [ref=e211] [cursor=pointer]': "37"
+                  - 'button "Sélectionnez la taille : 37.5" [ref=e213] [cursor=pointer]': "37.5"
+                  - 'button "Sélectionnez la taille : 38" [ref=e215] [cursor=pointer]': "38"
+                  - 'button "Sélectionnez la taille : 39" [ref=e217] [cursor=pointer]': "39"
+                  - 'button "Sélectionnez la taille : 39.5" [ref=e219] [cursor=pointer]': "39.5"
+                  - 'button "Sélectionnez la taille : 40" [ref=e221] [cursor=pointer]': "40"
+                  - 'button "Sélectionnez la taille : 40.5" [ref=e223] [cursor=pointer]': "40.5"
+                  - 'button "Sélectionnez la taille : 41.5" [ref=e225] [cursor=pointer]': "41.5"
+                  - 'button "Sélectionnez la taille : 42" [ref=e227] [cursor=pointer]': "42"
+                  - 'button "Sélectionnez la taille : 42.5" [ref=e229] [cursor=pointer]': "42.5"
+                  - 'button "Sélectionnez la taille : 43.5" [ref=e231] [cursor=pointer]': "43.5"
+                  - 'button "Sélectionnez la taille : 44" [ref=e233] [cursor=pointer]': "44"
+                  - 'button "Sélectionnez la taille : 44.5" [ref=e235] [cursor=pointer]': "44.5"
+                  - 'button "Sélectionnez la taille : 45" [ref=e237] [cursor=pointer]': "45"
+                  - 'button "Sélectionnez la taille : 46" [ref=e239] [cursor=pointer]': "46"
+                  - 'button "Sélectionnez la taille : 46.5" [ref=e241] [cursor=pointer]': "46.5"
+                  - 'button "Sélectionnez la taille : 47" [ref=e243] [cursor=pointer]': "47"
+                  - 'button "Sélectionnez la taille : 48" [ref=e245] [cursor=pointer]': "48"
+                  - 'button "Sélectionner la taille : 49, Rupture de stock" [ref=e247] [cursor=pointer]': "49"
+                  - 'button "Sélectionner la taille : 50.5, Rupture de stock" [ref=e249] [cursor=pointer]': "50.5"
+              - generic [ref=e250]:
+                - button "Ajouter au panier" [disabled]:
+                  - generic: ...
+              - generic [ref=e251]:
+                - generic [ref=e258]:
+                  - text: "Membres OneASICS™: Gagnez jusqu'à"
+                  - generic [ref=e259]: 220 Moves
+                  - text: avec cet achat
+                  - link "Adhérer gratuitement / Se connecter" [ref=e260] [cursor=pointer]:
+                    - /url: /fr/fr-fr/login/
+                - list [ref=e263]:
+                  - listitem [ref=e264]:
+                    - generic [ref=e267]: Livraison standard gratuite pour toute commande de plus de 50 €
+                  - listitem [ref=e268]:
+                    - generic [ref=e271]: Retour gratuit sous 30 jours sur toutes les commandes
+                  - listitem [ref=e272]:
+                    - generic [ref=e275]:
+                      - text: Livraison offerte & essai de 90 jours d'équipement -
+                      - link "Rejoignez OneASICS™ sans frais." [ref=e276] [cursor=pointer]:
+                        - /url: /fr/fr-fr/auth-response-asicsid/webflow/?action=login
+                  - listitem [ref=e277]:
+                    - generic [ref=e280]:
+                      - text: Besoin d'aide?
+                      - link "Contactez Nous" [ref=e281] [cursor=pointer]:
+                        - /url: /geo/contact-us/
+        - generic [ref=e283]:
+          - generic [ref=e285]:
+            - paragraph [ref=e286]: La SUPERBLAST 3 garantit une foulée ultra-dynamique grâce à ses nouvelles mousses innovantes.
+            - paragraph [ref=e287]: La semelle intermédiaire a été améliorée avec une mousse FF LEAP . La composition de la mousse est inspirée de nos modèles de compétition METASPEED . Légère et réactive, elle est idéale pour les sorties quotidiennes.
+            - paragraph [ref=e288]: Une nouvelle capsule à effet trampoline a été stratégiquement intégrée dans la semelle extérieure. Cet élément permet à la semelle d'être très réactive pour une impulsion et une foulée ultra-dynamiques.
+          - generic [ref=e289]:
+            - generic [ref=e290]:
+              - paragraph [ref=e292]: Surface
+              - generic [ref=e293]: Route
+            - generic [ref=e294]:
+              - generic [ref=e295]:
+                - paragraph [ref=e296]: Amorti
+                - button "More info about Amorti" [ref=e297] [cursor=pointer]
+              - generic [ref=e300]: Élevé
+            - generic [ref=e301]:
+              - generic [ref=e302]:
+                - paragraph [ref=e303]: Drop
+                - button "More info about Drop" [ref=e304] [cursor=pointer]
+              - generic [ref=e307]: 8 mm
+            - generic [ref=e308]:
+              - paragraph [ref=e310]: Poids
+              - generic [ref=e311]: 239 g/8.4 oz
+            - generic [ref=e312]:
+              - paragraph [ref=e314]: Soutien
+              - generic [ref=e315]: Neutre
+            - generic [ref=e316]:
+              - generic [ref=e317]:
+                - paragraph [ref=e318]: Objectif
+                - button "More info about Objectif" [ref=e319] [cursor=pointer]
+              - generic [ref=e322]: Plus vite
+          - generic [ref=e323]:
+            - button [ref=e326] [cursor=pointer]:
+              - heading "Matériaux et technologie" [level=2] [ref=e327]
+            - button [ref=e332] [cursor=pointer]:
+              - heading "Pronation" [level=2] [ref=e333]
+            - button [ref=e338] [cursor=pointer]:
+              - heading "Détails" [level=2] [ref=e339]
+        - generic [ref=e344]:
+          - img "triman" [ref=e346]
+          - generic [ref=e347]:
+            - paragraph [ref=e348]:
+              - text: Veuillez consulter le site
+              - link "www.lafibredutri.fr" [ref=e349] [cursor=pointer]:
+                - /url: https://www.lafibredutri.fr
+              - text: pour plus d'informations sur les instructions de tri applicables aux textiles et aux chaussures. Vous y trouverez également l'emplacement du point de collecte/tri français le plus proche.
+            - paragraph [ref=e350]:
+              - text: Pour plus d'infomations sur le recyclage des emballages, rendez-vous sur
+              - link "www.ecoemballages.fr" [ref=e351] [cursor=pointer]:
+                - /url: http://www.ecoemballages.fr
+        - generic [ref=e353]:
+          - generic:
+            - region
+        - generic [ref=e355]:
+          - generic:
+            - region
+    - contentinfo [ref=e357]:
+      - generic [ref=e358]:
+        - generic [ref=e360]:
+          - generic [ref=e361]:
+            - generic [ref=e362]:
+              - paragraph [ref=e363]: S'inscrire à notre newsletter
+              - paragraph [ref=e364]: Soyez au courant de nos nouveautés, événements exclusifs et offres en ligne avant tout le monde
+              - button "S'inscrire" [ref=e365] [cursor=pointer]
+            - generic [ref=e367]:
+              - paragraph [ref=e368]: Nous suivre
+              - generic [ref=e369]:
+                - link "Facebook" [ref=e370] [cursor=pointer]:
+                  - /url: https://web.facebook.com/ASICS
+                - link "X (anciennement Twitter)" [ref=e373] [cursor=pointer]:
+                  - /url: https://x.com/ASICSeurope
+                - link "Instagram" [ref=e377] [cursor=pointer]:
+                  - /url: https://www.instagram.com/asicsrunning/
+                - link "YouTube" [ref=e382] [cursor=pointer]:
+                  - /url: https://www.youtube.com/channel/UCT135eauXPA36lioy-cmjzw
+                - link "LinkedIn" [ref=e386] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/company/asics-emea/
+          - generic [ref=e391]:
+            - paragraph [ref=e392]: Service client
+            - generic [ref=e393]:
+              - link "Contacter ASICS" [ref=e395] [cursor=pointer]:
+                - /url: /fr/fr-fr/contact-us/
+              - link "Retours" [ref=e397] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/returns-policy/
+              - link "Livraison" [ref=e399] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/shipping-information/
+              - link "Modes de paiement" [ref=e401] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/payment-information/
+              - link "Réclamations" [ref=e403] [cursor=pointer]:
+                - /url: /fr/fr-fr/product-claim/
+              - link "Questions fréquentes" [ref=e405] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/faq/
+              - link "Suivre une commande" [ref=e407] [cursor=pointer]:
+                - /url: /fr/fr-fr/ordersearch/
+              - link "Trouver Un Magasin" [ref=e409] [cursor=pointer]:
+                - /url: /fr/fr-fr/store-locator/
+              - link "Se rétracter du contrat" [ref=e411] [cursor=pointer]:
+                - /url: https://returns.narvar.com/asics/returns?locale=fr_FR
+          - generic [ref=e414]:
+            - paragraph [ref=e415]: À propos d’ASICS
+            - generic [ref=e416]:
+              - link "Notre Histoire" [ref=e418] [cursor=pointer]:
+                - /url: /fr/fr-fr/mk/about-asics/
+              - link "RSE" [ref=e420] [cursor=pointer]:
+                - /url: http://corp.asics.com/en/csr
+              - link "Revue de presse" [ref=e422] [cursor=pointer]:
+                - /url: https://news-emea.asics.com/
+              - link "Relations investisseurs" [ref=e424] [cursor=pointer]:
+                - /url: https://corp.asics.com/en/press
+              - link "Carrières" [ref=e426] [cursor=pointer]:
+                - /url: /fr/fr-fr/mk/careers/search-jobs/
+              - link "Sound Mind, Sound Body Impact" [ref=e428] [cursor=pointer]:
+                - /url: /fr/fr-fr/mk/sound-mind-sound-body-impact/
+              - link "Réductions étudiants" [ref=e430] [cursor=pointer]:
+                - /url: /fr/fr-fr/unidays/
+              - link "ASICS conseil" [ref=e432] [cursor=pointer]:
+                - /url: /fr/fr-fr/asics-advice/
+              - link "Index égalité professionnelle" [ref=e434] [cursor=pointer]:
+                - /url: /fr/fr-fr/professional-equality-index/
+              - link "Qualités environnementales fiche produit" [ref=e436] [cursor=pointer]:
+                - /url: /fr/fr-fr/environmental-detail-of-products/
+              - link "Appli ASICS" [ref=e438] [cursor=pointer]:
+                - /url: /fr/fr-fr/asics-mobile-app/
+          - generic [ref=e441]:
+            - paragraph [ref=e442]: Tailles et pointures
+            - generic [ref=e443]:
+              - link "Tableaux et guides des tailles" [ref=e445] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/size-fit-guide/
+              - link "Guide de la pronation" [ref=e447] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/pronation-guide/
+          - generic [ref=e450]:
+            - paragraph [ref=e451]: ADHÉSION À OneASICS™
+            - generic [ref=e452]:
+              - link "Créer un compte gratuit" [ref=e454] [cursor=pointer]:
+                - /url: /fr/fr-fr/login/?onsite_feature=login-content-footer-create-free-account
+              - link "S'inscrire" [ref=e456] [cursor=pointer]:
+                - /url: /fr/fr-fr/login/?onsite_feature=login-content-footer-sign-in
+              - link "À propos de OneASICS" [ref=e458] [cursor=pointer]:
+                - /url: /fr/fr-fr/oneasics/
+              - link "FAQ OneASICS" [ref=e460] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/faqs-oneasics/
+              - link "OneASICS Conditions générales" [ref=e462] [cursor=pointer]:
+                - /url: https://legal.asics.com/fr-fr/legal/welcome-to-oneasics/
+              - link "Programme de réduction" [ref=e464] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/discount-programs/
+        - generic [ref=e465]:
+          - generic [ref=e466]:
+            - button [ref=e467] [cursor=pointer]:
+              - paragraph [ref=e472]: France (Français)
+            - link [ref=e473] [cursor=pointer]:
+              - /url: https://legal.asics.com/fr-fr/legal/privacy-policy
+              - paragraph [ref=e474]: Politique de confidentialité
+            - link [ref=e475] [cursor=pointer]:
+              - /url: https://legal.asics.com/fr-fr/legal/cookie-policy
+              - paragraph [ref=e476]: Politique en matière de cookies
+            - link [ref=e477] [cursor=pointer]:
+              - /url: "#manage-cookies"
+              - paragraph [ref=e478]: Gérer les préférences de cookies
+            - link [ref=e479] [cursor=pointer]:
+              - /url: /fr/fr-fr/customer-service/terms/
+              - paragraph [ref=e480]: Conditions générales
+            - link [ref=e481] [cursor=pointer]:
+              - /url: /fr/fr-fr/customer-service/disclaimer/
+              - paragraph [ref=e482]: Mentions légales
+          - paragraph [ref=e483]: © 2026 ASICS Europe
+    - region "Notifications (F8)":
+      - list
+  - button [ref=e484]

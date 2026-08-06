@@ -9,11 +9,11 @@ chosen resolution is stated in the header ('selected: by id' / 'by date' /
 
 standard — store-only, no live fetch: header, stats line (km, duration,
 avgHR/maxHR, load with load_source parenthetical when not garmin-native,
-aerobic TE, RPE with provenance), VERDICT comparing to the most similar past
-session (same sport family, duration within ±25%, most recent), HR-zone
-distribution when present, plan compliance via the Phase-0 matcher result in
-plan_calendar, and an RPE nudge with a garmin_log breadcrumb when RPE is
-missing.
+aerobic TE, RPE with provenance), the gear worn when it is known, VERDICT
+comparing to the most similar past session (same sport family, duration
+within ±25%, most recent), HR-zone distribution when present, plan compliance
+via the Phase-0 matcher result in plan_calendar, and an RPE nudge with a
+garmin_log breadcrumb when RPE is missing.
 
 splits — adds the lap analysis fetched live from
 /activity-service/activity/{id}/splits: typed INTERVAL_ACTIVE laps → rep
@@ -35,6 +35,7 @@ import statistics
 from datetime import datetime
 from typing import Any
 
+from fartlek.analytics import gear as gear_mod
 from fartlek.analytics.matcher import sport_family
 from fartlek.health.exceptions import GarminAuthError
 from fartlek.render.renderer import (
@@ -251,6 +252,34 @@ def _stats_line(act: dict[str, Any]) -> str:
     if strength:
         parts.append("set detail not synced in v0.1")
     return " · ".join(parts)
+
+
+def _gear_line(store, act: dict[str, Any]) -> str | None:
+    """What was worn, and its wear only when that wear needs a decision.
+
+    Absent rather than '—' when nothing is linked: attribution backfills in
+    the background, so silence here means "not known yet", never "none worn".
+    The limit is quoted only from the watch threshold up — on a fresh pair it
+    would be noise on every session render.
+    """
+    worn = store.gear_for_activity(act["activity_id"])
+    if not worn:
+        return None
+    bits: list[str] = []
+    for g in worn:
+        total, limit = g.get("total_meters"), g.get("max_meters")
+        piece = str(g["name"])
+        if total is not None:
+            detail = f"{total / 1000:.0f} km"
+            if limit:
+                fraction = total / limit
+                if fraction >= gear_mod.DUE_FRACTION:
+                    detail += f", past its {limit / 1000:g} km limit"
+                elif fraction >= gear_mod.WATCH_FRACTION:
+                    detail += f", {fraction:.0%} of its {limit / 1000:g} km limit"
+            piece += f" ({detail})"
+        bits.append(piece)
+    return "**Gear:** " + " · ".join(bits)
 
 
 def _most_similar(store, act: dict[str, Any]) -> dict[str, Any] | None:
@@ -586,6 +615,10 @@ async def run(
     title += f" ({' · '.join(head_bits)})"
 
     sections: list[Section] = [Section(None, None, prose=_stats_line(act))]
+
+    gear_line = _gear_line(ctx.store, act)
+    if gear_line:
+        sections.append(Section(None, None, prose=gear_line, priority="secondary"))
 
     if detail in ("splits", "full"):
         try:

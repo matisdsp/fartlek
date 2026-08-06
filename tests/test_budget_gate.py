@@ -45,7 +45,7 @@ def real_tokens():
 # The capped rendering tools the corpus must never silently stop covering.
 EXPECTED_TOOLS = {
     "brief", "recovery", "load", "fitness", "week", "whats_changed",
-    "reference", "activity",
+    "reference", "activity", "gear",
 }
 
 

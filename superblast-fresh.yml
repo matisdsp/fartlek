@@ -1,0 +1,460 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - generic [ref=e10]:
+        - link " Envío gratis a partir de 49 €*" [ref=e13] [cursor=pointer]:
+          - /url: /stc/shipment#shipment-costs
+          - generic [ref=e14]: 
+          - generic [ref=e15]: Envío gratis a partir de 49 €*
+        - link " Entrega en 24 horas" [ref=e18] [cursor=pointer]:
+          - /url: /stc/shipment#delivery-time
+          - generic [ref=e19]: 
+          - generic [ref=e20]: Entrega en 24 horas
+        - link " Devolución de 30 días*" [ref=e23] [cursor=pointer]:
+          - /url: /stc/return
+          - generic [ref=e24]: 
+          - generic [ref=e25]: Devolución de 30 días*
+        - link " DeporXperience" [ref=e28] [cursor=pointer]:
+          - /url: /dpx/deporxperience
+          - generic [ref=e29]: 
+          - generic [ref=e30]: DeporXperience
+        - link " TrustpilotExcelente 4.4 sobre 5" [ref=e33] [cursor=pointer]:
+          - /url: https://es.trustpilot.com/review/www.deporvillage.com?utm_medium=trustbox&utm_source=MicroTrustScore
+          - generic [ref=e34]: 
+          - generic [ref=e35]: TrustpilotExcelente 4.4 sobre 5
+        - link " Asesoramiento personalizado" [ref=e38] [cursor=pointer]:
+          - /url: /stc/asesoramiento-personalizado
+          - generic [ref=e39]: 
+          - generic [ref=e40]: Asesoramiento personalizado
+      - generic [ref=e43]:
+        - generic [ref=e44] [cursor=pointer]:
+          - generic [ref=e45]: Enviar a
+          - generic [ref=e46]: España
+          - text: 
+        - text: 
+    - banner [ref=e47]:
+      - link [ref=e49] [cursor=pointer]:
+        - /url: //www.deporvillage.com
+        - img "Deporvillage logo" [ref=e52]
+      - generic [ref=e57]:
+        - generic [ref=e58] [cursor=pointer]: ¿Qué estás buscando?
+        - generic [ref=e59] [cursor=pointer]: 
+      - generic [ref=e61]:
+        - generic [ref=e64]:
+          - button "Únete al club" [ref=e67] [cursor=pointer]
+          - generic [ref=e70]: 
+        - generic [ref=e76] [cursor=pointer]:
+          - text: 
+          - generic [ref=e507]: "1"
+        - link "Mis favoritos" [ref=e79] [cursor=pointer]:
+          - /url: //www.deporvillage.com/customer/wishlist
+          - generic [ref=e80]: 
+        - generic [ref=e81]: 
+      - navigation [ref=e88]:
+        - generic [ref=e89]:
+          - generic [ref=e90]:
+            - link "Rebajas" [ref=e92] [cursor=pointer]:
+              - /url: //www.deporvillage.com/rebajas-1
+            - link "Ciclismo" [ref=e95] [cursor=pointer]:
+              - /url: //www.deporvillage.com/ciclismo
+            - link "Running" [ref=e98] [cursor=pointer]:
+              - /url: //www.deporvillage.com/running
+            - link "Outdoor" [ref=e101] [cursor=pointer]:
+              - /url: //www.deporvillage.com/outdoor
+            - link "Acampada" [ref=e104] [cursor=pointer]:
+              - /url: //www.deporvillage.com/cmg/acampada
+            - link "Natación" [ref=e107] [cursor=pointer]:
+              - /url: //www.deporvillage.com/natacion
+            - link "Triatlón" [ref=e110] [cursor=pointer]:
+              - /url: //www.deporvillage.com/triatlon
+            - link "Training" [ref=e113] [cursor=pointer]:
+              - /url: //www.deporvillage.com/fitness
+            - link "Pádel" [ref=e116] [cursor=pointer]:
+              - /url: //www.deporvillage.com/padel
+            - link "Tenis" [ref=e119] [cursor=pointer]:
+              - /url: //www.deporvillage.com/tenis
+            - link "Más deportes" [ref=e122] [cursor=pointer]:
+              - /url: //www.deporvillage.com/mas_deportes
+            - link "Nutrición y recuperación" [ref=e125] [cursor=pointer]:
+              - /url: //www.deporvillage.com/nutricion
+            - link "Urban" [ref=e128] [cursor=pointer]:
+              - /url: //www.deporvillage.com/sportswear
+            - link "Marcas" [ref=e131] [cursor=pointer]:
+              - /url: //www.deporvillage.com/nuestras-marcas
+            - link "Outlet" [ref=e134] [cursor=pointer]:
+              - /url: //www.deporvillage.com/outlet
+          - generic [ref=e508]:
+            - button [disabled] [ref=e509]:
+              - generic [ref=e510]: 
+            - button [ref=e513] [cursor=pointer]:
+              - generic [ref=e514]: 
+  - generic [ref=e137]:
+    - link [ref=e141] [cursor=pointer]:
+      - /url: /rebajas-1
+      - img "brand_promobanner_summersales" [ref=e145]
+    - navigation [ref=e147]:
+      - list [ref=e148]:
+        - listitem [ref=e149]:
+          - link "Inicio /" [ref=e150] [cursor=pointer]:
+            - /url: //www.deporvillage.com/
+            - text: Inicio
+            - generic [ref=e151]: /
+        - listitem [ref=e152]:
+          - link "Running /" [ref=e153] [cursor=pointer]:
+            - /url: //www.deporvillage.com/running
+            - text: Running
+            - generic [ref=e154]: /
+        - listitem [ref=e155]:
+          - link "Zapatillas Running" [ref=e156] [cursor=pointer]:
+            - /url: //www.deporvillage.com/zapatillas-running
+    - generic [ref=e157]:
+      - generic [ref=e159]:
+        - generic [ref=e160]:
+          - generic [ref=e161]:
+            - 'img "Zapatillas ASICS Superblast 3 negro gris claro - #1" [ref=e166]'
+            - 'img "Zapatillas ASICS Superblast 3 negro gris claro - #2" [ref=e171]'
+            - 'img "Zapatillas ASICS Superblast 3 negro gris claro - #3" [ref=e176]'
+            - 'img "Zapatillas ASICS Superblast 3 negro gris claro - #4" [ref=e181]'
+          - button "Ver más " [ref=e184] [cursor=pointer]:
+            - generic [ref=e185]:
+              - generic [ref=e186]: Ver más
+              - generic [ref=e187]: 
+        - generic [ref=e188]:
+          - generic [ref=e189]: Las ASICS Superblast 3 son ideales para corredores que buscan una amortiguación avanzada y un retorno de energía excepcional en cada zancada. Incorporan la mediasuela FF LEAP, un 33 % más ligera y un 13 % más reactiva que su predecesora, combinada con una suela inspirada en cama elástica que potencia el impulso. Su parte superior tejida y transpirable garantiza confort y frescura, mientras que el sistema de ajuste en la lengüeta ofrece una sujeción segura del mediopié. Con un drop de 8 mm y un peso de solo 239 g, estas zapatillas son perfectas para pisada neutra y entrenamientos diarios, aportando dinamismo y eficiencia a cada carrera. Además, su diseño sostenible reduce el impacto ambiental, sumando valor para el corredor consciente.
+          - generic [ref=e192]:
+            - generic [ref=e195]:
+              - generic [ref=e196]:
+                - paragraph [ref=e517]: Las zapatillas ASICS Superblast 3 son un calzado diseñado para corredores que buscan una gran energía y amortiguación en cada pisada.
+                - paragraph [ref=e518]: Este modelo incorpora una mediasuela avanzada con amortiguación FF LEAP, una espuma ligera y reactiva inspirada en las zapatillas de competición METASPEED, que proporciona una respuesta dinámica para entrenamientos diarios. La suela presenta una cápsula con diseño tipo cama elástica que mejora el retorno de energía durante el despegue, ofreciendo una sensación más enérgica y fluida al correr. Además, la parte superior está confeccionada en un material tejido y transpirable que mantiene el pie seco y cómodo durante el ejercicio.
+                - paragraph [ref=e519]: "Las zapatillas cuentan con una lengüeta reforzada con sistema de ajuste para una mejor sujeción del mediopié y evitar deslizamientos. También incluyen detalles reflectantes que aumentan la visibilidad en condiciones de poca luz. La plantilla está fabricada mediante un proceso de teñido en solución que reduce el consumo de agua y las emisiones de carbono, aportando un valor sostenible al producto.Características:"
+                - paragraph
+                - list [ref=e520]:
+                  - listitem [ref=e521]: Amortiguación FF LEAP, un 33 % más ligera y un 13 % más reactiva que FF BLAST
+                  - listitem [ref=e522]: Mediasuela con amortiguación FF BLAST PLUS para pisada acolchada y reactiva
+                  - listitem [ref=e523]: Suela con diseño inspirado en cama elástica para mayor retorno de energía
+                  - listitem [ref=e524]: Parte superior tejida y transpirable que mantiene el pie seco
+                  - listitem [ref=e525]: Lengüeta reforzada con sistema de ajuste para mayor sujeción
+                  - listitem [ref=e526]: Detalles reflectantes para mejorar la visibilidad en condiciones de poca luz
+                  - listitem [ref=e527]: Peso aproximado de 239 gramos (8.4 oz)
+                  - listitem [ref=e528]: Drop de 8 mm, ideal para corredores con pisada neutra
+                - paragraph
+              - generic [ref=e209]: "Referencia: AS2-1013A177-001-U"
+            - button "Leer más" [ref=e211] [cursor=pointer]
+          - generic [ref=e214]:
+            - button "Button" [ref=e216] [cursor=pointer]:
+              - generic [ref=e217]: Opiniones
+              - generic [ref=e218]: 
+            - button "Button" [ref=e221] [cursor=pointer]:
+              - generic [ref=e222]: Envío y devoluciones
+              - generic [ref=e223]: 
+      - generic [ref=e226]:
+        - generic [ref=e227]:
+          - generic [ref=e228]:
+            - link "ASICS" [ref=e229] [cursor=pointer]:
+              - /url: //www.deporvillage.com/asics
+            - heading "Zapatillas ASICS Superblast 3 negro gris claro" [level=1] [ref=e230]
+          - button "Añadir a favoritos" [ref=e231] [cursor=pointer]:
+            - generic [ref=e232]: 
+        - generic [ref=e235]: Sé el primero en opinar
+        - generic [ref=e237]: 220,00 €
+        - iframe [ref=e531]:
+          - button "Paga en 3 plazos de 73,34€, sin intereses. 0% TAE. Más información" [ref=f2e2]:
+            - generic [ref=f2e9] [cursor=pointer]:
+              - generic [ref=f2e10]: Paga en 3 plazos de 73,34€, sin intereses.
+              - paragraph [ref=f2e14]:
+                - generic [ref=f2e15]: 0% TAE.
+                - generic [ref=f2e16]: Más información
+        - generic [ref=e242]:
+          - generic [ref=e244]:
+            - paragraph [ref=e245]: Colores
+            - generic [ref=e248]:
+              - generic "Zapatillas ASICS Superblast 3 negro gris claro" [ref=e250]:
+                - img "Zapatillas ASICS Superblast 3 negro gris claro" [ref=e253]
+              - link [ref=e255] [cursor=pointer]:
+                - /url: //www.deporvillage.com/zapatillas-asics-superblast-3-amarillo-fosforito-azul-agua
+                - img "Zapatillas ASICS Superblast 3 amarillo fosforito azul agua" [ref=e258]
+          - generic [ref=e260]:
+            - generic [ref=e261]:
+              - generic [ref=e262]: Los usuarios suelen comprar una talla más.
+              - generic [ref=e263]:
+                - generic [ref=e264]: 
+                - generic [ref=e265]: Guía de tallas
+            - button "Selecciona una talla " [ref=e267] [cursor=pointer]:
+              - generic [ref=e268]: Selecciona una talla
+              - text: 
+          - button " Añadir al carrito" [ref=e272] [cursor=pointer]:
+            - generic [ref=e273]: 
+            - text: Añadir al carrito
+          - generic [ref=e275]:
+            - generic [ref=e277]:
+              - text: Acumula
+              - generic [ref=e278]: 220 puntos
+              - text: con
+              - link "deporXperience" [ref=e279] [cursor=pointer]:
+                - /url: /stc/programa-de-puntos
+            - generic [ref=e280]: 
+          - generic [ref=e283]:
+            - generic [ref=e284]:
+              - generic [ref=e285]: 
+              - text: Mejor precio online
+            - generic [ref=e286]:
+              - generic [ref=e287]: 
+              - text: Devolución de 30 días
+        - generic [ref=e289]:
+          - generic [ref=e290]: Te asesoramos
+          - generic [ref=e291]: ¿Te gustaría obtener más información? Estamos aquí para asesorarte y ayudarte a encontrar el producto perfecto para ti. ¡Consúltanos y descubre todas tus opciones!
+          - text:  
+          - button "Hablar con un experto" [ref=e293] [cursor=pointer]:
+            - generic [ref=e294]:
+              - generic [ref=e295]: 
+              - generic [ref=e297]: Hablar con un experto
+    - generic [ref=e299]:
+      - generic [ref=e300]: Ver más artículos de
+      - generic [ref=e301]:
+        - link "Mujer" [ref=e302] [cursor=pointer]:
+          - /url: //www.deporvillage.com/zapatillas-running:mujer
+        - link "Hombre" [ref=e303] [cursor=pointer]:
+          - /url: //www.deporvillage.com/zapatillas-running:hombre
+        - link "Neutro" [ref=e304] [cursor=pointer]:
+          - /url: //www.deporvillage.com/zapatillas-running:neutro
+        - link "Asfalto" [ref=e305] [cursor=pointer]:
+          - /url: //www.deporvillage.com/zapatillas-running:asfalto
+        - link "Reducción de emisiones" [ref=e306] [cursor=pointer]:
+          - /url: //www.deporvillage.com/zapatillas-running:reduccion_de_emisiones
+        - link "Ahorro de agua" [ref=e307] [cursor=pointer]:
+          - /url: //www.deporvillage.com/zapatillas-running:ahorro_de_agua
+        - link "ASICS" [ref=e308] [cursor=pointer]:
+          - /url: //www.deporvillage.com/asics
+        - link "Zapatillas Running ASICS" [ref=e309] [cursor=pointer]:
+          - /url: //www.deporvillage.com/zapatillas-running:asics
+        - link "Zapatillas Running" [ref=e310] [cursor=pointer]:
+          - /url: //www.deporvillage.com/zapatillas-running
+    - generic [ref=e312]:
+      - generic [ref=e313]: Marcas de Zapatillas Running similares
+      - list [ref=e314]:
+        - listitem [ref=e315]:
+          - link "adidas" [ref=e316] [cursor=pointer]:
+            - /url: //www.deporvillage.com/adidas
+        - listitem [ref=e317]:
+          - link "ASICS" [ref=e318] [cursor=pointer]:
+            - /url: //www.deporvillage.com/asics
+        - listitem [ref=e319]:
+          - link "Inov 8" [ref=e320] [cursor=pointer]:
+            - /url: //www.deporvillage.com/inov-8
+        - listitem [ref=e321]:
+          - link "La Sportiva" [ref=e322] [cursor=pointer]:
+            - /url: //www.deporvillage.com/la-sportiva
+        - listitem [ref=e323]:
+          - link "Mizuno" [ref=e324] [cursor=pointer]:
+            - /url: //www.deporvillage.com/mizuno
+        - listitem [ref=e325]:
+          - link "New Balance" [ref=e326] [cursor=pointer]:
+            - /url: //www.deporvillage.com/new-balance
+        - listitem [ref=e327]:
+          - link "Nike" [ref=e328] [cursor=pointer]:
+            - /url: //www.deporvillage.com/nike
+        - listitem [ref=e329]:
+          - link "Salomon" [ref=e330] [cursor=pointer]:
+            - /url: //www.deporvillage.com/salomon
+        - listitem [ref=e331]:
+          - link "Scott" [ref=e332] [cursor=pointer]:
+            - /url: //www.deporvillage.com/scott
+  - contentinfo [ref=e335]:
+    - generic [ref=e336]:
+      - list [ref=e337]:
+        - listitem [ref=e338]:
+          - strong [ref=e339]: Sobre Deporvillage
+        - listitem [ref=e340]:
+          - link "Quiénes somos" [ref=e341] [cursor=pointer]:
+            - /url: https://corporate.deporvillage.com/quienes-somos
+        - listitem [ref=e342]:
+          - link "DeporXperience" [ref=e343] [cursor=pointer]:
+            - /url: /dpx/deporxperience
+        - listitem [ref=e344]:
+          - link "Sala de prensa" [ref=e345] [cursor=pointer]:
+            - /url: https://corporate.deporvillage.com/sala-de-prensa
+        - listitem [ref=e346]:
+          - link "Ventajas" [ref=e347] [cursor=pointer]:
+            - /url: /ventajas-deporvillage
+        - listitem [ref=e348]:
+          - link "Trabaja con nosotros" [ref=e349] [cursor=pointer]:
+            - /url: https://corporate.deporvillage.com/trabaja-con-nosotros
+        - listitem [ref=e350]:
+          - link "Tienda" [ref=e351] [cursor=pointer]:
+            - /url: /stc/tienda-deporvillage-alcorcon
+      - list [ref=e352]:
+        - listitem [ref=e353]:
+          - strong [ref=e354]: Garantías
+        - listitem [ref=e355]:
+          - link "Devoluciones" [ref=e356] [cursor=pointer]:
+            - /url: /stc/return
+        - listitem [ref=e357]:
+          - link "Plazos de entrega" [ref=e358] [cursor=pointer]:
+            - /url: /stc/shipment#delivery-time
+        - listitem [ref=e359]:
+          - link "Métodos de pago" [ref=e360] [cursor=pointer]:
+            - /url: /stc/purchase#payment-methods
+        - listitem [ref=e361]:
+          - link "Compra segura" [ref=e362] [cursor=pointer]:
+            - /url: /ventajas-deporvillage#seguridad
+      - list [ref=e363]:
+        - listitem [ref=e364]:
+          - strong [ref=e365]: Atención al cliente
+        - listitem [ref=e366]:
+          - link "Ayuda" [ref=e367] [cursor=pointer]:
+            - /url: /stc/help
+        - listitem [ref=e368]:
+          - link "Seguimiento pedidos" [ref=e369] [cursor=pointer]:
+            - /url: /stc/orders#tracking
+        - listitem [ref=e370]:
+          - link "Gastos de envío" [ref=e371] [cursor=pointer]:
+            - /url: /stc/shipment#shipment-costs
+        - listitem [ref=e372]:
+          - link "Cambio de talla" [ref=e373] [cursor=pointer]:
+            - /url: /stc/return#size-change
+        - listitem [ref=e374]:
+          - link "Facturas" [ref=e375] [cursor=pointer]:
+            - /url: /stc/payment#invoice
+      - list [ref=e376]:
+        - listitem [ref=e377]:
+          - strong [ref=e378]: Más Deporvillage
+        - listitem [ref=e379]:
+          - link "Eventos patrocinados" [ref=e380] [cursor=pointer]:
+            - /url: https://corporate.deporvillage.com/eventos-patrocinados
+        - listitem [ref=e381]:
+          - link "Blog" [ref=e382] [cursor=pointer]:
+            - /url: https://magazine.deporvillage.com?utm_source=deporvillage.com&utm_medium=footer
+      - list [ref=e383]:
+        - listitem [ref=e384]:
+          - strong [ref=e385]: Deporvillage en
+        - listitem [ref=e386]:
+          - generic "Français" [ref=e387]:
+            - img "fr - Français" [ref=e390]
+            - text: Français
+        - listitem [ref=e391]:
+          - generic "Italiano" [ref=e392]:
+            - img "it - Italiano" [ref=e395]
+            - text: Italiano
+        - listitem [ref=e396]:
+          - generic "Português" [ref=e397]:
+            - img "pt - Português" [ref=e400]
+            - text: Português
+        - listitem [ref=e401]:
+          - generic "Deutsch" [ref=e402]:
+            - img "de - Deutsch" [ref=e405]
+            - text: Deutsch
+        - listitem [ref=e406]:
+          - generic "English" [ref=e407]:
+            - img "gb - English" [ref=e410]
+            - text: English
+    - separator [ref=e411]
+    - generic [ref=e412]:
+      - generic [ref=e413]:
+        - paragraph [ref=e414]:
+          - strong [ref=e415]: Formas de pago
+        - generic [ref=e416]:
+          - generic [ref=e419]:
+            - img "Mastercard"
+          - link [ref=e420] [cursor=pointer]:
+            - /url: https://www.paypal.com/es/webapps/mpp/paypal-popup
+            - generic [ref=e422]:
+              - img "Paypal"
+          - generic [ref=e425]:
+            - img "Visa"
+          - generic [ref=e428]:
+            - img "Bizum"
+          - generic [ref=e431]:
+            - img "ClickToPay"
+          - generic [ref=e434]:
+            - img "Klarna"
+          - generic [ref=e437]:
+            - img "Transferencia"
+          - generic [ref=e440]:
+            - img "Cofidis"
+          - generic [ref=e443]:
+            - img "Aplazame"
+      - generic [ref=e445]:
+        - paragraph [ref=e446]:
+          - strong [ref=e447]: Envíos realizados con
+        - generic [ref=e448]:
+          - generic [ref=e451]:
+            - img "GLS"
+          - generic [ref=e454]:
+            - img "DHL"
+          - generic [ref=e457]:
+            - img "Punto Pack"
+          - generic [ref=e460]:
+            - img "Correos Express"
+      - generic [ref=e462]:
+        - paragraph [ref=e463]:
+          - strong [ref=e464]: Seguridad
+        - generic [ref=e468]:
+          - img "Pago seguro"
+      - generic [ref=e470]:
+        - paragraph [ref=e471]:
+          - strong [ref=e472]: App Deporvillage
+        - generic [ref=e473]:
+          - link [ref=e474] [cursor=pointer]:
+            - /url: https://reskyt.com/app/deporvillage
+            - generic [ref=e476]:
+              - img "App Store"
+          - link [ref=e477] [cursor=pointer]:
+            - /url: https://reskyt.com/app/deporvillage
+            - generic [ref=e479]:
+              - img "Google Play"
+    - list [ref=e481]:
+      - listitem [ref=e482]:
+        - strong [ref=e483]: Fulfillment por
+      - listitem [ref=e484]:
+        - generic [ref=e486]:
+          - img "ESBO"
+    - generic [ref=e487]:
+      - link "Facebook" [ref=e488] [cursor=pointer]:
+        - /url: https://facebook.com/deporvillage
+        - generic [ref=e489]: 
+      - link "Instagram" [ref=e490] [cursor=pointer]:
+        - /url: https://www.instagram.com/deporvillage
+        - generic [ref=e491]: 
+      - link "Strava" [ref=e492] [cursor=pointer]:
+        - /url: https://www.strava.com/clubs/610143
+        - generic [ref=e493]: 
+      - link "Youtube" [ref=e494] [cursor=pointer]:
+        - /url: https://www.youtube.com/user/deporvillagecom
+        - generic [ref=e495]: 
+      - link "X" [ref=e496] [cursor=pointer]:
+        - /url: https://www.twitter.com/deporvillage
+        - generic [ref=e497]: 
+    - generic [ref=e498]:
+      - paragraph [ref=e499]: Deporvillage es una tienda de deportes online especializada en primeras marcas.
+      - paragraph [ref=e500]:
+        - text: © 2011-2026 Deporvillage, S.L. - Todos los derechos reservados |
+        - link "Condiciones legales" [ref=e501] [cursor=pointer]:
+          - /url: /condiciones-legales
+        - text: "|"
+        - link "Política de privacidad" [ref=e502] [cursor=pointer]:
+          - /url: /politica-de-privacidad
+        - text: "|"
+        - link "Política de cookies" [ref=e503] [cursor=pointer]:
+          - /url: /politica-de-cookies
+        - text: "|"
+        - link "Condiciones generales de compra web/app" [ref=e504] [cursor=pointer]:
+          - /url: /condiciones-generales-compra-web-app
+        - text: "|"
+        - link "Canal y Sistema Interno de Información - Whistleblowing" [ref=e505] [cursor=pointer]:
+          - /url: /canal-de-denuncias
+      - paragraph [ref=e506]: C.I.F. B65272742. Inscrita en el Registro Mercantil Barcelona. tomo 41710. folio 172. Hoja B 394154. Inscripción 1.
+  - alert [ref=e532]
+  - dialog "Nos preocupamos por tu privacidad" [ref=e535]:
+    - generic [ref=e537]:
+      - generic [ref=e539]:
+        - heading "Nos preocupamos por tu privacidad" [level=2] [ref=e540]
+        - generic [ref=e541]: Tanto nosotros como nuestros 381 socios almacenamos y accedemos a datos personales, como datos de navegación o identificadores únicos, en tu dispositivo. Si seleccionas Aceptar cookies, estarás permitiendo que las tecnologías de rastreo apoyen los propósitos que se muestran en «nosotros y nuestros socios tratamos datos para proporcionar». Si seleccionas Rechazarlas todas o retiras tu consentimiento, los deshabilitarás. Si se deshabilitan los rastreadores, parte del contenido y los anuncios que ves podrían dejar de ser relevantes para ti. Puedes volver a acceder a este menú para cambiar tus opciones o retirar el consentimiento en cualquier momento haciendo clic en el enlace «Gestionar las preferencias» que aparece en el en la parte inferior de la página web. Tus opciones tendrán efecto dentro de nuestro Sitio web. Para saber más, consulta nuestra política de privacidad.
+        - generic [ref=e542]:
+          - heading "Almacenamos cookies para:" [level=3] [ref=e543]
+          - paragraph [ref=e545]:
+            - text: Analizar activamente las características del dispositivo para su identificación. Almacenar la información en un dispositivo y/o acceder a ella. Publicidad y contenido personalizados, medición de publicidad y contenido, investigación de audiencia y desarrollo de servicios.
+            - button "Lista de proveedores" [ref=e546] [cursor=pointer]
+      - generic [ref=e548]:
+        - button "Aceptar cookies" [ref=e549] [cursor=pointer]
+        - button "Rechazarlas todas" [ref=e550] [cursor=pointer]
+        - button "Gestionar la preferencias, Abre el cuadro de diálogo del centro de preferencias." [ref=e551] [cursor=pointer]: Gestionar la preferencias

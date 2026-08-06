@@ -1,0 +1,751 @@
+- generic [active] [ref=f7e1]:
+  - list:
+    - listitem:
+      - link "Accéder à la barre de recherche" [ref=f7e2] [cursor=pointer]:
+        - /url: "#searchinput"
+        - text: Accéder à la barre de recherche Entrer →
+    - listitem:
+      - link "Accéder au compte client" [ref=f7e3] [cursor=pointer]:
+        - /url: "#login-link"
+        - text: Accéder au compte client Entrer →
+    - listitem:
+      - link "Accéder au contenu principal" [ref=f7e4] [cursor=pointer]:
+        - /url: "#main"
+        - text: Accéder au contenu principal Entrer →
+    - listitem:
+      - link "Accéder au footer" [ref=f7e5] [cursor=pointer]:
+        - /url: "#footer"
+        - text: Accéder au footer Entrer →
+  - banner [ref=f7e6]:
+    - generic [ref=f7e9] [cursor=pointer]:
+      - img "Soldes" [ref=f7e11]
+      - generic [ref=f7e12]:
+        - text: "Plus que 01 J : 11 H : 35 MIN : 18 SEC"
+        - generic [ref=f7e13]: pour en profiter ! Toutes les offres ›
+    - generic [ref=f7e14]:
+      - generic [ref=f7e15]:
+        - navigation [ref=f7e16]:
+          - navigation [ref=f7e19]:
+            - list [ref=f7e20]:
+              - listitem [ref=f7e21]:
+                - link "intersport.fr" [ref=f7e22] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/
+              - listitem [ref=f7e23]:
+                - link "Location de skis / vélos" [ref=f7e24] [cursor=pointer]:
+                  - /url: https://www.intersport-rent.fr/fr
+              - listitem [ref=f7e25]:
+                - link "Clubs & collectivités" [ref=f7e26] [cursor=pointer]:
+                  - /url: https://www.intersport-clubs.fr/
+              - listitem [ref=f7e27]:
+                - link "Carte cadeau" [ref=f7e28] [cursor=pointer]:
+                  - /url: https://cartes-cadeaux.intersport.fr/
+              - listitem [ref=f7e29]:
+                - link "E-catalogue" [ref=f7e30] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/e-catalogue-sport/
+              - listitem [ref=f7e31]:
+                - link "Club partenaires" [ref=f7e32] [cursor=pointer]:
+                  - /url: https://intersport-clubpartenaires.fr/?utm_source=crm&utm_medium=digital&utm_campaign=siteits&utm_content=subheader
+              - listitem [ref=f7e33]:
+                - link "Engagés Sport" [ref=f7e34] [cursor=pointer]:
+                  - /url: https://engages-sport.intersport.fr/
+              - listitem [ref=f7e35]:
+                - link "Blackstore.fr" [ref=f7e36] [cursor=pointer]:
+                  - /url: https://www.blackstore.fr/
+        - generic [ref=f7e53]:
+          - heading [level=1] [ref=f7e54]:
+            - link [ref=f7e55] [cursor=pointer]:
+              - /url: /
+              - img "Intersport" [ref=f7e56]
+          - generic [ref=f7e57]:
+            - textbox "Saisissez votre recherche, une liste de suggestions vous sera proposée." [ref=f7e58]:
+              - /placeholder: Rechercher...
+            - button "Rechercher" [ref=f7e59] [cursor=pointer]
+            - generic:
+              - status
+          - list [ref=f7e62]:
+            - listitem [ref=f7e63]:
+              - link "Magasins" [ref=f7e64] [cursor=pointer]:
+                - /url: /store-finder
+            - listitem [ref=f7e68]:
+              - link "Connexion" [ref=f7e69] [cursor=pointer]:
+                - /url: /my-account/
+            - listitem [ref=f7e73]:
+              - link "Panier" [ref=f7e74] [cursor=pointer]:
+                - /url: /cart/
+      - generic [ref=f7e78]:
+        - navigation "Navigation principale" [ref=f7e79]:
+          - list [ref=f7e80]:
+            - listitem [ref=f7e81]:
+              - button "Soldes" [ref=f7e82] [cursor=pointer]
+            - listitem [ref=f7e86]:
+              - button "Sports" [ref=f7e87] [cursor=pointer]
+            - listitem [ref=f7e91]:
+              - button "Homme" [ref=f7e92] [cursor=pointer]
+            - listitem [ref=f7e96]:
+              - button "Femme" [ref=f7e97] [cursor=pointer]
+            - listitem [ref=f7e101]:
+              - button "Enfant" [ref=f7e102] [cursor=pointer]
+            - listitem [ref=f7e106]:
+              - button "Marques" [ref=f7e107] [cursor=pointer]
+            - listitem [ref=f7e111]:
+              - button "Nos Offres" [ref=f7e112] [cursor=pointer]
+              - text: "|"
+            - listitem [ref=f7e116]:
+              - link "La Team INTERSPORT" [ref=f7e117] [cursor=pointer]:
+                - /url: /cartefid/
+        - status [ref=f7e118]
+  - main [ref=f7e119]:
+    - generic [ref=f7e123]:
+      - listbox [ref=f7e126]:
+        - option [ref=f7e127]:
+          - link [ref=f7e128] [cursor=pointer]:
+            - /url: /soldes/2-achetes-3eme-offert/
+            - img "2 articles achetés soldés, le 3ème offert" [ref=f7e130]
+        - option [ref=f7e131]:
+          - link [ref=f7e132] [cursor=pointer]:
+            - /url: /soldes/
+        - option [ref=f7e135]:
+          - link [ref=f7e136] [cursor=pointer]:
+            - /url: /ope/rentree/
+        - option [ref=f7e139]:
+          - link [ref=f7e140] [cursor=pointer]:
+            - /url: /ope/rentree/vetements-enfants-2eme-moins-50/
+      - generic [ref=f7e143]:
+        - img "2 articles achetés soldés, le 3ème offert" [ref=f7e149] [cursor=pointer]
+        - img "Chaussures de running Adizero EVO SL <br>ADIDAS" [ref=f7e154] [cursor=pointer]
+        - img "7,99€ le haut ou le bas<br>LOTTO" [ref=f7e159] [cursor=pointer]
+        - img "-50% sur le 2ème vêtement enfant" [ref=f7e164] [cursor=pointer]
+    - generic [ref=f7e166]:
+      - heading "Au coeur des Soldes" [level=2] [ref=f7e168]
+      - generic [ref=f7e170]:
+        - button "Previous" [disabled]
+        - listbox [ref=f7e172]:
+          - option "Vêtements" [ref=f7e173] [cursor=pointer]
+          - option "Chaussures" [ref=f7e175] [cursor=pointer]
+          - option "Running" [ref=f7e177] [cursor=pointer]
+          - option [ref=f7e179] [cursor=pointer]:
+            - generic [ref=f7e180]: Plage
+          - option [ref=f7e181] [cursor=pointer]:
+            - generic [ref=f7e182]: Football
+          - option [ref=f7e183] [cursor=pointer]:
+            - generic [ref=f7e184]: Randonnée
+          - option [ref=f7e185] [cursor=pointer]:
+            - generic [ref=f7e186]: Training
+          - option [ref=f7e187] [cursor=pointer]:
+            - generic [ref=f7e188]: Marques
+        - button "Next" [ref=f7e189] [cursor=pointer]
+    - generic [ref=f7e191]:
+      - generic [ref=f7e193]:
+        - heading "Sélections du moment" [level=2] [ref=f7e194]
+        - generic [ref=f7e195]:
+          - button "Promo vélos" [ref=f7e196] [cursor=pointer]
+          - button "Soldes Chaussures" [ref=f7e197] [cursor=pointer]
+          - button "Vacances" [ref=f7e198] [cursor=pointer]
+          - button "Promo Football" [ref=f7e199] [cursor=pointer]
+          - button "Soldes Running" [ref=f7e200] [cursor=pointer]
+          - button "Essentiels de l'été" [ref=f7e201] [cursor=pointer]
+      - generic [ref=f7e203]:
+        - generic [ref=f7e205]:
+          - button "Previous" [ref=f7e206] [cursor=pointer]
+          - listbox [ref=f7e208]:
+            - article [ref=f7e209]:
+              - generic [ref=f7e210]:
+                - generic [ref=f7e211]: "-400€"
+                - generic [ref=f7e220]:
+                  - link [ref=f7e221] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/velo_de_route_adulte_century_350-nakamura-p-YF60G8~0R6/
+                    - text: NAKAMURA Vélo de route adulte Century 350
+                  - generic [ref=f7e222]:
+                    - generic [ref=f7e223]: 1 couleur
+                    - generic [ref=f7e224]: "| 9 avis"
+                  - generic [ref=f7e237]:
+                    - generic [ref=f7e238]: 1 099,99 €
+                    - deletion [ref=f7e240]: 1 499,99 €
+            - article [ref=f7e241]:
+              - generic [ref=f7e242]:
+                - generic [ref=f7e243]: "-200€"
+                - generic [ref=f7e252]:
+                  - link [ref=f7e253] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/noir-vtt_electrique_adulte_e_summit_lite-nakamura-p-YH60V2~C9F/
+                    - text: NAKAMURA Vtt électrique adulte E-SUMMIT LITE
+                  - generic [ref=f7e254]: 1 couleur
+                  - generic [ref=f7e256]:
+                    - generic [ref=f7e257]: 1 199,99 €
+                    - deletion [ref=f7e259]: 1 399,99 €
+            - article [ref=f7e260]:
+              - generic [ref=f7e261]:
+                - generic [ref=f7e262]: "-300€"
+                - generic [ref=f7e271]:
+                  - link [ref=f7e272] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/noir-velo_de_ville_electrique_adulte_crosslite-nakamura-p-YH60W0~M80/
+                    - text: NAKAMURA Vélo de ville électrique adulte Crosslite
+                  - generic [ref=f7e273]: 1 couleur
+                  - generic [ref=f7e275]:
+                    - generic [ref=f7e276]: 1 599,99 €
+                    - deletion [ref=f7e278]: 1 899,99 €
+            - article [ref=f7e279]:
+              - generic [ref=f7e280]:
+                - generic [ref=f7e281]:
+                  - generic [ref=f7e283]:
+                    - img "Soldes" [ref=f7e285]
+                    - generic [ref=f7e286]: "-600€"
+                  - generic [ref=f7e288]:
+                    - generic "Vtt électrique adulte E SUMMIT 950S" [ref=f7e289] [cursor=pointer]
+                    - generic "Vtt électrique adulte E SUMMIT 950S"
+                - generic [ref=f7e290]:
+                  - link "NAKAMURA Vtt électrique adulte E SUMMIT 950S" [ref=f7e291] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/rouge-vtt_electrique_adulte_e_summit_950s-nakamura-p-YE60VS~AMR/
+                  - generic [ref=f7e292]:
+                    - generic [ref=f7e293]: 1 couleur
+                    - generic [ref=f7e294]: "| 6 avis"
+                  - generic [ref=f7e307]:
+                    - generic [ref=f7e308]: 2 299,99 €
+                    - deletion [ref=f7e310]: 2 899,99 €
+            - option [ref=f7e311]:
+              - generic [ref=f7e312]:
+                - link [ref=f7e313] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/ope/ventes-flash-velo/
+                - link "J'en profite" [ref=f7e314] [cursor=pointer]:
+                  - /url: /ope/ventes-flash-velo/
+            - option "Soldes -300€ NAKAMURA Vélo gravel adulte ALLROAD TEAM 1 couleur | 33 avis 1 899,99 € 2 199,99 €" [ref=f7e316]:
+              - generic [ref=f7e317]:
+                - generic [ref=f7e318]:
+                  - generic [ref=f7e320]:
+                    - img "Soldes" [ref=f7e322]
+                    - generic [ref=f7e323]: "-300€"
+                  - generic [ref=f7e325]:
+                    - generic "Vélo gravel adulte ALLROAD TEAM" [ref=f7e326] [cursor=pointer]
+                    - generic "Vélo gravel adulte ALLROAD TEAM"
+                - generic [ref=f7e327]:
+                  - link "NAKAMURA Vélo gravel adulte ALLROAD TEAM" [ref=f7e328] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/bleu-velo_gravel_adulte_allroad_team-nakamura-p-YF60HE~8QR/
+                  - generic [ref=f7e329]:
+                    - generic [ref=f7e330]: 1 couleur
+                    - generic [ref=f7e331]: "| 33 avis"
+                  - generic [ref=f7e344]:
+                    - generic [ref=f7e345]: 1 899,99 €
+                    - deletion [ref=f7e347]: 2 199,99 €
+            - option [ref=f7e348]:
+              - generic [ref=f7e349]:
+                - generic [ref=f7e350]: "-40€"
+                - generic [ref=f7e359]:
+                  - link [ref=f7e360] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/velo_enfant_20_pouces_5_8_ans_complite_evo_kid-nakamura-p-YF60U0~C4R/
+                    - text: NAKAMURA Vélo enfant 20 pouces 5-8 ans Complite Evo Kid
+                  - generic [ref=f7e361]:
+                    - generic [ref=f7e362]: 1 couleur
+                    - generic [ref=f7e363]: "| 9 avis"
+                  - generic [ref=f7e376]:
+                    - generic [ref=f7e377]: 279,99 €
+                    - deletion [ref=f7e379]: 319,99 €
+            - option [ref=f7e380]:
+              - generic [ref=f7e381]:
+                - generic [ref=f7e382]: "-400€"
+                - generic [ref=f7e391]:
+                  - link [ref=f7e392] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/velo_de_route_adulte_century_350-nakamura-p-YF60G8~0R6/
+                    - text: NAKAMURA Vélo de route adulte Century 350
+                  - generic [ref=f7e393]:
+                    - generic [ref=f7e394]: 1 couleur
+                    - generic [ref=f7e395]: "| 9 avis"
+                  - generic [ref=f7e408]:
+                    - generic [ref=f7e409]: 1 099,99 €
+                    - deletion [ref=f7e411]: 1 499,99 €
+            - option [ref=f7e412]:
+              - generic [ref=f7e413]:
+                - generic [ref=f7e414]: "-200€"
+                - generic [ref=f7e423]:
+                  - link [ref=f7e424] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/noir-vtt_electrique_adulte_e_summit_lite-nakamura-p-YH60V2~C9F/
+                    - text: NAKAMURA Vtt électrique adulte E-SUMMIT LITE
+                  - generic [ref=f7e425]: 1 couleur
+                  - generic [ref=f7e427]:
+                    - generic [ref=f7e428]: 1 199,99 €
+                    - deletion [ref=f7e430]: 1 399,99 €
+            - option [ref=f7e431]:
+              - generic [ref=f7e432]:
+                - generic [ref=f7e433]: "-300€"
+                - generic [ref=f7e442]:
+                  - link [ref=f7e443] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/noir-velo_de_ville_electrique_adulte_crosslite-nakamura-p-YH60W0~M80/
+                    - text: NAKAMURA Vélo de ville électrique adulte Crosslite
+                  - generic [ref=f7e444]: 1 couleur
+                  - generic [ref=f7e446]:
+                    - generic [ref=f7e447]: 1 599,99 €
+                    - deletion [ref=f7e449]: 1 899,99 €
+            - option [ref=f7e450]:
+              - generic [ref=f7e451]:
+                - generic [ref=f7e452]: "-600€"
+                - generic [ref=f7e461]:
+                  - link [ref=f7e462] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/rouge-vtt_electrique_adulte_e_summit_950s-nakamura-p-YE60VS~AMR/
+                    - text: NAKAMURA Vtt électrique adulte E SUMMIT 950S
+                  - generic [ref=f7e463]:
+                    - generic [ref=f7e464]: 1 couleur
+                    - generic [ref=f7e465]: "| 6 avis"
+                  - generic [ref=f7e478]:
+                    - generic [ref=f7e479]: 2 299,99 €
+                    - deletion [ref=f7e481]: 2 899,99 €
+            - article [ref=f7e482]:
+              - generic [ref=f7e483]:
+                - link [ref=f7e484] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/ope/ventes-flash-velo/
+                - link [ref=f7e485] [cursor=pointer]:
+                  - /url: /ope/ventes-flash-velo/
+                  - text: J'en profite
+            - article [ref=f7e487]:
+              - generic [ref=f7e488]:
+                - generic [ref=f7e489]: "-300€"
+                - generic [ref=f7e498]:
+                  - link [ref=f7e499] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/bleu-velo_gravel_adulte_allroad_team-nakamura-p-YF60HE~8QR/
+                    - text: NAKAMURA Vélo gravel adulte ALLROAD TEAM
+                  - generic [ref=f7e500]:
+                    - generic [ref=f7e501]: 1 couleur
+                    - generic [ref=f7e502]: "| 33 avis"
+                  - generic [ref=f7e515]:
+                    - generic [ref=f7e516]: 1 899,99 €
+                    - deletion [ref=f7e518]: 2 199,99 €
+            - article [ref=f7e519]:
+              - generic [ref=f7e520]:
+                - generic [ref=f7e521]: "-40€"
+                - generic [ref=f7e530]:
+                  - link [ref=f7e531] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/velo_enfant_20_pouces_5_8_ans_complite_evo_kid-nakamura-p-YF60U0~C4R/
+                    - text: NAKAMURA Vélo enfant 20 pouces 5-8 ans Complite Evo Kid
+                  - generic [ref=f7e532]:
+                    - generic [ref=f7e533]: 1 couleur
+                    - generic [ref=f7e534]: "| 9 avis"
+                  - generic [ref=f7e547]:
+                    - generic [ref=f7e548]: 279,99 €
+                    - deletion [ref=f7e550]: 319,99 €
+            - article [ref=f7e551]:
+              - generic [ref=f7e552]:
+                - generic [ref=f7e553]: "-400€"
+                - generic [ref=f7e562]:
+                  - link [ref=f7e563] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/velo_de_route_adulte_century_350-nakamura-p-YF60G8~0R6/
+                    - text: NAKAMURA Vélo de route adulte Century 350
+                  - generic [ref=f7e564]:
+                    - generic [ref=f7e565]: 1 couleur
+                    - generic [ref=f7e566]: "| 9 avis"
+                  - generic [ref=f7e579]:
+                    - generic [ref=f7e580]: 1 099,99 €
+                    - deletion [ref=f7e582]: 1 499,99 €
+          - button "Next" [ref=f7e583] [cursor=pointer]
+        - text: "| | | | | | | | | | | | | | | | | | | | | | | | | |"
+    - generic [ref=f7e585]:
+      - heading "Nos marques" [level=2] [ref=f7e587]
+      - generic [ref=f7e588]:
+        - link "Nike Nike" [ref=f7e589] [cursor=pointer]:
+          - /url: /marques/nike/
+          - img "Nike" [ref=f7e590]
+          - generic [ref=f7e591]: Nike
+        - link "Adidas Adidas" [ref=f7e592] [cursor=pointer]:
+          - /url: /marques/adidas/
+          - img "Adidas" [ref=f7e593]
+          - generic [ref=f7e594]: Adidas
+        - link "Puma Puma" [ref=f7e595] [cursor=pointer]:
+          - /url: /marques/Puma/
+          - img "Puma" [ref=f7e596]
+          - generic [ref=f7e597]: Puma
+        - link "Nakamura Nakamura" [ref=f7e598] [cursor=pointer]:
+          - /url: /marques/nakamura/
+          - img "Nakamura" [ref=f7e599]
+          - generic [ref=f7e600]: Nakamura
+        - link "Asics Asics" [ref=f7e601] [cursor=pointer]:
+          - /url: /marques/asics/
+          - img "Asics" [ref=f7e602]
+          - generic [ref=f7e603]: Asics
+        - link "The North Face The North Face" [ref=f7e604] [cursor=pointer]:
+          - /url: https://www.intersport.fr/marques/the-north-face/
+          - img "The North Face" [ref=f7e605]
+          - generic [ref=f7e606]: The North Face
+        - link "McKinley McKinley" [ref=f7e607] [cursor=pointer]:
+          - /url: /marques/McKinley/
+          - img "McKinley" [ref=f7e608]
+          - generic [ref=f7e609]: McKinley
+        - link "Under Armour Under Armour" [ref=f7e610] [cursor=pointer]:
+          - /url: /marques/underarmour/
+          - img "Under Armour" [ref=f7e611]
+          - generic [ref=f7e612]: Under Armour
+        - link "Voir toutes les marques" [ref=f7e613] [cursor=pointer]:
+          - /url: /marques/
+    - generic [ref=f7e616]:
+      - heading "Nouveautés" [level=2] [ref=f7e618]
+      - generic [ref=f7e620]:
+        - generic [ref=f7e621]:
+          - link [ref=f7e622] [cursor=pointer]:
+            - /url: /marques/hoka-one-one/running/
+            - img "CLIFTON 11" [ref=f7e623]
+          - generic:
+            - generic: CLIFTON 11
+            - link "Découvrir" [ref=f7e624] [cursor=pointer]:
+              - /url: /marques/hoka-one-one/running/
+        - generic [ref=f7e626]:
+          - link [ref=f7e627] [cursor=pointer]:
+            - /url: /services/reprise-velo/
+            - img "REPRISE DE VOTRE ANCIEN VELO CONTRE DES BONS D'ACHAT" [ref=f7e628]
+          - generic:
+            - generic: REPRISE DE VOTRE ANCIEN VELO CONTRE DES BONS D'ACHAT
+            - link "Découvrir" [ref=f7e629] [cursor=pointer]:
+              - /url: /services/reprise-velo/
+    - generic [ref=f7e632]:
+      - heading "Nos guides d'achat sport" [level=2] [ref=f7e634]
+      - generic [ref=f7e638]:
+        - link [ref=f7e639] [cursor=pointer]:
+          - /url: /contenus/running-trail/choisir-equipement-running-ete/
+          - img "Comment choisir son équipement de running été ?" [ref=f7e641]
+          - generic:
+            - generic:
+              - generic: Running
+              - generic: Comment choisir son équipement de running été ?
+            - button "Choisir son équipement" [ref=f7e642]
+        - link [ref=f7e644] [cursor=pointer]:
+          - /url: /contenus/natation-sports-eau/
+          - img "Sports d'eau" [ref=f7e646]
+          - generic:
+            - generic:
+              - generic: Guides et conseils
+              - generic: Sports d'eau
+            - button "Découvrir" [ref=f7e647]
+        - link [ref=f7e649] [cursor=pointer]:
+          - /url: https://www.intersport.fr/contenus/mode-lifestyle-sportwear/choisir-ses-chaussures-de-plage/
+          - 'img "Chaussures de plages : claquettes, tongs ou sandales ?" [ref=f7e651]'
+          - generic:
+            - generic:
+              - generic: Mode
+              - generic: "Chaussures de plages : claquettes, tongs ou sandales ?"
+            - button "Choisir ses chaussures de plage" [ref=f7e652]
+    - generic [ref=f7e655]:
+      - heading "Nos catégories" [level=2] [ref=f7e657]
+      - generic [ref=f7e659]:
+        - generic [ref=f7e660]:
+          - heading "Vélo" [level=3] [ref=f7e661]
+          - list [ref=f7e662]:
+            - listitem [ref=f7e663]:
+              - link "Vélo" [ref=f7e664] [cursor=pointer]:
+                - /url: https://www.intersport.fr/sports/cycle/velos/
+            - listitem [ref=f7e665]:
+              - link "Vélo électrique" [ref=f7e666] [cursor=pointer]:
+                - /url: https://www.intersport.fr/sports/cycle/velos/velos-electriques/
+            - listitem [ref=f7e667]:
+              - link "VTC électrique" [ref=f7e668] [cursor=pointer]:
+                - /url: https://www.intersport.fr/sports/cycle/velos/velos-electriques/vtc-electrique/
+            - listitem [ref=f7e669]:
+              - link "VTT électrique" [ref=f7e670] [cursor=pointer]:
+                - /url: https://www.intersport.fr/sports/cycle/velos/velos-electriques/vtt-electrique/
+        - generic [ref=f7e671]:
+          - heading "Vêtements" [level=3] [ref=f7e672]
+          - list [ref=f7e673]:
+            - listitem [ref=f7e674]:
+              - link "Sac de sport" [ref=f7e675] [cursor=pointer]:
+                - /url: https://www.intersport.fr/sports/training-et-fitness/accessoires/sacs-de-sport/
+            - listitem [ref=f7e676]:
+              - link "Tee shirt homme" [ref=f7e677] [cursor=pointer]:
+                - /url: https://www.intersport.fr/sportswear/homme/hauts/tee-shirts-et-debardeurs/
+            - listitem [ref=f7e678]:
+              - link "Maillot de bain femme" [ref=f7e679] [cursor=pointer]:
+                - /url: https://www.intersport.fr/sportswear/femme/maillots-de-bain/
+            - listitem [ref=f7e680]:
+              - link "Survêtement homme" [ref=f7e681] [cursor=pointer]:
+                - /url: https://www.intersport.fr/sportswear/homme/survetements/
+        - generic [ref=f7e682]:
+          - heading "Nike" [level=3] [ref=f7e683]
+          - list [ref=f7e684]:
+            - listitem [ref=f7e685]:
+              - link "Chaussures Nike" [ref=f7e686] [cursor=pointer]:
+                - /url: https://www.intersport.fr/marques/nike/tous-les-produits/produits~~baskets_basses~baskets_montantes~chaussures~chaussures_de_ville~chaussures_indoor~chaussures_moulees~chaussures_stabilisees/
+            - listitem [ref=f7e687]:
+              - link "Jogging Nike" [ref=f7e688] [cursor=pointer]:
+                - /url: https://www.intersport.fr/marques/nike/tous-les-produits/produits~~jogging/
+            - listitem [ref=f7e689]:
+              - link "Veste Nike" [ref=f7e690] [cursor=pointer]:
+                - /url: https://www.intersport.fr/marques/nike/tous-les-produits/produits~~blouson~sweatshirt_zippe~veste/
+            - listitem [ref=f7e691]:
+              - link "Survêtement Nike" [ref=f7e692] [cursor=pointer]:
+                - /url: https://www.intersport.fr/marques/nike/tous-les-produits/produits~~survetement/
+        - generic [ref=f7e693]:
+          - heading "Adidas" [level=3] [ref=f7e694]
+          - list [ref=f7e695]:
+            - listitem [ref=f7e696]:
+              - link "Chaussures Adidas" [ref=f7e697] [cursor=pointer]:
+                - /url: https://www.intersport.fr/marques/adidas/tous-les-produits/produits~~baskets_basses~baskets_montantes~chaussures~chaussures_de_ville~chaussures_en_toile~chaussures_indoor~chaussures_moulees~chaussures_stabilisees~chaussures_vissees~sneakers/
+            - listitem [ref=f7e698]:
+              - link "Jogging Adidas" [ref=f7e699] [cursor=pointer]:
+                - /url: https://www.intersport.fr/marques/adidas/tous-les-produits/produits~~jogging/
+            - listitem [ref=f7e700]:
+              - link "Veste Adidas" [ref=f7e701] [cursor=pointer]:
+                - /url: https://www.intersport.fr/marques/adidas/tous-les-produits/produits~~blouson~sweatshirt_a_capuche~veste~veste_a_capuche~veste_sans_manche/
+            - listitem [ref=f7e702]:
+              - link "Survêtement Adidas" [ref=f7e703] [cursor=pointer]:
+                - /url: https://www.intersport.fr/marques/adidas/tous-les-produits/produits~~survetement/
+  - generic [ref=f7e706]:
+    - generic [ref=f7e707]:
+      - button [ref=f7e708] [cursor=pointer]
+      - generic [ref=f7e711]:
+        - list
+    - generic [ref=f7e712]: Traitement en cours ...
+    - generic [ref=f7e722]:
+      - button "Ajouter au panier" [ref=f7e723] [cursor=pointer]
+      - generic [ref=f7e724] [cursor=pointer]: Voir le produit
+  - generic [ref=f7e725]:
+    - complementary [ref=f7e726]:
+      - generic [ref=f7e729]:
+        - link [ref=f7e731] [cursor=pointer]:
+          - /url: /livraison/
+          - paragraph [ref=f7e735]: Livraison offerte
+          - paragraph [ref=f7e736]: à partir de 59,99€ *
+        - link [ref=f7e738] [cursor=pointer]:
+          - /url: /livraison/
+          - paragraph [ref=f7e742]: Click & Collect
+          - paragraph [ref=f7e743]: Retrait rapide en magasin
+        - link [ref=f7e745] [cursor=pointer]:
+          - /url: /paiement/
+          - paragraph [ref=f7e749]: Paiement
+          - paragraph [ref=f7e750]: 100% sécurisé
+        - link [ref=f7e752] [cursor=pointer]:
+          - /url: /retours-remboursement/
+          - paragraph [ref=f7e756]: Echange et retour
+          - paragraph [ref=f7e757]: Sous 100 jours *
+        - link [ref=f7e759] [cursor=pointer]:
+          - /url: /faq/
+          - paragraph [ref=f7e763]: Aide & contact
+          - paragraph [ref=f7e764]: A votre service
+      - paragraph [ref=f7e766]: "* Pour les membres de la Team INTERSPORT"
+    - complementary [ref=f7e767]:
+      - generic [ref=f7e771]:
+        - paragraph [ref=f7e772]:
+          - text: 5€ de bienvenue
+          - generic [ref=f7e773]:
+            - text: directement dans votre cagnotte
+            - superscript [ref=f7e774]: "*"
+        - paragraph [ref=f7e775]:
+          - text: 5€ cagnottés à chaque ACHAT
+          - superscript [ref=f7e776]: "**"
+        - link "J'adhère gratuitement" [ref=f7e777] [cursor=pointer]:
+          - /url: https://www.intersport.fr/fidelity/
+        - paragraph [ref=f7e778]:
+          - superscript [ref=f7e779]: "*"
+          - text: Voir les conditions du
+          - link "programme de fidélité INTERSPORT" [ref=f7e780] [cursor=pointer]:
+            - /url: https://www.intersport.fr/cartefid/
+          - text: .
+        - paragraph [ref=f7e781]:
+          - superscript [ref=f7e782]: "**"
+          - text: Achat en magasin et sur
+          - link "intersport.fr" [ref=f7e783] [cursor=pointer]:
+            - /url: https://www.intersport.fr/
+          - text: .
+      - link [ref=f7e785] [cursor=pointer]:
+        - /url: https://www.blackstore.fr/?utm_medium=intersport&utm_source=intersport.fr&utm_campaign=footer
+    - contentinfo [ref=f7e787]:
+      - generic [ref=f7e788]:
+        - generic [ref=f7e789]:
+          - generic [ref=f7e790]:
+            - paragraph [ref=f7e791]: Nos magasins
+            - paragraph [ref=f7e792]:
+              - link "Voir la carte" [ref=f7e793] [cursor=pointer]:
+                - /url: https://www.intersport.fr/store-finder/
+            - paragraph [ref=f7e794]: Suivez-nous
+            - list [ref=f7e795]:
+              - listitem [ref=f7e796]:
+                - link "Compte Facebook d'Intersport" [ref=f7e797] [cursor=pointer]:
+                  - /url: https://www.facebook.com/intersport.france/
+              - listitem [ref=f7e799]:
+                - link "Compte Instagram d'Intersport" [ref=f7e800] [cursor=pointer]:
+                  - /url: https://www.instagram.com/intersportfr/
+              - listitem [ref=f7e802]:
+                - link "Compte Tiktok d'Intersport" [ref=f7e803] [cursor=pointer]:
+                  - /url: https://www.tiktok.com/@intersportfr/
+              - listitem [ref=f7e805]:
+                - link "Compte Youtube d'Intersport" [ref=f7e806] [cursor=pointer]:
+                  - /url: https://www.youtube.com/@INTERSPORTFrance/
+              - listitem [ref=f7e808]:
+                - link "Compte Twitter d'Intersport" [ref=f7e809] [cursor=pointer]:
+                  - /url: https://x.com/intersport_fr/
+            - generic [ref=f7e811]:
+              - paragraph [ref=f7e812]: L'avis de nos clients
+              - generic "Note moyenne 4.2 sur 5 basée sur 76709 avis" [ref=f7e813]:
+                - generic [ref=f7e814]:
+                  - generic [ref=f7e817]: "4.2"
+                  - text: sur
+                  - link [ref=f7e818] [cursor=pointer]:
+                    - /url: https://trustville.fr/avis-clients/ca/3518/distribution/intersport/
+                    - text: 76709 avis
+          - generic [ref=f7e820]:
+            - paragraph [ref=f7e821]: À propos d'INTERSPORT
+            - list [ref=f7e823]:
+              - listitem [ref=f7e824]:
+                - link "Qui sommes-nous ?" [ref=f7e825] [cursor=pointer]:
+                  - /url: https://presse.intersport.fr/intersport-en-france/
+              - listitem [ref=f7e826]:
+                - link "Nos magasins" [ref=f7e827] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/store-finder/
+              - listitem [ref=f7e828]:
+                - link "Presse et actualités" [ref=f7e829] [cursor=pointer]:
+                  - /url: https://presse.intersport.fr/
+              - listitem [ref=f7e830]:
+                - link "Nos engagements" [ref=f7e831] [cursor=pointer]:
+                  - /url: https://engages-sport.intersport.fr/
+              - listitem [ref=f7e832]:
+                - link "Fin de vie des produits" [ref=f7e833] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/jouons-collectif/
+              - listitem [ref=f7e834]:
+                - link "Nos marques propres" [ref=f7e835] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/nos-marques/
+              - listitem [ref=f7e836]:
+                - link "Toutes les marques" [ref=f7e837] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/marques/
+              - listitem [ref=f7e838]:
+                - link "Nos partenariats" [ref=f7e839] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/nos-partenariats/
+              - listitem [ref=f7e840]:
+                - link "Nous rejoindre" [ref=f7e841] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/nous-rejoindre/
+              - listitem [ref=f7e842]:
+                - link "INTERSPORT International" [ref=f7e843] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/intersport-international/
+              - listitem [ref=f7e844]:
+                - link "INTERSPORT Belgique" [ref=f7e845] [cursor=pointer]:
+                  - /url: https://www.intersport.be/fr
+              - listitem [ref=f7e846]:
+                - link "INTERSPORT Portugal" [ref=f7e847] [cursor=pointer]:
+                  - /url: https://www.intersport.pt/
+              - listitem [ref=f7e848]:
+                - link "Rapport de durabilité" [ref=f7e849] [cursor=pointer]:
+                  - /url: https://engages-sport.intersport.fr/media/files/RAPPORT-DURABILITE-V.LONGUE-2025.pdf
+              - listitem [ref=f7e850]:
+                - link "Vélo direct usine" [ref=f7e851] [cursor=pointer]:
+                  - /url: https://www.velodirectusine.com/
+          - generic [ref=f7e853]:
+            - paragraph [ref=f7e854]: Besoin d'aide
+            - list [ref=f7e856]:
+              - listitem [ref=f7e857]:
+                - link "FAQ" [ref=f7e858] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/faq/
+              - listitem [ref=f7e859]:
+                - link "Livraison" [ref=f7e860] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/livraison/
+              - listitem [ref=f7e861]:
+                - link "Echange et retour" [ref=f7e862] [cursor=pointer]:
+                  - /url: /retours-remboursement/
+              - listitem [ref=f7e863]:
+                - link "Guide des tailles" [ref=f7e864] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/guide-des-tailles/
+              - listitem [ref=f7e865]:
+                - link "Nos Guides & Conseils" [ref=f7e866] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/contenus/
+              - listitem [ref=f7e867]:
+                - link "Mon compte" [ref=f7e868] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/login/
+              - listitem [ref=f7e869]:
+                - link "Rappels produits / Informations consommateurs" [ref=f7e870] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/rappels-produits/
+              - listitem [ref=f7e871]:
+                - link "Notices et certificats Nakamura" [ref=f7e872] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/marques/nakamura/notices-et-certificats-conformite/
+              - listitem [ref=f7e873]:
+                - link "Pièces détachées" [ref=f7e874] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/pieces-detachees/
+              - listitem [ref=f7e875]:
+                - link "Nos tutoriels réparations" [ref=f7e876] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/contenus/reparation/
+          - generic [ref=f7e878]:
+            - paragraph [ref=f7e879]: Nos services
+            - list [ref=f7e881]:
+              - listitem [ref=f7e882]:
+                - link "Programme de fidelité" [ref=f7e883] [cursor=pointer]:
+                  - /url: /cartefid/
+              - listitem [ref=f7e884]:
+                - link "Club partenaires" [ref=f7e885] [cursor=pointer]:
+                  - /url: https://intersport-clubpartenaires.fr/?utm_source=crm&utm_medium=digital&utm_campaign=siteits&utm_content=footer
+              - listitem [ref=f7e886]:
+                - link "Carte cadeau" [ref=f7e887] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/cartes-cadeaux/
+              - listitem [ref=f7e888]:
+                - link "Nos services en magasin" [ref=f7e889] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/services-en-magasins/
+              - listitem [ref=f7e890]:
+                - link "Location de ski" [ref=f7e891] [cursor=pointer]:
+                  - /url: https://www.intersport-rent.fr/?utm_source=intersport.fr&utm_content=footer&utm_medium=partenaire&utm_campaign=intersportfr_fr_home
+              - listitem [ref=f7e892]:
+                - link "Clubs & collectivités" [ref=f7e893] [cursor=pointer]:
+                  - /url: https://www.intersport-clubs.fr/
+              - listitem [ref=f7e894]:
+                - link "Découvrez Blackstore.fr" [ref=f7e895] [cursor=pointer]:
+                  - /url: https://www.blackstore.fr/
+              - listitem [ref=f7e896]
+        - list [ref=f7e901]:
+          - listitem [ref=f7e902]:
+            - link "Infos légales" [ref=f7e903] [cursor=pointer]:
+              - /url: https://www.intersport.fr/infos-legales/
+          - listitem [ref=f7e904]:
+            - link "CGV" [ref=f7e905] [cursor=pointer]:
+              - /url: https://www.intersport.fr/cgv/
+          - listitem [ref=f7e906]:
+            - link "CGV magasins" [ref=f7e907] [cursor=pointer]:
+              - /url: https://www.intersport.fr/infos-legales/cgv-magasins//
+          - listitem [ref=f7e908]:
+            - link "Mentions légales" [ref=f7e909] [cursor=pointer]:
+              - /url: https://www.intersport.fr/mentions/
+          - listitem [ref=f7e910]:
+            - link "Contact" [ref=f7e911] [cursor=pointer]:
+              - /url: https://www.intersport.fr/contact/
+          - listitem [ref=f7e912]:
+            - link "Confidentialité" [ref=f7e913] [cursor=pointer]:
+              - /url: https://www.intersport.fr/politique-donnees/
+          - listitem [ref=f7e914]:
+            - link "Cookies" [ref=f7e915] [cursor=pointer]:
+              - /url: https://www.intersport.fr/politique-cookies/
+          - listitem [ref=f7e916]:
+            - 'link "Accessibilité : partiellement conforme" [ref=f7e917] [cursor=pointer]':
+              - /url: "https://www.intersport.fr/accessibilite/ "
+          - listitem [ref=f7e918]:
+            - link "Paramétrer les cookies" [ref=f7e919] [cursor=pointer]:
+              - /url: "#"
+  - status
+  - link:
+    - /url: "#"
+  - generic [ref=f7e922]:
+    - generic [ref=f7e923]:
+      - button "Close modal" [ref=f7e924] [cursor=pointer]
+      - generic [ref=f7e927]:
+        - img "Team intersport" [ref=f7e929]
+        - generic [ref=f7e930]: J'adhère à la team intersport et cagnotte immédiatement 5€**
+    - generic [ref=f7e932]:
+      - generic [ref=f7e936]:
+        - generic [ref=f7e937]:
+          - text: Contactez-moi par
+          - strong [ref=f7e938]: SMS
+          - text: pour recevoir
+          - strong [ref=f7e939]: mes avantages fidélité
+          - generic [ref=f7e940]: ma cagnotte, mes bons d’achat, mes exclusivités,...
+        - generic [ref=f7e941]:
+          - radio "Oui" [ref=f7e942] [cursor=pointer]
+          - radio "Non" [ref=f7e943] [cursor=pointer]
+      - generic [ref=f7e947]:
+        - generic [ref=f7e948]:
+          - text: Envoyez-moi par
+          - strong [ref=f7e949]: Email
+          - text: les meilleures offres d'
+          - strong [ref=f7e950]: INTERSPORT
+          - generic [ref=f7e951]: les promos sur les grandes marques, les avant-premières & offres privilèges, le club partenaires ...
+        - generic [ref=f7e952]:
+          - radio "Oui" [ref=f7e953] [cursor=pointer]
+          - radio "Non" [ref=f7e954] [cursor=pointer]
+      - generic [ref=f7e958]:
+        - generic [ref=f7e959]:
+          - text: Pour recevoir un cadeau d'anniversaire pour les membres des
+          - strong [ref=f7e960]: Teams Or et Argent
+        - generic [ref=f7e961]:
+          - textbox "Date de naissance" [ref=f7e962]:
+            - /placeholder: jj/mm/aaaa
+          - generic: Date de naissance
+      - generic [ref=f7e963]:
+        - button "J'adhère" [ref=f7e965] [cursor=pointer]
+        - generic [ref=f7e967]:
+          - text: En cliquant sur "J'adhère", j'accepte les
+          - link "conditions générales du programme" [ref=f7e968] [cursor=pointer]:
+            - /url: https://media.intersport.fr/is/content/intersportfr/pdf/cgv/CGV_programme_fidelite.pdf
+          - text: "*Champs obligatoires **Conditions et règlement du programme sur intersport.fr"

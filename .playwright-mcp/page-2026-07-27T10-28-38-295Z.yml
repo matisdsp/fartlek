@@ -1,0 +1,956 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - button "Passer directement au contenu principal" [ref=e5] [cursor=pointer]
+      - region [ref=e9]:
+        - generic [ref=e11]:
+          - group [ref=e12]:
+            - link [ref=e14] [cursor=pointer]:
+              - /url: /fr/fr-fr/login/?onsite_feature=login-content-header-banner
+              - generic [ref=e15]:
+                - paragraph [ref=e16]: Livraison gratuite et 90 jours d'essai pour l'équipement pour les membres OneASI...
+                - button [ref=e17]:
+                  - paragraph [ref=e19]: plus
+          - group [ref=e20]:
+            - generic [ref=e22]:
+              - paragraph [ref=e23]: Livraison standard gratuite pour commandes supérieures à 50€ et retours gratuits...
+              - button [ref=e24] [cursor=pointer]:
+                - paragraph [ref=e26]: plus
+        - button "Previous slide" [ref=e27] [cursor=pointer]
+        - button "Next slide" [ref=e32] [cursor=pointer]
+      - generic [ref=e39]:
+        - button [ref=e40] [cursor=pointer]:
+          - paragraph [ref=e45]: France (Français)
+        - link "Aide" [ref=e46] [cursor=pointer]:
+          - /url: /fr/fr-fr/contact-us/
+          - paragraph [ref=e48]: Aide
+        - link "Localisateur de magasin" [ref=e49] [cursor=pointer]:
+          - /url: /fr/fr-fr/store-locator/
+          - paragraph [ref=e51]: Trouver un magasin
+        - link "Avantages OneASICS" [ref=e52] [cursor=pointer]:
+          - /url: /fr/fr-fr/oneasics/
+      - generic [ref=e56]:
+        - generic [ref=e57]:
+          - link "Naviguer vers l'accueil" [ref=e58] [cursor=pointer]:
+            - /url: /fr/fr-fr/
+          - navigation "Main" [ref=e62]:
+            - list [ref=e64]:
+              - listitem [ref=e65]:
+                - button "Soldes d'été" [ref=e66] [cursor=pointer]
+              - listitem [ref=e67]:
+                - button "Homme" [ref=e68] [cursor=pointer]
+              - listitem [ref=e69]:
+                - button "Femme" [ref=e70] [cursor=pointer]
+              - listitem [ref=e71]:
+                - button "Enfant" [ref=e72] [cursor=pointer]
+              - listitem [ref=e73]:
+                - button "Sports" [ref=e74] [cursor=pointer]
+              - listitem [ref=e75]:
+                - button "SportStyle" [ref=e76] [cursor=pointer]
+              - listitem [ref=e77]:
+                - button "Nos marques" [ref=e78] [cursor=pointer]
+              - listitem [ref=e79]:
+                - button "Inside ASICS" [ref=e80] [cursor=pointer]
+        - generic [ref=e82]:
+          - button "Rechercher" [ref=e86] [cursor=pointer]
+          - link "Mon compte" [ref=e92] [cursor=pointer]:
+            - /url: /fr/fr-fr/
+          - link "Liste de souhaits" [ref=e98] [cursor=pointer]:
+            - /url: /fr/fr-fr/wishlist/
+          - link "Panier" [ref=e105] [cursor=pointer]:
+            - /url: /fr/fr-fr/cart/
+    - main [ref=e110]:
+      - generic [ref=e114]:
+        - generic [ref=e117]:
+          - generic [ref=e118]:
+            - button "SUPERBLAST 3, Image 1 sur 8" [ref=e119]:
+              - img "SUPERBLAST 3, Image 1 sur 8" [ref=e120]
+            - button "SUPERBLAST 3, Image 2 sur 8" [ref=e121]:
+              - img "SUPERBLAST 3, Image 2 sur 8" [ref=e122]
+            - button "SUPERBLAST 3, Image 3 sur 8" [ref=e123]:
+              - img "SUPERBLAST 3, Image 3 sur 8" [ref=e124]
+            - button "SUPERBLAST 3, Image 4 sur 8" [ref=e125]:
+              - img "SUPERBLAST 3, Image 4 sur 8" [ref=e126]
+            - button "SUPERBLAST 3, Image 5 sur 8" [ref=e127]:
+              - img "SUPERBLAST 3, Image 5 sur 8" [ref=e128]
+          - button [ref=e129] [cursor=pointer]
+        - generic [ref=e134]:
+          - generic [ref=e135]:
+            - navigation "Fil d'Ariane" [ref=e136]:
+              - list [ref=e137]:
+                - listitem [ref=e138]:
+                  - link "Unisexe" [ref=e139] [cursor=pointer]:
+                    - /url: /fr/fr-fr/unisex-gear/c/AS220000000/
+                - listitem [ref=e140]: •
+                - listitem [ref=e141]:
+                  - link "Chaussures unisexes" [ref=e142] [cursor=pointer]:
+                    - /url: /fr/fr-fr/unisex-shoes/c/AS220100000/
+                - listitem [ref=e143]: •
+                - listitem [ref=e144]:
+                  - link "Chaussures de Running unisexes" [ref=e145] [cursor=pointer]:
+                    - /url: /fr/fr-fr/unisex-running-shoes/c/AS220101000/
+            - generic [ref=e147]:
+              - heading "SUPERBLAST 3" [level=1] [ref=e149]
+              - button "Ajouter à la liste de souhaits" [ref=e150] [cursor=pointer]
+            - generic [ref=e156] [cursor=pointer]:
+              - generic [ref=e157]:
+                - button "La valeur de la note moyenne est 4.8 sur 5." [ref=e158]:
+                  - generic [ref=e170]: "4.8"
+                - button "Lire 645 avis. Lien sur la même page. (645)" [ref=e171]:
+                  - generic [ref=e172]: Lire 645 avis. Lien sur la même page.
+                  - generic [ref=e173]: (645)
+              - button "Écrire un commentaire. Cette action entraînera l'ouverture d'une boîte de dialogue." [ref=e178]: Écrire un commentaire
+            - generic [ref=e179]: € 220
+          - generic [ref=e182]:
+            - generic [ref=e183]:
+              - generic [ref=e184]:
+                - paragraph [ref=e185]: Couleur
+                - paragraph [ref=e187]: White/Black
+              - generic [ref=e188]:
+                - 'button "Sélectionnez la couleur : Black/Black" [ref=e192] [cursor=pointer]':
+                  - img "Black/Black" [ref=e193]
+                - 'button "Couleur sélectionnée : White/Black" [ref=e197] [cursor=pointer]':
+                  - img "White/Black" [ref=e198]
+                - 'button "Sélectionnez la couleur : Cobalt Burst/Light Orange" [ref=e202] [cursor=pointer]':
+                  - img "Cobalt Burst/Light Orange" [ref=e203]
+                - 'button "Sélectionnez la couleur : Illuminate Yellow/Energy Aqua" [ref=e207] [cursor=pointer]':
+                  - img "Illuminate Yellow/Energy Aqua" [ref=e208]
+                - 'button "Sélectionnez la couleur : Seashell/Sun Coral" [ref=e212] [cursor=pointer]':
+                  - img "Seashell/Sun Coral" [ref=e213]
+            - generic [ref=e214]:
+              - generic [ref=e217]:
+                - heading "Largeur" [level=2] [ref=e218]
+                - paragraph [ref=e219]: Standard
+              - generic [ref=e221]:
+                - generic [ref=e222]:
+                  - paragraph [ref=e224]: Taille
+                  - button [ref=e225] [cursor=pointer]:
+                    - paragraph [ref=e228]: Guide des tailles
+                - generic [ref=e230]:
+                  - 'button "Sélectionner la taille : 35.5, Rupture de stock" [ref=e232] [cursor=pointer]': "35.5"
+                  - 'button "Sélectionner la taille : 36, Rupture de stock" [ref=e234] [cursor=pointer]': "36"
+                  - 'button "Sélectionner la taille : 37, Rupture de stock" [ref=e236] [cursor=pointer]': "37"
+                  - 'button "Sélectionner la taille : 37.5, Rupture de stock" [ref=e238] [cursor=pointer]': "37.5"
+                  - 'button "Sélectionner la taille : 38, Rupture de stock" [ref=e240] [cursor=pointer]': "38"
+                  - 'button "Sélectionner la taille : 39, Rupture de stock" [ref=e242] [cursor=pointer]': "39"
+                  - 'button "Sélectionner la taille : 39.5, Rupture de stock" [ref=e244] [cursor=pointer]': "39.5"
+                  - 'button "Sélectionnez la taille : 40" [ref=e246] [cursor=pointer]': "40"
+                  - 'button "Sélectionner la taille : 40.5, Rupture de stock" [ref=e248] [cursor=pointer]': "40.5"
+                  - 'button "Sélectionnez la taille : 41.5" [ref=e250] [cursor=pointer]': "41.5"
+                  - 'button "Sélectionnez la taille : 42" [ref=e252] [cursor=pointer]': "42"
+                  - 'button "Sélectionnez la taille : 42.5" [ref=e254] [cursor=pointer]': "42.5"
+                  - 'button "Sélectionnez la taille : 43.5" [ref=e256] [cursor=pointer]': "43.5"
+                  - 'button "Sélectionner la taille : 44, Rupture de stock" [ref=e258] [cursor=pointer]': "44"
+                  - 'button "Sélectionner la taille : 44.5, Rupture de stock" [ref=e260] [cursor=pointer]': "44.5"
+                  - 'button "Sélectionnez la taille : 45" [ref=e262] [cursor=pointer]': "45"
+                  - 'button "Sélectionnez la taille : 46" [ref=e264] [cursor=pointer]': "46"
+                  - 'button "Sélectionner la taille : 46.5, Rupture de stock" [ref=e266] [cursor=pointer]': "46.5"
+                  - 'button "Sélectionner la taille : 47, Rupture de stock" [ref=e268] [cursor=pointer]': "47"
+                  - 'button "Sélectionner la taille : 48, Rupture de stock" [ref=e270] [cursor=pointer]': "48"
+                  - 'button "Sélectionner la taille : 49, Rupture de stock" [ref=e272] [cursor=pointer]': "49"
+                  - 'button "Sélectionner la taille : 50.5, Rupture de stock" [ref=e274] [cursor=pointer]': "50.5"
+              - button "Sélectionnez la taille" [ref=e276] [cursor=pointer]:
+                - generic [ref=e277]: Sélectionner une taille
+              - generic [ref=e278]:
+                - generic [ref=e285]:
+                  - text: "Membres OneASICS™: Gagnez jusqu'à"
+                  - generic [ref=e286]: 220 Moves
+                  - text: avec cet achat
+                  - link "Adhérer gratuitement / Se connecter" [ref=e287] [cursor=pointer]:
+                    - /url: /fr/fr-fr/login/
+                - list [ref=e290]:
+                  - listitem [ref=e291]:
+                    - generic [ref=e294]: Livraison standard gratuite pour toute commande de plus de 50 €
+                  - listitem [ref=e295]:
+                    - generic [ref=e298]: Retour gratuit sous 30 jours sur toutes les commandes
+                  - listitem [ref=e299]:
+                    - generic [ref=e302]:
+                      - text: Livraison offerte & essai de 90 jours d'équipement -
+                      - link "Rejoignez OneASICS™ sans frais." [ref=e303] [cursor=pointer]:
+                        - /url: /fr/fr-fr/auth-response-asicsid/webflow/?action=login
+                  - listitem [ref=e304]:
+                    - generic [ref=e307]:
+                      - text: Besoin d'aide?
+                      - link "Contactez Nous" [ref=e308] [cursor=pointer]:
+                        - /url: /geo/contact-us/
+        - generic [ref=e310]:
+          - generic [ref=e312]:
+            - paragraph [ref=e313]: La SUPERBLAST 3 garantit une foulée ultra-dynamique grâce à ses nouvelles mousses innovantes.
+            - paragraph [ref=e314]: La semelle intermédiaire a été améliorée avec une mousse FF LEAP . La composition de la mousse est inspirée de nos modèles de compétition METASPEED . Légère et réactive, elle est idéale pour les sorties quotidiennes.
+            - paragraph [ref=e315]: Une nouvelle capsule à effet trampoline a été stratégiquement intégrée dans la semelle extérieure. Cet élément permet à la semelle d'être très réactive pour une impulsion et une foulée ultra-dynamiques.
+          - generic [ref=e316]:
+            - generic [ref=e317]:
+              - paragraph [ref=e319]: Surface
+              - generic [ref=e320]: Route
+            - generic [ref=e321]:
+              - generic [ref=e322]:
+                - paragraph [ref=e323]: Amorti
+                - button "More info about Amorti" [ref=e324] [cursor=pointer]
+              - generic [ref=e327]: Élevé
+            - generic [ref=e328]:
+              - generic [ref=e329]:
+                - paragraph [ref=e330]: Drop
+                - button "More info about Drop" [ref=e331] [cursor=pointer]
+              - generic [ref=e334]: 8 mm
+            - generic [ref=e335]:
+              - paragraph [ref=e337]: Poids
+              - generic [ref=e338]: 239 g/8.4 oz
+            - generic [ref=e339]:
+              - paragraph [ref=e341]: Soutien
+              - generic [ref=e342]: Neutre
+            - generic [ref=e343]:
+              - generic [ref=e344]:
+                - paragraph [ref=e345]: Objectif
+                - button "More info about Objectif" [ref=e346] [cursor=pointer]
+              - generic [ref=e349]: Plus vite
+          - generic [ref=e350]:
+            - button [ref=e353] [cursor=pointer]:
+              - heading "Matériaux et technologie" [level=2] [ref=e354]
+            - button [ref=e359] [cursor=pointer]:
+              - heading "Pronation" [level=2] [ref=e360]
+            - button [ref=e365] [cursor=pointer]:
+              - heading "Détails" [level=2] [ref=e366]
+        - generic [ref=e371]:
+          - img "triman" [ref=e373]
+          - generic [ref=e374]:
+            - paragraph [ref=e375]:
+              - text: Veuillez consulter le site
+              - link "www.lafibredutri.fr" [ref=e376] [cursor=pointer]:
+                - /url: https://www.lafibredutri.fr
+              - text: pour plus d'informations sur les instructions de tri applicables aux textiles et aux chaussures. Vous y trouverez également l'emplacement du point de collecte/tri français le plus proche.
+            - paragraph [ref=e377]:
+              - text: Pour plus d'infomations sur le recyclage des emballages, rendez-vous sur
+              - link "www.ecoemballages.fr" [ref=e378] [cursor=pointer]:
+                - /url: http://www.ecoemballages.fr
+        - generic [ref=e380]:
+          - heading "Comparer les alternatives" [level=2] [ref=e381]
+          - generic [ref=e382]:
+            - generic [ref=e383]:
+              - generic [ref=e385]:
+                - img "SUPERBLAST 3"
+              - link "NOVABLAST 5" [ref=e387] [cursor=pointer]:
+                - /url: https://www.asics.com/fr/fr-fr/novablast-5/p/1011B974-800.html?crbxct=LsxdOqoWTX6_0dEEh_WhNQ
+                - img "NOVABLAST 5"
+              - link "NOVABLAST 5 SUNNY SIZZLE" [ref=e389] [cursor=pointer]:
+                - /url: https://www.asics.com/fr/fr-fr/novablast-5-sunny-sizzle/p/1011C184-400.html?crbxct=LsxdOqoWTX6_0dEEh_WhNQ
+                - img "NOVABLAST 5 SUNNY SIZZLE"
+              - link "NOVABLAST 5 PLATINUM" [ref=e391] [cursor=pointer]:
+                - /url: https://www.asics.com/fr/fr-fr/novablast--5-platinum/p/1011C193-001.html?crbxct=LsxdOqoWTX6_0dEEh_WhNQ
+                - img "NOVABLAST 5 PLATINUM"
+              - generic "SUPERBLAST 3" [ref=e393]:
+                - heading "SUPERBLAST 3" [level=3] [ref=e395]
+              - generic "NOVABLAST 5" [ref=e397]:
+                - button [ref=e399] [cursor=pointer]:
+                  - heading "NOVABLAST 5" [level=3] [ref=e401]
+              - generic "NOVABLAST 5 SUNNY SIZZLE" [ref=e403]:
+                - button [ref=e405] [cursor=pointer]:
+                  - heading "NOVABLAST 5 SUNNY SIZZLE" [level=3] [ref=e407]
+              - generic "NOVABLAST 5 PLATINUM" [ref=e409]:
+                - button [ref=e411] [cursor=pointer]:
+                  - heading "NOVABLAST 5 PLATINUM" [level=3] [ref=e413]
+              - generic [ref=e414]:
+                - generic [ref=e415]: Prix
+                - generic [ref=e417]: 220,00 €
+              - generic [ref=e418]:
+                - generic [ref=e419]: Prix
+                - generic [ref=e421]: 150,00 € 105,00 €
+              - generic [ref=e422]:
+                - generic [ref=e423]: Prix
+                - generic [ref=e425]: 150,00 € 105,00 €
+              - generic [ref=e426]:
+                - generic [ref=e427]: Prix
+                - generic [ref=e429]: 150,00 € 105,00 €
+              - generic [ref=e430]:
+                - generic [ref=e431]: Surface
+                - generic [ref=e433]: Route
+              - generic [ref=e434]:
+                - generic [ref=e435]: Surface
+                - generic [ref=e437]: Route
+              - generic [ref=e438]:
+                - generic [ref=e439]: Surface
+                - generic [ref=e441]: Route
+              - generic [ref=e442]:
+                - generic [ref=e443]: Surface
+                - generic [ref=e445]: Route
+              - generic [ref=e446]:
+                - generic [ref=e447]: Objectif
+                - generic [ref=e449]: Courir plus vite
+              - generic [ref=e450]:
+                - generic [ref=e451]: Objectif
+                - generic [ref=e453]: Courir plus vite
+              - generic [ref=e454]:
+                - generic [ref=e455]: Objectif
+                - generic [ref=e457]: Courir plus vite
+              - generic [ref=e458]:
+                - generic [ref=e459]: Objectif
+                - generic [ref=e461]: Courir plus vite
+              - generic [ref=e462]:
+                - generic [ref=e463]: Avantage
+                - generic [ref=e465]: Amorti dynamique
+              - generic [ref=e466]:
+                - generic [ref=e467]: Avantage
+                - generic [ref=e469]: Bon amorti dynamique
+              - generic [ref=e470]:
+                - generic [ref=e471]: Avantage
+                - generic [ref=e473]: Amorti dynamique
+              - generic [ref=e474]:
+                - generic [ref=e475]: Avantage
+                - generic [ref=e477]: Amorti dynamique
+              - generic [ref=e478]:
+                - generic [ref=e479]:
+                  - generic [ref=e480]: Amorti
+                  - button "Afficher plus d'informations" [ref=e481] [cursor=pointer]
+                - generic [ref=e482]: Extra
+              - generic [ref=e483]:
+                - generic [ref=e484]:
+                  - generic [ref=e485]: Amorti
+                  - button "Afficher plus d'informations" [ref=e486] [cursor=pointer]
+                - generic [ref=e487]: Extra
+              - generic [ref=e488]:
+                - generic [ref=e489]:
+                  - generic [ref=e490]: Amorti
+                  - button "Afficher plus d'informations" [ref=e491] [cursor=pointer]
+                - generic [ref=e492]: Extra
+              - generic [ref=e493]:
+                - generic [ref=e494]:
+                  - generic [ref=e495]: Amorti
+                  - button "Afficher plus d'informations" [ref=e496] [cursor=pointer]
+                - generic [ref=e497]: Extra
+              - generic [ref=e498]:
+                - generic [ref=e499]:
+                  - generic [ref=e500]: Poids
+                  - button "Afficher plus d'informations" [ref=e501] [cursor=pointer]
+                - generic [ref=e502]: 239 g
+              - generic [ref=e503]:
+                - generic [ref=e504]:
+                  - generic [ref=e505]: Poids
+                  - button "Afficher plus d'informations" [ref=e506] [cursor=pointer]
+                - generic [ref=e507]: 255 g
+              - generic [ref=e508]:
+                - generic [ref=e509]:
+                  - generic [ref=e510]: Poids
+                  - button "Afficher plus d'informations" [ref=e511] [cursor=pointer]
+                - generic [ref=e512]: 263 g
+              - generic [ref=e513]:
+                - generic [ref=e514]:
+                  - generic [ref=e515]: Poids
+                  - button "Afficher plus d'informations" [ref=e516] [cursor=pointer]
+                - generic [ref=e517]: 251 g
+            - button [ref=e518] [cursor=pointer]
+          - link "Obtenez une comparaison plus détaillée" [ref=e522] [cursor=pointer]:
+            - /url: /fr/fr-fr/shoes-comparison/?v=3&p=1013A177-100,1011B974-800,1011C184-400,1011C193-001&u=https%3A%2F%2Fwww.asics.com%2Ffr%2Ffr-fr%2Fsuperblast--3%2Fp%2F1013A177-100.html&frompdp=true
+        - generic [ref=e527]:
+          - generic:
+            - region
+        - generic [ref=e531]:
+          - alert [ref=e532]
+          - generic [ref=e533]:
+            - heading "Avis" [level=2] [ref=e535]
+            - generic [ref=e536]:
+              - button "Avis authentiques" [ref=e539] [cursor=pointer]:
+                - img "L'icône du sceau de confiance fait apparaître une infobulle au sujet de l'authenticité BV" [ref=e540]
+              - generic [ref=e541]:
+                - generic [ref=e543]:
+                  - heading "Description sommaire de la notation" [level=3] [ref=e544]
+                  - generic [ref=e545]:
+                    - generic [ref=e546]: Sélectionnez une ligne ci-dessous pour filtrer les avis.
+                    - group "Description sommaire de la notation" [ref=e547]:
+                      - button "570 avis avec 5 étoiles." [ref=e548]:
+                        - paragraph [ref=e549]:
+                          - text: 5 étoiles
+                          - generic [ref=e550]: étoiles
+                        - generic [ref=e553]:
+                          - text: "570"
+                          - generic: 570 avis avec 5 étoiles.
+                      - button "43 avis avec 4 étoiles." [ref=e555]:
+                        - paragraph [ref=e556]:
+                          - text: 4 étoiles
+                          - generic [ref=e557]: étoiles
+                        - generic [ref=e560]:
+                          - text: "43"
+                          - generic: 43 avis avec 4 étoiles.
+                      - button "19 avis avec 3 étoiles." [ref=e562]:
+                        - paragraph [ref=e563]:
+                          - text: 3 étoiles
+                          - generic [ref=e564]: étoiles
+                        - generic [ref=e567]:
+                          - text: "19"
+                          - generic: 19 avis avec 3 étoiles.
+                      - button "8 avis avec 2 étoiles." [ref=e569]:
+                        - paragraph [ref=e570]:
+                          - text: 2 étoiles
+                          - generic [ref=e571]: étoiles
+                        - generic [ref=e574]:
+                          - text: "8"
+                          - generic: 8 avis avec 2 étoiles.
+                      - button "5 avis avec 1 étoile." [ref=e576]:
+                        - paragraph [ref=e577]:
+                          - text: 1 étoile
+                          - generic [ref=e578]: étoiles
+                        - generic [ref=e581]:
+                          - text: "5"
+                          - generic: 5 avis avec 1 étoile.
+                - region "Note générale" [ref=e584]:
+                  - heading "Note générale" [level=3] [ref=e585]
+                  - generic [ref=e587]:
+                    - generic [ref=e588]: "4.8"
+                    - button "4.8 étoiles sur 5. Lisez les 645 avis sur SUPERBLAST 3. Cette action vous redirigera vers les avis." [ref=e589] [cursor=pointer]:
+                      - generic [ref=e590]: 645 avis
+                - generic [ref=e604]:
+                  - heading "Évaluez ce produit" [level=3] [ref=e605]
+                  - 'group "Note : 0 (sur 5 étoiles)." [ref=e607]':
+                    - button "Sélectionnez pour attribuer 1 étoile à l'article. Cette action ouvrira le formulaire de soumission." [ref=e608]
+                    - button "Sélectionnez pour attribuer 2 étoiles à l'article. Cette action ouvrira le formulaire de soumission." [ref=e618]
+                    - button "Sélectionnez pour attribuer 3 étoiles à l'article. Cette action ouvrira le formulaire de soumission." [ref=e628]
+                    - button "Sélectionnez pour attribuer 4 étoiles à l'article. Cette action ouvrira le formulaire de soumission." [ref=e638]
+                    - button "Sélectionnez pour attribuer 5 étoiles à l'article. Cette action ouvrira le formulaire de soumission." [ref=e648]
+                  - generic [ref=e658]: L'ajout d'un avis nécessite une adresse e-mail valide pour la vérification
+              - generic [ref=e660]:
+                - heading "Notes moyennes des clients" [level=3] [ref=e661]
+                - generic [ref=e662]:
+                  - generic [ref=e663]: Longueur
+                  - generic [ref=e665]:
+                    - generic [ref=e666]: Longueur, 3.0275229357798166 sur 5, où 1 est égal à Trop étroite et 5 est égal à Trop grande
+                    - generic [ref=e673]:
+                      - generic [ref=e674]: Trop étroite
+                      - generic [ref=e675]: Trop grande
+                - generic [ref=e676]:
+                  - generic [ref=e677]: Largeur
+                  - generic [ref=e679]:
+                    - generic [ref=e680]: Largeur, 3.0376106194690267 sur 5, où 1 est égal à Trop serrée et 5 est égal à Trop large
+                    - generic [ref=e687]:
+                      - generic [ref=e688]: Trop serrée
+                      - generic [ref=e689]: Trop large
+                - generic [ref=e690]:
+                  - generic [ref=e691]: Confort
+                  - generic [ref=e693]:
+                    - generic [ref=e694]: Confort, 4.652747252747253 sur 5, où 1 est égal à Inconfortable et 5 est égal à Parfaite
+                    - generic [ref=e701]:
+                      - generic [ref=e702]: Inconfortable
+                      - generic [ref=e703]: Parfaite
+                - generic [ref=e704]:
+                  - generic [ref=e705]: Qualité
+                  - generic [ref=e707]:
+                    - generic [ref=e708]: Qualité, 4.756043956043956 sur 5, où 1 est égal à Mauvaise et 5 est égal à Excellente
+                    - generic [ref=e715]:
+                      - generic [ref=e716]: Mauvaise
+                      - generic [ref=e717]: Excellente
+            - generic [ref=e720]:
+              - heading "Filtrer les avis" [level=3] [ref=e721]
+              - generic [ref=e722]:
+                - combobox "Menu, Filtrer par Note." [ref=e724] [cursor=pointer]: Note
+                - combobox "Menu, Filtrer par Paramètre régional." [ref=e732] [cursor=pointer]: Paramètre régional
+            - generic [ref=e739]:
+              - alert [ref=e740]
+              - alert [ref=e741]: 1 à 8 sur 645 avis.
+              - generic [ref=e742]:
+                - generic [ref=e743]: 1 – 8 sur 645 avis
+                - generic [ref=e745]:
+                  - generic [ref=e748]:
+                    - generic [ref=e749]: Trier par
+                    - combobox "Menu, Trier par Régional ." [ref=e751] [cursor=pointer]:
+                      - generic [ref=e752]: Régional
+                  - button "Affichez une fenêtre contextuelle contenant des informations sur le tri par région." [ref=e762]:
+                    - generic [ref=e763] [cursor=pointer]: Avis régionaux
+            - region "Avis" [ref=e771]:
+              - heading "Avis régionaux" [level=3] [ref=e772]
+              - region "1 sur 8 avis, notes 5 sur 5." [ref=e773]:
+                - generic [ref=e777]:
+                  - generic [ref=e778]:
+                    - generic [ref=e779]:
+                      - img "5 sur 5 étoiles." [ref=e780]
+                      - generic [ref=e793]:
+                        - heading "Ravie" [level=3] [ref=e794]
+                        - generic [ref=e796]:
+                          - generic [ref=e798]:
+                            - button "Voir le profil de Anna94." [disabled]: Anna94
+                          - generic [ref=e799]:
+                            - button "Acheteur vérifié" [ref=e800] [cursor=pointer]
+                            - button "Laissez un avis et soyez récompensé" [ref=e811] [cursor=pointer]
+                          - generic [ref=e823]: il y a 2 jours
+                    - generic [ref=e826]:
+                      - generic [ref=e827]: Très bonne paire de chaussures pour le fractionné. Je les utilise pour les sorties courtes et rapides
+                      - paragraph [ref=e842]: Oui, Je recommande ce produit.
+                      - group "Utilité du contenu" [ref=e845]:
+                        - generic [ref=e846]: Utile ?
+                        - generic [ref=e848]:
+                          - 'button "Oui : 0 personne a trouvé cet avis de Anna94 utile." [ref=e849] [cursor=pointer]':
+                            - generic [ref=e850]: (0)
+                            - alert
+                          - 'button "Non : 0 personne a trouvé cet avis de Anna94 inutile." [ref=e856] [cursor=pointer]':
+                            - generic [ref=e857]: (0)
+                            - alert
+                          - generic [ref=e862]:
+                            - button "Signalez le/la review Ravie de Anna94 comme inapproprié." [ref=e863] [cursor=pointer]: Signaler
+                            - alert
+                  - generic [ref=e866]:
+                    - generic [ref=e867]: Longueur
+                    - generic [ref=e868]:
+                      - generic [ref=e869]: Longueur, 3 sur 5, où 1 est égal à Trop étroite et 5 est égal à Trop grande
+                      - generic [ref=e876]:
+                        - generic [ref=e877]: Trop étroite
+                        - generic [ref=e878]: Trop grande
+                    - generic [ref=e879]: Largeur
+                    - generic [ref=e880]:
+                      - generic [ref=e881]: Largeur, 3 sur 5, où 1 est égal à Trop serrée et 5 est égal à Trop large
+                      - generic [ref=e888]:
+                        - generic [ref=e889]: Trop serrée
+                        - generic [ref=e890]: Trop large
+                    - generic [ref=e891]: Confort
+                    - generic [ref=e892]:
+                      - generic [ref=e893]: Confort, 5 sur 5, où 1 est égal à Inconfortable et 5 est égal à Parfaite
+                      - generic [ref=e900]:
+                        - generic [ref=e901]: Inconfortable
+                        - generic [ref=e902]: Parfaite
+                    - generic [ref=e903]: Qualité
+                    - generic [ref=e904]:
+                      - generic [ref=e905]: Qualité, 5 sur 5, où 1 est égal à Mauvaise et 5 est égal à Excellente
+                      - generic [ref=e912]:
+                        - generic [ref=e913]: Mauvaise
+                        - generic [ref=e914]: Excellente
+              - region "2 sur 8 avis, notes 5 sur 5." [ref=e915]:
+                - generic [ref=e919]:
+                  - generic [ref=e920]:
+                    - generic [ref=e921]:
+                      - img "5 sur 5 étoiles." [ref=e922]
+                      - generic [ref=e935]:
+                        - heading "cool" [level=3] [ref=e936]
+                        - generic [ref=e938]:
+                          - generic [ref=e940]:
+                            - button "Voir le profil de stif." [disabled]: stif
+                          - generic [ref=e941]:
+                            - button "Acheteur vérifié" [ref=e942] [cursor=pointer]
+                            - button "Laissez un avis et soyez récompensé" [ref=e953] [cursor=pointer]
+                          - generic [ref=e965]: il y a 13 jours
+                    - generic [ref=e968]:
+                      - generic [ref=e969]: bonne paire legere et sympa en design belle expérience
+                      - paragraph [ref=e984]: Oui, Je recommande ce produit.
+                      - group "Utilité du contenu" [ref=e987]:
+                        - generic [ref=e988]: Utile ?
+                        - generic [ref=e990]:
+                          - 'button "Oui : 0 personne a trouvé cet avis de stif utile." [ref=e991] [cursor=pointer]':
+                            - generic [ref=e992]: (0)
+                            - alert
+                          - 'button "Non : 0 personne a trouvé cet avis de stif inutile." [ref=e998] [cursor=pointer]':
+                            - generic [ref=e999]: (0)
+                            - alert
+                          - generic [ref=e1004]:
+                            - button "Signalez le/la review cool de stif comme inapproprié." [ref=e1005] [cursor=pointer]: Signaler
+                            - alert
+                  - generic [ref=e1008]:
+                    - generic [ref=e1009]: Longueur
+                    - generic [ref=e1010]:
+                      - generic [ref=e1011]: Longueur, 4 sur 5, où 1 est égal à Trop étroite et 5 est égal à Trop grande
+                      - generic [ref=e1018]:
+                        - generic [ref=e1019]: Trop étroite
+                        - generic [ref=e1020]: Trop grande
+                    - generic [ref=e1021]: Largeur
+                    - generic [ref=e1022]:
+                      - generic [ref=e1023]: Largeur, 3 sur 5, où 1 est égal à Trop serrée et 5 est égal à Trop large
+                      - generic [ref=e1030]:
+                        - generic [ref=e1031]: Trop serrée
+                        - generic [ref=e1032]: Trop large
+                    - generic [ref=e1033]: Confort
+                    - generic [ref=e1034]:
+                      - generic [ref=e1035]: Confort, 3 sur 5, où 1 est égal à Inconfortable et 5 est égal à Parfaite
+                      - generic [ref=e1042]:
+                        - generic [ref=e1043]: Inconfortable
+                        - generic [ref=e1044]: Parfaite
+                    - generic [ref=e1045]: Qualité
+                    - generic [ref=e1046]:
+                      - generic [ref=e1047]: Qualité, 3 sur 5, où 1 est égal à Mauvaise et 5 est égal à Excellente
+                      - generic [ref=e1054]:
+                        - generic [ref=e1055]: Mauvaise
+                        - generic [ref=e1056]: Excellente
+              - region "3 sur 8 avis, notes 5 sur 5." [ref=e1057]:
+                - generic [ref=e1061]:
+                  - generic [ref=e1062]:
+                    - generic [ref=e1063]:
+                      - img "5 sur 5 étoiles." [ref=e1064]
+                      - generic [ref=e1077]:
+                        - heading "Très bien" [level=3] [ref=e1078]
+                        - generic [ref=e1080]:
+                          - generic [ref=e1082]:
+                            - button "Voir le profil de Jaaj Pagnan." [disabled]: Jaaj Pagnan
+                          - generic [ref=e1083]:
+                            - button "Acheteur vérifié" [ref=e1084] [cursor=pointer]
+                            - button "Laissez un avis et soyez récompensé" [ref=e1095] [cursor=pointer]
+                          - generic [ref=e1107]: il y a 13 jours
+                    - generic [ref=e1110]:
+                      - generic [ref=e1111]: Très belle paire, un coloris magnifique, très légère.
+                      - paragraph [ref=e1126]: Oui, Je recommande ce produit.
+                      - group "Utilité du contenu" [ref=e1129]:
+                        - generic [ref=e1130]: Utile ?
+                        - generic [ref=e1132]:
+                          - 'button "Oui : 0 personne a trouvé cet avis de Jaaj Pagnan utile." [ref=e1133] [cursor=pointer]':
+                            - generic [ref=e1134]: (0)
+                            - alert
+                          - 'button "Non : 0 personne a trouvé cet avis de Jaaj Pagnan inutile." [ref=e1140] [cursor=pointer]':
+                            - generic [ref=e1141]: (0)
+                            - alert
+                          - generic [ref=e1146]:
+                            - button "Signalez le/la review Très bien de Jaaj Pagnan comme inapproprié." [ref=e1147] [cursor=pointer]: Signaler
+                            - alert
+                  - generic [ref=e1150]:
+                    - generic [ref=e1151]: Longueur
+                    - generic [ref=e1152]:
+                      - generic [ref=e1153]: Longueur, 3 sur 5, où 1 est égal à Trop étroite et 5 est égal à Trop grande
+                      - generic [ref=e1160]:
+                        - generic [ref=e1161]: Trop étroite
+                        - generic [ref=e1162]: Trop grande
+                    - generic [ref=e1163]: Largeur
+                    - generic [ref=e1164]:
+                      - generic [ref=e1165]: Largeur, 3 sur 5, où 1 est égal à Trop serrée et 5 est égal à Trop large
+                      - generic [ref=e1172]:
+                        - generic [ref=e1173]: Trop serrée
+                        - generic [ref=e1174]: Trop large
+                    - generic [ref=e1175]: Confort
+                    - generic [ref=e1176]:
+                      - generic [ref=e1177]: Confort, 4 sur 5, où 1 est égal à Inconfortable et 5 est égal à Parfaite
+                      - generic [ref=e1184]:
+                        - generic [ref=e1185]: Inconfortable
+                        - generic [ref=e1186]: Parfaite
+                    - generic [ref=e1187]: Qualité
+                    - generic [ref=e1188]:
+                      - generic [ref=e1189]: Qualité, 4 sur 5, où 1 est égal à Mauvaise et 5 est égal à Excellente
+                      - generic [ref=e1196]:
+                        - generic [ref=e1197]: Mauvaise
+                        - generic [ref=e1198]: Excellente
+              - region "4 sur 8 avis, notes 5 sur 5." [ref=e1199]:
+                - generic [ref=e1203]:
+                  - generic [ref=e1204]:
+                    - generic [ref=e1205]:
+                      - img "5 sur 5 étoiles." [ref=e1206]
+                      - generic [ref=e1219]:
+                        - heading "Meilleures chaussures que j’ai eu" [level=3] [ref=e1220]
+                        - generic [ref=e1222]:
+                          - generic [ref=e1224]:
+                            - button "Voir le profil de Valentin B." [disabled]: Valentin B
+                          - generic [ref=e1225]:
+                            - button "Acheteur vérifié" [ref=e1226] [cursor=pointer]
+                            - button "Laissez un avis et soyez récompensé" [ref=e1237] [cursor=pointer]
+                          - generic [ref=e1249]: il y a 15 jours
+                    - generic [ref=e1252]:
+                      - generic [ref=e1253]: "Elles sont exceptionnelles ! Je suis en préparation marathon et j’adore leur polyvalence : footing EF fractionné, le confort est super."
+                      - paragraph [ref=e1268]: Oui, Je recommande ce produit.
+                      - list [ref=e1269]:
+                        - listitem [ref=e1270]:
+                          - button "Avis sur la photo 1. Cette action entraînera l'ouverture d'une boîte de dialogue." [ref=e1271]
+                      - group "Utilité du contenu" [ref=e1275]:
+                        - generic [ref=e1276]: Utile ?
+                        - generic [ref=e1278]:
+                          - 'button "Oui : 0 personne a trouvé cet avis de Valentin B utile." [ref=e1279] [cursor=pointer]':
+                            - generic [ref=e1280]: (0)
+                            - alert
+                          - 'button "Non : 0 personne a trouvé cet avis de Valentin B inutile." [ref=e1286] [cursor=pointer]':
+                            - generic [ref=e1287]: (0)
+                            - alert
+                          - generic [ref=e1292]:
+                            - button "Signalez le/la review Meilleures chaussures que j’ai eu de Valentin B comme inapproprié." [ref=e1293] [cursor=pointer]: Signaler
+                            - alert
+                  - generic [ref=e1296]:
+                    - generic [ref=e1297]: Longueur
+                    - generic [ref=e1298]:
+                      - generic [ref=e1299]: Longueur, 3 sur 5, où 1 est égal à Trop étroite et 5 est égal à Trop grande
+                      - generic [ref=e1306]:
+                        - generic [ref=e1307]: Trop étroite
+                        - generic [ref=e1308]: Trop grande
+                    - generic [ref=e1309]: Largeur
+                    - generic [ref=e1310]:
+                      - generic [ref=e1311]: Largeur, 3 sur 5, où 1 est égal à Trop serrée et 5 est égal à Trop large
+                      - generic [ref=e1318]:
+                        - generic [ref=e1319]: Trop serrée
+                        - generic [ref=e1320]: Trop large
+                    - generic [ref=e1321]: Confort
+                    - generic [ref=e1322]:
+                      - generic [ref=e1323]: Confort, 5 sur 5, où 1 est égal à Inconfortable et 5 est égal à Parfaite
+                      - generic [ref=e1330]:
+                        - generic [ref=e1331]: Inconfortable
+                        - generic [ref=e1332]: Parfaite
+                    - generic [ref=e1333]: Qualité
+                    - generic [ref=e1334]:
+                      - generic [ref=e1335]: Qualité, 5 sur 5, où 1 est égal à Mauvaise et 5 est égal à Excellente
+                      - generic [ref=e1342]:
+                        - generic [ref=e1343]: Mauvaise
+                        - generic [ref=e1344]: Excellente
+              - region "5 sur 8 avis, notes 5 sur 5." [ref=e1345]:
+                - generic [ref=e1349]:
+                  - generic [ref=e1350]:
+                    - generic [ref=e1351]:
+                      - img "5 sur 5 étoiles." [ref=e1352]
+                      - generic [ref=e1365]:
+                        - heading "Les Superblast 3 sont parfaites." [level=3] [ref=e1366]
+                        - generic [ref=e1368]:
+                          - generic [ref=e1370]:
+                            - button "Anonyme" [disabled]
+                          - generic [ref=e1371]:
+                            - button "Acheteur vérifié" [ref=e1372] [cursor=pointer]
+                            - button "Laissez un avis et soyez récompensé" [ref=e1383] [cursor=pointer]
+                          - generic [ref=e1395]: il y a 18 jours
+                    - generic [ref=e1398]:
+                      - generic [ref=e1399]: Je cours environ 3000km par an. Chaussure parfaite pour les courses de tous les jours, dynamique et confortable!
+                      - paragraph [ref=e1414]: Oui, Je recommande ce produit.
+                      - group "Utilité du contenu" [ref=e1417]:
+                        - generic [ref=e1418]: Utile ?
+                        - generic [ref=e1420]:
+                          - 'button "Oui : 0 personne a trouvé cet avis de Anonymous utile." [ref=e1421] [cursor=pointer]':
+                            - generic [ref=e1422]: (0)
+                            - alert
+                          - 'button "Non : 0 personne a trouvé cet avis de Anonymous inutile." [ref=e1428] [cursor=pointer]':
+                            - generic [ref=e1429]: (0)
+                            - alert
+                          - generic [ref=e1434]:
+                            - button "Signalez le/la review Les Superblast 3 sont parfaites. de Anonymous comme inapproprié." [ref=e1435] [cursor=pointer]: Signaler
+                            - alert
+                  - generic [ref=e1438]:
+                    - generic [ref=e1439]: Longueur
+                    - generic [ref=e1440]:
+                      - generic [ref=e1441]: Longueur, 3 sur 5, où 1 est égal à Trop étroite et 5 est égal à Trop grande
+                      - generic [ref=e1448]:
+                        - generic [ref=e1449]: Trop étroite
+                        - generic [ref=e1450]: Trop grande
+                    - generic [ref=e1451]: Largeur
+                    - generic [ref=e1452]:
+                      - generic [ref=e1453]: Largeur, 3 sur 5, où 1 est égal à Trop serrée et 5 est égal à Trop large
+                      - generic [ref=e1460]:
+                        - generic [ref=e1461]: Trop serrée
+                        - generic [ref=e1462]: Trop large
+                    - generic [ref=e1463]: Confort
+                    - generic [ref=e1464]:
+                      - generic [ref=e1465]: Confort, 5 sur 5, où 1 est égal à Inconfortable et 5 est égal à Parfaite
+                      - generic [ref=e1472]:
+                        - generic [ref=e1473]: Inconfortable
+                        - generic [ref=e1474]: Parfaite
+                    - generic [ref=e1475]: Qualité
+                    - generic [ref=e1476]:
+                      - generic [ref=e1477]: Qualité, 5 sur 5, où 1 est égal à Mauvaise et 5 est égal à Excellente
+                      - generic [ref=e1484]:
+                        - generic [ref=e1485]: Mauvaise
+                        - generic [ref=e1486]: Excellente
+              - region "6 sur 8 avis, notes 5 sur 5." [ref=e1487]:
+                - generic [ref=e1491]:
+                  - generic [ref=e1492]:
+                    - generic [ref=e1493]:
+                      - img "5 sur 5 étoiles." [ref=e1494]
+                      - generic [ref=e1507]:
+                        - heading "Polyvalence, dynamisme et confort absolu !" [level=3] [ref=e1508]
+                        - generic [ref=e1510]:
+                          - generic [ref=e1512]:
+                            - button "Voir le profil de Antoine insta theforce." [disabled]: Antoine insta theforce
+                          - generic [ref=e1513]:
+                            - button "Acheteur vérifié" [ref=e1514] [cursor=pointer]
+                            - button "Laissez un avis et soyez récompensé" [ref=e1525] [cursor=pointer]
+                          - generic [ref=e1537]: il y a 20 jours
+                    - generic [ref=e1540]:
+                      - generic [ref=e1541]: Excellente paire de chaussures, d'une polyvalence remarquable. Elle offre un très bon répondant lors des séances de fractionné, tout en restant extrêmement confortable sur les sorties longues. Le gros point fort, je ressens nettement moins de courbatures le lendemain de mes entraînements. Pour l'exploiter à son plein potentiel, il est préférable de courir sous les 5'00"/km, bien qu'elle reste très agréable jusqu'à une allure de 5'25"/km.
+                      - paragraph [ref=e1556]: Oui, Je recommande ce produit.
+                      - group "Utilité du contenu" [ref=e1559]:
+                        - generic [ref=e1560]: Utile ?
+                        - generic [ref=e1562]:
+                          - 'button "Oui : 0 personne a trouvé cet avis de Antoine insta theforce utile." [ref=e1563] [cursor=pointer]':
+                            - generic [ref=e1564]: (0)
+                            - alert
+                          - 'button "Non : 0 personne a trouvé cet avis de Antoine insta theforce inutile." [ref=e1570] [cursor=pointer]':
+                            - generic [ref=e1571]: (0)
+                            - alert
+                          - generic [ref=e1576]:
+                            - button "Signalez le/la review Polyvalence, dynamisme et confort absolu ! de Antoine insta theforce comme inapproprié." [ref=e1577] [cursor=pointer]: Signaler
+                            - alert
+                  - generic [ref=e1580]:
+                    - generic [ref=e1581]: Longueur
+                    - generic [ref=e1582]:
+                      - generic [ref=e1583]: Longueur, 4 sur 5, où 1 est égal à Trop étroite et 5 est égal à Trop grande
+                      - generic [ref=e1590]:
+                        - generic [ref=e1591]: Trop étroite
+                        - generic [ref=e1592]: Trop grande
+                    - generic [ref=e1593]: Largeur
+                    - generic [ref=e1594]:
+                      - generic [ref=e1595]: Largeur, 3 sur 5, où 1 est égal à Trop serrée et 5 est égal à Trop large
+                      - generic [ref=e1602]:
+                        - generic [ref=e1603]: Trop serrée
+                        - generic [ref=e1604]: Trop large
+                    - generic [ref=e1605]: Confort
+                    - generic [ref=e1606]:
+                      - generic [ref=e1607]: Confort, 5 sur 5, où 1 est égal à Inconfortable et 5 est égal à Parfaite
+                      - generic [ref=e1614]:
+                        - generic [ref=e1615]: Inconfortable
+                        - generic [ref=e1616]: Parfaite
+                    - generic [ref=e1617]: Qualité
+                    - generic [ref=e1618]:
+                      - generic [ref=e1619]: Qualité, 5 sur 5, où 1 est égal à Mauvaise et 5 est égal à Excellente
+                      - generic [ref=e1626]:
+                        - generic [ref=e1627]: Mauvaise
+                        - generic [ref=e1628]: Excellente
+              - region "7 sur 8 avis, notes 5 sur 5." [ref=e1629]:
+                - generic [ref=e1634]:
+                  - generic [ref=e1635]:
+                    - img "5 sur 5 étoiles." [ref=e1636]
+                    - generic [ref=e1649]:
+                      - heading "Top" [level=3] [ref=e1650]
+                      - generic [ref=e1652]:
+                        - generic [ref=e1654]:
+                          - button "Voir le profil de Niko87." [disabled]: Niko87
+                        - button "Acheteur vérifié" [ref=e1656] [cursor=pointer]
+                        - generic [ref=e1667]: il y a 20 jours
+                  - generic [ref=e1670]:
+                    - generic [ref=e1671]: Bonnes chaussures, bon maintien, bonne amorti. Malgré le prix ca vait le coup
+                    - group "Utilité du contenu" [ref=e1674]:
+                      - generic [ref=e1675]: Utile ?
+                      - generic [ref=e1677]:
+                        - 'button "Oui : 0 personne a trouvé cet avis de Niko87 utile." [ref=e1678] [cursor=pointer]':
+                          - generic [ref=e1679]: (0)
+                          - alert
+                        - 'button "Non : 0 personne a trouvé cet avis de Niko87 inutile." [ref=e1685] [cursor=pointer]':
+                          - generic [ref=e1686]: (0)
+                          - alert
+                        - generic [ref=e1691]:
+                          - button "Signalez le/la review Top de Niko87 comme inapproprié." [ref=e1692] [cursor=pointer]: Signaler
+                          - alert
+              - region "8 sur 8 avis, notes 5 sur 5." [ref=e1694]:
+                - generic [ref=e1699]:
+                  - generic [ref=e1700]:
+                    - img "5 sur 5 étoiles." [ref=e1701]
+                    - generic [ref=e1714]:
+                      - heading "UN CONFORT PARFAIT" [level=3] [ref=e1715]
+                      - generic [ref=e1717]:
+                        - generic [ref=e1719]:
+                          - button "Voir le profil de Antoine92123." [disabled]: Antoine92123
+                        - button "Acheteur vérifié" [ref=e1721] [cursor=pointer]
+                        - generic [ref=e1732]: il y a 22 jours
+                  - generic [ref=e1735]:
+                    - generic [ref=e1736]: Tres surpris par le confort de cette chaussure - finition tres technique
+                    - group "Utilité du contenu" [ref=e1739]:
+                      - generic [ref=e1740]: Utile ?
+                      - generic [ref=e1742]:
+                        - 'button "Oui : 0 personne a trouvé cet avis de Antoine92123 utile." [ref=e1743] [cursor=pointer]':
+                          - generic [ref=e1744]: (0)
+                          - alert
+                        - 'button "Non : 0 personne a trouvé cet avis de Antoine92123 inutile." [ref=e1750] [cursor=pointer]':
+                          - generic [ref=e1751]: (0)
+                          - alert
+                        - generic [ref=e1756]:
+                          - button "Signalez le/la review UN CONFORT PARFAIT de Antoine92123 comme inapproprié." [ref=e1757] [cursor=pointer]: Signaler
+                          - alert
+            - generic [ref=e1759]:
+              - alert [ref=e1760]
+              - alert [ref=e1761]
+              - generic [ref=e1762]:
+                - generic [ref=e1763]: 1 – 8 sur 645 avis
+                - button "Précédentavis" [disabled] [ref=e1764]
+                - button "Suivant avis" [ref=e1773] [cursor=pointer]
+        - generic [ref=e1783]:
+          - generic:
+            - region
+    - contentinfo [ref=e1785]:
+      - generic [ref=e1786]:
+        - generic [ref=e1788]:
+          - generic [ref=e1789]:
+            - generic [ref=e1790]:
+              - paragraph [ref=e1791]: S'inscrire à notre newsletter
+              - paragraph [ref=e1792]: Soyez au courant de nos nouveautés, événements exclusifs et offres en ligne avant tout le monde
+              - button "S'inscrire" [ref=e1793] [cursor=pointer]
+            - generic [ref=e1795]:
+              - paragraph [ref=e1796]: Nous suivre
+              - generic [ref=e1797]:
+                - link "Facebook" [ref=e1798] [cursor=pointer]:
+                  - /url: https://web.facebook.com/ASICS
+                - link "X (anciennement Twitter)" [ref=e1801] [cursor=pointer]:
+                  - /url: https://x.com/ASICSeurope
+                - link "Instagram" [ref=e1805] [cursor=pointer]:
+                  - /url: https://www.instagram.com/asicsrunning/
+                - link "YouTube" [ref=e1810] [cursor=pointer]:
+                  - /url: https://www.youtube.com/channel/UCT135eauXPA36lioy-cmjzw
+                - link "LinkedIn" [ref=e1814] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/company/asics-emea/
+          - generic [ref=e1819]:
+            - paragraph [ref=e1820]: Service client
+            - generic [ref=e1821]:
+              - link "Contacter ASICS" [ref=e1823] [cursor=pointer]:
+                - /url: /fr/fr-fr/contact-us/
+              - link "Retours" [ref=e1825] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/returns-policy/
+              - link "Livraison" [ref=e1827] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/shipping-information/
+              - link "Modes de paiement" [ref=e1829] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/payment-information/
+              - link "Réclamations" [ref=e1831] [cursor=pointer]:
+                - /url: /fr/fr-fr/product-claim/
+              - link "Questions fréquentes" [ref=e1833] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/faq/
+              - link "Suivre une commande" [ref=e1835] [cursor=pointer]:
+                - /url: /fr/fr-fr/ordersearch/
+              - link "Trouver Un Magasin" [ref=e1837] [cursor=pointer]:
+                - /url: /fr/fr-fr/store-locator/
+              - link "Se rétracter du contrat" [ref=e1839] [cursor=pointer]:
+                - /url: https://returns.narvar.com/asics/returns?locale=fr_FR
+          - generic [ref=e1842]:
+            - paragraph [ref=e1843]: À propos d’ASICS
+            - generic [ref=e1844]:
+              - link "Notre Histoire" [ref=e1846] [cursor=pointer]:
+                - /url: /fr/fr-fr/mk/about-asics/
+              - link "RSE" [ref=e1848] [cursor=pointer]:
+                - /url: http://corp.asics.com/en/csr
+              - link "Revue de presse" [ref=e1850] [cursor=pointer]:
+                - /url: https://news-emea.asics.com/
+              - link "Relations investisseurs" [ref=e1852] [cursor=pointer]:
+                - /url: https://corp.asics.com/en/press
+              - link "Carrières" [ref=e1854] [cursor=pointer]:
+                - /url: /fr/fr-fr/mk/careers/search-jobs/
+              - link "Sound Mind, Sound Body Impact" [ref=e1856] [cursor=pointer]:
+                - /url: /fr/fr-fr/mk/sound-mind-sound-body-impact/
+              - link "Réductions étudiants" [ref=e1858] [cursor=pointer]:
+                - /url: /fr/fr-fr/unidays/
+              - link "ASICS conseil" [ref=e1860] [cursor=pointer]:
+                - /url: /fr/fr-fr/asics-advice/
+              - link "Index égalité professionnelle" [ref=e1862] [cursor=pointer]:
+                - /url: /fr/fr-fr/professional-equality-index/
+              - link "Qualités environnementales fiche produit" [ref=e1864] [cursor=pointer]:
+                - /url: /fr/fr-fr/environmental-detail-of-products/
+              - link "Appli ASICS" [ref=e1866] [cursor=pointer]:
+                - /url: /fr/fr-fr/asics-mobile-app/
+          - generic [ref=e1869]:
+            - paragraph [ref=e1870]: Tailles et pointures
+            - generic [ref=e1871]:
+              - link "Tableaux et guides des tailles" [ref=e1873] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/size-fit-guide/
+              - link "Guide de la pronation" [ref=e1875] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/pronation-guide/
+          - generic [ref=e1878]:
+            - paragraph [ref=e1879]: ADHÉSION À OneASICS™
+            - generic [ref=e1880]:
+              - link "Créer un compte gratuit" [ref=e1882] [cursor=pointer]:
+                - /url: /fr/fr-fr/login/?onsite_feature=login-content-footer-create-free-account
+              - link "S'inscrire" [ref=e1884] [cursor=pointer]:
+                - /url: /fr/fr-fr/login/?onsite_feature=login-content-footer-sign-in
+              - link "À propos de OneASICS" [ref=e1886] [cursor=pointer]:
+                - /url: /fr/fr-fr/oneasics/
+              - link "FAQ OneASICS" [ref=e1888] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/faqs-oneasics/
+              - link "OneASICS Conditions générales" [ref=e1890] [cursor=pointer]:
+                - /url: https://legal.asics.com/fr-fr/legal/welcome-to-oneasics/
+              - link "Programme de réduction" [ref=e1892] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/discount-programs/
+        - generic [ref=e1893]:
+          - generic [ref=e1894]:
+            - button [ref=e1895] [cursor=pointer]:
+              - paragraph [ref=e1900]: France (Français)
+            - link [ref=e1901] [cursor=pointer]:
+              - /url: https://legal.asics.com/fr-fr/legal/privacy-policy
+              - paragraph [ref=e1902]: Politique de confidentialité
+            - link [ref=e1903] [cursor=pointer]:
+              - /url: https://legal.asics.com/fr-fr/legal/cookie-policy
+              - paragraph [ref=e1904]: Politique en matière de cookies
+            - link [ref=e1905] [cursor=pointer]:
+              - /url: "#manage-cookies"
+              - paragraph [ref=e1906]: Gérer les préférences de cookies
+            - link [ref=e1907] [cursor=pointer]:
+              - /url: /fr/fr-fr/customer-service/terms/
+              - paragraph [ref=e1908]: Conditions générales
+            - link [ref=e1909] [cursor=pointer]:
+              - /url: /fr/fr-fr/customer-service/disclaimer/
+              - paragraph [ref=e1910]: Mentions légales
+          - paragraph [ref=e1911]: © 2026 ASICS Europe
+    - region "Notifications (F8)":
+      - list
+  - button [ref=e1912]
+  - button "Shoe Finder" [ref=e1919] [cursor=pointer]

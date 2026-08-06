@@ -1,0 +1,493 @@
+- generic [active] [ref=f11e1]:
+  - generic [ref=f11e3]:
+    - generic [ref=f11e4]:
+      - button "Passer directement au contenu principal" [ref=f11e5] [cursor=pointer]
+      - region [ref=f11e9]:
+        - generic [ref=f11e11]:
+          - group [ref=f11e12]:
+            - link [ref=f11e14] [cursor=pointer]:
+              - /url: /fr/fr-fr/login/?onsite_feature=login-content-header-banner
+              - generic [ref=f11e15]:
+                - paragraph [ref=f11e16]: Livraison gratuite et 90 jours d'essai pour l'équipement pour les membres OneASI...
+                - button [ref=f11e17]:
+                  - paragraph [ref=f11e19]: plus
+          - group [ref=f11e20]:
+            - generic [ref=f11e22]:
+              - paragraph [ref=f11e23]: Livraison standard gratuite pour commandes supérieures à 50€ et retours gratuits...
+              - button [ref=f11e24] [cursor=pointer]:
+                - paragraph [ref=f11e26]: plus
+        - button "Previous slide" [ref=f11e27] [cursor=pointer]
+        - button "Next slide" [ref=f11e32] [cursor=pointer]
+      - generic [ref=f11e39]:
+        - button [ref=f11e40] [cursor=pointer]:
+          - paragraph [ref=f11e45]: France (Français)
+        - link "Aide" [ref=f11e46] [cursor=pointer]:
+          - /url: /fr/fr-fr/contact-us/
+          - paragraph [ref=f11e48]: Aide
+        - link "Localisateur de magasin" [ref=f11e49] [cursor=pointer]:
+          - /url: /fr/fr-fr/store-locator/
+          - paragraph [ref=f11e51]: Trouver un magasin
+        - link "Avantages OneASICS" [ref=f11e52] [cursor=pointer]:
+          - /url: /fr/fr-fr/oneasics/
+      - generic [ref=f11e56]:
+        - generic [ref=f11e57]:
+          - link "Naviguer vers l'accueil" [ref=f11e58] [cursor=pointer]:
+            - /url: /fr/fr-fr/
+          - navigation "Main" [ref=f11e62]:
+            - list [ref=f11e64]:
+              - listitem [ref=f11e65]:
+                - button "Soldes d'été" [ref=f11e66] [cursor=pointer]
+              - listitem [ref=f11e67]:
+                - button "Homme" [ref=f11e68] [cursor=pointer]
+              - listitem [ref=f11e69]:
+                - button "Femme" [ref=f11e70] [cursor=pointer]
+              - listitem [ref=f11e71]:
+                - button "Enfant" [ref=f11e72] [cursor=pointer]
+              - listitem [ref=f11e73]:
+                - button "Sports" [ref=f11e74] [cursor=pointer]
+              - listitem [ref=f11e75]:
+                - button "SportStyle" [ref=f11e76] [cursor=pointer]
+              - listitem [ref=f11e77]:
+                - button "Nos marques" [ref=f11e78] [cursor=pointer]
+              - listitem [ref=f11e79]:
+                - button "Inside ASICS" [ref=f11e80] [cursor=pointer]
+        - generic [ref=f11e82]:
+          - button "Rechercher" [ref=f11e86] [cursor=pointer]
+          - link "Mon compte" [ref=f11e92] [cursor=pointer]:
+            - /url: /fr/fr-fr/
+          - link "Liste de souhaits" [ref=f11e98] [cursor=pointer]:
+            - /url: /fr/fr-fr/wishlist/
+          - link "Panier" [ref=f11e105] [cursor=pointer]:
+            - /url: /fr/fr-fr/cart/
+    - main [ref=f11e110]:
+      - generic [ref=f11e112]:
+        - generic [ref=f11e115]:
+          - generic [ref=f11e116]:
+            - generic [ref=f11e117]:
+              - heading "SUPERBLAST™" [level=1] [ref=f11e118]
+              - generic [ref=f11e119]: (9)
+            - navigation "Fil d'Ariane" [ref=f11e121]:
+              - list [ref=f11e122]:
+                - listitem [ref=f11e123]:
+                  - link "Accueil" [ref=f11e124] [cursor=pointer]:
+                    - /url: /fr/fr-fr/
+                - listitem [ref=f11e125]: •
+                - listitem [ref=f11e126]:
+                  - link "Nos marques" [ref=f11e127] [cursor=pointer]:
+                    - /url: /fr/fr-fr/collections/c/as60000000/
+                - listitem [ref=f11e128]: •
+                - listitem [ref=f11e129]:
+                  - link "Plus vite" [ref=f11e130] [cursor=pointer]:
+                    - /url: /fr/fr-fr/collection-fast/c/as93000000/
+                - listitem [ref=f11e131]: •
+                - listitem [ref=f11e132]:
+                  - link "SUPERBLAST™" [disabled] [ref=f11e133]
+          - combobox "Trier par Nouveautés" [ref=f11e137] [cursor=pointer]:
+            - generic [ref=f11e138]: Nouveautés
+        - generic [ref=f11e142]:
+          - generic [ref=f11e143]:
+            - paragraph [ref=f11e147]: Filtres
+            - generic [ref=f11e149]:
+              - button [ref=f11e152] [cursor=pointer]:
+                - paragraph [ref=f11e154]: Taille
+              - button [ref=f11e159] [cursor=pointer]:
+                - paragraph [ref=f11e161]: Couleur
+              - button [ref=f11e166] [cursor=pointer]:
+                - paragraph [ref=f11e168]: Sexe
+              - button [ref=f11e173] [cursor=pointer]:
+                - paragraph [ref=f11e175]: Utilisation prévue
+              - button [ref=f11e180] [cursor=pointer]:
+                - paragraph [ref=f11e182]: Largeur
+              - button [ref=f11e187] [cursor=pointer]:
+                - paragraph [ref=f11e189]: Prix
+              - button [ref=f11e194] [cursor=pointer]:
+                - paragraph [ref=f11e196]: Surface
+              - button [ref=f11e201] [cursor=pointer]:
+                - paragraph [ref=f11e203]: Foulée
+              - button [ref=f11e208] [cursor=pointer]:
+                - paragraph [ref=f11e210]: Amorti
+          - generic [ref=f11e213]:
+            - paragraph [ref=f11e215]: Grille de produits mise à jour. Affichage de 9 articles.
+            - generic [ref=f11e216]:
+              - generic [ref=f11e217]:
+                - link "Next slide Ajouter à la liste de souhaits SUPERBLAST 2 Chaussures de Running unisexes € 220,00 € 165,00" [ref=f11e218] [cursor=pointer]:
+                  - /url: /fr/fr-fr/superblast-2/p/1013A142-401.html
+                  - region [ref=f11e221]:
+                    - generic [ref=f11e223]:
+                      - group [ref=f11e224]:
+                        - img "SUPERBLAST 2, Blue Fade/Edo Purple 1" [ref=f11e226]
+                      - group [ref=f11e227]:
+                        - img "SUPERBLAST 2, Blue Fade/Edo Purple 2" [ref=f11e229]
+                      - group [ref=f11e230]:
+                        - img "SUPERBLAST 2, Blue Fade/Edo Purple 3" [ref=f11e232]
+                    - button "Next slide"
+                  - button "Ajouter à la liste de souhaits" [ref=f11e233]
+                  - generic [ref=f11e237]:
+                    - region [ref=f11e240]:
+                      - generic [ref=f11e243]:
+                        - group [ref=f11e244]:
+                          - button "SUPERBLAST 2, Blue Fade/Edo Purple" [ref=f11e246]:
+                            - img "Blue Fade/Edo Purple" [ref=f11e247]
+                        - group [ref=f11e248]:
+                          - button "SUPERBLAST 2, Winter Sea/White" [ref=f11e250]:
+                            - img "Winter Sea/White" [ref=f11e251]
+                    - generic [ref=f11e252]:
+                      - paragraph [ref=f11e253]: SUPERBLAST 2
+                      - paragraph [ref=f11e254]: Chaussures de Running unisexes
+                      - generic [ref=f11e256]:
+                        - generic [ref=f11e257]: € 220,00
+                        - generic [ref=f11e258]: € 165,00
+                - generic [ref=f11e259]:
+                  - generic [ref=f11e260]: "Soldes d'été: 25% de réduction"
+                  - paragraph [ref=f11e264]:
+                    - strong [ref=f11e266]: Connectez-vous pour profiter de -10% de plus
+              - generic [ref=f11e267]:
+                - link "Next slide Ajouter à la liste de souhaits SUPERBLAST 2 EKIDEN Chaussures de Running unisexes € 220,00 € 176,00" [ref=f11e268] [cursor=pointer]:
+                  - /url: /fr/fr-fr/superblast--2-ekiden/p/1013A185-300.html
+                  - region [ref=f11e271]:
+                    - generic [ref=f11e273]:
+                      - group [ref=f11e274]:
+                        - img "SUPERBLAST 2 EKIDEN, Vital Green/Black 1" [ref=f11e276]
+                      - group [ref=f11e277]:
+                        - img "SUPERBLAST 2 EKIDEN, Vital Green/Black 2" [ref=f11e279]
+                      - group [ref=f11e280]:
+                        - img "SUPERBLAST 2 EKIDEN, Vital Green/Black 3" [ref=f11e282]
+                    - button "Next slide"
+                  - button "Ajouter à la liste de souhaits" [ref=f11e283]
+                  - generic [ref=f11e287]:
+                    - region [ref=f11e290]:
+                      - group [ref=f11e294]:
+                        - button "SUPERBLAST 2 EKIDEN, Vital Green/Black" [ref=f11e296]:
+                          - img "Vital Green/Black" [ref=f11e297]
+                    - generic [ref=f11e298]:
+                      - paragraph [ref=f11e299]: SUPERBLAST 2 EKIDEN
+                      - paragraph [ref=f11e300]: Chaussures de Running unisexes
+                      - generic [ref=f11e302]:
+                        - generic [ref=f11e303]: € 220,00
+                        - generic [ref=f11e304]: € 176,00
+                - generic [ref=f11e305]:
+                  - generic [ref=f11e306]: "Soldes d'été: 20% de réduction"
+                  - paragraph [ref=f11e310]:
+                    - strong [ref=f11e312]: Connectez-vous pour profiter de -10% de plus
+              - generic [ref=f11e313]:
+                - link "Next slide Ajouter à la liste de souhaits SUPERBLAST 2 Chaussures de Running unisexes € 220,00 € 165,00" [ref=f11e314] [cursor=pointer]:
+                  - /url: /fr/fr-fr/superblast-2/p/1013A142-402.html
+                  - region [ref=f11e317]:
+                    - generic [ref=f11e319]:
+                      - group [ref=f11e320]:
+                        - img "SUPERBLAST 2, Winter Sea/White 1" [ref=f11e322]
+                      - group [ref=f11e323]:
+                        - img "SUPERBLAST 2, Winter Sea/White 2" [ref=f11e325]
+                      - group [ref=f11e326]:
+                        - img "SUPERBLAST 2, Winter Sea/White 3" [ref=f11e328]
+                    - button "Next slide"
+                  - button "Ajouter à la liste de souhaits" [ref=f11e329]
+                  - generic [ref=f11e333]:
+                    - region [ref=f11e336]:
+                      - generic [ref=f11e339]:
+                        - group [ref=f11e340]:
+                          - button "SUPERBLAST 2, Winter Sea/White" [ref=f11e342]:
+                            - img "Winter Sea/White" [ref=f11e343]
+                        - group [ref=f11e344]:
+                          - button "SUPERBLAST 2, Blue Fade/Edo Purple" [ref=f11e346]:
+                            - img "Blue Fade/Edo Purple" [ref=f11e347]
+                    - generic [ref=f11e348]:
+                      - paragraph [ref=f11e349]: SUPERBLAST 2
+                      - paragraph [ref=f11e350]: Chaussures de Running unisexes
+                      - generic [ref=f11e352]:
+                        - generic [ref=f11e353]: € 220,00
+                        - generic [ref=f11e354]: € 165,00
+                - generic [ref=f11e355]:
+                  - generic [ref=f11e356]: "Soldes d'été: 25% de réduction"
+                  - paragraph [ref=f11e360]:
+                    - strong [ref=f11e362]: Connectez-vous pour profiter de -10% de plus
+              - generic [ref=f11e363]:
+                - link "Ajouter à la liste de souhaits SUPERBLAST 2 Chaussures de Running unisexes € 220,00 € 176,00" [ref=f11e364] [cursor=pointer]:
+                  - /url: /fr/fr-fr/superblast-2/p/1013A160-001.html
+                  - button "Ajouter à la liste de souhaits" [ref=f11e366]
+                  - generic [ref=f11e370]:
+                    - region [ref=f11e373]:
+                      - group [ref=f11e377]:
+                        - button "SUPERBLAST 2, Black/White" [ref=f11e379]:
+                          - img "Black/White" [ref=f11e380]
+                    - generic [ref=f11e381]:
+                      - paragraph [ref=f11e382]: SUPERBLAST 2
+                      - paragraph [ref=f11e383]: Chaussures de Running unisexes
+                      - generic [ref=f11e385]:
+                        - generic [ref=f11e386]: € 220,00
+                        - generic [ref=f11e387]: € 176,00
+                - generic [ref=f11e388]:
+                  - generic [ref=f11e389]: "Soldes d'été: 20% de réduction"
+                  - paragraph [ref=f11e393]:
+                    - strong [ref=f11e395]: Connectez-vous pour profiter de -10% de plus
+              - link "Ajouter à la liste de souhaits Previous slide Next slide SUPERBLAST 3 Chaussures de Running unisexes € 220" [ref=f11e397] [cursor=pointer]:
+                - /url: /fr/fr-fr/superblast--3/p/1013A177-750.html
+                - button "Ajouter à la liste de souhaits" [ref=f11e399]
+                - generic [ref=f11e403]:
+                  - region [ref=f11e406]:
+                    - generic [ref=f11e407]:
+                      - generic [ref=f11e409]:
+                        - group [ref=f11e410]:
+                          - button "SUPERBLAST 3, Illuminate Yellow/Energy Aqua" [ref=f11e412]:
+                            - img "Illuminate Yellow/Energy Aqua" [ref=f11e413]
+                        - group [ref=f11e414]:
+                          - button "SUPERBLAST 3, Black/Black" [ref=f11e416]:
+                            - img "Black/Black" [ref=f11e417]
+                        - group [ref=f11e418]:
+                          - button "SUPERBLAST 3, White/Black" [ref=f11e420]:
+                            - img "White/Black" [ref=f11e421]
+                        - group [ref=f11e422]:
+                          - button "SUPERBLAST 3, Cobalt Burst/Light Orange" [ref=f11e424]:
+                            - img "Cobalt Burst/Light Orange" [ref=f11e425]
+                        - group [ref=f11e426]:
+                          - button "SUPERBLAST 3, Seashell/Sun Coral" [ref=f11e428]:
+                            - img "Seashell/Sun Coral" [ref=f11e429]
+                      - generic:
+                        - generic:
+                          - button "Previous slide" [disabled]
+                        - generic:
+                          - button "Next slide" [disabled]
+                  - generic [ref=f11e430]:
+                    - paragraph [ref=f11e431]: SUPERBLAST 3
+                    - paragraph [ref=f11e432]: Chaussures de Running unisexes
+                    - generic [ref=f11e433]: € 220
+              - link "Ajouter à la liste de souhaits Previous slide Next slide SUPERBLAST 3 Chaussures de Running unisexes € 220" [ref=f11e435] [cursor=pointer]:
+                - /url: /fr/fr-fr/superblast--3/p/1013A177-001.html
+                - button "Ajouter à la liste de souhaits" [ref=f11e437]
+                - generic [ref=f11e441]:
+                  - region [ref=f11e444]:
+                    - generic [ref=f11e445]:
+                      - generic [ref=f11e447]:
+                        - group [ref=f11e448]:
+                          - button "SUPERBLAST 3, Black/Black" [ref=f11e450]:
+                            - img "Black/Black" [ref=f11e451]
+                        - group [ref=f11e452]:
+                          - button "SUPERBLAST 3, White/Black" [ref=f11e454]:
+                            - img "White/Black" [ref=f11e455]
+                        - group [ref=f11e456]:
+                          - button "SUPERBLAST 3, Cobalt Burst/Light Orange" [ref=f11e458]:
+                            - img "Cobalt Burst/Light Orange" [ref=f11e459]
+                        - group [ref=f11e460]:
+                          - button "SUPERBLAST 3, Illuminate Yellow/Energy Aqua" [ref=f11e462]:
+                            - img "Illuminate Yellow/Energy Aqua" [ref=f11e463]
+                        - group [ref=f11e464]:
+                          - button "SUPERBLAST 3, Seashell/Sun Coral" [ref=f11e466]:
+                            - img "Seashell/Sun Coral" [ref=f11e467]
+                      - generic:
+                        - generic:
+                          - button "Previous slide" [disabled]
+                        - generic:
+                          - button "Next slide" [disabled]
+                  - generic [ref=f11e468]:
+                    - paragraph [ref=f11e469]: SUPERBLAST 3
+                    - paragraph [ref=f11e470]: Chaussures de Running unisexes
+                    - generic [ref=f11e471]: € 220
+              - link "Ajouter à la liste de souhaits Previous slide Next slide SUPERBLAST 3 Chaussures de Running unisexes € 220" [ref=f11e473] [cursor=pointer]:
+                - /url: /fr/fr-fr/superblast--3/p/1013A177-400.html
+                - button "Ajouter à la liste de souhaits" [ref=f11e475]
+                - generic [ref=f11e479]:
+                  - region [ref=f11e482]:
+                    - generic [ref=f11e483]:
+                      - generic [ref=f11e485]:
+                        - group [ref=f11e486]:
+                          - button "SUPERBLAST 3, Cobalt Burst/Light Orange" [ref=f11e488]:
+                            - img "Cobalt Burst/Light Orange" [ref=f11e489]
+                        - group [ref=f11e490]:
+                          - button "SUPERBLAST 3, Black/Black" [ref=f11e492]:
+                            - img "Black/Black" [ref=f11e493]
+                        - group [ref=f11e494]:
+                          - button "SUPERBLAST 3, White/Black" [ref=f11e496]:
+                            - img "White/Black" [ref=f11e497]
+                        - group [ref=f11e498]:
+                          - button "SUPERBLAST 3, Illuminate Yellow/Energy Aqua" [ref=f11e500]:
+                            - img "Illuminate Yellow/Energy Aqua" [ref=f11e501]
+                        - group [ref=f11e502]:
+                          - button "SUPERBLAST 3, Seashell/Sun Coral" [ref=f11e504]:
+                            - img "Seashell/Sun Coral" [ref=f11e505]
+                      - generic:
+                        - generic:
+                          - button "Previous slide" [disabled]
+                        - generic:
+                          - button "Next slide" [disabled]
+                  - generic [ref=f11e506]:
+                    - paragraph [ref=f11e507]: SUPERBLAST 3
+                    - paragraph [ref=f11e508]: Chaussures de Running unisexes
+                    - generic [ref=f11e509]: € 220
+              - link "Ajouter à la liste de souhaits Previous slide Next slide SUPERBLAST 3 Chaussures de Running unisexes € 220" [ref=f11e511] [cursor=pointer]:
+                - /url: /fr/fr-fr/superblast--3/p/1013A177-100.html
+                - button "Ajouter à la liste de souhaits" [ref=f11e513]
+                - generic [ref=f11e517]:
+                  - region [ref=f11e520]:
+                    - generic [ref=f11e521]:
+                      - generic [ref=f11e523]:
+                        - group [ref=f11e524]:
+                          - button "SUPERBLAST 3, White/Black" [ref=f11e526]:
+                            - img "White/Black" [ref=f11e527]
+                        - group [ref=f11e528]:
+                          - button "SUPERBLAST 3, Black/Black" [ref=f11e530]:
+                            - img "Black/Black" [ref=f11e531]
+                        - group [ref=f11e532]:
+                          - button "SUPERBLAST 3, Cobalt Burst/Light Orange" [ref=f11e534]:
+                            - img "Cobalt Burst/Light Orange" [ref=f11e535]
+                        - group [ref=f11e536]:
+                          - button "SUPERBLAST 3, Illuminate Yellow/Energy Aqua" [ref=f11e538]:
+                            - img "Illuminate Yellow/Energy Aqua" [ref=f11e539]
+                        - group [ref=f11e540]:
+                          - button "SUPERBLAST 3, Seashell/Sun Coral" [ref=f11e542]:
+                            - img "Seashell/Sun Coral" [ref=f11e543]
+                      - generic:
+                        - generic:
+                          - button "Previous slide" [disabled]
+                        - generic:
+                          - button "Next slide" [disabled]
+                  - generic [ref=f11e544]:
+                    - paragraph [ref=f11e545]: SUPERBLAST 3
+                    - paragraph [ref=f11e546]: Chaussures de Running unisexes
+                    - generic [ref=f11e547]: € 220
+              - link "Ajouter à la liste de souhaits Previous slide Next slide SUPERBLAST 3 Chaussures de Running unisexes € 220" [ref=f11e549] [cursor=pointer]:
+                - /url: /fr/fr-fr/superblast--3/p/1013A177-800.html
+                - button "Ajouter à la liste de souhaits" [ref=f11e551]
+                - generic [ref=f11e555]:
+                  - region [ref=f11e558]:
+                    - generic [ref=f11e559]:
+                      - generic [ref=f11e561]:
+                        - group [ref=f11e562]:
+                          - button "SUPERBLAST 3, Seashell/Sun Coral" [ref=f11e564]:
+                            - img "Seashell/Sun Coral" [ref=f11e565]
+                        - group [ref=f11e566]:
+                          - button "SUPERBLAST 3, Black/Black" [ref=f11e568]:
+                            - img "Black/Black" [ref=f11e569]
+                        - group [ref=f11e570]:
+                          - button "SUPERBLAST 3, White/Black" [ref=f11e572]:
+                            - img "White/Black" [ref=f11e573]
+                        - group [ref=f11e574]:
+                          - button "SUPERBLAST 3, Cobalt Burst/Light Orange" [ref=f11e576]:
+                            - img "Cobalt Burst/Light Orange" [ref=f11e577]
+                        - group [ref=f11e578]:
+                          - button "SUPERBLAST 3, Illuminate Yellow/Energy Aqua" [ref=f11e580]:
+                            - img "Illuminate Yellow/Energy Aqua" [ref=f11e581]
+                      - generic:
+                        - generic:
+                          - button "Previous slide" [disabled]
+                        - generic:
+                          - button "Next slide" [disabled]
+                  - generic [ref=f11e582]:
+                    - paragraph [ref=f11e583]: SUPERBLAST 3
+                    - paragraph [ref=f11e584]: Chaussures de Running unisexes
+                    - generic [ref=f11e585]: € 220
+            - paragraph [ref=f11e589]: Affichage de 9 sur 9
+        - generic [ref=f11e591]:
+          - generic:
+            - region
+    - contentinfo [ref=f11e593]:
+      - generic [ref=f11e594]:
+        - generic [ref=f11e596]:
+          - generic [ref=f11e597]:
+            - generic [ref=f11e598]:
+              - paragraph [ref=f11e599]: S'inscrire à notre newsletter
+              - paragraph [ref=f11e600]: Soyez au courant de nos nouveautés, événements exclusifs et offres en ligne avant tout le monde
+              - button "S'inscrire" [ref=f11e601] [cursor=pointer]
+            - generic [ref=f11e603]:
+              - paragraph [ref=f11e604]: Nous suivre
+              - generic [ref=f11e605]:
+                - link "Facebook" [ref=f11e606] [cursor=pointer]:
+                  - /url: https://web.facebook.com/ASICS
+                - link "X (anciennement Twitter)" [ref=f11e609] [cursor=pointer]:
+                  - /url: https://x.com/ASICSeurope
+                - link "Instagram" [ref=f11e613] [cursor=pointer]:
+                  - /url: https://www.instagram.com/asicsrunning/
+                - link "YouTube" [ref=f11e618] [cursor=pointer]:
+                  - /url: https://www.youtube.com/channel/UCT135eauXPA36lioy-cmjzw
+                - link "LinkedIn" [ref=f11e622] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/company/asics-emea/
+          - generic [ref=f11e627]:
+            - paragraph [ref=f11e628]: Service client
+            - generic [ref=f11e629]:
+              - link "Contacter ASICS" [ref=f11e631] [cursor=pointer]:
+                - /url: /fr/fr-fr/contact-us/
+              - link "Retours" [ref=f11e633] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/returns-policy/
+              - link "Livraison" [ref=f11e635] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/shipping-information/
+              - link "Modes de paiement" [ref=f11e637] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/payment-information/
+              - link "Réclamations" [ref=f11e639] [cursor=pointer]:
+                - /url: /fr/fr-fr/product-claim/
+              - link "Questions fréquentes" [ref=f11e641] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/faq/
+              - link "Suivre une commande" [ref=f11e643] [cursor=pointer]:
+                - /url: /fr/fr-fr/ordersearch/
+              - link "Trouver Un Magasin" [ref=f11e645] [cursor=pointer]:
+                - /url: /fr/fr-fr/store-locator/
+              - link "Se rétracter du contrat" [ref=f11e647] [cursor=pointer]:
+                - /url: https://returns.narvar.com/asics/returns?locale=fr_FR
+          - generic [ref=f11e650]:
+            - paragraph [ref=f11e651]: À propos d’ASICS
+            - generic [ref=f11e652]:
+              - link "Notre Histoire" [ref=f11e654] [cursor=pointer]:
+                - /url: /fr/fr-fr/mk/about-asics/
+              - link "RSE" [ref=f11e656] [cursor=pointer]:
+                - /url: http://corp.asics.com/en/csr
+              - link "Revue de presse" [ref=f11e658] [cursor=pointer]:
+                - /url: https://news-emea.asics.com/
+              - link "Relations investisseurs" [ref=f11e660] [cursor=pointer]:
+                - /url: https://corp.asics.com/en/press
+              - link "Carrières" [ref=f11e662] [cursor=pointer]:
+                - /url: /fr/fr-fr/mk/careers/search-jobs/
+              - link "Sound Mind, Sound Body Impact" [ref=f11e664] [cursor=pointer]:
+                - /url: /fr/fr-fr/mk/sound-mind-sound-body-impact/
+              - link "Réductions étudiants" [ref=f11e666] [cursor=pointer]:
+                - /url: /fr/fr-fr/unidays/
+              - link "ASICS conseil" [ref=f11e668] [cursor=pointer]:
+                - /url: /fr/fr-fr/asics-advice/
+              - link "Index égalité professionnelle" [ref=f11e670] [cursor=pointer]:
+                - /url: /fr/fr-fr/professional-equality-index/
+              - link "Qualités environnementales fiche produit" [ref=f11e672] [cursor=pointer]:
+                - /url: /fr/fr-fr/environmental-detail-of-products/
+              - link "Appli ASICS" [ref=f11e674] [cursor=pointer]:
+                - /url: /fr/fr-fr/asics-mobile-app/
+          - generic [ref=f11e677]:
+            - paragraph [ref=f11e678]: Tailles et pointures
+            - generic [ref=f11e679]:
+              - link "Tableaux et guides des tailles" [ref=f11e681] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/size-fit-guide/
+              - link "Guide de la pronation" [ref=f11e683] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/pronation-guide/
+          - generic [ref=f11e686]:
+            - paragraph [ref=f11e687]: ADHÉSION À OneASICS™
+            - generic [ref=f11e688]:
+              - link "Créer un compte gratuit" [ref=f11e690] [cursor=pointer]:
+                - /url: /fr/fr-fr/login/?onsite_feature=login-content-footer-create-free-account
+              - link "S'inscrire" [ref=f11e692] [cursor=pointer]:
+                - /url: /fr/fr-fr/login/?onsite_feature=login-content-footer-sign-in
+              - link "À propos de OneASICS" [ref=f11e694] [cursor=pointer]:
+                - /url: /fr/fr-fr/oneasics/
+              - link "FAQ OneASICS" [ref=f11e696] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/faqs-oneasics/
+              - link "OneASICS Conditions générales" [ref=f11e698] [cursor=pointer]:
+                - /url: https://legal.asics.com/fr-fr/legal/welcome-to-oneasics/
+              - link "Programme de réduction" [ref=f11e700] [cursor=pointer]:
+                - /url: /fr/fr-fr/customer-service/discount-programs/
+        - generic [ref=f11e701]:
+          - generic [ref=f11e702]:
+            - button [ref=f11e703] [cursor=pointer]:
+              - paragraph [ref=f11e708]: France (Français)
+            - link [ref=f11e709] [cursor=pointer]:
+              - /url: https://legal.asics.com/fr-fr/legal/privacy-policy
+              - paragraph [ref=f11e710]: Politique de confidentialité
+            - link [ref=f11e711] [cursor=pointer]:
+              - /url: https://legal.asics.com/fr-fr/legal/cookie-policy
+              - paragraph [ref=f11e712]: Politique en matière de cookies
+            - link [ref=f11e713] [cursor=pointer]:
+              - /url: "#manage-cookies"
+              - paragraph [ref=f11e714]: Gérer les préférences de cookies
+            - link [ref=f11e715] [cursor=pointer]:
+              - /url: /fr/fr-fr/customer-service/terms/
+              - paragraph [ref=f11e716]: Conditions générales
+            - link [ref=f11e717] [cursor=pointer]:
+              - /url: /fr/fr-fr/customer-service/disclaimer/
+              - paragraph [ref=f11e718]: Mentions légales
+          - paragraph [ref=f11e719]: © 2026 ASICS Europe
+    - region "Notifications (F8)":
+      - list
+  - button [ref=f11e720]

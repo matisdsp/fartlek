@@ -1,0 +1,628 @@
+- generic [ref=e1]:
+  - dialog "Bienvenue chez Ekosport Gestion du consentement" [ref=e4]:
+    - document [active] [ref=e5]:
+      - button "Continuer sans accepter" [ref=e6] [cursor=pointer]: Continuer sans accepter →
+      - heading "Logo" [level=1] [ref=e8]
+      - generic [ref=e9]:
+        - paragraph [ref=e11]:
+          - text: Avec votre accord, nous et
+          - button "nos 18 partenaires" [ref=e12] [cursor=pointer]
+          - text: utilisons des cookies ou technologies similaires pour stocker, consulter et traiter des données personnelles telles que votre visite sur ce site internet, les adresses IP et les identifiants de cookie. Certains partenaires ne demandent pas votre consentement pour traiter vos données et se fondent sur leur intérêt commercial légitime. À tout moment, vous pouvez retirer votre consentement ou vous opposer au traitement des données fondé sur l'intérêt légitime en cliquant sur « En savoir plus » ou en allant dans notre politique de confidentialité sur ce site internet.
+        - paragraph [ref=e14]:
+          - heading "Vos données personnelles sont traitées pour les finalités suivantes:" [level=2] [ref=e15]
+          - generic [ref=e16]: Publicités et contenu personnalisés, mesure de performance des publicités et du contenu, études d’audience et développement de services, Stocker et/ou accéder à des informations sur un appareil
+      - generic [ref=e17]:
+        - 'button "En savoir plus: Configurer vos consentements" [ref=e18] [cursor=pointer]': En savoir plus →
+        - 'button "Accepter & Fermer: Accepter notre traitement des données et fermer" [ref=e19] [cursor=pointer]': Accepter & Fermer
+  - generic [ref=e21]:
+    - banner [ref=e22]:
+      - generic [ref=e23]:
+        - link "Nos Univers" [ref=e24] [cursor=pointer]:
+          - /url: /c/eko-C2474-nos-univers
+        - generic [ref=e25]:
+          - link "Trail" [ref=e26] [cursor=pointer]:
+            - /url: /c/eko-C2721-trail
+          - generic [ref=e27]:
+            - link "Chaussure trail" [ref=e28] [cursor=pointer]:
+              - /url: /c/eko-C2722-chaussure-trail
+            - link "Sac hydratation trail" [ref=e29] [cursor=pointer]:
+              - /url: /c/eko-C2749-sac-hydratation-trail
+            - link "Chaussure de récupération" [ref=e30] [cursor=pointer]:
+              - /url: /c/eko-C2723-chaussure-de-recuperation
+            - link "Vêtement trail" [ref=e31] [cursor=pointer]:
+              - /url: /c/eko-C2726-vetement-trail
+            - link "Equipement trail" [ref=e32] [cursor=pointer]:
+              - /url: /c/eko-C2755-equipement-trail
+            - link "Montres cardio GPS" [ref=e33] [cursor=pointer]:
+              - /url: /c/eko-C2721-trail-C3035-montre-connectee-montres-cardio-gps
+            - link "Nutrition" [ref=e34] [cursor=pointer]:
+              - /url: /c/eko-C2721-trail-C4102-nutrition-nutrition
+          - link "Running" [ref=e35] [cursor=pointer]:
+            - /url: /c/eko-C2764-running
+          - generic [ref=e36]:
+            - link "Chaussure running" [ref=e37] [cursor=pointer]:
+              - /url: /c/eko-C2765-chaussure-running
+            - link "Chaussure de récupération" [ref=e38] [cursor=pointer]:
+              - /url: /c/eko-C2766-chaussure-de-recuperation
+            - link "Vêtement running" [ref=e39] [cursor=pointer]:
+              - /url: /c/eko-C2769-vetement-running
+            - link "Equipement running" [ref=e40] [cursor=pointer]:
+              - /url: /c/eko-C2792-equipement-running
+            - link "Montres cardio GPS" [ref=e41] [cursor=pointer]:
+              - /url: /c/eko-C2764-running-C3035-montre-connectee-montres-cardio-gps
+            - link "Nutrition" [ref=e42] [cursor=pointer]:
+              - /url: /c/eko-C2764-running-C4102-nutrition-nutrition
+          - link "Randonnée" [ref=e43] [cursor=pointer]:
+            - /url: /c/eko-C2856-randonnee
+          - generic [ref=e44]:
+            - link "Chaussure de randonnée" [ref=e45] [cursor=pointer]:
+              - /url: /c/eko-C2857-chaussure-de-randonnee
+            - link "Sac de randonnée" [ref=e46] [cursor=pointer]:
+              - /url: /c/eko-C2886-sac-de-randonnee
+            - link "Bagagerie de voyage" [ref=e47] [cursor=pointer]:
+              - /url: /c/eko-C2890-bagagerie-de-voyage
+            - link "Porte bébé randonnée" [ref=e48] [cursor=pointer]:
+              - /url: /c/eko-C2892-porte-bebe-randonnee
+            - link "Vêtement randonnée" [ref=e49] [cursor=pointer]:
+              - /url: /c/eko-C2865-vetement-randonnee
+            - link "Accessoire randonnée" [ref=e50] [cursor=pointer]:
+              - /url: /c/eko-C2893-accessoire-randonnee
+          - link "Bivouac" [ref=e51] [cursor=pointer]:
+            - /url: /c/eko-C2901-bivouac
+          - generic [ref=e52]:
+            - link "Tente bivouac" [ref=e53] [cursor=pointer]:
+              - /url: /c/eko-C2902-tente-bivouac
+            - link "Couchage bivouac" [ref=e54] [cursor=pointer]:
+              - /url: /c/eko-C2903-couchage-bivouac
+            - link "Accessoire bivouac" [ref=e55] [cursor=pointer]:
+              - /url: /c/eko-C2929-accessoire-bivouac
+            - link "Cuisine camping" [ref=e56] [cursor=pointer]:
+              - /url: /c/eko-C2913-cuisine-camping
+            - link "Matériel camping" [ref=e57] [cursor=pointer]:
+              - /url: /c/eko-C2910-materiel-camping
+            - link "Accessoire hygiène" [ref=e58] [cursor=pointer]:
+              - /url: /c/eko-C2932-accessoire-hygiene
+            - link "Réchaud randonnée" [ref=e59] [cursor=pointer]:
+              - /url: /c/eko-C2924-rechaud-randonnee
+            - link "Repas déshydratés" [ref=e60] [cursor=pointer]:
+              - /url: /c/eko-C2901-bivouac-C4109-repas-deshydrates-repas-deshydrates
+          - link "Escalade" [ref=e61] [cursor=pointer]:
+            - /url: /c/eko-C2960-escalade
+          - generic [ref=e62]:
+            - link "Chausson escalade" [ref=e63] [cursor=pointer]:
+              - /url: /c/eko-C2961-chausson-escalade
+            - link "Matériel escalade" [ref=e64] [cursor=pointer]:
+              - /url: /c/eko-C2962-materiel-escalade
+            - link "Vêtement escalade" [ref=e65] [cursor=pointer]:
+              - /url: /c/eko-C2978-vetement-escalade
+            - link "Corderie escalade" [ref=e66] [cursor=pointer]:
+              - /url: /c/eko-C2972-corderie-escalade
+            - link "Accessoire escalade" [ref=e67] [cursor=pointer]:
+              - /url: /c/eko-C2986-accessoire-escalade
+            - link "Entrainement escalade" [ref=e68] [cursor=pointer]:
+              - /url: /c/eko-C2993-entrainement-escalade
+            - link "Via ferrata" [ref=e69] [cursor=pointer]:
+              - /url: /c/eko-C2997-via-ferrata
+          - link "VTT" [ref=e70] [cursor=pointer]:
+            - /url: /c/eko-C2797-vtt
+          - generic [ref=e71]:
+            - link "Chaussure VTT" [ref=e72] [cursor=pointer]:
+              - /url: /c/eko-C2798-chaussure-vtt
+            - link "Vêtement VTT" [ref=e73] [cursor=pointer]:
+              - /url: /c/eko-C2801-vetement-vtt
+            - link "Equipement VTT" [ref=e74] [cursor=pointer]:
+              - /url: /c/eko-C2810-equipement-vtt
+            - link "Montres cardio GPS" [ref=e75] [cursor=pointer]:
+              - /url: /c/eko-C2797-vtt-C3035-montre-connectee-montres-cardio-gps
+            - link "Nutrition" [ref=e76] [cursor=pointer]:
+              - /url: /c/eko-C2797-vtt-C4102-nutrition-nutrition
+            - link "Accessoire VTT" [ref=e77] [cursor=pointer]:
+              - /url: /c/eko-C2821-accessoire-vtt
+          - link "Vélo de route" [ref=e78] [cursor=pointer]:
+            - /url: /c/eko-C2831-velo-de-route
+          - generic [ref=e79]:
+            - link "Chaussure vélo route" [ref=e80] [cursor=pointer]:
+              - /url: /c/eko-C2832-chaussure-velo-route
+            - link "Vêtement cycliste" [ref=e81] [cursor=pointer]:
+              - /url: /c/eko-C2833-vetement-cycliste
+            - link "Equipement vélo de route" [ref=e82] [cursor=pointer]:
+              - /url: /c/eko-C2844-equipement-velo-de-route
+            - link "Montres cardio GPS" [ref=e83] [cursor=pointer]:
+              - /url: /c/eko-C2831-velo-de-route-C3035-montre-connectee-montres-cardio-gps
+            - link "Nutrition" [ref=e84] [cursor=pointer]:
+              - /url: /c/eko-C2831-velo-de-route-C4102-nutrition-nutrition
+            - link "Accessoires vélo de route" [ref=e85] [cursor=pointer]:
+              - /url: /c/eko-C2847-accessoires-velo-de-route
+          - link "Lifestyle" [ref=e86] [cursor=pointer]:
+            - /url: /c/eko-C3074-lifestyle
+          - generic [ref=e87]:
+            - link "Chaussures lifestyle" [ref=e88] [cursor=pointer]:
+              - /url: /c/eko-C3106-chaussures-lifestyle
+            - link "Sac à dos lifestyle" [ref=e89] [cursor=pointer]:
+              - /url: /c/eko-C3109-sac-a-dos-lifestyle
+            - link "Bagagerie de voyage" [ref=e90] [cursor=pointer]:
+              - /url: /c/eko-C3074-lifestyle-C2890-bagagerie-de-voyage-bagagerie-de-voyage
+            - link "Lunettes de soleil" [ref=e91] [cursor=pointer]:
+              - /url: /c/eko-C3026-lunette-de-soleil-lifestyle-lunettes-de-soleil
+            - link "Vêtement lifestyle" [ref=e92] [cursor=pointer]:
+              - /url: /c/eko-C3075-vetement-lifestyle
+            - link "Accessoire lifestyle" [ref=e93] [cursor=pointer]:
+              - /url: /c/eko-C3097-accessoire-lifestyle
+          - link "Alpinisme" [ref=e94] [cursor=pointer]:
+            - /url: /c/eko-C2939-alpinisme
+          - generic [ref=e95]:
+            - link "Chaussure alpinisme" [ref=e96] [cursor=pointer]:
+              - /url: /c/eko-C2940-chaussure-alpinisme
+            - link "Sac à dos alpinisme" [ref=e97] [cursor=pointer]:
+              - /url: /c/eko-C2959-sac-a-dos-alpinisme
+            - link "Matériel alpinisme" [ref=e98] [cursor=pointer]:
+              - /url: /c/eko-C2941-materiel-alpinisme
+            - link "Vêtement alpinisme" [ref=e99] [cursor=pointer]:
+              - /url: /c/eko-C2951-vetement-alpinisme
+          - link "Ski alpin" [ref=e100] [cursor=pointer]:
+            - /url: /c/eko-C2475-ski-alpin
+          - generic [ref=e101]:
+            - link "Matériel ski" [ref=e102] [cursor=pointer]:
+              - /url: /c/eko-C2476-materiel-ski
+            - link "Equipement ski" [ref=e103] [cursor=pointer]:
+              - /url: /c/eko-C2516-equipement-ski
+            - link "Vêtement de ski" [ref=e104] [cursor=pointer]:
+              - /url: /c/eko-C2490-vetement-de-ski
+            - link "Accessoire ski" [ref=e105] [cursor=pointer]:
+              - /url: /c/eko-C2541-accessoire-ski
+            - link "Fartage ski" [ref=e106] [cursor=pointer]:
+              - /url: /c/eko-C2528-fartage-ski
+          - link "Ski de randonnée" [ref=e107] [cursor=pointer]:
+            - /url: /c/eko-C2620-ski-de-randonnee
+          - generic [ref=e108]:
+            - link "Matériel ski de randonnée" [ref=e109] [cursor=pointer]:
+              - /url: /c/eko-C2621-materiel-ski-de-randonnee
+            - link "Equipement ski de randonnée" [ref=e110] [cursor=pointer]:
+              - /url: /c/eko-C2648-equipement-ski-de-randonnee
+            - link "Vêtement ski de randonnée" [ref=e111] [cursor=pointer]:
+              - /url: /c/eko-C2633-vetement-ski-de-randonnee
+            - link "Raquette à neige" [ref=e112] [cursor=pointer]:
+              - /url: /c/eko-C2632-raquette-a-neige
+            - link "Accessoire ski de randonnée" [ref=e113] [cursor=pointer]:
+              - /url: /c/eko-C2664-accessoire-ski-de-randonnee
+            - link "Sécurité avalanche" [ref=e114] [cursor=pointer]:
+              - /url: /c/eko-C2657-securite-avalanche
+            - link "Matériel telemark" [ref=e115] [cursor=pointer]:
+              - /url: /c/eko-C4099-materiel-telemark
+          - link "Ski de fond" [ref=e116] [cursor=pointer]:
+            - /url: /c/eko-C2560-ski-de-fond
+          - generic [ref=e117]:
+            - link "Matériel ski de fond" [ref=e118] [cursor=pointer]:
+              - /url: /c/eko-C2561-materiel-ski-de-fond
+            - link "Equipement ski de fond" [ref=e119] [cursor=pointer]:
+              - /url: /c/eko-C2594-equipement-ski-de-fond
+            - link "Vêtement ski de fond" [ref=e120] [cursor=pointer]:
+              - /url: /c/eko-C2579-vetement-ski-de-fond
+            - link "Matériel ski roue" [ref=e121] [cursor=pointer]:
+              - /url: /c/eko-C2572-materiel-ski-roue
+            - link "Accessoire ski de fond" [ref=e122] [cursor=pointer]:
+              - /url: /c/eko-C2598-accessoire-ski-de-fond
+          - link "Snowboard" [ref=e123] [cursor=pointer]:
+            - /url: /c/eko-C2685-snowboard
+          - generic [ref=e124]:
+            - link "Matériel snowboard" [ref=e125] [cursor=pointer]:
+              - /url: /c/eko-C2686-materiel-snowboard
+            - link "Equipement snowboard" [ref=e126] [cursor=pointer]:
+              - /url: /c/eko-C2708-equipement-snowboard
+            - link "Vêtement snowboard" [ref=e127] [cursor=pointer]:
+              - /url: /c/eko-C2697-vetement-snowboard
+            - link "Matériel splitboard" [ref=e128] [cursor=pointer]:
+              - /url: /c/eko-C2692-materiel-splitboard
+            - link "Accessoire snowboard" [ref=e129] [cursor=pointer]:
+              - /url: /c/eko-C2718-accessoire-snowboard
+        - link "Homme" [ref=e130] [cursor=pointer]:
+          - /url: /c/eko-C2474-nos-univers/f/genre-homme
+        - link "Femme" [ref=e131] [cursor=pointer]:
+          - /url: /c/eko-C2474-nos-univers/f/genre-femme
+        - link "Enfant" [ref=e132] [cursor=pointer]:
+          - /url: /c/eko-C2474-nos-univers/f/genre-enfant
+        - link "Accessoires" [ref=e133] [cursor=pointer]:
+          - /url: /c/eko-C3000-accessoires
+      - generic [ref=e138]:
+        - generic [ref=e142]:
+          - paragraph [ref=e143]: Outdoor Inspiration
+          - generic [ref=e144]:
+            - list [ref=e148]:
+              - listitem [ref=e149]:
+                - link "Service client" [ref=e150] [cursor=pointer]:
+                  - /url: /aide-et-contact
+              - listitem [ref=e151]:
+                - link "Blog Ekosport" [ref=e152] [cursor=pointer]:
+                  - /url: https://blog.ekosport.fr/
+              - listitem [ref=e153]:
+                - link "Louez vos skis" [ref=e154] [cursor=pointer]:
+                  - /url: https://www.ekosport-rent.com/fr/
+              - listitem [ref=e155]:
+                - link "Assurance Ekosport +" [ref=e156] [cursor=pointer]:
+                  - /url: /u/cms8/ekosport-plus
+            - list [ref=e158]:
+              - listitem [ref=e159]:
+                - link "Aide au choix" [ref=e160] [cursor=pointer]:
+                  - /url: /u/gac0/guide-achat
+            - button "Envoyer en France EKO-FR-Site" [ref=e164] [cursor=pointer]:
+              - generic [ref=e165]: Envoyer en France
+              - img "EKO-FR-Site" [ref=e167]
+        - generic [ref=e172]:
+          - link "Accueil" [ref=e176] [cursor=pointer]:
+            - /url: /
+          - search [ref=e190]:
+            - textbox "Rechercher un produit, une marque, une gamme ..." [ref=e195]
+          - generic [ref=e196]:
+            - link [ref=e199] [cursor=pointer]:
+              - /url: /compare
+            - link [ref=e206] [cursor=pointer]:
+              - /url: /account/wishlists?messageKey=wishlists
+            - link [ref=e213] [cursor=pointer]:
+              - /url: /u/mag0/nos-magasins
+            - link [ref=e220] [cursor=pointer]:
+              - /url: /login?returnUrl=%2Faccount
+            - link [ref=e227] [cursor=pointer]:
+              - /url: /u/faq7/retours
+        - generic [ref=e236]:
+          - button "Nos Univers" [ref=e237] [cursor=pointer]
+          - button "Homme" [ref=e242] [cursor=pointer]
+          - button "Femme" [ref=e243] [cursor=pointer]
+          - button "Enfant" [ref=e244] [cursor=pointer]
+          - button "Accessoires" [ref=e245] [cursor=pointer]
+          - list [ref=e247]:
+            - listitem [ref=e248]:
+              - link "Nos marques" [ref=e249] [cursor=pointer]:
+                - /url: /nos-marques
+          - generic [ref=e250]:
+            - list [ref=e253]:
+              - listitem [ref=e254]:
+                - link "Nouveautés" [ref=e255] [cursor=pointer]:
+                  - /url: /c/SH0001-N0001-nouveautes
+              - listitem [ref=e256]:
+                - link "Destockage" [ref=e257] [cursor=pointer]:
+                  - /url: /c/SH0001-D0001-destockage
+            - generic:
+              - generic:
+                - list:
+                  - listitem
+                  - listitem
+        - generic [ref=e262]:
+          - link "DESTOCKAGE | -10% EXTRA avec le code EKO10" [ref=e263] [cursor=pointer]:
+            - /url: /c/SH0001-D0001-destockage
+            - paragraph [ref=e265]:
+              - text: DESTOCKAGE | -10% EXTRA avec le code
+              - generic [ref=e266]: EKO10
+          - button [ref=e271] [cursor=pointer]
+    - main [ref=e275]:
+      - generic [ref=e277]:
+        - list [ref=e283]:
+          - listitem [ref=e284]:
+            - link "Accueil" [ref=e285] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e286]:
+            - text: /
+            - link "Centre d'aide" [ref=e287] [cursor=pointer]:
+              - /url: /aide-et-contact
+          - listitem [ref=e288]: / Retours
+        - generic [ref=e302]:
+          - heading [level=1] [ref=e305]:
+            - text: Ekosport
+            - strong [ref=e306]: Retourner un produit
+          - generic [ref=e308]:
+            - generic [ref=e311]:
+              - heading "Quels sont les délais et combien coûte le retour d'un article ?" [level=2] [ref=e312]
+              - paragraph [ref=e313]: Vous disposez de 30 jours à compter de la réception des produits pour exercer votre droit de rétractation, sans avoir à justifier de motifs ni à payer de pénalités, à l'exception des frais de retour des produits concernés. Toutefois, les frais supplémentaires de livraison résultant de votre choix d'un mode de livraison plus coûteux que le mode de livraison standard proposé par Ekosport lors de la finalisation de votre commande ne sont pas remboursés. Vous pouvez choisir de retourner les articles par vos propres moyens ou d'utiliser une étiquette de retour proposée par Ekosport. Dans le cas d'une étiquette prépayée par Ekosport, le prix de celle-ci sera déduit de votre remboursement. Si vous choisissez de retourner la marchandise par vos propres moyens, les frais de renvoi seront à votre charge.
+              - table [ref=e315]:
+                - rowgroup [ref=e316]:
+                  - row [ref=e317]:
+                    - columnheader "Transporteur" [ref=e318]
+                    - columnheader "Tarif étiquette de retour" [ref=e319]
+                    - columnheader "Délais" [ref=e320]
+                    - columnheader "Infos complémentaires" [ref=e321]
+                  - row [ref=e322]:
+                    - cell "Mondial Relais" [ref=e323]
+                    - cell "3,99 €" [ref=e324]
+                    - cell "4 à 5 jours" [ref=e325]
+                    - cell "Le colis doit être déposé dans un point Mondial Relais" [ref=e326]
+                  - row [ref=e327]:
+                    - cell "Chronopost" [ref=e328]
+                    - cell "4,99 €" [ref=e329]
+                    - cell "2 à 3 jours" [ref=e330]
+                    - cell "Le colis doit être déposé dans un point relais du réseau Chronopost" [ref=e331]
+                  - row [ref=e332]:
+                    - cell "Par vos propres moyens" [ref=e333]
+                    - cell "(variable)" [ref=e334]
+                    - cell "(variable)" [ref=e335]
+                    - cell [ref=e336]:
+                      - text: Vous choisissez de ne pas utiliser d'étiquettes de retour proposées par Ekosport et de renvoyer la marchandise par vos propres moyens. Les frais de renvoi sont à votre charge. Le colis de retour doit être impérativement livré à notre adresse. Les colis de retour livrés en points relais proches d'Ekosport ne seront pas récupérés par nos équipes et vous seront retournés directement. En cas de litige, seul l’expéditeur, soit le client devra effectuer les démarches auprès du transporteur.
+                      - strong [ref=e337]: Vous pouvez également choisir cette option lorsque vous souhaitez déposer le colis de retour dans l'un de nos magasins directement (hors magasin de Gap, Le Pontet, Cabriès, Paris Montparnasse et Paris Madeleine).
+              - separator [ref=e338]
+              - heading "Où faire ma demande de retour ?" [level=2] [ref=e339]
+              - paragraph [ref=e340]: La procédure de retour peut s'effectuer en ligne via votre compte client sur ekosport. Dans la rubrique "Mon compte", cliquez sur l'onglet “Mes commandes”. Sélectionnez le numéro de commande correspondant à votre retour. Puis cliquez-en bas à droite sur “RETOURNER UN PRODUIT”.
+              - separator [ref=e341]
+              - heading "Quels sont les différents types de retour ?" [level=2] [ref=e342]
+              - paragraph [ref=e343]: Pour un traitement rapide de votre demande de retour, nous vous remercions d'être vigilant sur le motif du retour.
+              - heading "1/ Retour classique / Droit de rétractation :" [level=3] [ref=e344]
+              - paragraph [ref=e345]: "Les raisons de ce retour peuvent être diverses : \"la taille ne me convient pas\", \"je me suis trompé(e)\", \"je souhaite exercer mon droit de rétractation\". La marchandise doit alors être neuve (jamais portée), avec les étiquettes et emballages d’origine. Conformément à la loi, les produits personnalisés ne peuvent pas être retournés."
+              - generic [ref=e346]:
+                - paragraph [ref=e347]:
+                  - strong [ref=e348]: "ATTENTION :"
+                  - text: "Le droit de rétractation ne s’applique pas dans les cas suivant :"
+                - list [ref=e349]:
+                  - listitem [ref=e350]: Pour une paire de skis pour laquelle nous devons effectuer un perçage pour le réglage et le montage des fixations (skis personnalisés).
+                  - listitem [ref=e351]:
+                    - text: Pour les
+                    - link "équipements de protection individuelle" [ref=e352] [cursor=pointer]:
+                      - /url: /c/gam-GC216-epi
+                    - text: ": sac airbag et set de déclenchement, équipements d’escalade et via ferrata (baudrier escalade, mousqueton escalade, bloqueur escalade, dégaine escalade, assureur, descendeur escalade, coinceur escalade, poulie escalade, corderie escalade, corde escalade, longe escalade, cordelette escalade, sangle escalade et kit via ferrata), équipement alpinisme (baudrier alpinisme, crampon alpinisme, piolet alpinisme, corde alpinisme, broche à glace, kit secours crevasse, accessoire crampons et piolet)."
+                  - listitem [ref=e353]: "Pour les produits de nutrition : repas déshydratés, aliments et compléments alimentaires"
+              - heading "2/ Retour non conforme :" [level=3] [ref=e354]
+              - paragraph [ref=e355]: Le produit reçu est différent de celui commandé (erreur de taille, erreur de descriptif, mauvaise couleur, produit incomplet, antivol…).
+              - heading "3/ Retour défectueux :" [level=3] [ref=e356]
+              - paragraph [ref=e357]: L'article reçu est endommagé ou défectueux (coutures défectueuses, mécanisme défaillant, fermeture éclair coincée ou cassée, rayures…).
+              - generic [ref=e358]:
+                - paragraph [ref=e359]:
+                  - text: Pour les cas 1 vous disposez de
+                  - strong [ref=e360]: 30 jours
+                  - text: à réception de votre colis pour effectuer votre demande de retour. Pour les cas 2 et 3 vous disposez de
+                  - strong [ref=e361]: 14 jours
+                  - text: à réception de votre colis.
+                  - strong [ref=e362]: Passé ce délai, la marchandise et la livraison sont considérées comme conformes.
+                - paragraph [ref=e363]: Dans le cas d'un renvoi, les produits doivent être neufs avec les étiquettes et emballages d'origine.
+              - heading "4/ SAV :" [level=3] [ref=e364]
+              - paragraph [ref=e365]: À la suite de l'utilisation de votre produit acheté chez ekosport, celui-ci présente une usure anormale ou prématurée (crochet cassé, coutures décousues, problème d'imperméabilité, délaminage…). Vous disposez de 2 ans après votre achat pour déclarer un SAV via ce formulaire.
+              - separator [ref=e366]
+              - heading "Comment faire mon retour ?" [level=2] [ref=e367]
+              - paragraph [ref=e368]: "Veuillez suivre les différentes étapes suivantes pour effectuer votre demande de retour :"
+              - list [ref=e369]:
+                - listitem [ref=e370]:
+                  - strong [ref=e371]: Etape 1
+                  - text: ": Sélectionnez le numéro de commande correspondant à votre retour."
+                - listitem [ref=e372]:
+                  - strong [ref=e373]: Etape 2
+                  - text: ": Cliquez-en bas à droite sur “RETOURNER UN PRODUIT, puis complétez votre demande de retour : sélectionnez le motif du retour, la quantité du produit, puis validez.Pour valider un retour \"non conforme\", \"défectueux\" ou \"SAV\", une photo de l'article et un message explicatif du problème rencontré sont obligatoires pour valider la demande."
+                - listitem [ref=e374]:
+                  - strong [ref=e375]: Etape 3
+                  - text: ": Dans le cadre d'un retour classique, choisissez un transporteur pour le renvoi des produits. Vous pouvez choisir de retourner les articles par vos propres moyens ou d'utiliser une étiquette de retour proposée par ekosport. Dans le cas d'une étiquette prépayée par ekosport, le prix de celle-ci sera déduit de votre remboursement. Si vous choisissez de retourner la marchandise par vos propres moyens, les frais de renvoi restent à votre charge."
+                - listitem [ref=e376]:
+                  - strong [ref=e377]: Etape 4
+                  - text: ": Cliquez sur « Envoyer la demande », vous recevrez ensuite par e-mail"
+                  - strong [ref=e378]: un accusé de réception de votre demande
+                  - text: ", votre numéro de retour ainsi que les informations nécessaires au renvoi de la marchandise."
+                - listitem [ref=e379]:
+                  - strong [ref=e380]: Etape 5
+                  - text: ": Dans le mail de retour, vous disposerez d’un bon de retour marchandise à imprimer et à placer dans le colis. Si vous avez choisi de renvoyer la marchandise grâce à une étiquette prépayée Ekosport, celle-ci sera également en pièce jointe ou alors à télécharger en cliquant sur un lien dans le corps du mail."
+                - listitem [ref=e381]:
+                  - strong [ref=e382]: Etape 6
+                  - text: ": Pour Mondial Relay : déposez le colis dans un point relais Mondial Relay. Pour"
+                  - strong [ref=e383]: Chronopost
+                  - text: déposez le colis dans un point relais du réseau Chronopost. Dans le cas d’un renvoi par vos propres moyens, choisissez le transporteur de votre choix. Pour déposer votre colis en magasin EKOSPORT, choisissez « retour par mes propres moyens ».
+                - listitem [ref=e384]:
+                  - strong [ref=e385]: Etape 7
+                  - text: ": Nous vous prions de bien conserver la preuve de dépôt de votre colis le temps que celui-ci soit traité par nos services."
+              - paragraph [ref=e386]: Lorsque vous retournez les articles par vos propres moyens, vous êtes l’unique garant de la bonne réception de celui-ci au sein de notre entrepôt. Si vous décidez d’envoyer le colis dans un point relais, qu’il soit plus ou moins proche de notre centre logistique, nos équipes ne sont pas tenus de le récupérer. Par conséquent, celui-ci vous sera automatiquement retourné.
+              - generic [ref=e387]:
+                - paragraph [ref=e388]: "Pour renvoyer la marchandise par vos propres moyens, merci d’adresser votre colis à :"
+                - paragraph [ref=e389]:
+                  - strong [ref=e390]: EKOSPORT, Service Retours
+                - paragraph [ref=e391]:
+                  - strong [ref=e392]: 173 rue des Eglantiers
+                - paragraph [ref=e393]:
+                  - strong [ref=e394]: 73230 Saint Alban Leysse - France
+              - paragraph [ref=e396]: Si vous ne recevez pas de mail de retour, merci de vérifier dans vos courriers indésirables (spam). Une fois votre demande envoyée, vérifiez que celle-ci apparaisse bien comme « prise en compte » dans la rubrique “Mes commandes”. Sélectionnez le numéro de commande correspondant à votre retour. Puis cliquez-en bas à droite sur “RETOURNER UN PRODUIT”.
+              - paragraph [ref=e397]: A la réception de votre colis par nos services, selon votre choix, vous serez remboursé dans un délai légal maximum de 14 jours par le même mode de paiement que vous avez utilisé pour réaliser votre achat. Vous serez averti par e-mail à la réception de votre colis par nos services.
+              - separator [ref=e398]
+              - heading "Puis-je déposer mon colis de retour en magasin ?" [level=2] [ref=e399]
+              - paragraph [ref=e400]:
+                - text: Oui, il est possible de laisser votre colis de retour dans l'un de nos magasins (
+                - strong [ref=e401]: sauf ceux de Gap, Paris, Cabriès et Le Pontet
+                - text: ).
+              - paragraph [ref=e402]: Cependant, le magasin fait seulement office de dépôt. Il ne pourra ni vous rembourser, ni effectuer un échange. Votre commande ayant été effectuée sur notre site internet, le retour de votre produit sera traité par le service logistique du site web.
+              - paragraph [ref=e403]:
+                - text: Pour retourner votre commande en magasin, rendez-vous dans “Mes commandes”. Sélectionnez le numéro de commande correspondant à votre retour. Puis cliquez-en bas à droite sur “RETOURNER UN PRODUIT”. Renseignez la quantité, le motif, sélectionnez remboursement et pour le renvoi choisissez "
+                - strong [ref=e404]: retour par mes propres moyens
+                - text: "\". Vous recevrez alors un mail avec un bon de retour à placer à l’intérieur de votre colis, avant de le déposer en magasin."
+              - paragraph [ref=e405]: Une fois le colis déposé, le magasin le retourne vers notre entrepôt où il sera vérifié et validé. Vous recevrez alors votre remboursement sur le moyen de paiement utilisé lors de votre commande.
+              - paragraph [ref=e406]:
+                - text: Nous vous rappelons que nous disposons de
+                - strong [ref=e407]: 14 jours
+                - text: une fois le colis déposé au magasin pour vous rembourser.
+              - separator [ref=e408]
+              - heading "Foire aux questions" [level=2] [ref=e409]
+            - tablist [ref=e413]:
+              - tab [ref=e415]:
+                - button [ref=e416] [cursor=pointer]:
+                  - strong [ref=e418]: Puis-je retourner des articles qui ne me conviennent pas ?
+              - tab [ref=e420]:
+                - button [ref=e421] [cursor=pointer]:
+                  - strong [ref=e423]: Que faire si l'article reçu est abîmé ou défectueux ?
+              - tab [ref=e425]:
+                - button [ref=e426] [cursor=pointer]:
+                  - strong [ref=e428]: Que faire si je n'ai pas reçu le bon produit ?
+              - tab [ref=e430]:
+                - button [ref=e431] [cursor=pointer]:
+                  - strong [ref=e433]: Que se passe-t-il si je renvoie un produit commandé avec un code promo ?
+              - tab [ref=e435]:
+                - button [ref=e436] [cursor=pointer]:
+                  - strong [ref=e438]: Que se passe-t-il si je renvoie un produit commandé lors d'une opération "X produit(s) acheté(s), le Xième à X euro(s)" ?
+              - tab [ref=e440]:
+                - button [ref=e441] [cursor=pointer]:
+                  - strong [ref=e443]: Quel est le délai de traitement de mon retour ?
+              - tab [ref=e445]:
+                - button [ref=e446] [cursor=pointer]:
+                  - strong [ref=e448]: Je souhaite faire un échange
+              - tab [ref=e450]:
+                - button [ref=e451] [cursor=pointer]:
+                  - strong [ref=e453]: Comment fonctionne le remboursement d’un article lors d’une commande réglée en 3 fois sans frais ?
+    - contentinfo [ref=e454]:
+      - generic [ref=e455]:
+        - generic [ref=e460]:
+          - generic [ref=e461]:
+            - text: Inscrivez-vous à la
+            - strong [ref=e462]: newsletter
+          - paragraph [ref=e463]: Envie de profiter des promotions avant tout le monde & de tout découvrir sur les dernières collections. Alors n'attendez plus !
+          - generic [ref=e464]:
+            - textbox "votre email" [ref=e475]
+            - button "S'inscrire" [ref=e476] [cursor=pointer]
+        - generic [ref=e486]:
+          - link [ref=e490] [cursor=pointer]:
+            - /url: /u/faq5/moyens-de-paiement
+            - img "<span class=\"pt-2\">paiement en <strong>3X ou 4X</strong></span>" [ref=e491]
+            - generic [ref=e493]:
+              - text: paiement en
+              - strong [ref=e494]: 3X ou 4X
+          - link [ref=e498] [cursor=pointer]:
+            - /url: /u/faq4/modes-de-livraison
+            - img "<span class=\"pt-2\"><strong>Livraison offerte<sup>*</sup> </strong> dès 50 €</span>" [ref=e499]
+            - generic [ref=e501]:
+              - strong [ref=e502]:
+                - text: Livraison offerte
+                - superscript [ref=e503]: "*"
+              - text: dès 50 €
+          - link [ref=e507] [cursor=pointer]:
+            - /url: /u/faq7/retours
+            - img "<span class=\"pt-2\"><strong>30 jours </strong> pour changer d'avis</span>" [ref=e508]
+            - generic [ref=e510]:
+              - strong [ref=e511]: 30 jours
+              - text: pour changer d'avis
+          - link [ref=e515] [cursor=pointer]:
+            - /url: /u/faq7/retours
+            - img "<span class=\"pt-2\">Retour <strong>facile</strong></span>" [ref=e516]
+            - generic [ref=e518]:
+              - text: Retour
+              - strong [ref=e519]: facile
+          - link [ref=e523] [cursor=pointer]:
+            - /url: /u/faq4/modes-de-livraison
+            - img "<span class=\"pt-2\">Livraison <strong>express</strong></span>" [ref=e524]
+            - generic [ref=e526]:
+              - text: Livraison
+              - strong [ref=e527]: express
+          - link [ref=e531] [cursor=pointer]:
+            - /url: /u/faq5/moyens-de-paiement
+            - img "<span class=\"pt-2\">paiement <strong>sécurisé</strong></span>" [ref=e532]
+            - generic [ref=e534]:
+              - text: paiement
+              - strong [ref=e535]: sécurisé
+        - generic [ref=e538]:
+          - generic [ref=e544]:
+            - generic [ref=e548]:
+              - generic [ref=e549]: Votre commande
+              - generic [ref=e550]:
+                - link "Faire une commande" [ref=e551] [cursor=pointer]:
+                  - /url: /u/faq1/faire-une-commande
+                - link "Suivre une commande" [ref=e552] [cursor=pointer]:
+                  - /url: /u/faq2/suivre-une-commande
+                - link "Avis ekosport" [ref=e553] [cursor=pointer]:
+                  - /url: /u/faq3/avis-ekosport
+                - link "Modes de livraison" [ref=e554] [cursor=pointer]:
+                  - /url: /u/faq4/modes-de-livraison
+                - link "Moyens de paiement" [ref=e555] [cursor=pointer]:
+                  - /url: /u/faq5/moyens-de-paiement
+                - link "Click & Collect" [ref=e556] [cursor=pointer]:
+                  - /url: /u/faq6/click-collect
+                - link "Retours" [ref=e557] [cursor=pointer]:
+                  - /url: /u/faq7/retours
+                - link "CGV" [ref=e558] [cursor=pointer]:
+                  - /url: /u/cms1/cgv
+                - link "Rappel Produits" [ref=e559] [cursor=pointer]:
+                  - /url: /u/faq9/rappel-produits
+            - generic [ref=e563]:
+              - generic [ref=e564]: À propos
+              - generic [ref=e565]:
+                - link "Qui sommes-nous ?" [ref=e566] [cursor=pointer]:
+                  - /url: /u/cms2/qui-sommes-nous
+                - link "Nos magasins" [ref=e567] [cursor=pointer]:
+                  - /url: /u/mag0/nos-magasins
+                - link "Recrutement" [ref=e568] [cursor=pointer]:
+                  - /url: /u/cms4/recrutement
+                - link "Mentions légales" [ref=e569] [cursor=pointer]:
+                  - /url: /u/cms5/mentions-legales
+                - link "Service client" [ref=e570] [cursor=pointer]:
+                  - /url: /aide-et-contact
+                - link "Données personnelles" [ref=e571] [cursor=pointer]:
+                  - /url: /u/cms6/politique-de-protection-des-donnees-personnelles
+            - generic [ref=e575]:
+              - generic [ref=e576]: Les + ekosport
+              - generic [ref=e577]:
+                - link "Clubs, CE et collectivités" [ref=e578] [cursor=pointer]:
+                  - /url: /u/faq8/clubs-ce-et-collectivites
+                - link "Guide d'achat" [ref=e579] [cursor=pointer]:
+                  - /url: /u/gac0/guide-achat
+                - link "Bons plans" [ref=e580] [cursor=pointer]:
+                  - /url: /u/bpl1/bons-plans
+                - link "Ski & Snow test 2026" [ref=e581] [cursor=pointer]:
+                  - /url: /u/com2/ski-snow-test-la-clusaz
+                - link "Cartes cadeaux" [ref=e582] [cursor=pointer]:
+                  - /url: /u/bpl13/carte-cadeau
+                - link "Nos événements" [ref=e583] [cursor=pointer]:
+                  - /url: /u/evnt0/evenements
+                - link "Assurance Ekosport +" [ref=e584] [cursor=pointer]:
+                  - /url: /u/cms8/ekosport-plus
+                - link "Ekosport-Rent" [ref=e585] [cursor=pointer]:
+                  - /url: /u/cms7/ekosport-rent
+                - link "Goodloop" [ref=e586] [cursor=pointer]:
+                  - /url: /u/bpl15/goodloop
+          - generic [ref=e589]:
+            - generic [ref=e590]: Suivez-nous
+            - generic [ref=e591]:
+              - link "@ekosport.fr" [ref=e592] [cursor=pointer]:
+                - /url: https://www.facebook.com/ekosport.fr
+              - link "@ekosport73" [ref=e598] [cursor=pointer]:
+                - /url: https://www.youtube.com/@ekosport73
+              - link "@ekosport" [ref=e604] [cursor=pointer]:
+                - /url: https://www.tiktok.com/@ekosport
+              - link "ekosport" [ref=e610] [cursor=pointer]:
+                - /url: https://www.instagram.com/ekosport
+              - link "Ekosport" [ref=e616] [cursor=pointer]:
+                - /url: https://www.strava.com/clubs/1465576
+        - generic [ref=e622]:
+          - generic [ref=e630]:
+            - generic [ref=e632]:
+              - generic [ref=e634]:
+                - generic [ref=e635]: Moyens de paiement
+                - generic [ref=e636]:
+                  - link "CB" [ref=e637] [cursor=pointer]:
+                    - /url: /u/faq5/moyens-de-paiement
+                  - link "Mastercard" [ref=e641] [cursor=pointer]:
+                    - /url: /u/faq5/moyens-de-paiement
+                  - link "Visa" [ref=e645] [cursor=pointer]:
+                    - /url: /u/faq5/moyens-de-paiement
+                  - link "Paypal" [ref=e649] [cursor=pointer]:
+                    - /url: /u/faq5/moyens-de-paiement
+                  - link "Alma" [ref=e653] [cursor=pointer]:
+                    - /url: /u/faq5/moyens-de-paiement
+                  - link "Virement bancaire" [ref=e657] [cursor=pointer]:
+                    - /url: /u/faq5/moyens-de-paiement
+                  - link "ApplePay" [ref=e661] [cursor=pointer]:
+                    - /url: /u/faq5/moyens-de-paiement
+              - generic [ref=e665]:
+                - generic [ref=e666]: Moyens de livraison
+                - generic [ref=e667]:
+                  - link "DPD group" [ref=e668] [cursor=pointer]:
+                    - /url: /u/faq4/modes-de-livraison
+                  - link "Shop2Shop" [ref=e672] [cursor=pointer]:
+                    - /url: /u/faq4/modes-de-livraison
+                  - link "Chronopost" [ref=e676] [cursor=pointer]:
+                    - /url: /u/faq4/modes-de-livraison
+                  - link "Relay Mondial" [ref=e680] [cursor=pointer]:
+                    - /url: /u/faq4/modes-de-livraison
+                  - link "Colissimo" [ref=e684] [cursor=pointer]:
+                    - /url: /u/faq4/modes-de-livraison
+                  - link "Click And Collect" [ref=e688] [cursor=pointer]:
+                    - /url: /u/faq4/modes-de-livraison
+            - generic [ref=e692]:
+              - link "Fournisseur Hoka semi Marathon de Paris":
+                - /url: /u/com11/semi-de-paris
+                - img "Fournisseur Hoka semi Marathon de Paris"
+              - link "Fédération Française de Ski - Boutique Officielle":
+                - /url: /c/gam-GC250-ffs
+                - img "Fédération Française de Ski - Boutique Officielle"
+          - generic [ref=e695]:
+            - paragraph [ref=e696]: © 2025 - Ekosport
+            - generic [ref=e697]:
+              - link "Mentions légales" [ref=e698] [cursor=pointer]:
+                - /url: /u/cms5/mentions-legales
+              - link "Politique de confidentialité" [ref=e699] [cursor=pointer]:
+                - /url: /u/cms6/politique-de-protection-des-donnees-personnelles
+              - link "Politique d'utilisation des cookies" [ref=e700] [cursor=pointer]:
+                - /url: /u/cms6/politique-de-protection-des-donnees-personnelles

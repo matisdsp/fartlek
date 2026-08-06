@@ -203,11 +203,23 @@ async def run(
     elif source == "race_predictions":
         path = f"/metrics-service/metrics/racepredictions/latest/{ctx.display_name}"
         params = {}
+    elif source == "gear":
+        # The gear service keys on userProfilePk, not display_name; the sync
+        # engine captures it, so an unsynced store cannot form this call.
+        profile_id = ctx.profile_id
+        if profile_id is None:
+            return _error(ctx, (
+                "Garmin's numeric profile id is not in the store yet, and the gear "
+                "service needs it — run garmin_sync(), then retry. "
+                "garmin_gear() gives the interpreted view."
+            ))
+        path = "/gear-service/gear/filterGear"
+        params = {"userProfilePk": profile_id}
     else:
         return _error(ctx, (
             f"Unknown source '{source}' — valid sources: daily_summary, sleep_detail, "
             f"hrv_detail, stress_detail, body_battery, activity_summary, activity_splits, "
-            f"activity_zones, training_status, race_predictions, weather."
+            f"activity_zones, training_status, race_predictions, gear, weather."
         ))
 
     try:
@@ -314,4 +326,6 @@ def _next_step(source: str, activity_id: int | None) -> str:
         return f"garmin_activity(activity_id={activity_id})"
     if source in ("training_status", "race_predictions"):
         return "garmin_athlete()"
+    if source == "gear":
+        return "garmin_gear()"
     return "garmin_brief()"

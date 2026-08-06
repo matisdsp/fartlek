@@ -18,10 +18,11 @@ TODAY = "2026-07-19"
 class FakeContext:
     display_name = "display-name-123"
 
-    def __init__(self, payloads=None, banner=None, fail=None):
+    def __init__(self, payloads=None, banner=None, fail=None, profile_id="4242"):
         self._payloads = payloads or {}
         self._banner = banner
         self._fail = fail
+        self.profile_id = profile_id
         self.calls: list[tuple[str, dict]] = []
         self.ready = False
 
@@ -260,3 +261,45 @@ def test_auth_error_propagates():
     ctx = FakeContext(fail=GarminAuthError("expired"))
     with pytest.raises(GarminAuthError):
         run(ctx, source="daily_summary")
+
+
+# --- gear source -------------------------------------------------------------
+
+GEAR_PAYLOAD = [
+    {
+        "gearPk": 46846508,
+        "uuid": "734cf929b67445fe94de9677099584ec",
+        "userProfilePk": 83866505,
+        "gearTypeName": "Shoes",
+        "gearStatusName": "active",
+        "displayName": None,
+        "customMakeModel": "Hoka Arahi 7",
+        "imageNameLarge": None,
+        "dateBegin": "2025-11-01T00:00:00.0",
+        "maximumMeters": 1000000.0,
+    }
+]
+
+
+def test_gear_source_keys_on_the_profile_id_not_the_display_name():
+    ctx = FakeContext({"/gear-service/gear/filterGear": GEAR_PAYLOAD})
+    out = run(ctx, source="gear")
+    assert ctx.calls == [("/gear-service/gear/filterGear", {"userProfilePk": "4242"})]
+    assert "Hoka Arahi 7" in out
+    assert "garmin_gear()" in out  # breadcrumb to the interpreted view
+
+
+def test_gear_source_strips_the_usual_boilerplate():
+    ctx = FakeContext({"/gear-service/gear/filterGear": GEAR_PAYLOAD})
+    out = run(ctx, source="gear")
+    assert "userProfilePk" not in out       # owner id, dropped like everywhere else
+    assert "734cf929" not in out            # opaque uuid, dropped
+    assert "imageNameLarge" not in out      # null, dropped
+
+
+def test_gear_source_without_a_synced_profile_id_is_corrective():
+    ctx = FakeContext({"/gear-service/gear/filterGear": GEAR_PAYLOAD}, profile_id=None)
+    out = run(ctx, source="gear")
+    assert "profile id is not in the store yet" in out
+    assert "garmin_sync()" in out
+    assert ctx.calls == []                  # never forms a call it cannot key

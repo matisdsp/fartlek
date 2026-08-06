@@ -341,3 +341,52 @@ def test_banner_on_report_and_error(store):
     assert out.startswith(banner)
     err = run(FakeContext(store, banner=banner), activity_id=999)
     assert err.startswith(banner)  # §4.4: banner invariant holds on every response
+
+
+# --- gear line ---------------------------------------------------------------
+
+def seed_gear(store, uuid, name, *, total=None, max_m=1_000_000.0):
+    store.upsert_gear({"uuid": uuid, "name": name, "type": "shoes",
+                       "status": "active", "total_meters": total,
+                       "max_meters": max_m, "synced_at": "2026-07-20T08:00:00"})
+
+
+def test_gear_line_names_the_pair_worn(store):
+    seed_default(store)
+    seed_gear(store, "u1", "ASICS Superblast 3", total=95_000.0)
+    store.replace_activity_gear(A_ID, ["u1"])
+    out = run(FakeContext(store), activity_id=A_ID)
+    assert "**Gear:** ASICS Superblast 3 (95 km)" in out
+
+
+def test_gear_line_is_absent_when_nothing_is_linked(store):
+    """Silence means 'not attributed yet', never 'none worn' — attribution
+    backfills in the background, so a dash here would be a claim."""
+    seed_default(store)
+    out = run(FakeContext(store), activity_id=A_ID)
+    assert "**Gear:**" not in out
+
+
+def test_gear_line_quotes_the_limit_only_once_it_matters(store):
+    seed_default(store)
+    seed_gear(store, "fresh", "Fresh pair", total=100_000.0)
+    seed_gear(store, "ageing", "Ageing pair", total=800_000.0)
+    seed_gear(store, "done", "Done pair", total=1_050_000.0)
+
+    store.replace_activity_gear(A_ID, ["fresh"])
+    assert "of its" not in run(FakeContext(store), activity_id=A_ID)
+
+    store.replace_activity_gear(A_ID, ["ageing"])
+    assert "80% of its 1000 km limit" in run(FakeContext(store), activity_id=A_ID)
+
+    store.replace_activity_gear(A_ID, ["done"])
+    assert "past its 1000 km limit" in run(FakeContext(store), activity_id=A_ID)
+
+
+def test_gear_line_lists_every_item_worn(store):
+    seed_default(store)
+    seed_gear(store, "u1", "Superblast 3", total=95_000.0)
+    seed_gear(store, "u2", "HRM-Pro", total=None, max_m=None)
+    store.replace_activity_gear(A_ID, ["u1", "u2"])
+    out = run(FakeContext(store), activity_id=A_ID)
+    assert "**Gear:** HRM-Pro · Superblast 3 (95 km)" in out

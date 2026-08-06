@@ -1,0 +1,1206 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - navigation "Accès rapide" [ref=e3]:
+      - list [ref=e4]:
+        - listitem [ref=e5]:
+          - link "Contenu" [ref=e6] [cursor=pointer]:
+            - /url: "#content"
+        - listitem [ref=e7]:
+          - link "Recherche" [ref=e8] [cursor=pointer]:
+            - /url: "#search"
+        - listitem [ref=e9]:
+          - link "Pied de page" [ref=e10] [cursor=pointer]:
+            - /url: "#footer"
+    - link "Livraison offerte dès 60€ 💥SOLDES ! JUSQU'À -50 %💥 5% de cashback retour 30 jours* Expédition en 24h" [ref=e12] [cursor=pointer]:
+      - /url: /promos/soldes/
+      - generic [ref=e13]: Livraison offerte dès 60€
+      - generic [ref=e14]:
+        - generic [ref=e15]: 💥SOLDES !
+        - list [ref=e17]:
+          - listitem [ref=e18]: JUSQU'À -50 %💥
+          - listitem [ref=e19]: 5% de cashback
+          - listitem [ref=e20]: retour 30 jours*
+      - generic [ref=e21]: Expédition en 24h
+    - banner [ref=e22]:
+      - generic [ref=e23]:
+        - link "Retour à la page d'accueil I-run" [ref=e24] [cursor=pointer]:
+          - /url: /
+          - img "logo i-Run" [ref=e26]
+        - generic [ref=e27]:
+          - text: 
+          - link "Magasins" [ref=e28] [cursor=pointer]:
+            - /url: /magasins/
+            - generic [ref=e29]: 
+          - link "Mon compte" [ref=e31] [cursor=pointer]:
+            - /url: /client/
+            - generic [ref=e32]: 
+          - link "Mon panier" [ref=e34] [cursor=pointer]:
+            - /url: /panier.html
+            - generic [ref=e35]: 
+        - navigation "Menu mobile"
+        - navigation "Menu desktop" [ref=e37]:
+          - list [ref=e38]:
+            - listitem [ref=e39] [cursor=pointer]:
+              - link "Chaussures homme Chaussure running homme":
+                - /url: /chaussures_homme/
+                - text: Chaussures homme
+                - generic: Chaussure running homme
+              - list
+            - listitem [ref=e40] [cursor=pointer]:
+              - link "Chaussures femme Chaussure running femme":
+                - /url: /chaussures_femme/
+                - text: Chaussures femme
+                - generic: Chaussure running femme
+              - list
+            - listitem [ref=e41] [cursor=pointer]:
+              - link "Vêtements homme Vêtements running homme":
+                - /url: /vetement_sport_homme/
+                - text: Vêtements homme
+                - generic: Vêtements running homme
+              - list
+            - listitem [ref=e42] [cursor=pointer]:
+              - link "Vêtements femme Vêtements running femme":
+                - /url: /vetement_sport_femme/
+                - text: Vêtements femme
+                - generic: Vêtements running femme
+              - list
+            - listitem [ref=e43] [cursor=pointer]:
+              - link "électronique Montres de sport, cardio-gps, electrostimulation, bracelets d'activité":
+                - /url: /electronique/
+                - text: électronique
+                - generic: Montres de sport, cardio-gps, electrostimulation, bracelets d'activité
+              - list
+            - listitem [ref=e44] [cursor=pointer]:
+              - 'link "Accessoires Accessoires: chaussettes, sacs à dos & hydrobag"':
+                - /url: /accessoires/
+                - text: Accessoires
+                - generic: "Accessoires: chaussettes, sacs à dos & hydrobag"
+              - list
+            - listitem [ref=e45] [cursor=pointer]:
+              - 'link "Diététique Diététique du sport: protéines, compléments alimentaires, spiruline"':
+                - /url: /dietetique/
+                - text: Diététique
+                - generic: "Diététique du sport: protéines, compléments alimentaires, spiruline"
+              - list
+            - listitem [ref=e46] [cursor=pointer]:
+              - link "Espaces marques marques running":
+                - /url: /marques.html
+                - text: Espaces marques
+                - generic: marques running
+              - list
+      - region "Recherche" [ref=e47]:
+        - generic [ref=e48]:
+          - generic [ref=e49]:
+            - status
+            - textbox "Rechercher" [ref=e50]
+            - button "Rechercher un produit" [ref=e51] [cursor=pointer]:
+              - generic [ref=e52]: 
+          - text: 
+    - main [ref=e53]:
+      - navigation "Vous êtes ici :" [ref=e54]:
+        - list [ref=e55]:
+          - listitem "Accueil" [ref=e56]:
+            - link "Accueil" [ref=e57] [cursor=pointer]:
+              - /url: /
+              - generic [ref=e58]: 
+              - text: Accueil
+          - listitem "Chaussures homme" [ref=e59]:
+            - link "Chaussures homme" [ref=e60] [cursor=pointer]:
+              - /url: /chaussures_homme/
+          - listitem "Running" [ref=e61]:
+            - link "Running" [ref=e62] [cursor=pointer]:
+              - /url: /chaussures_homme/Running_c23/
+          - listitem "Asics" [ref=e63]:
+            - link "Asics" [ref=e64] [cursor=pointer]:
+              - /url: /chaussures_homme/Running_c23/Asics_m1/
+          - listitem "Superblast 3" [ref=e65]
+      - generic [ref=e67]:
+        - generic [ref=e68]:
+          - generic [ref=e69]:
+            - generic [ref=e70]:
+              - heading "Asics Superblast 3" [level=1] [ref=e71]
+              - generic [ref=e72]: Ref 1013A177-800 / HOMME
+            - link "4.7           Lire les 47 avis" [ref=e74] [cursor=pointer]:
+              - /url: "#review"
+              - generic [ref=e75]: "4.7"
+              - generic [ref=e76]:
+                - generic [ref=e77]:
+                  - generic [ref=e78]: 
+                  - generic [ref=e79]: 
+                  - generic [ref=e80]: 
+                  - generic [ref=e81]: 
+                  - generic [ref=e82]: 
+                - generic [ref=e83]:
+                  - generic [ref=e84]: 
+                  - generic [ref=e85]: 
+                  - generic [ref=e86]: 
+                  - generic [ref=e87]: 
+                  - generic [ref=e88]: 
+              - generic [ref=e89]: Lire les 47 avis
+            - generic [ref=e90]:
+              - generic [ref=e91]: 220€
+              - generic [ref=e93]: Produit non éligible aux coupons
+              - generic [ref=e97] [cursor=pointer]:
+                - generic [ref=e98]:
+                  - text: "3X sans frais :"
+                  - strong [ref=e99]: 73,33€
+                  - generic [ref=e100]:
+                    - generic [ref=e101]: 
+                    - text: 
+                - button "Livraison offerte*" [ref=e102]
+            - generic [ref=e103]:
+              - button "Choisissez votre pointure " [ref=e106] [cursor=pointer]:
+                - generic [ref=e107]: Choisissez votre pointure
+                - generic [ref=e108]: 
+                - generic:
+                  - listbox:
+                    - option "40 En stock" [ref=e109]:
+                      - generic [ref=e111]: "40"
+                      - generic [ref=e112]: En stock
+                    - option "40.5 En stock" [ref=e113]:
+                      - generic [ref=e115]: "40.5"
+                      - generic [ref=e116]: En stock
+                    - option "41.5 En stock" [ref=e117]:
+                      - generic [ref=e119]: "41.5"
+                      - generic [ref=e120]: En stock
+                    - option "42 En stock" [ref=e121]:
+                      - generic [ref=e123]: "42"
+                      - generic [ref=e124]: En stock
+                    - option "42.5 En stock" [ref=e125]:
+                      - generic [ref=e127]: "42.5"
+                      - generic [ref=e128]: En stock
+                    - option "43.5 En stock" [ref=e129]:
+                      - generic [ref=e131]: "43.5"
+                      - generic [ref=e132]: En stock
+                    - option "44 En stock" [ref=e133]:
+                      - generic [ref=e135]: "44"
+                      - generic [ref=e136]: En stock
+                    - option "44.5 Modèles similaires en stock" [ref=e137]:
+                      - generic [ref=e139]: "44.5"
+                      - generic [ref=e140]: Modèles similaires en stock
+                    - option "45 Modèles similaires en stock" [ref=e141]:
+                      - generic [ref=e143]: "45"
+                      - generic [ref=e144]: Modèles similaires en stock
+                    - option "46 Modèles similaires en stock" [ref=e145]:
+                      - generic [ref=e147]: "46"
+                      - generic [ref=e148]: Modèles similaires en stock
+                    - option "46.5 Modèles similaires en stock" [ref=e149]:
+                      - generic [ref=e151]: "46.5"
+                      - generic [ref=e152]: Modèles similaires en stock
+                    - option "47 Modèles similaires en stock" [ref=e153]:
+                      - generic [ref=e155]: "47"
+                      - generic [ref=e156]: Modèles similaires en stock
+                    - option "48 En rupture":
+                      - generic: "48"
+                      - generic: En rupture
+                    - option "49 Modèles similaires en stock" [ref=e157]:
+                      - generic [ref=e159]: "49"
+                      - generic [ref=e160]: Modèles similaires en stock
+              - button "Guide de taille" [ref=e161] [cursor=pointer]
+            - generic [ref=e164]:
+              - text: "5 versions disponibles :"
+              - list [ref=e166]:
+                - listitem [ref=e167]:
+                  - link [ref=e168] [cursor=pointer]:
+                    - /url: /chaussures_homme/Running_c23/Asics_m1/Asics-Superblast-3_Asics_fiche_146403.html
+                    - img "Asics Superblast 3" [ref=e171]
+                  - generic [ref=e172]: 220€
+                - listitem [ref=e173]:
+                  - link [ref=e174] [cursor=pointer]:
+                    - /url: /chaussures_homme/Running_c23/Asics_m1/Asics-Superblast-3_Asics_fiche_146403.html?v=05
+                    - img "Asics Superblast 3" [ref=e177]
+                  - generic [ref=e178]: 220€
+                - listitem [ref=e179]:
+                  - link [ref=e180] [cursor=pointer]:
+                    - /url: /chaussures_homme/Running_c23/Asics_m1/Asics-Superblast-3_Asics_fiche_146403.html?v=04
+                    - img "Asics Superblast 3" [ref=e183]
+                  - generic [ref=e184]: 220€
+                - listitem [ref=e185]:
+                  - link [ref=e186] [cursor=pointer]:
+                    - /url: /chaussures_homme/Running_c23/Asics_m1/Asics-Superblast-3_Asics_fiche_146403.html?v=03
+                    - img "Asics Superblast 3" [ref=e189]
+                  - generic [ref=e190]: 200€
+                - listitem [ref=e191]:
+                  - link [ref=e192] [cursor=pointer]:
+                    - /url: /chaussures_homme/Running_c23/Asics_m1/Asics-Superblast-3_Asics_fiche_146403.html?v=01
+                    - img "Asics Superblast 3" [ref=e195]
+                  - generic [ref=e196]: 200€
+            - generic [ref=e197]:
+              - button " Ajouter au panier" [ref=e199] [cursor=pointer]:
+                - generic [ref=e200]: 
+                - generic [ref=e201]: Ajouter au panier
+              - generic [ref=e202]:
+                - generic [ref=e203]:
+                  - strong [ref=e204]: En stock
+                  - generic [ref=e205]:
+                    - generic [ref=e206]: livré
+                    - text: chez vous
+                    - strong [ref=e207]: en 24H
+                    - generic [ref=e208] [cursor=pointer]:
+                      - generic [ref=e209]: 
+                      - text: 
+                - generic [ref=e210]:
+                  - generic [ref=e211]:
+                    - strong [ref=e212]: Cashback
+                    - generic [ref=e213] [cursor=pointer]:
+                      - generic [ref=e214]: 
+                      - text: 
+                  - generic [ref=e216]:
+                    - text: "Cet achat vous fera gagner :"
+                    - strong [ref=e217]: 11€
+          - paragraph [ref=e225]: Idéale pour les sportifs expérimentés à confirmés, elle offre dynamisme et amorti pour vos entraînements et vos compétitions sur route.
+          - generic [ref=e227]:
+            - link "DESCRIPTION" [ref=e228] [cursor=pointer]:
+              - /url: "#description"
+            - link "TECHNOLOGIES" [ref=e230] [cursor=pointer]:
+              - /url: "#technologies"
+            - link "AVIS (47)" [ref=e232] [cursor=pointer]:
+              - /url: "#review"
+              - generic [ref=e233]:
+                - text: AVIS
+                - generic [ref=e234]: (47)
+            - link "QUESTIONS RÉPONSES" [ref=e235] [cursor=pointer]:
+              - /url: "#qa"
+          - list [ref=e238]:
+            - listitem [ref=e239]:
+              - generic [ref=e240]: "Surface :"
+              - text: Route
+            - listitem [ref=e241]:
+              - generic [ref=e242]: "Usage :"
+              - text: Intensif
+            - listitem [ref=e243]:
+              - generic [ref=e244]: "Poids du coureur :"
+              - text: Moins de 85kg
+            - listitem [ref=e245]:
+              - generic [ref=e246]: "Drop :"
+              - text: 8 mm
+            - listitem [ref=e247]:
+              - generic [ref=e248]: "Stabilité :"
+              - text: Neutre
+            - listitem [ref=e249]:
+              - generic [ref=e250]: "Dynamisme :"
+              - text: Excellent
+            - listitem [ref=e251]:
+              - generic [ref=e252]: "Amorti :"
+              - text: Excellent
+            - listitem [ref=e253]:
+              - generic [ref=e254]: "Poids :"
+              - text: 227g
+          - generic [ref=e255]:
+            - generic:
+              - generic [ref=e256]: New
+              - text:  
+            - img "Asics Superblast 3" [ref=e258]
+            - generic [ref=e259]:
+              - generic [ref=e261]: Plus
+              - generic [ref=e262]: de photos
+          - generic [ref=e264]:
+            - img "Asics Superblast 3" [ref=e267]
+            - img "Asics Superblast 3" [ref=e270]
+            - img "Asics Superblast 3" [ref=e273]
+        - generic [ref=e275]:
+          - generic [ref=e276]:
+            - generic: Description
+            - generic [ref=e277]:
+              - generic [ref=e279]:
+                - paragraph [ref=e280]:
+                  - text: Vous courrez avec aisance de longues distances grâce à la
+                  - strong [ref=e281]: chaussure Asics Superblast 3
+                  - text: pour
+                  - strong [ref=e282]: homme
+                  - text: . Lors de vos séances d'entraînements comme vos compétitions, elle vous accompagne avec douceur et dynamisme.
+                - paragraph [ref=e283]
+                - paragraph [ref=e284]
+                - heading [level=2] [ref=e285]:
+                  - strong [ref=e286]: ASICS Superblast 3, pour quel type de sportif, quel usage, quelle distance et quelle surface ?
+                - paragraph [ref=e287]
+                - paragraph [ref=e288]:
+                  - text: Adaptée aux
+                  - strong [ref=e289]: sportifs de niveaux intermédiaires à confirmés
+                  - text: qui privilégient le confort et l'amorti généreux, elle s'utilise lors de vos entraînements quotidiens mais également sur vos courses officielles.
+                - paragraph [ref=e290]:
+                  - text: Performante sur des distances allant du
+                  - strong [ref=e291]: semi-marathon au marathon
+                  - text: ", elle révèle son plein potentiel sur la route."
+                - paragraph [ref=e292]
+                - paragraph [ref=e293]
+                - heading [level=2] [ref=e294]:
+                  - strong [ref=e295]: Superblast 3 d'ASICS, quelle utilisation ?
+                - paragraph [ref=e296]
+                - paragraph [ref=e297]:
+                  - text: +
+                  - strong [ref=e298]: Confortable et dynamique
+                  - text: ", l'épaisseur de la semelle assure une douceur supérieure à chaque foulée et garantit une réactivité optimale."
+                  - strong [ref=e299]: Stable et légère
+                  - text: ", vous la portez avec aisance tout le long de votre effort."
+                - paragraph [ref=e300]
+                - paragraph [ref=e301]:
+                  - text: "- Si vous souhaitez une paire pour établir de nouveaux chronos, nous vous conseillons la"
+                  - link "chaussure Asics Magic Speed 5" [ref=e302] [cursor=pointer]:
+                    - /url: /asics/asics-magic-speed/
+                  - text: .
+                - paragraph [ref=e303]
+                - paragraph [ref=e304]
+                - heading [level=2] [ref=e305]:
+                  - strong [ref=e306]: Pourquoi choisir la Superblast 3 d'Asics ?
+                - paragraph [ref=e307]: "En choisissant ce modèle, vous profitez de nombreux avantages :"
+                - list [ref=e308]:
+                  - listitem [ref=e309]:
+                    - text: Une semelle intermédiaire dotée de
+                    - strong [ref=e310]: deux mousses
+                    - text: qui assurent amorti et réactivité.
+                  - listitem [ref=e311]:
+                    - text: Une tige en mesh technique et respirant qui
+                    - strong [ref=e312]: épouse la forme du pied
+                    - text: .
+                  - listitem [ref=e313]:
+                    - text: Une
+                    - strong [ref=e314]: languette fine
+                    - text: et légèrement rembourrée.
+                  - listitem [ref=e315]:
+                    - text: La semelle extérieure qui garantit une
+                    - strong [ref=e316]: excellente traction
+                    - text: .
+                  - listitem [ref=e317]:
+                    - text: Le système de laçage qui
+                    - strong [ref=e318]: sécurise
+                    - text: parfaitement votre pied.
+                - paragraph [ref=e319]
+                - paragraph [ref=e320]
+                - heading [level=2] [ref=e321]:
+                  - strong [ref=e322]: Superblast 3 d'ASICS, quelles nouveautés ?
+                - paragraph [ref=e323]:
+                  - text: En comparaison au modèle précédent, la
+                  - link "Superblast 2" [ref=e324] [cursor=pointer]:
+                    - /url: /asics/asics-superblast/asics-superblast-2.html
+                  - text: ", elle présente des améliorations :"
+                - list [ref=e325]:
+                  - listitem [ref=e326]:
+                    - text: Une
+                    - strong [ref=e327]: tige allégée
+                    - text: .
+                  - listitem [ref=e328]:
+                    - text: Un
+                    - strong [ref=e329]: poids
+                    - text: général diminué.
+                  - listitem [ref=e330]:
+                    - text: Une
+                    - strong [ref=e331]: nouvelle mousse
+                    - text: ", plus légère, plus souple pour une réactivité supérieure."
+                - paragraph [ref=e332]
+                - paragraph [ref=e333]
+                - paragraph [ref=e334]
+                - heading [level=2] [ref=e335]:
+                  - strong [ref=e336]: Caractéristiques de la chaussure Asics Superblast 3
+                - paragraph [ref=e337]
+                - list [ref=e338]:
+                  - listitem [ref=e339]:
+                    - strong [ref=e340]: Drop
+                    - text: ": 8 mm"
+                - paragraph [ref=e341]
+                - list [ref=e342]:
+                  - listitem [ref=e343]:
+                    - strong [ref=e344]: Amorti
+                    - text: ": confectionnée à partir de deux mousses, la semelle intermédiaire apporte un"
+                    - strong [ref=e345]: amorti supérieur
+                    - text: combiné à une
+                    - strong [ref=e346]: excellente réactivité
+                    - text: . Légères, elles garantissent un retour d'énergie idéal qui allonge chacune de vos foulées.
+                - paragraph [ref=e347]
+                - list [ref=e348]:
+                  - listitem [ref=e349]:
+                    - strong [ref=e350]: Empeigne (partie supérieure qui enveloppe votre pied)
+                    - text: ": conçue dans une maille légère et respirante, elle permet une bonne"
+                    - strong [ref=e351]: circulation de l'air
+                    - text: lorsque l'effort s'intensifie. Elle épouse la forme du pied et offre un excellent
+                    - strong [ref=e352]: maintien
+                    - text: pour une stabilité fiable.
+                - paragraph [ref=e353]
+                - list [ref=e354]:
+                  - listitem [ref=e355]:
+                    - strong [ref=e356]: Semelle extérieure
+                    - text: ": le"
+                    - strong [ref=e357]: caoutchouc résistant
+                    - text: vous offre une grande robustesse face à l'abrasion. Elle
+                    - strong [ref=e358]: adhère
+                    - text: parfaitement à la route pour offrir une traction optimale afin d'évoluer en toute confiance.
+                - paragraph [ref=e359]
+                - list [ref=e360]:
+                  - listitem [ref=e361]: Semelle intérieure amovible
+                  - listitem [ref=e362]: "Poids constaté chez i-Run : 227 g en taille 42"
+                - text: Les autres produits
+                - link "Asics" [ref=e363] [cursor=pointer]:
+                  - /url: /asics/
+              - button "Afficher plus" [ref=e365] [cursor=pointer]
+          - generic [ref=e367]:
+            - generic: Technologies
+            - generic [ref=e368]:
+              - generic [ref=e371]:
+                - term [ref=e372]: Asics Grip
+                - definition [ref=e373]:
+                  - paragraph [ref=e374]: Placés sur la semelle extérieure, des crampons placés stratégiquement permettent une accroche et une adhérence sur toutes les surfaces.
+                - term [ref=e375]: FlyteFoam Blast+
+                - definition [ref=e376]:
+                  - paragraph [ref=e377]: L'amorti léger FF Blast+ dans la semelle intermédiaire crée des atterrissages plus doux et un plus grand retour d'énergie.
+                - term [ref=e378]: FlyteFoam LEAP
+                - definition [ref=e379]:
+                  - paragraph [ref=e380]: La mousse la plus réactive, la plus souple et la plus légère de la marque. Elle offre un retour d'énergie maximal et une excellente absorption des chocs.
+              - button "Afficher plus" [ref=e382] [cursor=pointer]
+          - generic [ref=e384]:
+            - generic:
+              - generic:
+                - text: Avis
+                - generic: (47)
+            - generic [ref=e386]:
+              - generic [ref=e387]:
+                - generic [ref=e388]:
+                  - generic [ref=e389]:
+                    - generic [ref=e391]:
+                      - generic [ref=e392]: 4.7/5
+                      - generic [ref=e393]:
+                        - generic [ref=e394]: ★★★★★
+                        - generic [ref=e395]: ★★★★★
+                      - generic [ref=e396]: sur 47 avis
+                    - generic [ref=e397]:
+                      - text: Avis soumis à un contrôle
+                      - button "Icône point d'information" [ref=e398] [cursor=pointer]:
+                        - img "Icône point d'information"
+                  - generic [ref=e400]:
+                    - generic [ref=e401]: 91%
+                    - generic [ref=e402]: de personnes satisfaites
+                - table [ref=e406]:
+                  - rowgroup [ref=e407]:
+                    - row [ref=e408]:
+                      - cell "5 étoiles" [ref=e409]
+                      - cell [ref=e410]:
+                        - progressbar "Nombre d'avis 5 étoiles" [ref=e411]
+                      - cell "40" [ref=e412]
+                    - row [ref=e413]:
+                      - cell "4 étoiles" [ref=e414]
+                      - cell [ref=e415]:
+                        - progressbar "Nombre d'avis 4 étoiles" [ref=e416]
+                      - cell "3" [ref=e417]
+                    - row [ref=e418]:
+                      - cell "3 étoiles" [ref=e419]
+                      - cell [ref=e420]:
+                        - progressbar "Nombre d'avis 3 étoiles" [ref=e421]
+                      - cell "1" [ref=e422]
+                    - row [ref=e423]:
+                      - cell "2 étoiles" [ref=e424]
+                      - cell [ref=e425]:
+                        - progressbar "Nombre d'avis 2 étoiles" [ref=e426]
+                      - cell "1" [ref=e427]
+                    - row [ref=e428]:
+                      - cell "1 étoile" [ref=e429]
+                      - cell [ref=e430]:
+                        - progressbar "Nombre d'avis 1 étoile" [ref=e431]
+                      - cell "2" [ref=e432]
+              - generic [ref=e434]:
+                - generic [ref=e435]:
+                  - text: Filtrer par
+                  - button "note" [ref=e438] [cursor=pointer]
+                - generic [ref=e440]:
+                  - text: Trier par
+                  - button "note décroissante" [ref=e442] [cursor=pointer]
+              - generic [ref=e444]:
+                - generic [ref=e445]:
+                  - generic [ref=e446]:
+                    - paragraph [ref=e449]: Dimitri M.
+                    - paragraph [ref=e450]: le 11/07/2026
+                  - generic [ref=e451]:
+                    - generic [ref=e452]:
+                      - generic [ref=e453]:
+                        - generic [ref=e454]: ★★★★★
+                        - generic [ref=e455]: ★★★★★
+                      - text: 5/5
+                    - generic [ref=e456]: suite à une commande du 25/06/26
+                    - generic [ref=e457]: Super confortable
+                    - generic [ref=e459]:
+                      - paragraph [ref=e460]: "Profil:"
+                      - list [ref=e461]:
+                        - listitem [ref=e462]: "Niveau de pratique : amateur"
+                        - listitem [ref=e463]: "Disciplines pratiquées : trail, running"
+                - generic [ref=e464]:
+                  - generic [ref=e465]:
+                    - paragraph [ref=e468]: Vincent D.
+                    - paragraph [ref=e469]: le 30/06/2026
+                  - generic [ref=e470]:
+                    - generic [ref=e471]:
+                      - generic [ref=e472]:
+                        - generic [ref=e473]: ★★★★★
+                        - generic [ref=e474]: ★★★★★
+                      - text: 5/5
+                    - generic [ref=e475]: suite à une commande du 08/06/26
+                    - generic [ref=e476]: Top
+                    - generic [ref=e478]:
+                      - paragraph [ref=e479]: "Profil:"
+                      - list [ref=e480]:
+                        - listitem [ref=e481]: "Niveau de pratique : éclairé"
+                        - listitem [ref=e482]: "Disciplines pratiquées : running"
+                        - listitem [ref=e483]: "Utilisation : séance courte, séance longue, séance intensive"
+                - generic [ref=e484]:
+                  - generic [ref=e485]:
+                    - generic [ref=e486]: + 85 KG
+                    - paragraph [ref=e489]: Joffray C.
+                    - paragraph [ref=e490]: le 24/06/2026
+                  - generic [ref=e491]:
+                    - generic [ref=e492]:
+                      - generic [ref=e493]:
+                        - generic [ref=e494]: ★★★★★
+                        - generic [ref=e495]: ★★★★★
+                      - text: 5/5
+                    - generic [ref=e496]: suite à une commande du 28/05/26
+                    - generic [ref=e497]: très bon ressenti
+                    - generic [ref=e499]:
+                      - paragraph [ref=e500]: "Profil:"
+                      - list [ref=e501]:
+                        - listitem [ref=e502]: "Niveau de pratique : amateur"
+                        - listitem [ref=e503]: "Disciplines pratiquées : running, fitness"
+                        - listitem [ref=e504]: "Utilisation : compétition"
+                - generic [ref=e505]:
+                  - generic [ref=e506]:
+                    - paragraph [ref=e509]: GAETAN J.
+                    - paragraph [ref=e510]: le 17/06/2026
+                  - generic [ref=e511]:
+                    - generic [ref=e512]:
+                      - generic [ref=e513]:
+                        - generic [ref=e514]: ★★★★★
+                        - generic [ref=e515]: ★★★★★
+                      - text: 5/5
+                    - generic [ref=e516]: suite à une commande du 26/05/26
+                    - generic [ref=e517]: Hyper polyvalentes c'est un régal
+                    - generic [ref=e519]:
+                      - paragraph [ref=e520]: "Profil:"
+                      - list [ref=e521]:
+                        - listitem [ref=e522]: "Niveau de pratique : expert"
+                        - listitem [ref=e523]: "Disciplines pratiquées : trail, running, salle de sport"
+                        - listitem [ref=e524]: "Utilisation : toute utilisation"
+                - generic [ref=e525]:
+                  - generic [ref=e526]:
+                    - generic [ref=e527]: 75 - 85 KG
+                    - paragraph [ref=e530]: Alexis G.
+                    - paragraph [ref=e531]: le 17/06/2026
+                  - generic [ref=e532]:
+                    - generic [ref=e533]:
+                      - generic [ref=e534]:
+                        - generic [ref=e535]: ★★★★★
+                        - generic [ref=e536]: ★★★★★
+                      - text: 5/5
+                    - generic [ref=e537]: suite à une commande du 26/05/26
+                    - generic [ref=e538]: Produit de qualite pour les trainnings
+                    - generic [ref=e540]:
+                      - paragraph [ref=e541]: "Profil:"
+                      - list [ref=e542]:
+                        - listitem [ref=e543]: "Niveau de pratique : éclairé"
+                        - listitem [ref=e544]: "Disciplines pratiquées : running"
+                        - listitem [ref=e545]: "Utilisation : séance longue"
+                - button "Voir plus d'avis" [ref=e547] [cursor=pointer]: + Voir plus d'avis
+          - generic [ref=e548]: Questions & réponses
+          - generic [ref=e552]:
+            - generic [ref=e553]: "Nous vous recommandons également :"
+            - generic [ref=e554]:
+              - generic [ref=e556]:
+                - article [ref=e557]:
+                  - link "Asics Superblast 3 New Asics Superblast 3 Homme 4.7  Noté 4.7 sur 5 Vendu 220€" [ref=e558] [cursor=pointer]:
+                    - /url: /chaussures_homme/Running_c23/Asics_m1/Asics-Superblast-3_Asics_fiche_146403.html?v=05
+                    - generic [ref=e559]:
+                      - img "Asics Superblast 3" [ref=e561]
+                      - generic [ref=e562]: New
+                    - generic [ref=e563]:
+                      - generic [ref=e564]: Asics
+                      - generic [ref=e565]: Superblast 3
+                      - generic "Homme" [ref=e566]
+                      - generic [ref=e567]:
+                        - generic [ref=e568]:
+                          - generic [ref=e569]: "4.7"
+                          - generic [ref=e570]: 
+                          - generic [ref=e571]: (47 avis)
+                        - generic [ref=e572]: Noté 4.7 sur 5
+                      - generic [ref=e573]:
+                        - generic [ref=e574]: 220€
+                        - generic [ref=e575]: Vendu 220€
+                  - text:          
+                - article [ref=e576]:
+                  - link "Saucony Endorphin Pro 5 Soldes -26% Saucony Endorphin Pro 5 Homme 4.8  Noté 4.8 sur 5 Au lieu de 270€ Vendu 198€" [ref=e577] [cursor=pointer]:
+                    - /url: /chaussures_homme/Running_c23/Saucony_m95/Saucony-Endorphin-Pro-5_Saucony_fiche_146484.html?v=03
+                    - generic [ref=e578]:
+                      - img "Saucony Endorphin Pro 5" [ref=e580]
+                      - generic [ref=e581]: Soldes -26%
+                    - generic [ref=e582]:
+                      - generic [ref=e583]: Saucony
+                      - generic [ref=e584]: Endorphin Pro 5
+                      - generic "Homme" [ref=e585]
+                      - generic [ref=e586]:
+                        - generic [ref=e587]:
+                          - generic [ref=e588]: "4.8"
+                          - generic [ref=e589]: 
+                          - generic [ref=e590]: (6 avis)
+                        - generic [ref=e591]: Noté 4.8 sur 5
+                      - generic [ref=e592]:
+                        - generic [ref=e593]: 270€
+                        - generic [ref=e594]: Au lieu de 270€
+                        - generic [ref=e595]: 198€
+                        - generic [ref=e596]: Vendu 198€
+                  - text:          
+                - article [ref=e597]:
+                  - link "Hoka One One Bondi 9 Soldes -26% Hoka One One Bondi 9 Homme 4.8  Noté 4.8 sur 5 Au lieu de 180€ Vendu 132€" [ref=e598] [cursor=pointer]:
+                    - /url: /chaussures_homme/Running_c23/Hoka-One-One_m143/Hoka-One-One-Bondi-9_Hoka-One-One_fiche_143147.html
+                    - generic [ref=e599]:
+                      - img "Hoka One One Bondi 9" [ref=e601]
+                      - generic [ref=e602]: Soldes -26%
+                    - generic [ref=e603]:
+                      - generic [ref=e604]: Hoka One One
+                      - generic [ref=e605]: Bondi 9
+                      - generic "Homme" [ref=e606]
+                      - generic [ref=e607]:
+                        - generic [ref=e608]:
+                          - generic [ref=e609]: "4.8"
+                          - generic [ref=e610]: 
+                          - generic [ref=e611]: (534 avis)
+                        - generic [ref=e612]: Noté 4.8 sur 5
+                      - generic [ref=e613]:
+                        - generic [ref=e614]: 180€
+                        - generic [ref=e615]: Au lieu de 180€
+                        - generic [ref=e616]: 132€
+                        - generic [ref=e617]: Vendu 132€
+                  - text:          
+                - article [ref=e618]:
+                  - link "Asics Novablast 6 New Asics Novablast 6 Homme Vendu 160€" [ref=e619] [cursor=pointer]:
+                    - /url: /chaussures_homme/Running_c23/Asics_m1/Asics-Novablast-6_Asics_fiche_147450.html?v=02
+                    - generic [ref=e620]:
+                      - img "Asics Novablast 6" [ref=e622]
+                      - generic [ref=e623]: New
+                    - generic [ref=e624]:
+                      - generic [ref=e625]: Asics
+                      - generic [ref=e626]: Novablast 6
+                      - generic "Homme" [ref=e627]
+                      - generic [ref=e629]:
+                        - generic [ref=e630]: 160€
+                        - generic [ref=e631]: Vendu 160€
+                - article [ref=e632]:
+                  - link "Asics Metaspeed Sky Tokyo Ekiden Soldes -27% Asics Metaspeed Sky Tokyo Ekiden Homme 4.9  Noté 4.9 sur 5 Au lieu de 270€ Vendu 195€" [ref=e633] [cursor=pointer]:
+                    - /url: /chaussures_homme/Running_c23/Asics_m1/Asics-Metaspeed-Sky-Tokyo_Asics_fiche_144926.html?v=02
+                    - generic [ref=e634]:
+                      - img "Asics Metaspeed Sky Tokyo Ekiden" [ref=e636]
+                      - generic [ref=e637]: Soldes -27%
+                    - generic [ref=e638]:
+                      - generic [ref=e639]: Asics
+                      - generic [ref=e640]: Metaspeed Sky Tokyo Ekiden
+                      - generic "Homme" [ref=e641]
+                      - generic [ref=e642]:
+                        - generic [ref=e643]:
+                          - generic [ref=e644]: "4.9"
+                          - generic [ref=e645]: 
+                          - generic [ref=e646]: (44 avis)
+                        - generic [ref=e647]: Noté 4.9 sur 5
+                      - generic [ref=e648]:
+                        - generic [ref=e649]: 270€
+                        - generic [ref=e650]: Au lieu de 270€
+                        - generic [ref=e651]: 195€
+                        - generic [ref=e652]: Vendu 195€
+                  - text:          
+                - article [ref=e653]:
+                  - link "Produit éco engagé Asics Megablast New Asics Megablast Homme 4.8  Noté 4.8 sur 5 Vendu 240€" [ref=e654] [cursor=pointer]:
+                    - /url: /chaussures_homme/Running_c23/Asics_m1/Asics-Megablast_Asics_fiche_145282.html?v=05
+                    - img "Produit éco engagé" [ref=e655]
+                    - generic [ref=e656]:
+                      - img "Asics Megablast" [ref=e658]
+                      - generic [ref=e659]: New
+                    - generic [ref=e660]:
+                      - generic [ref=e661]: Asics
+                      - generic [ref=e662]: Megablast
+                      - generic "Homme" [ref=e663]
+                      - generic [ref=e664]:
+                        - generic [ref=e665]:
+                          - generic [ref=e666]: "4.8"
+                          - generic [ref=e667]: 
+                          - generic [ref=e668]: (39 avis)
+                        - generic [ref=e669]: Noté 4.8 sur 5
+                      - generic [ref=e670]:
+                        - generic [ref=e671]: 240€
+                        - generic [ref=e672]: Vendu 240€
+                  - text:          
+                - article [ref=e673]:
+                  - link "Asics Novablast 5 Soldes -16% Asics Novablast 5 Homme 4.8  Noté 4.8 sur 5 Au lieu de 150€ Vendu 125€" [ref=e674] [cursor=pointer]:
+                    - /url: /chaussures_homme/Running_c23/Asics_m1/Asics-Novablast-5_Asics_fiche_142960.html?v=22
+                    - generic [ref=e675]:
+                      - img "Asics Novablast 5" [ref=e677]
+                      - generic [ref=e678]: Soldes -16%
+                    - generic [ref=e679]:
+                      - generic [ref=e680]: Asics
+                      - generic [ref=e681]: Novablast 5
+                      - generic "Homme" [ref=e682]
+                      - generic [ref=e683]:
+                        - generic [ref=e684]:
+                          - generic [ref=e685]: "4.8"
+                          - generic [ref=e686]: 
+                          - generic [ref=e687]: (424 avis)
+                        - generic [ref=e688]: Noté 4.8 sur 5
+                      - generic [ref=e689]:
+                        - generic [ref=e690]: 150€
+                        - generic [ref=e691]: Au lieu de 150€
+                        - generic [ref=e692]: 125€
+                        - generic [ref=e693]: Vendu 125€
+                  - text:          
+                - article [ref=e694]:
+                  - link "Asics Gel-Nimbus 28 Asics Gel-Nimbus 28 Homme 4.7  Noté 4.7 sur 5 Au lieu de 200€ Vendu 159€" [ref=e695] [cursor=pointer]:
+                    - /url: /chaussures_homme/Running_c23/Asics_m1/Asics-Gel-Nimbus-28_Asics_fiche_145675.html?v=08
+                    - img "Asics Gel-Nimbus 28" [ref=e698]
+                    - generic [ref=e699]:
+                      - generic [ref=e700]: Asics
+                      - generic [ref=e701]: Gel-Nimbus 28
+                      - generic "Homme" [ref=e702]
+                      - generic [ref=e703]:
+                        - generic [ref=e704]:
+                          - generic [ref=e705]: "4.7"
+                          - generic [ref=e706]: 
+                          - generic [ref=e707]: (126 avis)
+                        - generic [ref=e708]: Noté 4.7 sur 5
+                      - generic [ref=e709]:
+                        - generic [ref=e710]: 200€
+                        - generic [ref=e711]: Au lieu de 200€
+                        - generic [ref=e712]: 159€
+                        - generic [ref=e713]: Vendu 159€
+                  - text:          
+                - article [ref=e714]:
+                  - link "Produit éco engagé Asics Superblast 2 Soldes -24% Asics Superblast 2 Homme 4.8  Noté 4.8 sur 5 Au lieu de 220€ Vendu 166€" [ref=e715] [cursor=pointer]:
+                    - /url: /chaussures_homme/Running_c23/Asics_m1/Asics-Superblast-2_Asics_fiche_141777.html
+                    - img "Produit éco engagé" [ref=e716]
+                    - generic [ref=e717]:
+                      - img "Asics Superblast 2" [ref=e719]
+                      - generic [ref=e720]: Soldes -24%
+                    - generic [ref=e721]:
+                      - generic [ref=e722]: Asics
+                      - generic [ref=e723]: Superblast 2
+                      - generic "Homme" [ref=e724]
+                      - generic [ref=e725]:
+                        - generic [ref=e726]:
+                          - generic [ref=e727]: "4.8"
+                          - generic [ref=e728]: 
+                          - generic [ref=e729]: (152 avis)
+                        - generic [ref=e730]: Noté 4.8 sur 5
+                      - generic [ref=e731]:
+                        - generic [ref=e732]: 220€
+                        - generic [ref=e733]: Au lieu de 220€
+                        - generic [ref=e734]: 166€
+                        - generic [ref=e735]: Vendu 166€
+                  - text:          
+                - article [ref=e736]:
+                  - link "Brooks Hyperion Max 3 Soldes -23% Brooks Hyperion Max 3 Homme 4.7  Noté 4.7 sur 5 Au lieu de 190€ Vendu 145€" [ref=e737] [cursor=pointer]:
+                    - /url: /chaussures_homme/Running_c23/Brooks_m2/Brooks-Hyperion-Max-3_Brooks_fiche_144980.html?v=03
+                    - generic [ref=e738]:
+                      - img "Brooks Hyperion Max 3" [ref=e740]
+                      - generic [ref=e741]: Soldes -23%
+                    - generic [ref=e742]:
+                      - generic [ref=e743]: Brooks
+                      - generic [ref=e744]: Hyperion Max 3
+                      - generic "Homme" [ref=e745]
+                      - generic [ref=e746]:
+                        - generic [ref=e747]:
+                          - generic [ref=e748]: "4.7"
+                          - generic [ref=e749]: 
+                          - generic [ref=e750]: (49 avis)
+                        - generic [ref=e751]: Noté 4.7 sur 5
+                      - generic [ref=e752]:
+                        - generic [ref=e753]: 190€
+                        - generic [ref=e754]: Au lieu de 190€
+                        - generic [ref=e755]: 145€
+                        - generic [ref=e756]: Vendu 145€
+                  - text:          
+              - generic [ref=e757] [cursor=pointer]: 
+              - generic: 
+          - text:  
+    - contentinfo [ref=e758]:
+      - generic [ref=e761]:
+        - button "Expédié sous 24h" [ref=e762] [cursor=pointer]:
+          - generic [ref=e763]: 
+        - button "Retour sous 30 jours" [ref=e765] [cursor=pointer]:
+          - generic [ref=e766]: 
+        - button [ref=e768] [cursor=pointer]:
+          - generic [ref=e769]: 
+        - button "5% Avantage Fidélité" [ref=e771] [cursor=pointer]:
+          - generic [ref=e772]: 
+        - link "4,8 sur 5 sur Avis vérifiés 37888 avis sur les 12 derniers mois" [ref=e775] [cursor=pointer]:
+          - /url: https://www.avis-verifies.com/avis-clients/i-run.fr
+          - generic "4,8 sur 5 sur Avis vérifiés" [ref=e777]:
+            - generic [ref=e778]: 4,8/5
+            - generic [ref=e779]:
+              - generic [ref=e780]:
+                - generic [ref=e781]: 
+                - generic [ref=e782]: 
+                - generic [ref=e783]: 
+                - generic [ref=e784]: 
+                - generic [ref=e785]: 
+              - generic [ref=e786]:
+                - generic [ref=e787]: 
+                - generic [ref=e788]: 
+                - generic [ref=e789]: 
+                - generic [ref=e790]: 
+                - generic [ref=e791]: 
+          - generic [ref=e792]: 37888 avis sur les 12 derniers mois
+      - generic [ref=e793]:
+        - generic [ref=e794]:
+          - generic [ref=e795]: Contact
+          - text: Besoin d'un conseil pour votre commande ?
+          - list [ref=e798]:
+            - listitem [ref=e799]:
+              - generic [ref=e800]:
+                - generic [ref=e801]: 
+                - link "Appelez-nous au 05 31 61 99 16" [ref=e802] [cursor=pointer]:
+                  - /url: tel:+33531619916
+                  - text: 05 31 61 99 16
+              - generic "Lundi - Samedi · 08:00 - 18:00 Heure de Paris (UTC+1)" [ref=e803]
+            - listitem [ref=e804]:
+              - generic [ref=e805]:
+                - generic [ref=e806]: 
+                - link "Envoyez-nous un e-mail" [ref=e807] [cursor=pointer]:
+                  - /url: /contact.html
+        - generic [ref=e808]:
+          - generic [ref=e809]:
+            - img "Icône moyen de paiment" [ref=e810]
+            - generic "Nos moyens de paiement sont:" [ref=e811]: Moyens de paiement
+          - list [ref=e812]:
+            - listitem:
+              - generic [ref=e813]: Carte visa
+            - listitem:
+              - generic [ref=e814]: Carte master card
+            - listitem:
+              - generic [ref=e815]: Carte paypal
+            - listitem:
+              - generic [ref=e816]: Carte amex
+            - listitem [ref=e817]:
+              - link "Paiement sécurisé 2 ou 3 fois sans frais" [ref=e818] [cursor=pointer]:
+                - /url: /infos-pratiques/paiement-sans-frais.html
+        - generic [ref=e819]:
+          - generic [ref=e820]:
+            - img "Icône livraison" [ref=e821]
+            - generic "Nos moyens de livraison sont:" [ref=e822]: Moyens de livraison
+          - list [ref=e823]:
+            - listitem:
+              - generic [ref=e824]: Colissimo, Chronopost, Chrono relais ou retrait en magasin
+            - listitem [ref=e825]:
+              - link "Délais & frais de livraison" [ref=e826] [cursor=pointer]:
+                - /url: /infos-pratiques/livraison.html
+        - generic [ref=e827]:
+          - button "Icône de point d'intérrogation Aide":
+            - img "Icône de point d'intérrogation"
+            - generic: Aide
+          - list [ref=e829]:
+            - listitem [ref=e830]:
+              - link "Questions fréquentes" [ref=e831] [cursor=pointer]:
+                - /url: /infos-pratiques/
+            - listitem [ref=e832]:
+              - link "Suivre ma commande" [ref=e833] [cursor=pointer]:
+                - /url: /client/commandes.html
+            - listitem [ref=e834]:
+              - link "Retourner un produit" [ref=e835] [cursor=pointer]:
+                - /url: /infos-pratiques/retourner-un-produit.html
+            - listitem [ref=e836]:
+              - link "Guide des tailles et pointures" [ref=e837] [cursor=pointer]:
+                - /url: /infos-pratiques/guide-des-tailles/
+            - listitem [ref=e838]:
+              - link "Parrainer un ami" [ref=e839] [cursor=pointer]:
+                - /url: /infos-pratiques/parrainage.html
+        - generic [ref=e840]:
+          - button "Icône de cadeau Cartes cadeaux":
+            - img "Icône de cadeau"
+            - generic: Cartes cadeaux
+          - list [ref=e842]:
+            - listitem [ref=e843]:
+              - link "Offrir des cartes cadeaux" [ref=e844] [cursor=pointer]:
+                - /url: /accessoires/Cartes-Cadeau_c1016/
+            - listitem [ref=e845]:
+              - link "Utiliser ma carte cadeau" [ref=e846] [cursor=pointer]:
+                - /url: /infos-pratiques/carte-cadeau.html
+        - generic [ref=e847]:
+          - button "Icône de magasin Nos magasins":
+            - img "Icône de magasin"
+            - generic: Nos magasins
+          - list [ref=e849]:
+            - listitem [ref=e850]:
+              - link "Les Magasins i-Run" [ref=e851] [cursor=pointer]:
+                - /url: /magasins/
+            - listitem [ref=e852]:
+              - link "Magasins Paris" [ref=e853] [cursor=pointer]:
+                - /url: /magasins/paris/
+            - listitem [ref=e854]:
+              - link "Magasins Toulouse" [ref=e855] [cursor=pointer]:
+                - /url: /magasins/toulouse/
+            - listitem [ref=e856]:
+              - link "Magasins Montpellier" [ref=e857] [cursor=pointer]:
+                - /url: /magasins/montpellier/
+            - listitem [ref=e858]:
+              - link "Magasins Marseille" [ref=e859] [cursor=pointer]:
+                - /url: /magasins/marseille/
+            - listitem [ref=e860]:
+              - link "Magasins Nice" [ref=e861] [cursor=pointer]:
+                - /url: /magasins/nice/
+            - listitem [ref=e862]:
+              - link "Magasins Rennes" [ref=e863] [cursor=pointer]:
+                - /url: /magasins/rennes/
+            - listitem [ref=e864]:
+              - link "Magasins Lyon" [ref=e865] [cursor=pointer]:
+                - /url: /magasins/lyon/
+            - listitem [ref=e866]:
+              - link "Magasins Grenoble" [ref=e867] [cursor=pointer]:
+                - /url: /magasins/grenoble/
+            - listitem [ref=e868]:
+              - link "Magasins Annecy" [ref=e869] [cursor=pointer]:
+                - /url: /magasins/annecy/
+            - listitem [ref=e870]:
+              - link "Magasins Lille" [ref=e871] [cursor=pointer]:
+                - /url: /magasins/lille/
+            - listitem [ref=e872]:
+              - link "Magasins Bordeaux" [ref=e873] [cursor=pointer]:
+                - /url: /magasins/bordeaux/
+        - generic [ref=e874]:
+          - button "Icône de main pointant du doigt Nos expertises":
+            - img "Icône de main pointant du doigt"
+            - generic: Nos expertises
+          - list [ref=e876]:
+            - listitem [ref=e877]:
+              - link "Running" [ref=e878] [cursor=pointer]:
+                - /url: /running/
+            - listitem [ref=e879]:
+              - link "Randonnée" [ref=e880] [cursor=pointer]:
+                - /url: /randonnee/
+            - listitem [ref=e881]:
+              - link "Trail" [ref=e882] [cursor=pointer]:
+                - /url: /trail/
+            - listitem [ref=e883]:
+              - link "Fitness" [ref=e884] [cursor=pointer]:
+                - /url: /fitness/
+            - listitem [ref=e885]:
+              - link "Montre Sport GPS" [ref=e886] [cursor=pointer]:
+                - /url: /montre-gps/
+            - listitem [ref=e887]:
+              - link "Montres connectées" [ref=e888] [cursor=pointer]:
+                - /url: /montre-gps/montre-connectee/
+            - listitem [ref=e889]:
+              - link "Trouvez votre chaussure de running" [ref=e890] [cursor=pointer]:
+                - /url: /running/choisir-chaussure-running/
+        - generic [ref=e891]:
+          - button "Icône de vêtements Nos rayons":
+            - img "Icône de vêtements"
+            - generic: Nos rayons
+          - list [ref=e893]:
+            - listitem [ref=e894]:
+              - link "Chaussures homme" [ref=e895] [cursor=pointer]:
+                - /url: /chaussures_homme/
+            - listitem [ref=e896]:
+              - link "Chaussures femme" [ref=e897] [cursor=pointer]:
+                - /url: /chaussures_femme/
+            - listitem [ref=e898]:
+              - link "Vêtements homme" [ref=e899] [cursor=pointer]:
+                - /url: /vetement_sport_homme/
+            - listitem [ref=e900]:
+              - link "Vêtements femme" [ref=e901] [cursor=pointer]:
+                - /url: /vetement_sport_femme/
+            - listitem [ref=e902]:
+              - link "Electronique" [ref=e903] [cursor=pointer]:
+                - /url: /electronique/
+            - listitem [ref=e904]:
+              - link "Accessoires" [ref=e905] [cursor=pointer]:
+                - /url: /accessoires/
+            - listitem [ref=e906]:
+              - link "Diététique du sport" [ref=e907] [cursor=pointer]:
+                - /url: /dietetique/
+            - listitem [ref=e908]:
+              - link "Promotions" [ref=e909] [cursor=pointer]:
+                - /url: /promos/
+        - generic [ref=e910]:
+          - button "Logo d'i-Run A propos d'i-Run":
+            - img "Logo d'i-Run"
+            - generic: A propos d'i-Run
+          - list [ref=e912]:
+            - listitem [ref=e913]:
+              - link "Notre entreprise" [ref=e914] [cursor=pointer]:
+                - /url: /entreprise/
+            - listitem [ref=e915]:
+              - link "Notre politique RSE" [ref=e916] [cursor=pointer]:
+                - /url: /entreprise/rse/
+            - listitem [ref=e917]:
+              - link "Rejoindre l'équipe i-Run" [ref=e918] [cursor=pointer]:
+                - /url: /entreprise/nous-rejoindre/
+            - listitem [ref=e919]:
+              - link "Programme d'affiliation" [ref=e920] [cursor=pointer]:
+                - /url: /entreprise/affiliation.html
+            - listitem [ref=e921]:
+              - link "Nos courses partenaires" [ref=e922] [cursor=pointer]:
+                - /url: /entreprise/courses-partenaires/
+            - listitem [ref=e923]:
+              - link "Nos évènements" [ref=e924] [cursor=pointer]:
+                - /url: /entreprise/evenements-partenaires/
+            - listitem [ref=e925]:
+              - link "Nos athlètes" [ref=e926] [cursor=pointer]:
+                - /url: /entreprise/nos-athletes-et-ambassadeurs/
+            - listitem [ref=e927]:
+              - link "S'inscrire à notre newsletter" [ref=e928] [cursor=pointer]:
+                - /url: /enregistrement/newsletter.html
+            - listitem [ref=e929]:
+              - link "i-Run Club" [ref=e930] [cursor=pointer]:
+                - /url: https://i-run.club/
+        - generic [ref=e932]:
+          - link [ref=e933] [cursor=pointer]:
+            - /url: /entreprise/
+            - img "Entreprise française" [ref=e934]
+          - generic [ref=e935]: Boutique officielle de la
+          - link "Fédération française d'athlétisme" [ref=e936] [cursor=pointer]:
+            - /url: https://boutique-officielle.athle.fr/
+          - generic [ref=e939]:
+            - generic [ref=e940]: Suivez-nous
+            - list [ref=e941]:
+              - listitem [ref=e942]:
+                - link "instagram Icône d'instagram" [ref=e943] [cursor=pointer]:
+                  - /url: https://www.instagram.com/irunfr/
+                  - generic [ref=e944]: instagram
+                  - img "Icône d'instagram" [ref=e945]
+              - listitem [ref=e946]:
+                - link "facebook Icône de facebook" [ref=e947] [cursor=pointer]:
+                  - /url: https://www.facebook.com/i.run.running.trail
+                  - generic [ref=e948]: facebook
+                  - img "Icône de facebook" [ref=e949]
+              - listitem [ref=e950]:
+                - link "strava Icône de Strava" [ref=e951] [cursor=pointer]:
+                  - /url: https://www.strava.com/clubs/i-run-285902?hl=fr-FR
+                  - generic [ref=e952]: strava
+                  - img "Icône de Strava" [ref=e953]
+              - listitem [ref=e954]:
+                - link "youtube Icône de Youtube" [ref=e955] [cursor=pointer]:
+                  - /url: https://www.youtube.com/user/irunteam
+                  - generic [ref=e956]: youtube
+                  - img "Icône de Youtube" [ref=e957]
+      - generic [ref=e959]:
+        - generic [ref=e960]: "Langues :"
+        - generic [ref=e961]:
+          - 'link "i-Run.fr : spécialiste chaussures, vêtement et accessoires de running i-Run.fr" [ref=e962] [cursor=pointer]':
+            - /url: https://www.i-run.fr
+            - 'img "i-Run.fr : spécialiste chaussures, vêtement et accessoires de running" [ref=e963]'
+            - generic [ref=e964]: i-Run.fr
+          - 'link "i-Run.com : Running Shoes, Clothing & Accessories i-Run.com" [ref=e965] [cursor=pointer]':
+            - /url: https://www.i-run.com
+            - 'img "i-Run.com : Running Shoes, Clothing & Accessories" [ref=e966]'
+            - generic [ref=e967]: i-Run.com
+          - 'link "i-Run.ie : Running Shoes, Clothing & Accessories i-Run.ie" [ref=e968] [cursor=pointer]':
+            - /url: https://www.i-run.ie
+            - 'img "i-Run.ie : Running Shoes, Clothing & Accessories" [ref=e969]'
+            - generic [ref=e970]: i-Run.ie
+          - 'link "i-Run.nl : specialist in hardloopschoenen, kleding en accessoires i-Run.nl" [ref=e971] [cursor=pointer]':
+            - /url: https://www.i-run.nl
+            - 'img "i-Run.nl : specialist in hardloopschoenen, kleding en accessoires" [ref=e972]'
+            - generic [ref=e973]: i-Run.nl
+          - 'link "i-Run.es : zapatillas y ropas de running i-Run.es" [ref=e974] [cursor=pointer]':
+            - /url: https://www.i-run.es
+            - 'img "i-Run.es : zapatillas y ropas de running" [ref=e975]'
+            - generic [ref=e976]: i-Run.es
+          - 'link "i-Run.pt : especialista em tênis, roupas e acessórios para corrida i-Run.pt" [ref=e977] [cursor=pointer]':
+            - /url: https://www.i-run.pt
+            - 'img "i-Run.pt : especialista em tênis, roupas e acessórios para corrida" [ref=e978]'
+            - generic [ref=e979]: i-Run.pt
+          - 'link "i-Run.de : Schuhe und Bekleidung für Laufsport i-Run.de" [ref=e980] [cursor=pointer]':
+            - /url: https://www.i-run.de
+            - 'img "i-Run.de : Schuhe und Bekleidung für Laufsport" [ref=e981]'
+            - generic [ref=e982]: i-Run.de
+          - 'link "i-Run.at : den Online-Spezialisten für Running, Trailrunning, Wandern und Fitness i-Run.at" [ref=e983] [cursor=pointer]':
+            - /url: https://www.i-run.at
+            - 'img "i-Run.at : den Online-Spezialisten für Running, Trailrunning, Wandern und Fitness" [ref=e984]'
+            - generic [ref=e985]: i-Run.at
+          - 'link "i-Run.be : spécialiste chaussures, vêtement et accessoires de running i-Run.be" [ref=e986] [cursor=pointer]':
+            - /url: https://www.i-run.be
+            - 'img "i-Run.be : spécialiste chaussures, vêtement et accessoires de running" [ref=e987]'
+            - generic [ref=e988]: i-Run.be
+          - 'link "i-Run.it : lo specialista online di running, trail, trekking e fitness i-Run.it" [ref=e989] [cursor=pointer]':
+            - /url: https://www.i-run.it
+            - 'img "i-Run.it : lo specialista online di running, trail, trekking e fitness" [ref=e990]'
+            - generic [ref=e991]: i-Run.it
+      - list [ref=e992]:
+        - listitem [ref=e993]:
+          - link "CGV" [ref=e994] [cursor=pointer]:
+            - /url: /infos-pratiques/cgv.html
+        - listitem [ref=e995]:
+          - link "Mention Légales" [ref=e996] [cursor=pointer]:
+            - /url: /infos-pratiques/mentions-legales.html
+        - listitem [ref=e997]:
+          - link "Politique de confidentialité" [ref=e998] [cursor=pointer]:
+            - /url: /infos-pratiques/politique-de-confidentialite.html
+        - listitem [ref=e999]:
+          - link "Politique de cookies" [ref=e1000] [cursor=pointer]:
+            - /url: /infos-pratiques/politique-cookies.html
+        - listitem [ref=e1001]:
+          - link "Paramètres des cookies" [ref=e1002] [cursor=pointer]:
+            - /url: javascript:Didomi.preferences.show()
+        - listitem [ref=e1003]:
+          - link "Accessibilité" [ref=e1004] [cursor=pointer]:
+            - /url: /infos-pratiques/accessibilite.html
+        - listitem [ref=e1005]:
+          - link "Plan du site" [ref=e1006] [cursor=pointer]:
+            - /url: /infos-pratiques/sitemap.html
+  - generic [ref=e1008]:
+    - generic [ref=e1009]:
+      - img "Asics Superblast 3" [ref=e1011]
+      - generic [ref=e1013]:
+        - text: Asics
+        - generic [ref=e1014]: Superblast 3
+      - button "Choisissez votre pointure " [ref=e1017] [cursor=pointer]:
+        - generic [ref=e1018]: Choisissez votre pointure
+        - generic [ref=e1019]: 
+        - generic:
+          - listbox:
+            - option "40 En stock" [ref=e1020]:
+              - generic [ref=e1022]: "40"
+              - generic [ref=e1023]: En stock
+            - option "40.5 En stock" [ref=e1024]:
+              - generic [ref=e1026]: "40.5"
+              - generic [ref=e1027]: En stock
+            - option "41.5 En stock" [ref=e1028]:
+              - generic [ref=e1030]: "41.5"
+              - generic [ref=e1031]: En stock
+            - option "42 En stock" [ref=e1032]:
+              - generic [ref=e1034]: "42"
+              - generic [ref=e1035]: En stock
+            - option "42.5 En stock" [ref=e1036]:
+              - generic [ref=e1038]: "42.5"
+              - generic [ref=e1039]: En stock
+            - option "43.5 En stock" [ref=e1040]:
+              - generic [ref=e1042]: "43.5"
+              - generic [ref=e1043]: En stock
+            - option "44 En stock" [ref=e1044]:
+              - generic [ref=e1046]: "44"
+              - generic [ref=e1047]: En stock
+            - option "44.5 Modèles similaires en stock" [ref=e1048]:
+              - generic [ref=e1050]: "44.5"
+              - generic [ref=e1051]: Modèles similaires en stock
+            - option "45 Modèles similaires en stock" [ref=e1052]:
+              - generic [ref=e1054]: "45"
+              - generic [ref=e1055]: Modèles similaires en stock
+            - option "46 Modèles similaires en stock" [ref=e1056]:
+              - generic [ref=e1058]: "46"
+              - generic [ref=e1059]: Modèles similaires en stock
+            - option "46.5 Modèles similaires en stock" [ref=e1060]:
+              - generic [ref=e1062]: "46.5"
+              - generic [ref=e1063]: Modèles similaires en stock
+            - option "47 Modèles similaires en stock" [ref=e1064]:
+              - generic [ref=e1066]: "47"
+              - generic [ref=e1067]: Modèles similaires en stock
+            - option "48 En rupture":
+              - generic: "48"
+              - generic: En rupture
+            - option "49 Modèles similaires en stock" [ref=e1068]:
+              - generic [ref=e1070]: "49"
+              - generic [ref=e1071]: Modèles similaires en stock
+      - generic [ref=e1072]: 220€
+      - button " Ajouter au panier" [ref=e1074] [cursor=pointer]:
+        - generic [ref=e1075]: 
+        - generic [ref=e1076]: Ajouter au panier
+    - generic [ref=e1078]:
+      - link "DESCRIPTION" [ref=e1079] [cursor=pointer]:
+        - /url: "#description"
+      - link "TECHNOLOGIES" [ref=e1081] [cursor=pointer]:
+        - /url: "#technologies"
+      - link "AVIS (47)" [ref=e1083] [cursor=pointer]:
+        - /url: "#review"
+        - generic [ref=e1084]:
+          - text: AVIS
+          - generic [ref=e1085]: (47)
+      - link "QUESTIONS RÉPONSES" [ref=e1086] [cursor=pointer]:
+        - /url: "#qa"

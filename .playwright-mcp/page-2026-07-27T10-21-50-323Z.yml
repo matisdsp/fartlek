@@ -1,0 +1,805 @@
+- generic [ref=e1]:
+  - dialog "Bienvenue chez Ekosport Gestion du consentement" [ref=e4]:
+    - document [active] [ref=e5]:
+      - button "Continuer sans accepter" [ref=e6] [cursor=pointer]: Continuer sans accepter →
+      - heading "Logo" [level=1] [ref=e8]
+      - generic [ref=e9]:
+        - paragraph [ref=e11]:
+          - text: Avec votre accord, nous et
+          - button "nos 18 partenaires" [ref=e12] [cursor=pointer]
+          - text: utilisons des cookies ou technologies similaires pour stocker, consulter et traiter des données personnelles telles que votre visite sur ce site internet, les adresses IP et les identifiants de cookie. Certains partenaires ne demandent pas votre consentement pour traiter vos données et se fondent sur leur intérêt commercial légitime. À tout moment, vous pouvez retirer votre consentement ou vous opposer au traitement des données fondé sur l'intérêt légitime en cliquant sur « En savoir plus » ou en allant dans notre politique de confidentialité sur ce site internet.
+        - paragraph [ref=e14]:
+          - heading "Vos données personnelles sont traitées pour les finalités suivantes:" [level=2] [ref=e15]
+          - generic [ref=e16]: Publicités et contenu personnalisés, mesure de performance des publicités et du contenu, études d’audience et développement de services, Stocker et/ou accéder à des informations sur un appareil
+      - generic [ref=e17]:
+        - 'button "En savoir plus: Configurer vos consentements" [ref=e18] [cursor=pointer]': En savoir plus →
+        - 'button "Accepter & Fermer: Accepter notre traitement des données et fermer" [ref=e19] [cursor=pointer]': Accepter & Fermer
+  - generic [ref=e21]:
+    - banner [ref=e22]:
+      - generic [ref=e23]:
+        - link "Nos Univers" [ref=e24] [cursor=pointer]:
+          - /url: /c/eko-C2474-nos-univers
+        - generic [ref=e25]:
+          - link "Trail" [ref=e26] [cursor=pointer]:
+            - /url: /c/eko-C2721-trail
+          - generic [ref=e27]:
+            - link "Chaussure trail" [ref=e28] [cursor=pointer]:
+              - /url: /c/eko-C2722-chaussure-trail
+            - link "Sac hydratation trail" [ref=e29] [cursor=pointer]:
+              - /url: /c/eko-C2749-sac-hydratation-trail
+            - link "Chaussure de récupération" [ref=e30] [cursor=pointer]:
+              - /url: /c/eko-C2723-chaussure-de-recuperation
+            - link "Vêtement trail" [ref=e31] [cursor=pointer]:
+              - /url: /c/eko-C2726-vetement-trail
+            - link "Equipement trail" [ref=e32] [cursor=pointer]:
+              - /url: /c/eko-C2755-equipement-trail
+            - link "Montres cardio GPS" [ref=e33] [cursor=pointer]:
+              - /url: /c/eko-C2721-trail-C3035-montre-connectee-montres-cardio-gps
+            - link "Nutrition" [ref=e34] [cursor=pointer]:
+              - /url: /c/eko-C2721-trail-C4102-nutrition-nutrition
+          - link "Running" [ref=e35] [cursor=pointer]:
+            - /url: /c/eko-C2764-running
+          - generic [ref=e36]:
+            - link "Chaussure running" [ref=e37] [cursor=pointer]:
+              - /url: /c/eko-C2765-chaussure-running
+            - link "Chaussure de récupération" [ref=e38] [cursor=pointer]:
+              - /url: /c/eko-C2766-chaussure-de-recuperation
+            - link "Vêtement running" [ref=e39] [cursor=pointer]:
+              - /url: /c/eko-C2769-vetement-running
+            - link "Equipement running" [ref=e40] [cursor=pointer]:
+              - /url: /c/eko-C2792-equipement-running
+            - link "Montres cardio GPS" [ref=e41] [cursor=pointer]:
+              - /url: /c/eko-C2764-running-C3035-montre-connectee-montres-cardio-gps
+            - link "Nutrition" [ref=e42] [cursor=pointer]:
+              - /url: /c/eko-C2764-running-C4102-nutrition-nutrition
+          - link "Randonnée" [ref=e43] [cursor=pointer]:
+            - /url: /c/eko-C2856-randonnee
+          - generic [ref=e44]:
+            - link "Chaussure de randonnée" [ref=e45] [cursor=pointer]:
+              - /url: /c/eko-C2857-chaussure-de-randonnee
+            - link "Sac de randonnée" [ref=e46] [cursor=pointer]:
+              - /url: /c/eko-C2886-sac-de-randonnee
+            - link "Bagagerie de voyage" [ref=e47] [cursor=pointer]:
+              - /url: /c/eko-C2890-bagagerie-de-voyage
+            - link "Porte bébé randonnée" [ref=e48] [cursor=pointer]:
+              - /url: /c/eko-C2892-porte-bebe-randonnee
+            - link "Vêtement randonnée" [ref=e49] [cursor=pointer]:
+              - /url: /c/eko-C2865-vetement-randonnee
+            - link "Accessoire randonnée" [ref=e50] [cursor=pointer]:
+              - /url: /c/eko-C2893-accessoire-randonnee
+          - link "Bivouac" [ref=e51] [cursor=pointer]:
+            - /url: /c/eko-C2901-bivouac
+          - generic [ref=e52]:
+            - link "Tente bivouac" [ref=e53] [cursor=pointer]:
+              - /url: /c/eko-C2902-tente-bivouac
+            - link "Couchage bivouac" [ref=e54] [cursor=pointer]:
+              - /url: /c/eko-C2903-couchage-bivouac
+            - link "Accessoire bivouac" [ref=e55] [cursor=pointer]:
+              - /url: /c/eko-C2929-accessoire-bivouac
+            - link "Cuisine camping" [ref=e56] [cursor=pointer]:
+              - /url: /c/eko-C2913-cuisine-camping
+            - link "Matériel camping" [ref=e57] [cursor=pointer]:
+              - /url: /c/eko-C2910-materiel-camping
+            - link "Accessoire hygiène" [ref=e58] [cursor=pointer]:
+              - /url: /c/eko-C2932-accessoire-hygiene
+            - link "Réchaud randonnée" [ref=e59] [cursor=pointer]:
+              - /url: /c/eko-C2924-rechaud-randonnee
+            - link "Repas déshydratés" [ref=e60] [cursor=pointer]:
+              - /url: /c/eko-C2901-bivouac-C4109-repas-deshydrates-repas-deshydrates
+          - link "Escalade" [ref=e61] [cursor=pointer]:
+            - /url: /c/eko-C2960-escalade
+          - generic [ref=e62]:
+            - link "Chausson escalade" [ref=e63] [cursor=pointer]:
+              - /url: /c/eko-C2961-chausson-escalade
+            - link "Matériel escalade" [ref=e64] [cursor=pointer]:
+              - /url: /c/eko-C2962-materiel-escalade
+            - link "Vêtement escalade" [ref=e65] [cursor=pointer]:
+              - /url: /c/eko-C2978-vetement-escalade
+            - link "Corderie escalade" [ref=e66] [cursor=pointer]:
+              - /url: /c/eko-C2972-corderie-escalade
+            - link "Accessoire escalade" [ref=e67] [cursor=pointer]:
+              - /url: /c/eko-C2986-accessoire-escalade
+            - link "Entrainement escalade" [ref=e68] [cursor=pointer]:
+              - /url: /c/eko-C2993-entrainement-escalade
+            - link "Via ferrata" [ref=e69] [cursor=pointer]:
+              - /url: /c/eko-C2997-via-ferrata
+          - link "VTT" [ref=e70] [cursor=pointer]:
+            - /url: /c/eko-C2797-vtt
+          - generic [ref=e71]:
+            - link "Chaussure VTT" [ref=e72] [cursor=pointer]:
+              - /url: /c/eko-C2798-chaussure-vtt
+            - link "Vêtement VTT" [ref=e73] [cursor=pointer]:
+              - /url: /c/eko-C2801-vetement-vtt
+            - link "Equipement VTT" [ref=e74] [cursor=pointer]:
+              - /url: /c/eko-C2810-equipement-vtt
+            - link "Montres cardio GPS" [ref=e75] [cursor=pointer]:
+              - /url: /c/eko-C2797-vtt-C3035-montre-connectee-montres-cardio-gps
+            - link "Nutrition" [ref=e76] [cursor=pointer]:
+              - /url: /c/eko-C2797-vtt-C4102-nutrition-nutrition
+            - link "Accessoire VTT" [ref=e77] [cursor=pointer]:
+              - /url: /c/eko-C2821-accessoire-vtt
+          - link "Vélo de route" [ref=e78] [cursor=pointer]:
+            - /url: /c/eko-C2831-velo-de-route
+          - generic [ref=e79]:
+            - link "Chaussure vélo route" [ref=e80] [cursor=pointer]:
+              - /url: /c/eko-C2832-chaussure-velo-route
+            - link "Vêtement cycliste" [ref=e81] [cursor=pointer]:
+              - /url: /c/eko-C2833-vetement-cycliste
+            - link "Equipement vélo de route" [ref=e82] [cursor=pointer]:
+              - /url: /c/eko-C2844-equipement-velo-de-route
+            - link "Montres cardio GPS" [ref=e83] [cursor=pointer]:
+              - /url: /c/eko-C2831-velo-de-route-C3035-montre-connectee-montres-cardio-gps
+            - link "Nutrition" [ref=e84] [cursor=pointer]:
+              - /url: /c/eko-C2831-velo-de-route-C4102-nutrition-nutrition
+            - link "Accessoires vélo de route" [ref=e85] [cursor=pointer]:
+              - /url: /c/eko-C2847-accessoires-velo-de-route
+          - link "Lifestyle" [ref=e86] [cursor=pointer]:
+            - /url: /c/eko-C3074-lifestyle
+          - generic [ref=e87]:
+            - link "Chaussures lifestyle" [ref=e88] [cursor=pointer]:
+              - /url: /c/eko-C3106-chaussures-lifestyle
+            - link "Sac à dos lifestyle" [ref=e89] [cursor=pointer]:
+              - /url: /c/eko-C3109-sac-a-dos-lifestyle
+            - link "Bagagerie de voyage" [ref=e90] [cursor=pointer]:
+              - /url: /c/eko-C3074-lifestyle-C2890-bagagerie-de-voyage-bagagerie-de-voyage
+            - link "Lunettes de soleil" [ref=e91] [cursor=pointer]:
+              - /url: /c/eko-C3026-lunette-de-soleil-lifestyle-lunettes-de-soleil
+            - link "Vêtement lifestyle" [ref=e92] [cursor=pointer]:
+              - /url: /c/eko-C3075-vetement-lifestyle
+            - link "Accessoire lifestyle" [ref=e93] [cursor=pointer]:
+              - /url: /c/eko-C3097-accessoire-lifestyle
+          - link "Alpinisme" [ref=e94] [cursor=pointer]:
+            - /url: /c/eko-C2939-alpinisme
+          - generic [ref=e95]:
+            - link "Chaussure alpinisme" [ref=e96] [cursor=pointer]:
+              - /url: /c/eko-C2940-chaussure-alpinisme
+            - link "Sac à dos alpinisme" [ref=e97] [cursor=pointer]:
+              - /url: /c/eko-C2959-sac-a-dos-alpinisme
+            - link "Matériel alpinisme" [ref=e98] [cursor=pointer]:
+              - /url: /c/eko-C2941-materiel-alpinisme
+            - link "Vêtement alpinisme" [ref=e99] [cursor=pointer]:
+              - /url: /c/eko-C2951-vetement-alpinisme
+          - link "Ski alpin" [ref=e100] [cursor=pointer]:
+            - /url: /c/eko-C2475-ski-alpin
+          - generic [ref=e101]:
+            - link "Matériel ski" [ref=e102] [cursor=pointer]:
+              - /url: /c/eko-C2476-materiel-ski
+            - link "Equipement ski" [ref=e103] [cursor=pointer]:
+              - /url: /c/eko-C2516-equipement-ski
+            - link "Vêtement de ski" [ref=e104] [cursor=pointer]:
+              - /url: /c/eko-C2490-vetement-de-ski
+            - link "Accessoire ski" [ref=e105] [cursor=pointer]:
+              - /url: /c/eko-C2541-accessoire-ski
+            - link "Fartage ski" [ref=e106] [cursor=pointer]:
+              - /url: /c/eko-C2528-fartage-ski
+          - link "Ski de randonnée" [ref=e107] [cursor=pointer]:
+            - /url: /c/eko-C2620-ski-de-randonnee
+          - generic [ref=e108]:
+            - link "Matériel ski de randonnée" [ref=e109] [cursor=pointer]:
+              - /url: /c/eko-C2621-materiel-ski-de-randonnee
+            - link "Equipement ski de randonnée" [ref=e110] [cursor=pointer]:
+              - /url: /c/eko-C2648-equipement-ski-de-randonnee
+            - link "Vêtement ski de randonnée" [ref=e111] [cursor=pointer]:
+              - /url: /c/eko-C2633-vetement-ski-de-randonnee
+            - link "Raquette à neige" [ref=e112] [cursor=pointer]:
+              - /url: /c/eko-C2632-raquette-a-neige
+            - link "Accessoire ski de randonnée" [ref=e113] [cursor=pointer]:
+              - /url: /c/eko-C2664-accessoire-ski-de-randonnee
+            - link "Sécurité avalanche" [ref=e114] [cursor=pointer]:
+              - /url: /c/eko-C2657-securite-avalanche
+            - link "Matériel telemark" [ref=e115] [cursor=pointer]:
+              - /url: /c/eko-C4099-materiel-telemark
+          - link "Ski de fond" [ref=e116] [cursor=pointer]:
+            - /url: /c/eko-C2560-ski-de-fond
+          - generic [ref=e117]:
+            - link "Matériel ski de fond" [ref=e118] [cursor=pointer]:
+              - /url: /c/eko-C2561-materiel-ski-de-fond
+            - link "Equipement ski de fond" [ref=e119] [cursor=pointer]:
+              - /url: /c/eko-C2594-equipement-ski-de-fond
+            - link "Vêtement ski de fond" [ref=e120] [cursor=pointer]:
+              - /url: /c/eko-C2579-vetement-ski-de-fond
+            - link "Matériel ski roue" [ref=e121] [cursor=pointer]:
+              - /url: /c/eko-C2572-materiel-ski-roue
+            - link "Accessoire ski de fond" [ref=e122] [cursor=pointer]:
+              - /url: /c/eko-C2598-accessoire-ski-de-fond
+          - link "Snowboard" [ref=e123] [cursor=pointer]:
+            - /url: /c/eko-C2685-snowboard
+          - generic [ref=e124]:
+            - link "Matériel snowboard" [ref=e125] [cursor=pointer]:
+              - /url: /c/eko-C2686-materiel-snowboard
+            - link "Equipement snowboard" [ref=e126] [cursor=pointer]:
+              - /url: /c/eko-C2708-equipement-snowboard
+            - link "Vêtement snowboard" [ref=e127] [cursor=pointer]:
+              - /url: /c/eko-C2697-vetement-snowboard
+            - link "Matériel splitboard" [ref=e128] [cursor=pointer]:
+              - /url: /c/eko-C2692-materiel-splitboard
+            - link "Accessoire snowboard" [ref=e129] [cursor=pointer]:
+              - /url: /c/eko-C2718-accessoire-snowboard
+        - link "Homme" [ref=e130] [cursor=pointer]:
+          - /url: /c/eko-C2474-nos-univers/f/genre-homme
+        - link "Femme" [ref=e131] [cursor=pointer]:
+          - /url: /c/eko-C2474-nos-univers/f/genre-femme
+        - link "Enfant" [ref=e132] [cursor=pointer]:
+          - /url: /c/eko-C2474-nos-univers/f/genre-enfant
+        - link "Accessoires" [ref=e133] [cursor=pointer]:
+          - /url: /c/eko-C3000-accessoires
+      - generic [ref=e138]:
+        - generic [ref=e142]:
+          - paragraph [ref=e143]: Outdoor Inspiration
+          - generic [ref=e144]:
+            - list [ref=e148]:
+              - listitem [ref=e149]:
+                - link "Service client" [ref=e150] [cursor=pointer]:
+                  - /url: /aide-et-contact
+              - listitem [ref=e151]:
+                - link "Blog Ekosport" [ref=e152] [cursor=pointer]:
+                  - /url: https://blog.ekosport.fr/
+              - listitem [ref=e153]:
+                - link "Louez vos skis" [ref=e154] [cursor=pointer]:
+                  - /url: https://www.ekosport-rent.com/fr/
+              - listitem [ref=e155]:
+                - link "Assurance Ekosport +" [ref=e156] [cursor=pointer]:
+                  - /url: /u/cms8/ekosport-plus
+            - list [ref=e158]:
+              - listitem [ref=e159]:
+                - link "Aide au choix" [ref=e160] [cursor=pointer]:
+                  - /url: /u/gac0/guide-achat
+            - button "Envoyer en France EKO-FR-Site" [ref=e164] [cursor=pointer]:
+              - generic [ref=e165]: Envoyer en France
+              - img "EKO-FR-Site" [ref=e167]
+        - generic [ref=e172]:
+          - link "Accueil" [ref=e176] [cursor=pointer]:
+            - /url: /
+          - search [ref=e190]:
+            - textbox "Rechercher un produit, une marque, une gamme ..." [ref=e195]
+          - generic [ref=e196]:
+            - link [ref=e199] [cursor=pointer]:
+              - /url: /compare
+            - link [ref=e206] [cursor=pointer]:
+              - /url: /account/wishlists?messageKey=wishlists
+            - link [ref=e213] [cursor=pointer]:
+              - /url: /u/mag0/nos-magasins
+            - link [ref=e220] [cursor=pointer]:
+              - /url: /login?returnUrl=%2Faccount
+            - link [ref=e227] [cursor=pointer]:
+              - /url: /home
+        - generic [ref=e236]:
+          - button "Nos Univers" [ref=e237] [cursor=pointer]
+          - button "Homme" [ref=e242] [cursor=pointer]
+          - button "Femme" [ref=e243] [cursor=pointer]
+          - button "Enfant" [ref=e244] [cursor=pointer]
+          - button "Accessoires" [ref=e245] [cursor=pointer]
+          - list [ref=e247]:
+            - listitem [ref=e248]:
+              - link "Nos marques" [ref=e249] [cursor=pointer]:
+                - /url: /nos-marques
+          - generic [ref=e250]:
+            - list [ref=e253]:
+              - listitem [ref=e254]:
+                - link "Nouveautés" [ref=e255] [cursor=pointer]:
+                  - /url: /c/SH0001-N0001-nouveautes
+              - listitem [ref=e256]:
+                - link "Destockage" [ref=e257] [cursor=pointer]:
+                  - /url: /c/SH0001-D0001-destockage
+            - generic:
+              - generic:
+                - list:
+                  - listitem
+                  - listitem
+        - generic [ref=e262]:
+          - link "DESTOCKAGE | -10% EXTRA avec le code EKO10" [ref=e263] [cursor=pointer]:
+            - /url: /c/SH0001-D0001-destockage
+            - paragraph [ref=e265]:
+              - text: DESTOCKAGE | -10% EXTRA avec le code
+              - generic [ref=e266]: EKO10
+          - button [ref=e271] [cursor=pointer]
+    - main [ref=e275]:
+      - generic [ref=e280]:
+        - generic [ref=e290]:
+          - generic [ref=e299]:
+            - generic [ref=e300]:
+              - generic:
+                - group "1 / 4" [ref=e301]:
+                  - link [ref=e305] [cursor=pointer]:
+                    - /url: /c/SH0001-D0001-destockage
+                    - img "Destockage" [ref=e307]
+                - group "2 / 4" [ref=e309]:
+                  - link [ref=e313] [cursor=pointer]:
+                    - /url: /ferrino-lightpath-2-p-K113163
+                    - img "FERRINO - Lightpath 2" [ref=e315]
+                - group "3 / 4" [ref=e317]:
+                  - link [ref=e321] [cursor=pointer]:
+                    - /url: /c/eko-C2890-bagagerie-de-voyage
+                    - img "Bagagerie" [ref=e323]
+                - group "4 / 4" [ref=e325]:
+                  - link [ref=e329] [cursor=pointer]:
+                    - /url: /c/eko-C3023-protection-solaire
+                    - img "Protection solaire" [ref=e331]
+            - button "Previous slide" [ref=e333] [cursor=pointer]
+            - button "Next slide" [ref=e334] [cursor=pointer]
+          - link [ref=e340] [cursor=pointer]:
+            - /url: /c/eko-C2886-sac-de-randonnee
+            - img "Sacs de randonnée" [ref=e342]
+          - link [ref=e348] [cursor=pointer]:
+            - /url: https://www.ekosport.fr/c/eko-C2856-randonnee/f/marque-ternua
+            - img "Ternua" [ref=e350]
+          - link [ref=e356] [cursor=pointer]:
+            - /url: https://www.ekosport.fr/c/eko-C2721-trail/f/marque-mammut
+            - img "Mammut" [ref=e358]
+        - generic [ref=e366]:
+          - generic [ref=e367]:
+            - heading [level=1] [ref=e369]:
+              - text: ekosport
+              - strong [ref=e370]: OUTDOOR
+              - text: INSPIRATION
+            - paragraph [ref=e372]:
+              - strong [ref=e373]: 35 000 références
+              - text: pour évoluer librement sur tous les terrains de jeux
+          - generic [ref=e384]:
+            - generic [ref=e385]:
+              - generic:
+                - group "1 / 13" [ref=e386]:
+                  - link [ref=e390] [cursor=pointer]:
+                    - /url: /c/eko-C2721-trail
+                    - img "Trail" [ref=e392]
+                    - heading "Trail" [level=2] [ref=e395]
+                - group "2 / 13" [ref=e396]:
+                  - link [ref=e400] [cursor=pointer]:
+                    - /url: /c/eko-C2764-running
+                    - img "Running" [ref=e402]
+                    - heading "Running" [level=2] [ref=e405]
+                - group "3 / 13" [ref=e406]:
+                  - link [ref=e410] [cursor=pointer]:
+                    - /url: /c/eko-C2856-randonnee
+                    - img "Randonnée" [ref=e412]
+                    - heading "Randonnée" [level=2] [ref=e415]
+                - group "4 / 13" [ref=e416]:
+                  - link [ref=e420] [cursor=pointer]:
+                    - /url: /c/eko-C2901-bivouac
+                    - img "Bivouac" [ref=e422]
+                    - heading "Bivouac" [level=2] [ref=e425]
+                - group "5 / 13" [ref=e426]:
+                  - link [ref=e430] [cursor=pointer]:
+                    - /url: /c/eko-C2960-escalade
+                    - img "Escalade" [ref=e432]
+                    - heading "Escalade" [level=2] [ref=e435]
+                - group "6 / 13" [ref=e436]:
+                  - link [ref=e440] [cursor=pointer]:
+                    - /url: /c/eko-C2831-velo-de-route
+                    - img "Vélo de route" [ref=e442]
+                    - heading "Vélo de route" [level=2] [ref=e445]
+                - group "7 / 13" [ref=e446]:
+                  - link [ref=e450] [cursor=pointer]:
+                    - /url: /c/eko-C2797-vtt
+                    - img "VTT" [ref=e452]
+                    - heading "VTT" [level=2] [ref=e455]
+                - group "8 / 13" [ref=e456]:
+                  - link [ref=e460] [cursor=pointer]:
+                    - /url: /c/eko-C2475-ski-alpin
+                    - img "Ski alpin" [ref=e462]
+                    - heading "Ski alpin" [level=2] [ref=e465]
+                - group "9 / 13" [ref=e466]:
+                  - link [ref=e470] [cursor=pointer]:
+                    - /url: /c/eko-C3074-lifestyle
+                    - img "Lifestyle" [ref=e472]
+                    - heading "Lifestyle" [level=2] [ref=e475]
+                - group "10 / 13" [ref=e476]:
+                  - link [ref=e480] [cursor=pointer]:
+                    - /url: /c/eko-C2939-alpinisme
+                    - img "Alpinisme" [ref=e482]
+                    - heading "Alpinisme" [level=2] [ref=e485]
+                - group "11 / 13" [ref=e486]:
+                  - link [ref=e490] [cursor=pointer]:
+                    - /url: /c/eko-C2560-ski-de-fond
+                    - img "Ski de fond" [ref=e492]
+                    - heading "Ski de fond" [level=2] [ref=e495]
+                - group "12 / 13" [ref=e496]:
+                  - link [ref=e500] [cursor=pointer]:
+                    - /url: /c/eko-C2620-ski-de-randonnee
+                    - img "Ski de rando" [ref=e502]
+                    - heading "Ski de rando" [level=2] [ref=e505]
+                - group "13 / 13" [ref=e506]:
+                  - link [ref=e510] [cursor=pointer]:
+                    - /url: /c/eko-C2685-snowboard
+                    - img "Snowboard" [ref=e512]
+                    - heading "Snowboard" [level=2] [ref=e515]
+            - button "Previous slide" [ref=e516] [cursor=pointer]
+            - button "Next slide" [ref=e517] [cursor=pointer]
+        - generic [ref=e536]:
+          - generic [ref=e537]:
+            - generic:
+              - group "1 / 5" [ref=e538]:
+                - link [ref=e542] [cursor=pointer]:
+                  - /url: /b/hoka-one-one
+                  - img "hoka" [ref=e544]
+              - group "2 / 5" [ref=e546]:
+                - link "Textile lifestyle LIFESTYLE Vêtements" [ref=e550] [cursor=pointer]:
+                  - /url: /c/eko-C3075-vetement-lifestyle
+                  - img "Textile lifestyle" [ref=e552]
+                  - generic [ref=e556]:
+                    - paragraph [ref=e557]: LIFESTYLE
+                    - generic [ref=e558]: Vêtements
+              - group "3 / 5" [ref=e559]:
+                - link [ref=e563] [cursor=pointer]:
+                  - /url: /b/sea-to-summit
+                  - img "Sea to summit" [ref=e565]
+              - group "4 / 5" [ref=e567]:
+                - link "Univers velo de route UNIVERS Vélo de route" [ref=e571] [cursor=pointer]:
+                  - /url: /c/eko-C2831-velo-de-route
+                  - img "Univers velo de route" [ref=e573]
+                  - generic [ref=e576]:
+                    - paragraph [ref=e577]: UNIVERS
+                    - generic [ref=e578]: Vélo de route
+              - group "5 / 5" [ref=e579]:
+                - link [ref=e583] [cursor=pointer]:
+                  - /url: /b/new-balance
+                  - img "New balance" [ref=e585]
+          - button "Previous slide" [disabled]
+          - button "Next slide" [ref=e587] [cursor=pointer]
+        - heading [level=2] [ref=e598]:
+          - text: Sélection
+          - strong [ref=e599]: Déstockage
+        - generic [ref=e609]:
+          - link [ref=e611] [cursor=pointer]:
+            - /url: /b/asolo
+          - link "Découvrir →" [ref=e615] [cursor=pointer]:
+            - /url: /b/asolo
+        - heading [level=2] [ref=e628]:
+          - strong [ref=e629]: Top ventes
+        - heading [level=2] [ref=e640]:
+          - strong [ref=e641]: Nouveautés
+        - generic [ref=e649]:
+          - heading [level=2] [ref=e652]:
+            - text: À la une
+            - strong [ref=e654]: Actus, services ... et + encore
+          - generic [ref=e663]:
+            - generic [ref=e664]:
+              - generic:
+                - group "1 / 9" [ref=e665]:
+                  - generic [ref=e667]:
+                    - link [ref=e668] [cursor=pointer]:
+                      - /url: /u/evnt0/evenements
+                      - img "Agenda ekosport" [ref=e670]
+                    - generic [ref=e671]:
+                      - link:
+                        - /url: /u/evnt0/evenements
+                      - generic [ref=e672]:
+                        - link [ref=e673] [cursor=pointer]:
+                          - /url: /u/evnt0/evenements
+                          - heading "Agenda" [level=3] [ref=e674]
+                          - paragraph [ref=e675]: Tous nos évènements outdoor à venir
+                        - link [ref=e676] [cursor=pointer]:
+                          - /url: /u/evnt0/evenements
+                          - button "Découvrir" [ref=e677]
+                - group "2 / 9" [ref=e678]:
+                  - generic [ref=e682]:
+                    - link [ref=e683] [cursor=pointer]:
+                      - /url: /u/gac0/guide-achat
+                    - generic [ref=e686]:
+                      - link:
+                        - /url: /u/gac0/guide-achat
+                      - generic [ref=e687]:
+                        - link [ref=e688] [cursor=pointer]:
+                          - /url: /u/gac0/guide-achat
+                          - heading "Guide d'achat" [level=3] [ref=e689]
+                          - paragraph [ref=e690]: Besoin d'aide pour choisir ?
+                        - link [ref=e691] [cursor=pointer]:
+                          - /url: /u/gac0/guide-achat
+                          - button "Découvrir" [ref=e692]
+                - group "3 / 9" [ref=e693]:
+                  - generic [ref=e697]:
+                    - link [ref=e698] [cursor=pointer]:
+                      - /url: /u/cms8/ekosport-plus
+                      - img "Ekosport+" [ref=e700]
+                    - generic [ref=e701]:
+                      - link:
+                        - /url: /u/cms8/ekosport-plus
+                      - generic [ref=e702]:
+                        - link [ref=e703] [cursor=pointer]:
+                          - /url: /u/cms8/ekosport-plus
+                          - heading "Assurance Ekosport+" [level=3] [ref=e704]
+                          - paragraph [ref=e705]: Protégez votre passion sportive où que vous soyez
+                        - link [ref=e706] [cursor=pointer]:
+                          - /url: /u/cms8/ekosport-plus
+                          - button "Découvrir" [ref=e707]
+                - group "4 / 9" [ref=e708]:
+                  - generic [ref=e712]:
+                    - link [ref=e713] [cursor=pointer]:
+                      - /url: https://www.ekosport.fr/u/com13/ekosport-x-arkose
+                      - img "Ekosport x Arkose" [ref=e715]
+                    - generic [ref=e716]:
+                      - link:
+                        - /url: https://www.ekosport.fr/u/com13/ekosport-x-arkose
+                      - generic [ref=e717]:
+                        - link [ref=e718] [cursor=pointer]:
+                          - /url: https://www.ekosport.fr/u/com13/ekosport-x-arkose
+                          - heading "Ekosport x Arkose" [level=3] [ref=e719]
+                          - paragraph [ref=e720]: Une alliance outdoor & escalade inédite
+                        - link [ref=e721] [cursor=pointer]:
+                          - /url: https://www.ekosport.fr/u/com13/ekosport-x-arkose
+                          - button "Découvrir" [ref=e722]
+                - group "5 / 9" [ref=e723]:
+                  - generic [ref=e727]:
+                    - link [ref=e728] [cursor=pointer]:
+                      - /url: /u/bpl15/goodloop
+                      - img "Goodloop" [ref=e730]
+                    - generic [ref=e731]:
+                      - link:
+                        - /url: /u/bpl13/carte-cadeau
+                      - generic [ref=e732]:
+                        - link [ref=e733] [cursor=pointer]:
+                          - /url: /u/bpl15/goodloop
+                          - heading "Ekosport s'engage" [level=3] [ref=e734]
+                          - paragraph [ref=e735]: Donnez une seconde vie à vos vêtements outdoor
+                        - link [ref=e736] [cursor=pointer]:
+                          - /url: /u/bpl15/goodloop
+                          - button "Découvrir" [ref=e737]
+                - group "6 / 9" [ref=e738]:
+                  - generic [ref=e742]:
+                    - link [ref=e743] [cursor=pointer]:
+                      - /url: /c/gam-GC250-ffs
+                      - img "Boutique FFS" [ref=e745]
+                    - generic [ref=e746]:
+                      - link:
+                        - /url: /c/gam-GC250-ffs
+                      - generic [ref=e747]:
+                        - link [ref=e748] [cursor=pointer]:
+                          - /url: /c/gam-GC250-ffs
+                          - heading "Boutique FFS" [level=3] [ref=e749]
+                          - paragraph [ref=e750]: La boutique officielle de la Fédération Française de Ski
+                        - link [ref=e751] [cursor=pointer]:
+                          - /url: /c/gam-GC250-ffs
+                          - button "Découvrir" [ref=e752]
+                - group "7 / 9" [ref=e753]:
+                  - generic [ref=e757]:
+                    - link [ref=e758] [cursor=pointer]:
+                      - /url: /u/cms7/ekosport-rent
+                    - generic [ref=e761]:
+                      - link:
+                        - /url: /u/cms7/ekosport-rent
+                      - generic [ref=e762]:
+                        - link [ref=e763] [cursor=pointer]:
+                          - /url: /u/cms7/ekosport-rent
+                          - heading "Ekosport-rent" [level=3] [ref=e764]
+                          - paragraph [ref=e765]: Louez votre matériel en ligne
+                        - link [ref=e766] [cursor=pointer]:
+                          - /url: /u/cms7/ekosport-rent
+                          - button "Découvrir" [ref=e767]
+                - group "8 / 9" [ref=e768]:
+                  - generic [ref=e772]:
+                    - link [ref=e773] [cursor=pointer]:
+                      - /url: https://www.ekosport.fr/c/GP0001-GP0002-espace-prestige
+                      - img "Espace prestige" [ref=e775]
+                    - generic [ref=e776]:
+                      - link:
+                        - /url: https://www.ekosport.fr/c/GP0001-GP0002-espace-prestige
+                      - generic [ref=e777]:
+                        - link [ref=e778] [cursor=pointer]:
+                          - /url: https://www.ekosport.fr/c/GP0001-GP0002-espace-prestige
+                          - heading "Espace prestige" [level=3] [ref=e779]
+                          - paragraph [ref=e780]: L'excellence sur les pistes
+                        - link [ref=e781] [cursor=pointer]:
+                          - /url: https://www.ekosport.fr/c/GP0001-GP0002-espace-prestige
+                          - button "Découvrir" [ref=e782]
+                - group "9 / 9" [ref=e783]:
+                  - generic [ref=e787]:
+                    - link [ref=e788] [cursor=pointer]:
+                      - /url: /u/bpl13/carte-cadeau
+                      - img "carte cadeau" [ref=e790]
+                    - generic [ref=e791]:
+                      - link:
+                        - /url: /u/bpl13/carte-cadeau
+                      - generic [ref=e792]:
+                        - link [ref=e793] [cursor=pointer]:
+                          - /url: /u/bpl13/carte-cadeau
+                          - heading "Carte cadeau" [level=3] [ref=e794]
+                          - paragraph [ref=e795]: Soyez certain de faire plaisir !
+                        - link [ref=e796] [cursor=pointer]:
+                          - /url: /u/bpl13/carte-cadeau
+                          - button "Découvrir" [ref=e797]
+            - button "Previous slide" [disabled]
+            - button "Next slide" [ref=e798] [cursor=pointer]
+        - generic [ref=e806]:
+          - generic [ref=e807]:
+            - heading [level=2] [ref=e809]:
+              - text: Premium
+              - strong [ref=e810]: Nos marques premium
+            - paragraph [ref=e812]:
+              - text: Un large choix parmi les
+              - strong [ref=e813]: 500 plus grandes marques
+              - text: des sports Outdoor
+          - generic [ref=e820]:
+            - link [ref=e823] [cursor=pointer]:
+              - /url: /b/salomon
+              - img "Salomon" [ref=e825]
+            - link [ref=e828] [cursor=pointer]:
+              - /url: /b/patagonia
+              - img "Patagonia" [ref=e830]
+            - link [ref=e833] [cursor=pointer]:
+              - /url: /b/garmin
+              - img "Garmin" [ref=e835]
+            - link [ref=e838] [cursor=pointer]:
+              - /url: /b/helly-hansen
+              - img "Helly Hansen" [ref=e840]
+            - link [ref=e843] [cursor=pointer]:
+              - /url: /b/millet
+              - img "Millet" [ref=e845]
+            - link [ref=e848] [cursor=pointer]:
+              - /url: /b/hoka-one-one
+              - img "Hoka One One" [ref=e850]
+        - link "Toutes nos marques →" [ref=e866] [cursor=pointer]:
+          - /url: https://www.ekosport.fr/nos-marques
+    - contentinfo [ref=e867]:
+      - generic [ref=e868]:
+        - generic [ref=e873]:
+          - generic [ref=e874]:
+            - text: Inscrivez-vous à la
+            - strong [ref=e875]: newsletter
+          - paragraph [ref=e876]: Envie de profiter des promotions avant tout le monde & de tout découvrir sur les dernières collections. Alors n'attendez plus !
+          - generic [ref=e877]:
+            - textbox "votre email" [ref=e888]
+            - button "S'inscrire" [ref=e889] [cursor=pointer]
+        - generic [ref=e899]:
+          - link [ref=e903] [cursor=pointer]:
+            - /url: /u/faq5/moyens-de-paiement
+            - img "<span class=\"pt-2\">paiement en <strong>3X ou 4X</strong></span>" [ref=e904]
+            - generic [ref=e906]:
+              - text: paiement en
+              - strong [ref=e907]: 3X ou 4X
+          - link [ref=e911] [cursor=pointer]:
+            - /url: /u/faq4/modes-de-livraison
+            - img "<span class=\"pt-2\"><strong>Livraison offerte<sup>*</sup> </strong> dès 50 €</span>" [ref=e912]
+            - generic [ref=e914]:
+              - strong [ref=e915]:
+                - text: Livraison offerte
+                - superscript [ref=e916]: "*"
+              - text: dès 50 €
+          - link [ref=e920] [cursor=pointer]:
+            - /url: /u/faq7/retours
+            - img "<span class=\"pt-2\"><strong>30 jours </strong> pour changer d'avis</span>" [ref=e921]
+            - generic [ref=e923]:
+              - strong [ref=e924]: 30 jours
+              - text: pour changer d'avis
+          - link [ref=e928] [cursor=pointer]:
+            - /url: /u/faq7/retours
+            - img "<span class=\"pt-2\">Retour <strong>facile</strong></span>" [ref=e929]
+            - generic [ref=e931]:
+              - text: Retour
+              - strong [ref=e932]: facile
+          - link [ref=e936] [cursor=pointer]:
+            - /url: /u/faq4/modes-de-livraison
+            - img "<span class=\"pt-2\">Livraison <strong>express</strong></span>" [ref=e937]
+            - generic [ref=e939]:
+              - text: Livraison
+              - strong [ref=e940]: express
+          - link [ref=e944] [cursor=pointer]:
+            - /url: /u/faq5/moyens-de-paiement
+            - img "<span class=\"pt-2\">paiement <strong>sécurisé</strong></span>" [ref=e945]
+            - generic [ref=e947]:
+              - text: paiement
+              - strong [ref=e948]: sécurisé
+        - generic [ref=e951]:
+          - generic [ref=e957]:
+            - generic [ref=e961]:
+              - generic [ref=e962]: Votre commande
+              - generic [ref=e963]:
+                - link "Faire une commande" [ref=e964] [cursor=pointer]:
+                  - /url: /u/faq1/faire-une-commande
+                - link "Suivre une commande" [ref=e965] [cursor=pointer]:
+                  - /url: /u/faq2/suivre-une-commande
+                - link "Avis ekosport" [ref=e966] [cursor=pointer]:
+                  - /url: /u/faq3/avis-ekosport
+                - link "Modes de livraison" [ref=e967] [cursor=pointer]:
+                  - /url: /u/faq4/modes-de-livraison
+                - link "Moyens de paiement" [ref=e968] [cursor=pointer]:
+                  - /url: /u/faq5/moyens-de-paiement
+                - link "Click & Collect" [ref=e969] [cursor=pointer]:
+                  - /url: /u/faq6/click-collect
+                - link "Retours" [ref=e970] [cursor=pointer]:
+                  - /url: /u/faq7/retours
+                - link "CGV" [ref=e971] [cursor=pointer]:
+                  - /url: /u/cms1/cgv
+                - link "Rappel Produits" [ref=e972] [cursor=pointer]:
+                  - /url: /u/faq9/rappel-produits
+            - generic [ref=e976]:
+              - generic [ref=e977]: À propos
+              - generic [ref=e978]:
+                - link "Qui sommes-nous ?" [ref=e979] [cursor=pointer]:
+                  - /url: /u/cms2/qui-sommes-nous
+                - link "Nos magasins" [ref=e980] [cursor=pointer]:
+                  - /url: /u/mag0/nos-magasins
+                - link "Recrutement" [ref=e981] [cursor=pointer]:
+                  - /url: /u/cms4/recrutement
+                - link "Mentions légales" [ref=e982] [cursor=pointer]:
+                  - /url: /u/cms5/mentions-legales
+                - link "Service client" [ref=e983] [cursor=pointer]:
+                  - /url: /aide-et-contact
+                - link "Données personnelles" [ref=e984] [cursor=pointer]:
+                  - /url: /u/cms6/politique-de-protection-des-donnees-personnelles
+            - generic [ref=e988]:
+              - generic [ref=e989]: Les + ekosport
+              - generic [ref=e990]:
+                - link "Clubs, CE et collectivités" [ref=e991] [cursor=pointer]:
+                  - /url: /u/faq8/clubs-ce-et-collectivites
+                - link "Guide d'achat" [ref=e992] [cursor=pointer]:
+                  - /url: /u/gac0/guide-achat
+                - link "Bons plans" [ref=e993] [cursor=pointer]:
+                  - /url: /u/bpl1/bons-plans
+                - link "Ski & Snow test 2026" [ref=e994] [cursor=pointer]:
+                  - /url: /u/com2/ski-snow-test-la-clusaz
+                - link "Cartes cadeaux" [ref=e995] [cursor=pointer]:
+                  - /url: /u/bpl13/carte-cadeau
+                - link "Nos événements" [ref=e996] [cursor=pointer]:
+                  - /url: /u/evnt0/evenements
+                - link "Assurance Ekosport +" [ref=e997] [cursor=pointer]:
+                  - /url: /u/cms8/ekosport-plus
+                - link "Ekosport-Rent" [ref=e998] [cursor=pointer]:
+                  - /url: /u/cms7/ekosport-rent
+                - link "Goodloop" [ref=e999] [cursor=pointer]:
+                  - /url: /u/bpl15/goodloop
+          - generic [ref=e1002]:
+            - generic [ref=e1003]: Suivez-nous
+            - generic [ref=e1004]:
+              - link "@ekosport.fr" [ref=e1005] [cursor=pointer]:
+                - /url: https://www.facebook.com/ekosport.fr
+              - link "@ekosport73" [ref=e1011] [cursor=pointer]:
+                - /url: https://www.youtube.com/@ekosport73
+              - link "@ekosport" [ref=e1017] [cursor=pointer]:
+                - /url: https://www.tiktok.com/@ekosport
+              - link "ekosport" [ref=e1023] [cursor=pointer]:
+                - /url: https://www.instagram.com/ekosport
+              - link "Ekosport" [ref=e1029] [cursor=pointer]:
+                - /url: https://www.strava.com/clubs/1465576
+        - generic [ref=e1035]:
+          - generic [ref=e1043]:
+            - generic [ref=e1045]:
+              - generic [ref=e1047]:
+                - generic [ref=e1048]: Moyens de paiement
+                - generic [ref=e1049]:
+                  - link "CB" [ref=e1050] [cursor=pointer]:
+                    - /url: /u/faq5/moyens-de-paiement
+                  - link "Mastercard" [ref=e1054] [cursor=pointer]:
+                    - /url: /u/faq5/moyens-de-paiement
+                  - link "Visa" [ref=e1058] [cursor=pointer]:
+                    - /url: /u/faq5/moyens-de-paiement
+                  - link "Paypal" [ref=e1062] [cursor=pointer]:
+                    - /url: /u/faq5/moyens-de-paiement
+                  - link "Alma" [ref=e1066] [cursor=pointer]:
+                    - /url: /u/faq5/moyens-de-paiement
+                  - link "Virement bancaire" [ref=e1070] [cursor=pointer]:
+                    - /url: /u/faq5/moyens-de-paiement
+                  - link "ApplePay" [ref=e1074] [cursor=pointer]:
+                    - /url: /u/faq5/moyens-de-paiement
+              - generic [ref=e1078]:
+                - generic [ref=e1079]: Moyens de livraison
+                - generic [ref=e1080]:
+                  - link "DPD group" [ref=e1081] [cursor=pointer]:
+                    - /url: /u/faq4/modes-de-livraison
+                  - link "Shop2Shop" [ref=e1085] [cursor=pointer]:
+                    - /url: /u/faq4/modes-de-livraison
+                  - link "Chronopost" [ref=e1089] [cursor=pointer]:
+                    - /url: /u/faq4/modes-de-livraison
+                  - link "Relay Mondial" [ref=e1093] [cursor=pointer]:
+                    - /url: /u/faq4/modes-de-livraison
+                  - link "Colissimo" [ref=e1097] [cursor=pointer]:
+                    - /url: /u/faq4/modes-de-livraison
+                  - link "Click And Collect" [ref=e1101] [cursor=pointer]:
+                    - /url: /u/faq4/modes-de-livraison
+            - generic [ref=e1105]:
+              - link "Fournisseur Hoka semi Marathon de Paris":
+                - /url: /u/com11/semi-de-paris
+                - img "Fournisseur Hoka semi Marathon de Paris"
+              - link "Fédération Française de Ski - Boutique Officielle":
+                - /url: /c/gam-GC250-ffs
+                - img "Fédération Française de Ski - Boutique Officielle"
+          - generic [ref=e1107]:
+            - paragraph [ref=e1108]: "Ekosport.fr est un site de vente en ligne de matériel de ski, vêtements de ski et accessoires de sports d’hiver pour homme, femme et enfant. Comparez et commandez tout votre équipement de ski au meilleur prix parmi plus de 500 marques outdoor et plus de 15 000 articles. Que vous pratiquiez le ski alpin, le ski de randonnée, le ski de fond ou le snowboard, venez découvrir des milliers d’articles pour dévaler les pistes en toute sécurité : skis, fixations, chaussures de ski, bâtons, casques, masques, Dva conçu aussi bien pour les amateurs de glisse que pour les skieurs confirmés. Besoin d’une nouvelle veste de ski imperméable et respirante, d’un pantalon ou de sous-vêtements techniques pour vous protéger du froid en montagne ? Profitez de la nouvelle collection skiwear pour vous équiper parmi les plus grandes marques de ski : Salomon, Rossignol, Picture, Millet, Volcom, Arc’teryx... Ekosport, c’est aussi de nombreuses gammes d’équipements adaptées à chacune de vos activités outdoor : trail running, rando trek avec une sélection de porte-bébés randonnée au meilleur prix. Pour les passionnés de course à pied hors de sentiers battus, de randonnée en montagne ou de trekking, découvrez notre sélection de vêtements de sport outdoor, chaussures de trail, chaussures de rando et accessoires : montres cardio, sacs à dos, bâtons de marche… Toute l’année, bénéficiez des dernières nouveautés, de promos exceptionnelles lors des soldes ou du Black Friday, des déstockages de prix imbattables sur les fins de série et de tous les conseils de nos experts pour bien choisir votre matériel de ski afin de passer des Vacances ski dans les meilleures conditions."
+            - generic [ref=e1109]:
+              - paragraph [ref=e1110]: © 2025 - Ekosport
+              - generic [ref=e1111]:
+                - link "Mentions légales" [ref=e1112] [cursor=pointer]:
+                  - /url: /u/cms5/mentions-legales
+                - link "Politique de confidentialité" [ref=e1113] [cursor=pointer]:
+                  - /url: /u/cms6/politique-de-protection-des-donnees-personnelles
+                - link "Politique d'utilisation des cookies" [ref=e1114] [cursor=pointer]:
+                  - /url: /u/cms6/politique-de-protection-des-donnees-personnelles

@@ -34,6 +34,9 @@ from fartlek.mcp_server.tools import (
     fitness as t_fitness,
 )
 from fartlek.mcp_server.tools import (
+    gear as t_gear,
+)
+from fartlek.mcp_server.tools import (
     load as t_load,
 )
 from fartlek.mcp_server.tools import (
@@ -81,7 +84,8 @@ ROUTING = (
     "train, current state — start with `garmin_brief` (zero arguments). Browse or find "
     "sessions → `garmin_activities`. One session in depth → `garmin_activity` (by id, date, "
     "or latest-of-sport). Athlete context (zones, PRs, goal, data coverage) → "
-    "`garmin_athlete`. Log athlete-reported RPE, illness, injuries with `garmin_log`; goals "
+    "`garmin_athlete`. Shoe and bike mileage, and when to replace a pair → `garmin_gear`. "
+    "Log athlete-reported RPE, illness, injuries with `garmin_log`; goals "
     "and phases with `garmin_set_profile`. Never start with `garmin_raw`. All numbers are "
     "pre-computed against this athlete's personal baselines: do not re-derive statistics or "
     "aggregates — but athlete-reported state (illness, pain, exhaustion) always outranks a "
@@ -174,6 +178,24 @@ async def garmin_activity(
 )
 async def garmin_athlete() -> str:
     return await _guard(t_athlete.run(_ctx))
+
+
+@mcp.tool(
+    annotations=READ,
+    description=(
+        "Shoe and bike mileage: km per item against the retirement distance the athlete set "
+        "in Garmin Connect, which pair is due for replacement, and how the last 90 days were "
+        "rotated across the locker. Call for 'how many km on these shoes', 'do I need new "
+        "shoes', 'which pair am I wearing most'. The gear worn on one session is already "
+        "inlined in garmin_activity."
+    ),
+)
+async def garmin_gear(
+    include_retired: Annotated[
+        bool, Field(description="also list gear retired in Garmin Connect")
+    ] = False,
+) -> str:
+    return await _guard(t_gear.run(_ctx, include_retired=include_retired))
 
 
 @mcp.tool(
@@ -402,6 +424,7 @@ async def garmin_raw(
         "activity_zones",
         "training_status",
         "race_predictions",
+        "gear",
         "weather",
     ],
     date: Annotated[str | None, Field(description="YYYY-MM-DD, default today")] = None,

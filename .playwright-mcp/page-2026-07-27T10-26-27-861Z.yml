@@ -1,0 +1,254 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - dialog [active] [ref=e3]:
+      - generic [ref=e4]:
+        - generic [ref=e6]:
+          - heading "Vous avez le contrôle de vos données" [level=2] [ref=e7]
+          - generic [ref=e8]:
+            - text: "Nous utilisons des cookies, tout comme nos partenaires commerciaux, afin de collecter des informations sur vous à des fins diverses, notamment :"
+            - list [ref=e9]:
+              - listitem [ref=e10]: Fonctionnel,
+              - listitem [ref=e11]: Statistique,
+              - listitem [ref=e12]: Publicitaire
+            - text: En cliquant sur « Accepter », vous donnez votre consentement à toutes les fins énoncées. Vous pouvez également choisir de spécifier les finalités auxquelles vous souhaitez donner votre consentement. Pour ce faire, il vous suffit de cocher la case située à côté de la finalité et d’appuyer sur « Enregistrer les paramètres ». Vous pouvez à tout moment révoquer votre consentement en cliquant sur la petite icône située dans le coin inférieur gauche du site Internet. Cliquez sur ce lien pour en savoir plus sur notre utilisation des cookies et des autres technologies, ainsi que sur la collecte et le traitement des données personnelles.
+            - link "En savoir plus sur les cookies" [ref=e13] [cursor=pointer]:
+              - /url: javascript:TogglePage(this, 'coiPage-3');
+            - link "Politique de confidentialité de Google" [ref=e14] [cursor=pointer]:
+              - /url: https://business.safety.google/privacy/
+        - generic "Politique en matière de cookies" [ref=e15]:
+          - button "Tout sélectionner" [ref=e17] [cursor=pointer]
+          - generic [ref=e19]:
+            - button [ref=e21] [cursor=pointer]:
+              - heading "Strictement nécessaire" [level=3] [ref=e23]
+            - generic [ref=e24]: Les cookies strictement nécessaires contribuent à rendre un site Web navigable en activant des fonctions de base telles que la navigation dans les pages et l'accès à des zones sécurisées du site Web. Sans ces cookies, le site Web ne pourrait pas fonctionner correctement.
+          - generic [ref=e26]:
+            - generic [ref=e27]:
+              - button [ref=e28] [cursor=pointer]:
+                - heading "Fonctionnel" [level=3] [ref=e30]
+              - checkbox [ref=e33] [cursor=pointer]
+            - generic [ref=e35]: Les cookies fonctionnels permettent de sauvegarder des informations qui peuvent changer la façon dont le site Web apparaît ou fonctionne. Par exemple, votre langue ou région préférée.
+          - generic [ref=e37]:
+            - generic [ref=e38]:
+              - button [ref=e39] [cursor=pointer]:
+                - heading "Statistique" [level=3] [ref=e41]
+              - checkbox [ref=e44] [cursor=pointer]
+            - generic [ref=e46]: Les cookies statistiques aident le propriétaire du site à comprendre comment les visiteurs interagissent avec le site Web en collectant et rapportant des informations.
+          - generic [ref=e48]:
+            - generic [ref=e49]:
+              - button [ref=e50] [cursor=pointer]:
+                - heading "Publicitaire" [level=3] [ref=e52]
+              - checkbox [ref=e55] [cursor=pointer]
+            - generic [ref=e57]: Les cookies publicitaires sont utilisés pour suivre les visiteurs sur les sites Web. Le but est d'afficher des publicités pertinentes et intéressantes pour l'utilisateur individuel et donc plus rentables pour les éditeurs et les annonceurs tiers.
+        - navigation "menu" [ref=e58]:
+          - generic [ref=e59]:
+            - button "Tout refuser" [ref=e60] [cursor=pointer]
+            - button "Enregistrer les paramètres" [ref=e61] [cursor=pointer]
+            - button "Tout accepter" [ref=e62] [cursor=pointer]
+          - generic [ref=e64]:
+            - text: "powered by:"
+            - link "Cookie Information" [ref=e65] [cursor=pointer]:
+              - /url: https://cookieinformation.com/
+      - text: ", ,"
+  - generic [ref=e66]:
+    - banner [ref=e67]:
+      - link "Allez au contenu" [ref=e68] [cursor=pointer]:
+        - /url: "#contentarea"
+      - generic [ref=e69]:
+        - generic [ref=e71]:
+          - region [ref=e74]:
+            - list [ref=e76]:
+              - listitem [ref=e77]: Depuis 2005 //
+              - listitem [ref=e78]: Livraison €3,95 //
+              - listitem [ref=e79]: Livraison gratuite à partir de €140 //
+              - listitem
+          - generic [ref=e80]:
+            - list [ref=e82]:
+              - listitem [ref=e83]:
+                - link "Besoin d'aide" [ref=e84] [cursor=pointer]:
+                  - /url: https://www.runningxpert.com/fr/customercenter
+              - listitem [ref=e85]:
+                - link "Retourner" [ref=e86] [cursor=pointer]:
+                  - /url: https://www.runningxpert.com/fr/returns
+            - list [ref=e88]:
+              - listitem [ref=e89]:
+                - link "Se connecter" [ref=e90] [cursor=pointer]:
+                  - /url: /customer/account/login
+            - list [ref=e93] [cursor=pointer]:
+              - listitem [ref=e94]:
+                - generic [ref=e96]: Français (FR)
+        - generic [ref=e100]:
+          - link "Go to Home page" [ref=e102] [cursor=pointer]:
+            - /url: https://www.runningxpert.com/fr/
+          - navigation "Main menu" [ref=e106]:
+            - list [ref=e107]:
+              - listitem [ref=e108]:
+                - link "Tous" [ref=e110] [cursor=pointer]:
+                  - /url: https://www.runningxpert.com/fr/all.html
+              - listitem [ref=e111]:
+                - link "Femme" [ref=e113] [cursor=pointer]:
+                  - /url: https://www.runningxpert.com/fr/femme.html
+              - listitem [ref=e114]:
+                - link "Homme" [ref=e116] [cursor=pointer]:
+                  - /url: https://www.runningxpert.com/fr/homme.html
+              - listitem [ref=e117]:
+                - link "Junior" [ref=e119] [cursor=pointer]:
+                  - /url: https://www.runningxpert.com/fr/junior.html
+              - listitem [ref=e120]:
+                - link "Accessoires" [ref=e122] [cursor=pointer]:
+                  - /url: https://www.runningxpert.com/fr/accessoires.html
+              - listitem [ref=e123]:
+                - link "Promotions" [ref=e125] [cursor=pointer]:
+                  - /url: https://www.runningxpert.com/fr/promotions.html
+              - listitem [ref=e126]:
+                - link "Inspiration" [ref=e128] [cursor=pointer]:
+                  - /url: https://www.runningxpert.com/fr/inspiration
+              - listitem [ref=e129]:
+                - link "Marques" [ref=e131] [cursor=pointer]:
+                  - /url: https://www.runningxpert.com/fr/brands.html
+          - generic [ref=e132]:
+            - generic [ref=e137]:
+              - searchbox "Rechercher" [ref=e138]
+              - link "search" [ref=e139] [cursor=pointer]:
+                - /url: ""
+                - img "search" [ref=e140]
+            - button "Toggle minicart, Le panier est vide" [disabled] [ref=e142] [cursor=pointer]:
+              - img "shopping-bag" [ref=e143]
+        - generic: ou
+    - main [ref=e145]:
+      - generic:
+        - alert
+      - generic [ref=e149]:
+        - generic [ref=e150]:
+          - generic [ref=e151]:
+            - button "Filtres filter" [ref=e153] [cursor=pointer]:
+              - generic [ref=e154]: Filtres
+              - img "filter" [ref=e155]
+            - generic [ref=e159] [cursor=pointer]:
+              - generic: Trier par
+              - combobox [ref=e160]:
+                - option "Pertinence" [selected]
+                - option "Position"
+                - option "Newest"
+                - 'option "Prix : Du plus bas au plus élevé"'
+                - 'option "Prix : Du plus élevé au plus bas"'
+                - option "Meilleures ventes"
+              - generic:
+                - img "adjustments"
+          - generic [ref=e161]: 0 articles
+        - generic [ref=e165]:
+          - generic [ref=e166] [cursor=pointer]: Afficher
+          - combobox [ref=e167] [cursor=pointer]:
+            - option "30"
+            - option "60"
+            - option "90" [selected]
+          - generic [ref=e168]: par page
+    - contentinfo [ref=e169]:
+      - generic [ref=e170]:
+        - generic [ref=e173]:
+          - generic [ref=e177]:
+            - heading "Laissez nos experts en course à pied vous tenir informé" [level=2] [ref=e178]
+            - heading "Nous nous assurons de vous tenir au courant de toutes nos nouvelles et offres. Vous bénéficiez également d'une sélection unique de notre univers d'inspiration, où nous collectons des guides de course et des tests de produits." [level=4] [ref=e179]
+            - paragraph [ref=e180]: Abonnement gratuit et sans engagement. Vous recevrez des emails contenant des promotions relatives à nos produits ainsi que des informations relatives à notre gamme. Vous pouvez également recevoir des informations realtives aux coinditions de vente et à notre service client. Vous pouvez vous désabonner en cliquer sur le lien présent au bas de la Newsletter.
+          - generic [ref=e182]:
+            - generic [ref=e183]:
+              - generic [ref=e184]:
+                - textbox "Veuillez saisir votre prénom" [ref=e185]:
+                  - /placeholder: Votre prénom*
+                - generic [ref=e186] [cursor=pointer]: Veuillez saisir votre prénom
+              - generic [ref=e187]:
+                - textbox "Veuillez saisir votre adresse e-mail" [ref=e188]:
+                  - /placeholder: Votre e-mail*
+                - generic [ref=e189] [cursor=pointer]: Veuillez saisir votre adresse e-mail
+              - generic [ref=e190]:
+                - generic [ref=e191]:
+                  - generic [ref=e192] [cursor=pointer]: Veuillez saisir votre indicatif pays
+                  - combobox "Veuillez saisir votre indicatif pays" [ref=e193] [cursor=pointer]:
+                    - option "+32"
+                    - option "+33" [selected]
+                - generic [ref=e194]:
+                  - textbox "Veuillez saisir votre numéro de téléphone sans indicatif pays" [ref=e195]:
+                    - /placeholder: Votre numéro de téléphone (Facultatif)
+                  - generic [ref=e196] [cursor=pointer]: Veuillez saisir votre numéro de téléphone sans indicatif pays
+            - button "Subscribe" [ref=e198] [cursor=pointer]:
+              - generic [ref=e199]: Inscription
+        - generic [ref=e200]:
+          - generic [ref=e202]:
+            - generic [ref=e205]:
+              - figure [ref=e206]
+              - list [ref=e208]:
+                - listitem [ref=e209]: Depuis 2005
+                - listitem [ref=e210]: Livraison rapide et fiable
+                - listitem [ref=e211]: Large gamme de grandes marques
+                - listitem [ref=e212]: Service personnalisé et conseils d'experts
+                - listitem [ref=e213]: Achat en ligne sûr et facile
+                - listitem [ref=e214]: Conditions de retour et d'échange flexibles
+            - generic [ref=e217]:
+              - paragraph [ref=e218]:
+                - strong [ref=e219]: Service client
+              - paragraph [ref=e220]: Le téléphone est ouvert
+              - paragraph [ref=e221]: "Lundi au vendredi : 9h30 à 16h00"
+              - paragraph [ref=e222]: 0805 112 546serviceclient@runningxpert.com
+              - text: Fermé du jeudi 2 avril au lundi 6 avril inclus en raison des jours fériés.
+              - paragraph
+              - link "Trustpilot" [ref=e224] [cursor=pointer]:
+                - /url: https://fr.trustpilot.com/review/runningxpert.com
+            - generic [ref=e226]:
+              - paragraph [ref=e227]:
+                - strong [ref=e228]: Support
+              - paragraph [ref=e229]:
+                - link "Livraison" [ref=e230] [cursor=pointer]:
+                  - /url: /fr/shipping-terms
+              - paragraph [ref=e231]:
+                - link "Retourner des articles" [ref=e232] [cursor=pointer]:
+                  - /url: /fr/returns
+              - paragraph [ref=e233]:
+                - link "Questions fréquemment posées" [ref=e234] [cursor=pointer]:
+                  - /url: /fr/customercenter
+              - paragraph [ref=e235]:
+                - link "Contact" [ref=e236] [cursor=pointer]:
+                  - /url: /fr/contact
+              - paragraph [ref=e237]:
+                - link "Carte-cadeau" [ref=e238] [cursor=pointer]:
+                  - /url: /fr/catalog/product/view/id/138305/s/gift-card/
+              - paragraph [ref=e239]:
+                - link "Se désinscrire de la newsletter" [ref=e240] [cursor=pointer]:
+                  - /url: http://manage.kmail-lists.com/subscriptions/unsubscribe?cy=VELGbb
+            - generic [ref=e242]:
+              - paragraph [ref=e243]:
+                - strong [ref=e244]: RunningXpert.com
+              - paragraph [ref=e245]:
+                - link "À propos de nous" [ref=e246] [cursor=pointer]:
+                  - /url: /fr/about
+              - paragraph [ref=e247]:
+                - link "Politique de confidentialité" [ref=e248] [cursor=pointer]:
+                  - /url: /fr/privacy-policy
+              - paragraph [ref=e249]:
+                - link "Termes et conditions" [ref=e250] [cursor=pointer]:
+                  - /url: /fr/terms
+              - paragraph [ref=e251]:
+                - link "Concurrences" [ref=e252] [cursor=pointer]:
+                  - /url: /fr/and-the-winner-is
+          - generic [ref=e254]:
+            - list [ref=e259]:
+              - listitem [ref=e260]:
+                - link [ref=e261] [cursor=pointer]:
+                  - /url: https://www.facebook.com/runningxpert
+              - listitem [ref=e262]:
+                - link [ref=e263] [cursor=pointer]:
+                  - /url: https://www.instagram.com/runningxpert
+              - listitem [ref=e264]:
+                - link [ref=e265] [cursor=pointer]:
+                  - /url: https://www.youtube.com/runningxpert
+            - list [ref=e268]:
+              - listitem [ref=e269]:
+                - link "Se désinscrire de la newsletter" [ref=e270] [cursor=pointer]:
+                  - /url: http://manage.kmail-lists.com/subscriptions/unsubscribe?cy=VELGbb
+              - listitem [ref=e271]:
+                - link "Inspiration" [ref=e272] [cursor=pointer]:
+                  - /url: /fr/inspiration/
+              - listitem [ref=e273]:
+                - link "Nouveautés" [ref=e274] [cursor=pointer]:
+                  - /url: /fr/collections/nouveautes.html
+            - list [ref=e278] [cursor=pointer]:
+              - listitem [ref=e279]:
+                - generic [ref=e281]: Français (FR)

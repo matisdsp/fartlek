@@ -35,6 +35,7 @@ from fartlek.mcp_server.tools import (
     activity,
     brief,
     fitness,
+    gear,
     recovery,
     reference,
     week,
@@ -51,6 +52,7 @@ from fartlek.store import Store
 from tests import test_tool_activity as AC
 from tests import test_tool_brief as BR
 from tests import test_tool_fitness as FT
+from tests import test_tool_gear as GR
 from tests import test_tool_load as LD
 from tests import test_tool_recovery as RC
 from tests import test_tool_reference as RF
@@ -148,9 +150,12 @@ def _build() -> list[Golden]:
     # `_ENTRIES` are rows inside this one page, not separate topics)
     add("reference.index", reference.CAP, asyncio.run(reference.run(RF.FakeContext())))
 
-    # activity — all three detail tiers (splits/full are dense lap tables)
+    # activity — all three detail tiers (splits/full are dense lap tables),
+    # each carrying the gear line so the widest standard render is measured
     with _store() as s:
         AC.seed_default(s)
+        AC.seed_gear(s, "gold-shoe", "Saucony Endorphin Speed 5", total=820_000.0)
+        s.replace_activity_gear(AC.A_ID, ["gold-shoe"])
         raw = {AC.SPLITS_PATH: AC.TYPED_SPLITS, AC.DETAILS_PATH: AC.DETAILS}
         std_cap, splits_cap, full_cap = (activity.CAPS[k] for k in ("standard", "splits", "full"))
         add("activity.standard", std_cap,
@@ -161,6 +166,16 @@ def _build() -> list[Golden]:
         add("activity.full", full_cap,
             asyncio.run(activity.run(AC.FakeContext(s, raw=raw),
                                      activity_id=AC.A_ID, detail="full")))
+
+    # gear — a crowded locker (long names, every column populated) + banner
+    with _store() as s:
+        for i in range(10):
+            GR.add_gear(s, f"g{i}", f"Saucony Endorphin Speed {i}",
+                        total=100_000.0 * (i + 1))
+            GR.add_session(s, i + 1, "2026-08-01", f"g{i}", distance=15_000.0)
+        add("gear", gear.CAP_TOKENS, asyncio.run(gear.run(GR.FakeContext(s))))
+        add("gear.banner", gear.CAP_TOKENS,
+            asyncio.run(gear.run(GR.FakeContext(s, banner=BANNER))))
 
     return out
 

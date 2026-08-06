@@ -1,0 +1,1546 @@
+- generic [ref=f11e1]:
+  - dialog "Bienvenue chez Intersport Gestion du consentement" [ref=f11e4]:
+    - document [active] [ref=f11e5]:
+      - heading "Logo" [level=1] [ref=f11e7]
+      - paragraph [ref=f11e10]:
+        - text: Faites le choix d'une expérience sportive sur mesure ! Pour vous offrir un service adapté et améliorer notre site, nous et
+        - link "nos 17 partenaires" [ref=f11e11] [cursor=pointer]:
+          - /url: javascript:Didomi.preferences.show('vendors')
+        - text: "utilisons des cookies, en collectant certaines informations comme votre visite sur ce site, les adresses IP, et des identifiants de cookie. Ces informations nous aident à :"
+        - list [ref=f11e12]:
+          - listitem [ref=f11e13]: Vous proposer des offres correspondant à vos centres d’intérêt,
+          - listitem [ref=f11e14]: Optimiser votre navigation et rendre votre expérience plus agréable,
+          - listitem [ref=f11e15]: Évaluer l’efficacité de nos campagnes publicitaires,
+          - listitem [ref=f11e16]: Vous envoyer des informations personnalisées (si vous y consentez).
+        - text: "Vous avez le contrôle : acceptez tous les cookies, configurez vos préférences, ou refusez-les. Vos choix seront conservés pendant 6 mois et 3 jours. Vous pouvez, à tout moment, vous opposer au traitement des données personnelles fondé sur l'intérêt légitime ou retirer votre consentement en cliquant sur « en savoir plus » ou en allant sur ce site internet consulter notre"
+        - link "Politique de confidentialité" [ref=f11e17] [cursor=pointer]:
+          - /url: https://www.intersport.fr/politique-donnees/
+        - text: . Choisissez votre terrain de jeu !
+      - generic [ref=f11e18]:
+        - 'button "Accepter & Fermer: Accepter notre traitement des données et fermer" [ref=f11e19] [cursor=pointer]': Accepter & Fermer
+        - 'button "En savoir plus: Configurer vos consentements" [ref=f11e20] [cursor=pointer]': En savoir plus →
+        - 'button "Refuser: Refuser notre traitement des données et fermer" [ref=f11e21] [cursor=pointer]': Refuser
+  - list:
+    - listitem:
+      - link "Accéder à la barre de recherche" [ref=f11e22] [cursor=pointer]:
+        - /url: "#searchinput"
+        - text: Accéder à la barre de recherche Entrer →
+    - listitem:
+      - link "Accéder au compte client" [ref=f11e23] [cursor=pointer]:
+        - /url: "#login-link"
+        - text: Accéder au compte client Entrer →
+    - listitem:
+      - link "Accéder au contenu principal" [ref=f11e24] [cursor=pointer]:
+        - /url: "#main"
+        - text: Accéder au contenu principal Entrer →
+    - listitem:
+      - link "Accéder au footer" [ref=f11e25] [cursor=pointer]:
+        - /url: "#footer"
+        - text: Accéder au footer Entrer →
+  - banner [ref=f11e26]:
+    - generic [ref=f11e29] [cursor=pointer]:
+      - img "Soldes" [ref=f11e31]
+      - generic [ref=f11e32]:
+        - text: "Plus que 01 J : 11 H : 35 MIN : 09 SEC"
+        - generic [ref=f11e33]: pour en profiter ! Toutes les offres ›
+    - generic [ref=f11e34]:
+      - generic [ref=f11e35]:
+        - navigation [ref=f11e36]:
+          - navigation [ref=f11e39]:
+            - list [ref=f11e40]:
+              - listitem [ref=f11e41]:
+                - link "intersport.fr" [ref=f11e42] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/
+              - listitem [ref=f11e43]:
+                - link "Location de skis / vélos" [ref=f11e44] [cursor=pointer]:
+                  - /url: https://www.intersport-rent.fr/fr
+              - listitem [ref=f11e45]:
+                - link "Clubs & collectivités" [ref=f11e46] [cursor=pointer]:
+                  - /url: https://www.intersport-clubs.fr/
+              - listitem [ref=f11e47]:
+                - link "Carte cadeau" [ref=f11e48] [cursor=pointer]:
+                  - /url: https://cartes-cadeaux.intersport.fr/
+              - listitem [ref=f11e49]:
+                - link "E-catalogue" [ref=f11e50] [cursor=pointer]:
+                  - /url: https://www.intersport.fr/e-catalogue-sport/
+              - listitem [ref=f11e51]:
+                - link "Club partenaires" [ref=f11e52] [cursor=pointer]:
+                  - /url: https://intersport-clubpartenaires.fr/?utm_source=crm&utm_medium=digital&utm_campaign=siteits&utm_content=subheader
+              - listitem [ref=f11e53]:
+                - link "Engagés Sport" [ref=f11e54] [cursor=pointer]:
+                  - /url: https://engages-sport.intersport.fr/
+              - listitem [ref=f11e55]:
+                - link "Blackstore.fr" [ref=f11e56] [cursor=pointer]:
+                  - /url: https://www.blackstore.fr/
+        - generic [ref=f11e73]:
+          - link [ref=f11e74] [cursor=pointer]:
+            - /url: /
+            - img "Intersport" [ref=f11e75]
+          - generic [ref=f11e76]:
+            - textbox "Saisissez votre recherche, une liste de suggestions vous sera proposée." [ref=f11e77]:
+              - /placeholder: Rechercher...
+            - button "Rechercher" [ref=f11e78] [cursor=pointer]
+            - generic:
+              - status
+          - list [ref=f11e81]:
+            - listitem [ref=f11e82]:
+              - link "Magasins" [ref=f11e83] [cursor=pointer]:
+                - /url: /store-finder
+            - listitem [ref=f11e87]:
+              - link "Connexion" [ref=f11e88] [cursor=pointer]:
+                - /url: /my-account/
+            - listitem [ref=f11e92]:
+              - link "Panier" [ref=f11e93] [cursor=pointer]:
+                - /url: /cart/
+      - generic [ref=f11e97]:
+        - navigation "Navigation principale" [ref=f11e98]:
+          - list [ref=f11e99]:
+            - listitem [ref=f11e100]:
+              - button "Soldes" [ref=f11e101] [cursor=pointer]
+            - listitem [ref=f11e105]:
+              - button "Sports" [ref=f11e106] [cursor=pointer]
+            - listitem [ref=f11e110]:
+              - button "Homme" [ref=f11e111] [cursor=pointer]
+            - listitem [ref=f11e115]:
+              - button "Femme" [ref=f11e116] [cursor=pointer]
+            - listitem [ref=f11e120]:
+              - button "Enfant" [ref=f11e121] [cursor=pointer]
+            - listitem [ref=f11e125]:
+              - button "Marques" [ref=f11e126] [cursor=pointer]
+            - listitem [ref=f11e130]:
+              - button "Nos Offres" [ref=f11e131] [cursor=pointer]
+              - text: "|"
+            - listitem [ref=f11e135]:
+              - link "La Team INTERSPORT" [ref=f11e136] [cursor=pointer]:
+                - /url: /cartefid/
+        - status [ref=f11e137]
+  - main [ref=f11e138]:
+    - navigation "Vous Ãªtes ici :" [ref=f11e141]:
+      - list [ref=f11e143]:
+        - listitem [ref=f11e144]:
+          - link "Accueil" [ref=f11e145] [cursor=pointer]:
+            - /url: /
+          - text: ›
+        - listitem [ref=f11e146]:
+          - generic [ref=f11e147]: superblast 3
+    - generic [ref=f11e153]:
+      - generic [ref=f11e154]:
+        - generic [ref=f11e155]: Votre recherche pour
+        - heading "\"Superblast 3\"" [level=1] [ref=f11e156]
+        - text: 345 produits
+      - button "Filtrer et trier" [ref=f11e158] [cursor=pointer]
+    - generic [ref=f11e163]:
+      - generic [ref=f11e164]:
+        - article [ref=f11e165]:
+          - generic [ref=f11e166]:
+            - generic [ref=f11e169]:
+              - link [ref=f11e170] [cursor=pointer]:
+                - /url: /noir_et_gris-chaussures_de_running_femme_gel_mission_3-asics-p-1132A01V3E/
+                - img "Chaussures de running femme Gel-Mission 3 Multicolore 1132A01 ASICS" [ref=f11e171]
+              - link "Chaussures de running femme Gel-Mission 3":
+                - /url: /noir_et_gris-chaussures_de_running_femme_gel_mission_3-asics-p-1132A01V3E/
+            - generic [ref=f11e172]:
+              - link "ASICS Chaussures de running femme Gel-Mission 3 Noir et gris" [ref=f11e173] [cursor=pointer]:
+                - /url: /noir_et_gris-chaussures_de_running_femme_gel_mission_3-asics-p-1132A01V3E/
+              - generic [ref=f11e174]:
+                - generic [ref=f11e175]: 1 couleur
+                - generic [ref=f11e176]: "| 65 avis"
+              - generic [ref=f11e189]: 69,99 €
+            - button [ref=f11e191] [cursor=pointer]
+        - article [ref=f11e194]:
+          - generic [ref=f11e195]:
+            - generic [ref=f11e198]:
+              - link [ref=f11e199] [cursor=pointer]:
+                - /url: /noir_et_gris-sneakers_homme_gel_mission_3-asics-p-1131A06V3E/
+                - img "Sneakers homme Gel-Mission 3 Multicolore 1131A06 ASICS" [ref=f11e200]
+              - link "Sneakers homme Gel-Mission 3":
+                - /url: /noir_et_gris-sneakers_homme_gel_mission_3-asics-p-1131A06V3E/
+            - generic [ref=f11e201]:
+              - link "ASICS Sneakers homme Gel-Mission 3 Noir et gris" [ref=f11e202] [cursor=pointer]:
+                - /url: /noir_et_gris-sneakers_homme_gel_mission_3-asics-p-1131A06V3E/
+              - generic [ref=f11e203]:
+                - generic [ref=f11e204]: 1 couleur
+                - generic [ref=f11e205]: "| 103 avis"
+              - generic [ref=f11e218]: 69,99 €
+            - button [ref=f11e220] [cursor=pointer]
+        - article [ref=f11e223]:
+          - generic [ref=f11e224]:
+            - generic [ref=f11e225]:
+              - generic [ref=f11e227]:
+                - img "Soldes" [ref=f11e229]
+                - generic [ref=f11e230]: "-30%"
+              - generic [ref=f11e231]:
+                - generic [ref=f11e232]:
+                  - link [ref=f11e233] [cursor=pointer]:
+                    - /url: /noir-sneakers_enfant_gel_quantum_90_3_gs-asics-p-1204A1B8O1/
+                    - img "Sneakers enfant Gel-Quantum 90 3 GS Multicolore 1204A1B ASICS" [ref=f11e234]
+                  - link "Sneakers enfant Gel-Quantum 90 3 GS":
+                    - /url: /noir-sneakers_enfant_gel_quantum_90_3_gs-asics-p-1204A1B8O1/
+                - navigation [ref=f11e235]:
+                  - img "Sneakers enfant Gel-Quantum 90 3 GS Multicolore 1204A1B ASICS" [ref=f11e238] [cursor=pointer]
+                  - img "Sneakers enfant Gel-Quantum 90 3 GS Multicolore 1204A1B ASICS" [ref=f11e241] [cursor=pointer]
+                  - img "Sneakers enfant Gel-Quantum 90 3 GS Multicolore 1204A1B ASICS" [ref=f11e244] [cursor=pointer]
+                  - img "Sneakers enfant Gel-Quantum 90 3 GS Multicolore 1204A1B ASICS" [ref=f11e247] [cursor=pointer]
+            - generic [ref=f11e248]:
+              - link "ASICS Sneakers enfant Gel-Quantum 90 3 GS Noir" [ref=f11e249] [cursor=pointer]:
+                - /url: /noir-sneakers_enfant_gel_quantum_90_3_gs-asics-p-1204A1B8O1/
+              - generic [ref=f11e250]: 4 couleurs
+              - generic [ref=f11e252]: 2 articles soldés achetés, le 3ème offert
+              - generic [ref=f11e253]:
+                - generic [ref=f11e254]: 62,99 €
+                - deletion [ref=f11e256]: 89,99 €
+            - button [ref=f11e257] [cursor=pointer]
+        - article [ref=f11e260]:
+          - generic [ref=f11e261]:
+            - generic [ref=f11e262]:
+              - generic [ref=f11e264]:
+                - img "Soldes" [ref=f11e266]
+                - generic [ref=f11e267]: "-40%"
+              - generic [ref=f11e268]:
+                - generic [ref=f11e269]:
+                  - link [ref=f11e270] [cursor=pointer]:
+                    - /url: /orange__noir_et_gris-sneakers_enfant_gel_quantum_90_3_ps-asics-p-1204A1CHHO/
+                    - img "Sneakers enfant Gel-Quantum 90 3 PS Multicolore 1204A1C ASICS" [ref=f11e271]
+                  - link "Sneakers enfant Gel-Quantum 90 3 PS":
+                    - /url: /orange__noir_et_gris-sneakers_enfant_gel_quantum_90_3_ps-asics-p-1204A1CHHO/
+                - navigation [ref=f11e272]:
+                  - img "Sneakers enfant Gel-Quantum 90 3 PS Multicolore 1204A1C ASICS" [ref=f11e275] [cursor=pointer]
+                  - img "Sneakers enfant Gel-Quantum 90 3 PS Multicolore 1204A1C ASICS" [ref=f11e278] [cursor=pointer]
+                  - img "Sneakers enfant Gel-Quantum 90 3 PS Multicolore 1204A1C ASICS" [ref=f11e281] [cursor=pointer]
+                  - img "Sneakers enfant Gel-Quantum 90 3 PS Multicolore 1204A1C ASICS" [ref=f11e284] [cursor=pointer]
+            - generic [ref=f11e285]:
+              - link "ASICS Sneakers enfant Gel-Quantum 90 3 PS Orange, noir et gris" [ref=f11e286] [cursor=pointer]:
+                - /url: /orange__noir_et_gris-sneakers_enfant_gel_quantum_90_3_ps-asics-p-1204A1CHHO/
+              - generic [ref=f11e287]: 4 couleurs
+              - generic [ref=f11e289]:
+                - generic [ref=f11e290]: 47,99 €
+                - deletion [ref=f11e292]: 79,99 €
+            - button [ref=f11e293] [cursor=pointer]
+        - article [ref=f11e296]:
+          - generic [ref=f11e297]:
+            - generic [ref=f11e298]:
+              - generic [ref=f11e300]:
+                - img "Soldes" [ref=f11e302]
+                - generic [ref=f11e303]: "-30%"
+              - generic [ref=f11e304]:
+                - generic [ref=f11e305]:
+                  - link [ref=f11e306] [cursor=pointer]:
+                    - /url: /orange__noir_et_gris-sneakers_enfant_gel_quantum_90_3_gs-asics-p-1204A1BHHO/
+                    - img "Sneakers enfant Gel-Quantum 90 3 GS Multicolore 1204A1B ASICS" [ref=f11e307]
+                  - link "Sneakers enfant Gel-Quantum 90 3 GS":
+                    - /url: /orange__noir_et_gris-sneakers_enfant_gel_quantum_90_3_gs-asics-p-1204A1BHHO/
+                - navigation [ref=f11e308]:
+                  - img "Sneakers enfant Gel-Quantum 90 3 GS Multicolore 1204A1B ASICS" [ref=f11e311] [cursor=pointer]
+                  - img "Sneakers enfant Gel-Quantum 90 3 GS Multicolore 1204A1B ASICS" [ref=f11e314] [cursor=pointer]
+                  - img "Sneakers enfant Gel-Quantum 90 3 GS Multicolore 1204A1B ASICS" [ref=f11e317] [cursor=pointer]
+                  - img "Sneakers enfant Gel-Quantum 90 3 GS Multicolore 1204A1B ASICS" [ref=f11e320] [cursor=pointer]
+            - generic [ref=f11e321]:
+              - link "ASICS Sneakers enfant Gel-Quantum 90 3 GS Orange, noir et gris" [ref=f11e322] [cursor=pointer]:
+                - /url: /orange__noir_et_gris-sneakers_enfant_gel_quantum_90_3_gs-asics-p-1204A1BHHO/
+              - generic [ref=f11e323]: 4 couleurs
+              - generic [ref=f11e325]: 2 articles soldés achetés, le 3ème offert
+              - generic [ref=f11e326]:
+                - generic [ref=f11e327]: 62,99 €
+                - deletion [ref=f11e329]: 89,99 €
+            - button [ref=f11e330] [cursor=pointer]
+        - article [ref=f11e333]:
+          - generic [ref=f11e334]:
+            - generic [ref=f11e336]:
+              - generic [ref=f11e337]:
+                - link [ref=f11e338] [cursor=pointer]:
+                  - /url: /chaussures_de_trail_femme_trabuco_terra_3-asics-p-1012B98HGU/
+                  - img "Chaussures de trail femme Trabuco Terra 3 Multicolore 1012B98 ASICS" [ref=f11e339]
+                - link "Chaussures de trail femme Trabuco Terra 3":
+                  - /url: /chaussures_de_trail_femme_trabuco_terra_3-asics-p-1012B98HGU/
+              - navigation [ref=f11e340]:
+                - img "Chaussures de trail femme Trabuco Terra 3 Multicolore 1012B98 ASICS" [ref=f11e343] [cursor=pointer]
+                - img "Chaussures de trail femme Trabuco Terra 3 Multicolore 1012B98 ASICS" [ref=f11e346] [cursor=pointer]
+                - img "Chaussures de trail femme Trabuco Terra 3 Multicolore 1012B98 ASICS" [ref=f11e349] [cursor=pointer]
+                - img "Chaussures de trail femme Trabuco Terra 3 Multicolore 1012B98 ASICS" [ref=f11e352] [cursor=pointer]
+                - img "Chaussures de trail femme Trabuco Terra 3 Multicolore 1012B98 ASICS" [ref=f11e355] [cursor=pointer]
+            - generic [ref=f11e356]:
+              - link "ASICS Chaussures de trail femme Trabuco Terra 3" [ref=f11e357] [cursor=pointer]:
+                - /url: /chaussures_de_trail_femme_trabuco_terra_3-asics-p-1012B98HGU/
+              - generic [ref=f11e358]: 5 couleurs
+              - generic [ref=f11e360]: 129,99 €
+            - button [ref=f11e362] [cursor=pointer]
+        - article [ref=f11e365]:
+          - generic [ref=f11e366]:
+            - generic [ref=f11e367]:
+              - generic [ref=f11e369]:
+                - img "Soldes" [ref=f11e371]
+                - generic [ref=f11e372]: "-30%"
+              - generic [ref=f11e373]:
+                - generic [ref=f11e374]:
+                  - link [ref=f11e375] [cursor=pointer]:
+                    - /url: /bleu-short_de_running_femme_road_2_n_1_3_5_in-asics-p-2012C9BRHW/
+                    - img "Short de running femme Road 2-n-1 3.5 in Multicolore 2012C9B ASICS" [ref=f11e376]
+                  - link "Short de running femme Road 2-n-1 3.5 in":
+                    - /url: /bleu-short_de_running_femme_road_2_n_1_3_5_in-asics-p-2012C9BRHW/
+                - navigation [ref=f11e377]:
+                  - img "Short de running femme Road 2-n-1 3.5 in Multicolore 2012C9B ASICS" [ref=f11e380] [cursor=pointer]
+                  - img "Short de running femme Road 2-n-1 3.5 in Multicolore 2012C9B ASICS" [ref=f11e383] [cursor=pointer]
+                  - img "Short de running femme Road 2-n-1 3.5 in Multicolore 2012C9B ASICS" [ref=f11e386] [cursor=pointer]
+                  - img "Short de running femme Road 2-n-1 3.5 in Multicolore 2012C9B ASICS" [ref=f11e389] [cursor=pointer]
+                  - img "Short de running femme Road 2-n-1 3.5 in Multicolore 2012C9B ASICS" [ref=f11e392] [cursor=pointer]
+                  - generic [ref=f11e393]: "+1"
+            - generic [ref=f11e394]:
+              - link "ASICS Short de running femme Road 2-n-1 3.5 in Bleu" [ref=f11e395] [cursor=pointer]:
+                - /url: /bleu-short_de_running_femme_road_2_n_1_3_5_in-asics-p-2012C9BRHW/
+              - generic [ref=f11e396]:
+                - generic [ref=f11e397]: 6 couleurs
+                - generic [ref=f11e398]: "| 45 avis"
+              - generic [ref=f11e411]:
+                - generic [ref=f11e412]: 38,49 €
+                - deletion [ref=f11e414]: 54,99 €
+            - button [ref=f11e415] [cursor=pointer]
+        - article [ref=f11e418]:
+          - generic [ref=f11e419]:
+            - generic [ref=f11e420]:
+              - generic [ref=f11e422]:
+                - img "Soldes" [ref=f11e424]
+                - generic [ref=f11e425]: "-30%"
+              - generic [ref=f11e426]:
+                - generic [ref=f11e427]:
+                  - link [ref=f11e428] [cursor=pointer]:
+                    - /url: /marine-short_de_running_femme_road_3_5in-asics-p-2012C93MDU/
+                    - img "Short de running femme Road 3.5In Multicolore 2012C93 ASICS" [ref=f11e429]
+                  - link "Short de running femme Road 3.5In":
+                    - /url: /marine-short_de_running_femme_road_3_5in-asics-p-2012C93MDU/
+                - navigation [ref=f11e430]:
+                  - img "Short de running femme Road 3.5In Multicolore 2012C93 ASICS" [ref=f11e433] [cursor=pointer]
+                  - img "Short de running femme Road 3.5In Multicolore 2012C93 ASICS" [ref=f11e436] [cursor=pointer]
+                  - img "Short de running femme Road 3.5In Multicolore 2012C93 ASICS" [ref=f11e439] [cursor=pointer]
+                  - img "Short de running femme Road 3.5In Multicolore 2012C93 ASICS" [ref=f11e442] [cursor=pointer]
+            - generic [ref=f11e443]:
+              - link "ASICS Short de running femme Road 3.5In Marine" [ref=f11e444] [cursor=pointer]:
+                - /url: /marine-short_de_running_femme_road_3_5in-asics-p-2012C93MDU/
+              - generic [ref=f11e445]: 4 couleurs
+              - generic [ref=f11e447]:
+                - generic [ref=f11e448]: 31,49 €
+                - deletion [ref=f11e450]: 44,99 €
+            - button [ref=f11e451] [cursor=pointer]
+        - article [ref=f11e454]:
+          - generic [ref=f11e455]:
+            - generic [ref=f11e457]:
+              - generic [ref=f11e458]:
+                - link [ref=f11e459] [cursor=pointer]:
+                  - /url: /gris_et_noir-sneakers_enfant_gel_quantum_90_3_gs-asics-p-1204A1BV3I/
+                  - img "Sneakers enfant Gel-Quantum 90 3 GS Multicolore 1204A1B ASICS" [ref=f11e460]
+                - link "Sneakers enfant Gel-Quantum 90 3 GS":
+                  - /url: /gris_et_noir-sneakers_enfant_gel_quantum_90_3_gs-asics-p-1204A1BV3I/
+              - navigation [ref=f11e461]:
+                - img "Sneakers enfant Gel-Quantum 90 3 GS Multicolore 1204A1B ASICS" [ref=f11e464] [cursor=pointer]
+                - img "Sneakers enfant Gel-Quantum 90 3 GS Multicolore 1204A1B ASICS" [ref=f11e467] [cursor=pointer]
+                - img "Sneakers enfant Gel-Quantum 90 3 GS Multicolore 1204A1B ASICS" [ref=f11e470] [cursor=pointer]
+                - img "Sneakers enfant Gel-Quantum 90 3 GS Multicolore 1204A1B ASICS" [ref=f11e473] [cursor=pointer]
+            - generic [ref=f11e474]:
+              - link "ASICS Sneakers enfant Gel-Quantum 90 3 GS Gris et noir" [ref=f11e475] [cursor=pointer]:
+                - /url: /gris_et_noir-sneakers_enfant_gel_quantum_90_3_gs-asics-p-1204A1BV3I/
+              - generic [ref=f11e476]:
+                - generic [ref=f11e477]: 4 couleurs
+                - generic [ref=f11e478]: "| 4 avis"
+              - generic [ref=f11e492]: 89,99 €
+            - button [ref=f11e494] [cursor=pointer]
+        - article [ref=f11e497]:
+          - generic [ref=f11e498]:
+            - generic [ref=f11e500]:
+              - generic [ref=f11e501]:
+                - link [ref=f11e502] [cursor=pointer]:
+                  - /url: /gris_et_noir-sneakers_enfant_gel_quantum_90_3_ps-asics-p-1204A1CV3I/
+                  - img "Sneakers enfant Gel-Quantum 90 3 PS Multicolore 1204A1C ASICS" [ref=f11e503]
+                - link "Sneakers enfant Gel-Quantum 90 3 PS":
+                  - /url: /gris_et_noir-sneakers_enfant_gel_quantum_90_3_ps-asics-p-1204A1CV3I/
+              - navigation [ref=f11e504]:
+                - img "Sneakers enfant Gel-Quantum 90 3 PS Multicolore 1204A1C ASICS" [ref=f11e507] [cursor=pointer]
+                - img "Sneakers enfant Gel-Quantum 90 3 PS Multicolore 1204A1C ASICS" [ref=f11e510] [cursor=pointer]
+                - img "Sneakers enfant Gel-Quantum 90 3 PS Multicolore 1204A1C ASICS" [ref=f11e513] [cursor=pointer]
+                - img "Sneakers enfant Gel-Quantum 90 3 PS Multicolore 1204A1C ASICS" [ref=f11e516] [cursor=pointer]
+            - generic [ref=f11e517]:
+              - link "ASICS Sneakers enfant Gel-Quantum 90 3 PS Gris et noir" [ref=f11e518] [cursor=pointer]:
+                - /url: /gris_et_noir-sneakers_enfant_gel_quantum_90_3_ps-asics-p-1204A1CV3I/
+              - generic [ref=f11e519]:
+                - generic [ref=f11e520]: 4 couleurs
+                - generic [ref=f11e521]: "| 4 avis"
+              - generic [ref=f11e535]: 79,99 €
+            - button [ref=f11e537] [cursor=pointer]
+        - article [ref=f11e540]:
+          - generic [ref=f11e541]:
+            - generic [ref=f11e542]:
+              - generic [ref=f11e544]:
+                - img "Soldes" [ref=f11e546]
+                - generic [ref=f11e547]: "-30%"
+              - generic [ref=f11e548]:
+                - generic [ref=f11e549]:
+                  - link [ref=f11e550] [cursor=pointer]:
+                    - /url: /bleu-short_de_running_femme_road_2_n_1_3_5_in-asics-p-2012C9BRHV/
+                    - img "Short de running femme Road 2-n-1 3.5 in Multicolore 2012C9B ASICS" [ref=f11e551]
+                  - link "Short de running femme Road 2-n-1 3.5 in":
+                    - /url: /bleu-short_de_running_femme_road_2_n_1_3_5_in-asics-p-2012C9BRHV/
+                - navigation [ref=f11e552]:
+                  - img "Short de running femme Road 2-n-1 3.5 in Multicolore 2012C9B ASICS" [ref=f11e555] [cursor=pointer]
+                  - img "Short de running femme Road 2-n-1 3.5 in Multicolore 2012C9B ASICS" [ref=f11e558] [cursor=pointer]
+                  - img "Short de running femme Road 2-n-1 3.5 in Multicolore 2012C9B ASICS" [ref=f11e561] [cursor=pointer]
+                  - img "Short de running femme Road 2-n-1 3.5 in Multicolore 2012C9B ASICS" [ref=f11e564] [cursor=pointer]
+                  - img "Short de running femme Road 2-n-1 3.5 in Multicolore 2012C9B ASICS" [ref=f11e567] [cursor=pointer]
+                  - generic [ref=f11e568]: "+1"
+            - generic [ref=f11e569]:
+              - link "ASICS Short de running femme Road 2-n-1 3.5 in Bleu" [ref=f11e570] [cursor=pointer]:
+                - /url: /bleu-short_de_running_femme_road_2_n_1_3_5_in-asics-p-2012C9BRHV/
+              - generic [ref=f11e571]:
+                - generic [ref=f11e572]: 6 couleurs
+                - generic [ref=f11e573]: "| 39 avis"
+              - generic [ref=f11e586]:
+                - generic [ref=f11e587]: 38,49 €
+                - deletion [ref=f11e589]: 54,99 €
+            - button [ref=f11e590] [cursor=pointer]
+        - article [ref=f11e593]:
+          - generic [ref=f11e594]:
+            - generic [ref=f11e595]:
+              - generic [ref=f11e596]: 2ème à -50% CHAUSSETTES
+              - generic [ref=f11e598]:
+                - generic [ref=f11e599]:
+                  - link [ref=f11e600] [cursor=pointer]:
+                    - /url: /blanc-chaussettes_homme__lot_de_3_-asics-p-3033C20VAV/
+                    - img "Chaussettes homme (Lot de 3) Multicolore 3033C20 ASICS" [ref=f11e601]
+                  - link "Chaussettes homme (Lot de 3)":
+                    - /url: /blanc-chaussettes_homme__lot_de_3_-asics-p-3033C20VAV/
+                - navigation [ref=f11e602]:
+                  - img "Chaussettes homme (Lot de 3) Multicolore 3033C20 ASICS" [ref=f11e605] [cursor=pointer]
+                  - img "Chaussettes homme (Lot de 3) Multicolore 3033C20 ASICS" [ref=f11e608] [cursor=pointer]
+                  - img "Chaussettes homme (Lot de 3) Multicolore 3033C20 ASICS" [ref=f11e611] [cursor=pointer]
+            - generic [ref=f11e612]:
+              - link "ASICS Chaussettes homme (Lot de 3) Blanc" [ref=f11e613] [cursor=pointer]:
+                - /url: /blanc-chaussettes_homme__lot_de_3_-asics-p-3033C20VAV/
+              - generic [ref=f11e614]: 3 couleurs
+              - generic [ref=f11e616]: 9,99 €
+            - button [ref=f11e618] [cursor=pointer]
+        - article [ref=f11e621]:
+          - generic [ref=f11e622]:
+            - generic [ref=f11e623]:
+              - generic [ref=f11e624]: 2ème à -50% CHAUSSETTES
+              - generic [ref=f11e626]:
+                - generic [ref=f11e627]:
+                  - link [ref=f11e628] [cursor=pointer]:
+                    - /url: /blanc-chaussettes_homme__lot_de_3_-asics-p-3033C23VAV/
+                    - img "Chaussettes homme (Lot de 3) Multicolore 3033C23 ASICS" [ref=f11e629]
+                  - link "Chaussettes homme (Lot de 3)":
+                    - /url: /blanc-chaussettes_homme__lot_de_3_-asics-p-3033C23VAV/
+                - navigation [ref=f11e630]:
+                  - img "Chaussettes homme (Lot de 3) Multicolore 3033C23 ASICS" [ref=f11e633] [cursor=pointer]
+                  - img "Chaussettes homme (Lot de 3) Multicolore 3033C23 ASICS" [ref=f11e636] [cursor=pointer]
+                  - img "Chaussettes homme (Lot de 3) Multicolore 3033C23 ASICS" [ref=f11e639] [cursor=pointer]
+            - generic [ref=f11e640]:
+              - link "ASICS Chaussettes homme (Lot de 3) Blanc" [ref=f11e641] [cursor=pointer]:
+                - /url: /blanc-chaussettes_homme__lot_de_3_-asics-p-3033C23VAV/
+              - generic [ref=f11e642]: 3 couleurs
+              - generic [ref=f11e644]: 12,99 €
+            - button [ref=f11e646] [cursor=pointer]
+        - article [ref=f11e649]:
+          - generic [ref=f11e650]:
+            - generic [ref=f11e652]:
+              - generic [ref=f11e653]:
+                - link [ref=f11e654] [cursor=pointer]:
+                  - /url: /noir-chaussettes_homme__lot_de_3_-asics-p-3033C23V75/
+                  - img "Chaussettes homme (Lot de 3) Multicolore 3033C23 ASICS" [ref=f11e655]
+                - link "Chaussettes homme (Lot de 3)":
+                  - /url: /noir-chaussettes_homme__lot_de_3_-asics-p-3033C23V75/
+              - navigation [ref=f11e656]:
+                - img "Chaussettes homme (Lot de 3) Multicolore 3033C23 ASICS" [ref=f11e659] [cursor=pointer]
+                - img "Chaussettes homme (Lot de 3) Multicolore 3033C23 ASICS" [ref=f11e662] [cursor=pointer]
+                - img "Chaussettes homme (Lot de 3) Multicolore 3033C23 ASICS" [ref=f11e665] [cursor=pointer]
+            - generic [ref=f11e666]:
+              - link "ASICS Chaussettes homme (Lot de 3) Noir" [ref=f11e667] [cursor=pointer]:
+                - /url: /noir-chaussettes_homme__lot_de_3_-asics-p-3033C23V75/
+              - generic [ref=f11e668]: 3 couleurs
+              - generic [ref=f11e670]: 12,99 €
+            - button [ref=f11e672] [cursor=pointer]
+        - article [ref=f11e675]:
+          - generic [ref=f11e676]:
+            - generic [ref=f11e677]:
+              - generic [ref=f11e678]: 2ème à -50% CHAUSSETTES
+              - generic [ref=f11e680]:
+                - generic [ref=f11e681]:
+                  - link [ref=f11e682] [cursor=pointer]:
+                    - /url: /multicolore-chaussettes_homme__lot_de_3_-asics-p-3033C23RJN/
+                    - img "Chaussettes homme (Lot de 3) Multicolore 3033C23 ASICS" [ref=f11e683]
+                  - link "Chaussettes homme (Lot de 3)":
+                    - /url: /multicolore-chaussettes_homme__lot_de_3_-asics-p-3033C23RJN/
+                - navigation [ref=f11e684]:
+                  - img "Chaussettes homme (Lot de 3) Multicolore 3033C23 ASICS" [ref=f11e687] [cursor=pointer]
+                  - img "Chaussettes homme (Lot de 3) Multicolore 3033C23 ASICS" [ref=f11e690] [cursor=pointer]
+                  - img "Chaussettes homme (Lot de 3) Multicolore 3033C23 ASICS" [ref=f11e693] [cursor=pointer]
+            - generic [ref=f11e694]:
+              - link "ASICS Chaussettes homme (Lot de 3) Multicolore" [ref=f11e695] [cursor=pointer]:
+                - /url: /multicolore-chaussettes_homme__lot_de_3_-asics-p-3033C23RJN/
+              - generic [ref=f11e696]: 3 couleurs
+              - generic [ref=f11e698]: 12,99 €
+            - button [ref=f11e700] [cursor=pointer]
+        - article [ref=f11e703]:
+          - generic [ref=f11e704]:
+            - generic [ref=f11e706]:
+              - generic [ref=f11e707]:
+                - link [ref=f11e708] [cursor=pointer]:
+                  - /url: /blanc-chaussettes_homme__lot_de_3_-asics-p-3033C22VAV/
+                  - img "Chaussettes homme (Lot de 3) Multicolore 3033C22 ASICS" [ref=f11e709]
+                - link "Chaussettes homme (Lot de 3)":
+                  - /url: /blanc-chaussettes_homme__lot_de_3_-asics-p-3033C22VAV/
+              - navigation [ref=f11e710]:
+                - img "Chaussettes homme (Lot de 3) Multicolore 3033C22 ASICS" [ref=f11e713] [cursor=pointer]
+                - img "Chaussettes homme (Lot de 3) Multicolore 3033C22 ASICS" [ref=f11e716] [cursor=pointer]
+            - generic [ref=f11e717]:
+              - link "ASICS Chaussettes homme (Lot de 3) Blanc" [ref=f11e718] [cursor=pointer]:
+                - /url: /blanc-chaussettes_homme__lot_de_3_-asics-p-3033C22VAV/
+              - generic [ref=f11e719]: 2 couleurs
+              - generic [ref=f11e721]: 12,99 €
+            - button [ref=f11e723] [cursor=pointer]
+        - article [ref=f11e726]:
+          - generic [ref=f11e727]:
+            - generic [ref=f11e729]:
+              - generic [ref=f11e730]:
+                - link [ref=f11e731] [cursor=pointer]:
+                  - /url: /noir-chaussettes_homme__lot_de_3_-asics-p-3033C22V75/
+                  - img "Chaussettes homme (Lot de 3) Multicolore 3033C22 ASICS" [ref=f11e732]
+                - link "Chaussettes homme (Lot de 3)":
+                  - /url: /noir-chaussettes_homme__lot_de_3_-asics-p-3033C22V75/
+              - navigation [ref=f11e733]:
+                - img "Chaussettes homme (Lot de 3) Multicolore 3033C22 ASICS" [ref=f11e736] [cursor=pointer]
+                - img "Chaussettes homme (Lot de 3) Multicolore 3033C22 ASICS" [ref=f11e739] [cursor=pointer]
+            - generic [ref=f11e740]:
+              - link "ASICS Chaussettes homme (Lot de 3) Noir" [ref=f11e741] [cursor=pointer]:
+                - /url: /noir-chaussettes_homme__lot_de_3_-asics-p-3033C22V75/
+              - generic [ref=f11e742]: 2 couleurs
+              - generic [ref=f11e744]: 12,99 €
+            - button [ref=f11e746] [cursor=pointer]
+        - article [ref=f11e749]:
+          - generic [ref=f11e750]:
+            - generic [ref=f11e751]:
+              - generic [ref=f11e752]: 2ème à -50% CHAUSSETTES
+              - generic [ref=f11e754]:
+                - generic [ref=f11e755]:
+                  - link [ref=f11e756] [cursor=pointer]:
+                    - /url: /noir-chaussettes_homme__lot_de_3_-asics-p-3033C20V75/
+                    - img "Chaussettes homme (Lot de 3) Multicolore 3033C20 ASICS" [ref=f11e757]
+                  - link "Chaussettes homme (Lot de 3)":
+                    - /url: /noir-chaussettes_homme__lot_de_3_-asics-p-3033C20V75/
+                - navigation [ref=f11e758]:
+                  - img "Chaussettes homme (Lot de 3) Multicolore 3033C20 ASICS" [ref=f11e761] [cursor=pointer]
+                  - img "Chaussettes homme (Lot de 3) Multicolore 3033C20 ASICS" [ref=f11e764] [cursor=pointer]
+                  - img "Chaussettes homme (Lot de 3) Multicolore 3033C20 ASICS" [ref=f11e767] [cursor=pointer]
+            - generic [ref=f11e768]:
+              - link "ASICS Chaussettes homme (Lot de 3) Noir" [ref=f11e769] [cursor=pointer]:
+                - /url: /noir-chaussettes_homme__lot_de_3_-asics-p-3033C20V75/
+              - generic [ref=f11e770]: 3 couleurs
+              - generic [ref=f11e772]: 9,99 €
+            - button [ref=f11e774] [cursor=pointer]
+        - article [ref=f11e777]:
+          - generic [ref=f11e778]:
+            - generic [ref=f11e779]:
+              - generic [ref=f11e780]: 2ème à -50% CHAUSSETTES
+              - generic [ref=f11e782]:
+                - generic [ref=f11e783]:
+                  - link [ref=f11e784] [cursor=pointer]:
+                    - /url: /multicolore-chaussettes_homme__lot_de_3_-asics-p-3033C20RJN/
+                    - img "Chaussettes homme (Lot de 3) Multicolore 3033C20 ASICS" [ref=f11e785]
+                  - link "Chaussettes homme (Lot de 3)":
+                    - /url: /multicolore-chaussettes_homme__lot_de_3_-asics-p-3033C20RJN/
+                - navigation [ref=f11e786]:
+                  - img "Chaussettes homme (Lot de 3) Multicolore 3033C20 ASICS" [ref=f11e789] [cursor=pointer]
+                  - img "Chaussettes homme (Lot de 3) Multicolore 3033C20 ASICS" [ref=f11e792] [cursor=pointer]
+                  - img "Chaussettes homme (Lot de 3) Multicolore 3033C20 ASICS" [ref=f11e795] [cursor=pointer]
+            - generic [ref=f11e796]:
+              - link "ASICS Chaussettes homme (Lot de 3) Multicolore" [ref=f11e797] [cursor=pointer]:
+                - /url: /multicolore-chaussettes_homme__lot_de_3_-asics-p-3033C20RJN/
+              - generic [ref=f11e798]: 3 couleurs
+              - generic [ref=f11e800]: 9,99 €
+            - button [ref=f11e802] [cursor=pointer]
+        - article [ref=f11e805]:
+          - generic [ref=f11e806]:
+            - generic [ref=f11e807]:
+              - generic [ref=f11e809]:
+                - img "Soldes" [ref=f11e811]
+                - generic [ref=f11e812]: "-30%"
+              - generic [ref=f11e813]:
+                - generic [ref=f11e814]:
+                  - link [ref=f11e815] [cursor=pointer]:
+                    - /url: /violet-short_avec_cuissard_de_running_femme_road_all_over_print_2_n_1_3_5in-asics-p-2012D0ARHZ/
+                    - img "Short avec cuissard de running femme Road All Over Print 2-N-1 3.5In Multicolore 2012D0A ASICS" [ref=f11e816]
+                  - link "Short avec cuissard de running femme Road All Over Print 2-N-1 3.5In":
+                    - /url: /violet-short_avec_cuissard_de_running_femme_road_all_over_print_2_n_1_3_5in-asics-p-2012D0ARHZ/
+                - navigation [ref=f11e817]:
+                  - img "Short avec cuissard de running femme Road All Over Print 2-N-1 3.5In Multicolore 2012D0A ASICS" [ref=f11e820] [cursor=pointer]
+                  - img "Short avec cuissard de running femme Road All Over Print 2-N-1 3.5In Multicolore 2012D0A ASICS" [ref=f11e823] [cursor=pointer]
+                  - img "Short avec cuissard de running femme Road All Over Print 2-N-1 3.5In Multicolore 2012D0A ASICS" [ref=f11e826] [cursor=pointer]
+            - generic [ref=f11e827]:
+              - link "ASICS Short avec cuissard de running femme Road All Over Print 2-N-1 3.5In Violet" [ref=f11e828] [cursor=pointer]:
+                - /url: /violet-short_avec_cuissard_de_running_femme_road_all_over_print_2_n_1_3_5in-asics-p-2012D0ARHZ/
+              - generic [ref=f11e829]: 3 couleurs
+              - generic [ref=f11e831]: 2 articles soldés achetés, le 3ème offert
+              - generic [ref=f11e832]:
+                - generic [ref=f11e833]: 45,49 €
+                - deletion [ref=f11e835]: 64,99 €
+            - button [ref=f11e836] [cursor=pointer]
+        - article [ref=f11e839]:
+          - generic [ref=f11e840]:
+            - generic [ref=f11e842]:
+              - generic [ref=f11e843]:
+                - link [ref=f11e844] [cursor=pointer]:
+                  - /url: /short_avec_cuissard_de_running_femme_road_all_over_print_2_n_1_3_5in-asics-p-2012D0AGQV/
+                  - img "Short avec cuissard de running femme Road All Over Print 2-N-1 3.5In Multicolore 2012D0A ASICS" [ref=f11e845]
+                - link "Short avec cuissard de running femme Road All Over Print 2-N-1 3.5In":
+                  - /url: /short_avec_cuissard_de_running_femme_road_all_over_print_2_n_1_3_5in-asics-p-2012D0AGQV/
+              - navigation [ref=f11e846]:
+                - img "Short avec cuissard de running femme Road All Over Print 2-N-1 3.5In Multicolore 2012D0A ASICS" [ref=f11e849] [cursor=pointer]
+                - img "Short avec cuissard de running femme Road All Over Print 2-N-1 3.5In Multicolore 2012D0A ASICS" [ref=f11e852] [cursor=pointer]
+                - img "Short avec cuissard de running femme Road All Over Print 2-N-1 3.5In Multicolore 2012D0A ASICS" [ref=f11e855] [cursor=pointer]
+            - generic [ref=f11e856]:
+              - link "ASICS Short avec cuissard de running femme Road All Over Print 2-N-1 3.5In" [ref=f11e857] [cursor=pointer]:
+                - /url: /short_avec_cuissard_de_running_femme_road_all_over_print_2_n_1_3_5in-asics-p-2012D0AGQV/
+              - generic [ref=f11e858]: 3 couleurs
+              - generic [ref=f11e860]: 64,99 €
+            - button [ref=f11e862] [cursor=pointer]
+        - article [ref=f11e865]:
+          - generic [ref=f11e866]:
+            - generic [ref=f11e868]:
+              - generic [ref=f11e869]:
+                - link [ref=f11e870] [cursor=pointer]:
+                  - /url: /noir-short_de_running_femme_road_2_n_1_3_5_in-asics-p-2012C9BV7G/
+                  - img "Short de running femme Road 2-n-1 3.5 in Multicolore 2012C9B ASICS" [ref=f11e871]
+                - link "Short de running femme Road 2-n-1 3.5 in":
+                  - /url: /noir-short_de_running_femme_road_2_n_1_3_5_in-asics-p-2012C9BV7G/
+              - navigation [ref=f11e872]:
+                - img "Short de running femme Road 2-n-1 3.5 in Multicolore 2012C9B ASICS" [ref=f11e875] [cursor=pointer]
+                - img "Short de running femme Road 2-n-1 3.5 in Multicolore 2012C9B ASICS" [ref=f11e878] [cursor=pointer]
+                - img "Short de running femme Road 2-n-1 3.5 in Multicolore 2012C9B ASICS" [ref=f11e881] [cursor=pointer]
+                - img "Short de running femme Road 2-n-1 3.5 in Multicolore 2012C9B ASICS" [ref=f11e884] [cursor=pointer]
+                - img "Short de running femme Road 2-n-1 3.5 in Multicolore 2012C9B ASICS" [ref=f11e887] [cursor=pointer]
+                - generic [ref=f11e888]: "+1"
+            - generic [ref=f11e889]:
+              - link "ASICS Short de running femme Road 2-n-1 3.5 in Noir" [ref=f11e890] [cursor=pointer]:
+                - /url: /noir-short_de_running_femme_road_2_n_1_3_5_in-asics-p-2012C9BV7G/
+              - generic [ref=f11e891]:
+                - generic [ref=f11e892]: 6 couleurs
+                - generic [ref=f11e893]: "| 40 avis"
+              - generic [ref=f11e906]: 54,99 €
+            - button [ref=f11e908] [cursor=pointer]
+        - article [ref=f11e911]:
+          - generic [ref=f11e912]:
+            - generic [ref=f11e914]:
+              - generic [ref=f11e915]:
+                - link [ref=f11e916] [cursor=pointer]:
+                  - /url: /noir-short_de_running_femme_road_3_5in-asics-p-2012C93V75/
+                  - img "Short de running femme Road 3.5In Multicolore 2012C93 ASICS" [ref=f11e917]
+                - link "Short de running femme Road 3.5In":
+                  - /url: /noir-short_de_running_femme_road_3_5in-asics-p-2012C93V75/
+              - navigation [ref=f11e918]:
+                - img "Short de running femme Road 3.5In Multicolore 2012C93 ASICS" [ref=f11e921] [cursor=pointer]
+                - img "Short de running femme Road 3.5In Multicolore 2012C93 ASICS" [ref=f11e924] [cursor=pointer]
+                - img "Short de running femme Road 3.5In Multicolore 2012C93 ASICS" [ref=f11e927] [cursor=pointer]
+                - img "Short de running femme Road 3.5In Multicolore 2012C93 ASICS" [ref=f11e930] [cursor=pointer]
+            - generic [ref=f11e931]:
+              - link "ASICS Short de running femme Road 3.5In Noir" [ref=f11e932] [cursor=pointer]:
+                - /url: /noir-short_de_running_femme_road_3_5in-asics-p-2012C93V75/
+              - generic [ref=f11e933]:
+                - generic [ref=f11e934]: 4 couleurs
+                - generic [ref=f11e935]: "| 46 avis"
+              - generic [ref=f11e948]: 44,99 €
+            - button [ref=f11e950] [cursor=pointer]
+        - article [ref=f11e953]:
+          - generic [ref=f11e954]:
+            - generic [ref=f11e955]:
+              - generic [ref=f11e956]: 2ème à -50% CHAUSSETTES
+              - generic [ref=f11e958]:
+                - generic [ref=f11e959]:
+                  - link [ref=f11e960] [cursor=pointer]:
+                    - /url: /noir-chaussettes_adulte___lot_de_3_paires-asics-p-155206~S17/
+                    - img "Chaussettes adulte - Lot de 3 paires Multicolore 155206 ASICS" [ref=f11e961]
+                  - link "Chaussettes adulte - Lot de 3 paires":
+                    - /url: /noir-chaussettes_adulte___lot_de_3_paires-asics-p-155206~S17/
+                - navigation [ref=f11e962]:
+                  - img "Chaussettes adulte - Lot de 3 paires Multicolore 155206 ASICS" [ref=f11e965] [cursor=pointer]
+                  - img "Chaussettes adulte - Lot de 3 paires Multicolore 155206 ASICS" [ref=f11e968] [cursor=pointer]
+                  - img "Chaussettes adulte - Lot de 3 paires Multicolore 155206 ASICS" [ref=f11e971] [cursor=pointer]
+            - generic [ref=f11e972]:
+              - link "ASICS Chaussettes adulte - Lot de 3 paires Noir" [ref=f11e973] [cursor=pointer]:
+                - /url: /noir-chaussettes_adulte___lot_de_3_paires-asics-p-155206~S17/
+              - generic [ref=f11e974]:
+                - generic [ref=f11e975]: 3 couleurs
+                - generic [ref=f11e976]: "| 17 avis"
+              - generic [ref=f11e989]: 9,99 €
+            - button [ref=f11e991] [cursor=pointer]
+        - article [ref=f11e994]:
+          - generic [ref=f11e995]:
+            - generic [ref=f11e997]:
+              - generic [ref=f11e998]:
+                - link [ref=f11e999] [cursor=pointer]:
+                  - /url: /gris_et_blanc-sneakers_homme_jog_100s-asics-p-1203A652SY/
+                  - img "Sneakers homme Jog 100S Multicolore 1203A65 ASICS" [ref=f11e1000]
+                - link "Sneakers homme Jog 100S":
+                  - /url: /gris_et_blanc-sneakers_homme_jog_100s-asics-p-1203A652SY/
+              - navigation [ref=f11e1001]:
+                - img "Sneakers homme Jog 100S Multicolore 1203A65 ASICS" [ref=f11e1004] [cursor=pointer]
+                - img "Sneakers homme Jog 100S Multicolore 1203A65 ASICS" [ref=f11e1007] [cursor=pointer]
+                - img "Sneakers homme Jog 100S Multicolore 1203A65 ASICS" [ref=f11e1010] [cursor=pointer]
+                - img "Sneakers homme Jog 100S Multicolore 1203A65 ASICS" [ref=f11e1013] [cursor=pointer]
+                - img "Sneakers homme Jog 100S Multicolore 1203A65 ASICS" [ref=f11e1016] [cursor=pointer]
+                - generic [ref=f11e1017]: "+3"
+            - generic [ref=f11e1018]:
+              - link "ASICS Sneakers homme Jog 100S Gris et blanc" [ref=f11e1019] [cursor=pointer]:
+                - /url: /gris_et_blanc-sneakers_homme_jog_100s-asics-p-1203A652SY/
+              - generic [ref=f11e1020]: 8 couleurs
+              - generic [ref=f11e1022]: 79,99 €
+            - button [ref=f11e1024] [cursor=pointer]
+        - article [ref=f11e1027]:
+          - generic [ref=f11e1028]:
+            - generic [ref=f11e1031]:
+              - link [ref=f11e1032] [cursor=pointer]:
+                - /url: /blanc_et_argent-chaussures_de_volley_homme_sky_elite_ff_3-asics-p-1053A0~01N/
+                - img "Chaussures de volley homme Sky Elite FF 3 Multicolore 1053A0 ASICS" [ref=f11e1033]
+              - link "Chaussures de volley homme Sky Elite FF 3":
+                - /url: /blanc_et_argent-chaussures_de_volley_homme_sky_elite_ff_3-asics-p-1053A0~01N/
+            - generic [ref=f11e1034]:
+              - link "ASICS Chaussures de volley homme Sky Elite FF 3 Blanc et argent" [ref=f11e1035] [cursor=pointer]:
+                - /url: /blanc_et_argent-chaussures_de_volley_homme_sky_elite_ff_3-asics-p-1053A0~01N/
+              - generic [ref=f11e1036]: 1 couleur
+              - generic [ref=f11e1038]: 169,99 €
+            - button [ref=f11e1040] [cursor=pointer]
+        - article [ref=f11e1043]:
+          - generic [ref=f11e1044]:
+            - generic [ref=f11e1046]:
+              - generic [ref=f11e1047]:
+                - link [ref=f11e1048] [cursor=pointer]:
+                  - /url: /rouge-chaussures_de_tennis_homme_solution_speed_ff_3-asics-p-1041A4A2PQ/
+                  - img "Chaussures de tennis homme SOLUTION SPEED FF 3 Multicolore 1041A4A ASICS" [ref=f11e1049]
+                - link "Chaussures de tennis homme SOLUTION SPEED FF 3":
+                  - /url: /rouge-chaussures_de_tennis_homme_solution_speed_ff_3-asics-p-1041A4A2PQ/
+              - navigation [ref=f11e1050]:
+                - img "Chaussures de tennis homme SOLUTION SPEED FF 3 Multicolore 1041A4A ASICS" [ref=f11e1053] [cursor=pointer]
+                - img "Chaussures de tennis homme SOLUTION SPEED FF 3 Multicolore 1041A4A ASICS" [ref=f11e1056] [cursor=pointer]
+                - img "Chaussures de tennis homme SOLUTION SPEED FF 3 Multicolore 1041A4A ASICS" [ref=f11e1059] [cursor=pointer]
+                - img "Chaussures de tennis homme SOLUTION SPEED FF 3 Multicolore 1041A4A ASICS" [ref=f11e1062] [cursor=pointer]
+                - img "Chaussures de tennis homme SOLUTION SPEED FF 3 Multicolore 1041A4A ASICS" [ref=f11e1065] [cursor=pointer]
+                - generic [ref=f11e1066]: "+2"
+            - generic [ref=f11e1067]:
+              - link "ASICS Chaussures de tennis homme SOLUTION SPEED FF 3 Rouge" [ref=f11e1068] [cursor=pointer]:
+                - /url: /rouge-chaussures_de_tennis_homme_solution_speed_ff_3-asics-p-1041A4A2PQ/
+              - generic [ref=f11e1069]: 7 couleurs
+              - generic [ref=f11e1071]: 149,99 €
+            - button [ref=f11e1073] [cursor=pointer]
+        - article [ref=f11e1076]:
+          - generic [ref=f11e1077]:
+            - generic [ref=f11e1079]:
+              - generic [ref=f11e1080]:
+                - link [ref=f11e1081] [cursor=pointer]:
+                  - /url: /chaussures_de_trail_homme_trabuco_terra_3-asics-p-1011C1AHGR/
+                  - img "Chaussures de trail homme Trabuco Terra 3 Multicolore 1011C1A ASICS" [ref=f11e1082]
+                - link "Chaussures de trail homme Trabuco Terra 3":
+                  - /url: /chaussures_de_trail_homme_trabuco_terra_3-asics-p-1011C1AHGR/
+              - navigation [ref=f11e1083]:
+                - img "Chaussures de trail homme Trabuco Terra 3 Multicolore 1011C1A ASICS" [ref=f11e1086] [cursor=pointer]
+                - img "Chaussures de trail homme Trabuco Terra 3 Multicolore 1011C1A ASICS" [ref=f11e1089] [cursor=pointer]
+                - img "Chaussures de trail homme Trabuco Terra 3 Multicolore 1011C1A ASICS" [ref=f11e1092] [cursor=pointer]
+            - generic [ref=f11e1093]:
+              - link "ASICS Chaussures de trail homme Trabuco Terra 3" [ref=f11e1094] [cursor=pointer]:
+                - /url: /chaussures_de_trail_homme_trabuco_terra_3-asics-p-1011C1AHGR/
+              - generic [ref=f11e1095]: 3 couleurs
+              - generic [ref=f11e1097]: 129,99 €
+            - button [ref=f11e1099] [cursor=pointer]
+        - article [ref=f11e1102]:
+          - generic [ref=f11e1103]:
+            - generic [ref=f11e1104]:
+              - generic [ref=f11e1106]:
+                - img "Soldes" [ref=f11e1108]
+                - generic [ref=f11e1109]: "-40%"
+              - generic [ref=f11e1111]:
+                - link [ref=f11e1112] [cursor=pointer]:
+                  - /url: /beige_et_vert-chaussures_de_running_femme_novablast_5-asics-p-1012B9JRDV/
+                  - img "Chaussures de running femme Novablast 5 Multicolore 1012B9J ASICS" [ref=f11e1113]
+                - link "Chaussures de running femme Novablast 5":
+                  - /url: /beige_et_vert-chaussures_de_running_femme_novablast_5-asics-p-1012B9JRDV/
+            - generic [ref=f11e1114]:
+              - link "ASICS Chaussures de running femme Novablast 5 Beige et vert" [ref=f11e1115] [cursor=pointer]:
+                - /url: /beige_et_vert-chaussures_de_running_femme_novablast_5-asics-p-1012B9JRDV/
+              - generic [ref=f11e1116]: 1 couleur
+              - generic [ref=f11e1118]:
+                - generic [ref=f11e1119]: 89,99 €
+                - deletion [ref=f11e1121]: 149,99 €
+            - button [ref=f11e1122] [cursor=pointer]
+        - article [ref=f11e1125]:
+          - generic [ref=f11e1126]:
+            - generic [ref=f11e1127]:
+              - img "Prix engagé" [ref=f11e1131]
+              - generic [ref=f11e1132]:
+                - generic [ref=f11e1133]:
+                  - link [ref=f11e1134] [cursor=pointer]:
+                    - /url: /blanc_et_rose-chaussures_de_running_femme_gel_pulse_17-asics-p-1012B9DRDL/
+                    - img "Chaussures de running femme Gel-Pulse 17 Multicolore 1012B9D ASICS" [ref=f11e1135]
+                  - link "Chaussures de running femme Gel-Pulse 17":
+                    - /url: /blanc_et_rose-chaussures_de_running_femme_gel_pulse_17-asics-p-1012B9DRDL/
+                - navigation [ref=f11e1136]:
+                  - img "Chaussures de running femme Gel-Pulse 17 Multicolore 1012B9D ASICS" [ref=f11e1139] [cursor=pointer]
+                  - img "Chaussures de running femme Gel-Pulse 17 Multicolore 1012B9D ASICS" [ref=f11e1142] [cursor=pointer]
+                  - img "Chaussures de running femme Gel-Pulse 17 Multicolore 1012B9D ASICS" [ref=f11e1145] [cursor=pointer]
+                  - img "Chaussures de running femme Gel-Pulse 17 Multicolore 1012B9D ASICS" [ref=f11e1148] [cursor=pointer]
+                  - img "Chaussures de running femme Gel-Pulse 17 Multicolore 1012B9D ASICS" [ref=f11e1151] [cursor=pointer]
+                  - generic [ref=f11e1152]: "+2"
+            - generic [ref=f11e1153]:
+              - link "ASICS Chaussures de running femme Gel-Pulse 17 Blanc et rose" [ref=f11e1154] [cursor=pointer]:
+                - /url: /blanc_et_rose-chaussures_de_running_femme_gel_pulse_17-asics-p-1012B9DRDL/
+              - generic [ref=f11e1155]:
+                - generic [ref=f11e1156]: 7 couleurs
+                - generic [ref=f11e1157]: "| 13 avis"
+              - generic [ref=f11e1170]:
+                - generic [ref=f11e1171]: 69,99 €
+                - generic [ref=f11e1172]: "| Prix conseillé 109,99 €"
+            - button [ref=f11e1173] [cursor=pointer]
+        - article [ref=f11e1176]:
+          - generic [ref=f11e1177]:
+            - generic [ref=f11e1178]:
+              - generic [ref=f11e1180]:
+                - img "Soldes" [ref=f11e1182]
+                - generic [ref=f11e1183]: "-40%"
+              - generic [ref=f11e1185]:
+                - link [ref=f11e1186] [cursor=pointer]:
+                  - /url: /bleu_et_orange-chaussures_de_running_femme_gel_cumulus_28-asics-p-1012B9LRDW/
+                  - img "Chaussures de running femme Gel-Cumulus 28 Multicolore 1012B9L ASICS" [ref=f11e1187]
+                - link "Chaussures de running femme Gel-Cumulus 28":
+                  - /url: /bleu_et_orange-chaussures_de_running_femme_gel_cumulus_28-asics-p-1012B9LRDW/
+            - generic [ref=f11e1188]:
+              - link "ASICS Chaussures de running femme Gel-Cumulus 28 Bleu et orange" [ref=f11e1189] [cursor=pointer]:
+                - /url: /bleu_et_orange-chaussures_de_running_femme_gel_cumulus_28-asics-p-1012B9LRDW/
+              - generic [ref=f11e1190]:
+                - generic [ref=f11e1191]: 1 couleur
+                - generic [ref=f11e1192]: "| 4 avis"
+              - generic [ref=f11e1206]:
+                - generic [ref=f11e1207]: 95,99 €
+                - deletion [ref=f11e1209]: 159,99 €
+            - button [ref=f11e1210] [cursor=pointer]
+        - article [ref=f11e1213]:
+          - generic [ref=f11e1214]:
+            - generic [ref=f11e1215]:
+              - generic [ref=f11e1217]:
+                - img "Soldes" [ref=f11e1219]
+                - generic [ref=f11e1220]: "-40%"
+              - generic [ref=f11e1221]:
+                - generic [ref=f11e1222]:
+                  - link [ref=f11e1223] [cursor=pointer]:
+                    - /url: /noir_et_vert-chaussures_de_running_homme_gel_kayano_32-asics-p-1011C07RBN/
+                    - img "Chaussures de running homme Gel-Kayano 32 Multicolore 1011C07 ASICS" [ref=f11e1224]
+                  - link "Chaussures de running homme Gel-Kayano 32":
+                    - /url: /noir_et_vert-chaussures_de_running_homme_gel_kayano_32-asics-p-1011C07RBN/
+                - navigation [ref=f11e1225]:
+                  - img "Chaussures de running homme Gel-Kayano 32 Multicolore 1011C07 ASICS" [ref=f11e1228] [cursor=pointer]
+                  - img "Chaussures de running homme Gel-Kayano 32 Multicolore 1011C07 ASICS" [ref=f11e1231] [cursor=pointer]
+            - generic [ref=f11e1232]:
+              - link "ASICS Chaussures de running homme Gel-Kayano 32 Noir et vert" [ref=f11e1233] [cursor=pointer]:
+                - /url: /noir_et_vert-chaussures_de_running_homme_gel_kayano_32-asics-p-1011C07RBN/
+              - generic [ref=f11e1234]:
+                - generic [ref=f11e1235]: 2 couleurs
+                - generic [ref=f11e1236]: "| 43 avis"
+              - generic [ref=f11e1249]: 2 articles soldés achetés, le 3ème offert
+              - generic [ref=f11e1250]:
+                - generic [ref=f11e1251]: 119,99 €
+                - deletion [ref=f11e1253]: 199,99 €
+            - button [ref=f11e1254] [cursor=pointer]
+        - article [ref=f11e1257]:
+          - generic [ref=f11e1258]:
+            - generic [ref=f11e1259]:
+              - generic [ref=f11e1261]:
+                - img "Soldes" [ref=f11e1263]
+                - generic [ref=f11e1264]: "-40%"
+              - generic [ref=f11e1265]:
+                - generic [ref=f11e1266]:
+                  - link [ref=f11e1267] [cursor=pointer]:
+                    - /url: /noir_et_blanc-sneakers_enfant_gel_quantum_lyte_ii_gs-asics-p-1204A1DD0Q/
+                    - img "Sneakers enfant Gel-Quantum Lyte II GS Multicolore 1204A1D ASICS" [ref=f11e1268]
+                  - link "Sneakers enfant Gel-Quantum Lyte II GS":
+                    - /url: /noir_et_blanc-sneakers_enfant_gel_quantum_lyte_ii_gs-asics-p-1204A1DD0Q/
+                - navigation [ref=f11e1269]:
+                  - img "Sneakers enfant Gel-Quantum Lyte II GS Multicolore 1204A1D ASICS" [ref=f11e1272] [cursor=pointer]
+                  - img "Sneakers enfant Gel-Quantum Lyte II GS Multicolore 1204A1D ASICS" [ref=f11e1275] [cursor=pointer]
+                  - img "Sneakers enfant Gel-Quantum Lyte II GS Multicolore 1204A1D ASICS" [ref=f11e1278] [cursor=pointer]
+            - generic [ref=f11e1279]:
+              - link "ASICS Sneakers enfant Gel-Quantum Lyte II GS Noir et blanc" [ref=f11e1280] [cursor=pointer]:
+                - /url: /noir_et_blanc-sneakers_enfant_gel_quantum_lyte_ii_gs-asics-p-1204A1DD0Q/
+              - generic [ref=f11e1281]:
+                - generic [ref=f11e1282]: 3 couleurs
+                - generic [ref=f11e1283]: "| 10 avis"
+              - generic [ref=f11e1296]:
+                - generic [ref=f11e1297]: 35,99 €
+                - deletion [ref=f11e1299]: 59,99 €
+            - button [ref=f11e1300] [cursor=pointer]
+        - article [ref=f11e1303]:
+          - generic [ref=f11e1304]:
+            - generic [ref=f11e1305]:
+              - generic [ref=f11e1307]:
+                - img "Soldes" [ref=f11e1309]
+                - generic [ref=f11e1310]: "-40%"
+              - generic [ref=f11e1311]:
+                - generic [ref=f11e1312]:
+                  - link [ref=f11e1313] [cursor=pointer]:
+                    - /url: /gris_et_noir-chaussures_de_running_enfant_jolt_4-asics-p-1014A3~2PC/
+                    - img "Chaussures de running enfant Jolt 4 Multicolore 1014A3 ASICS" [ref=f11e1314]
+                  - link "Chaussures de running enfant Jolt 4":
+                    - /url: /gris_et_noir-chaussures_de_running_enfant_jolt_4-asics-p-1014A3~2PC/
+                - navigation [ref=f11e1315]:
+                  - img "Chaussures de running enfant Jolt 4 Multicolore 1014A3 ASICS" [ref=f11e1318] [cursor=pointer]
+                  - img "Chaussures de running enfant Jolt 4 Multicolore 1014A3 ASICS" [ref=f11e1321] [cursor=pointer]
+                  - img "Chaussures de running enfant Jolt 4 Multicolore 1014A3 ASICS" [ref=f11e1324] [cursor=pointer]
+                  - img "Chaussures de running enfant Jolt 4 Multicolore 1014A3 ASICS" [ref=f11e1327] [cursor=pointer]
+                  - img "Chaussures de running enfant Jolt 4 Multicolore 1014A3 ASICS" [ref=f11e1330] [cursor=pointer]
+                  - generic [ref=f11e1331]: "+13"
+            - generic [ref=f11e1332]:
+              - link "ASICS Chaussures de running enfant Jolt 4 Gris et noir" [ref=f11e1333] [cursor=pointer]:
+                - /url: /gris_et_noir-chaussures_de_running_enfant_jolt_4-asics-p-1014A3~2PC/
+              - generic [ref=f11e1334]:
+                - generic [ref=f11e1335]: 18 couleurs
+                - generic [ref=f11e1336]: "| 15 avis"
+              - generic [ref=f11e1349]:
+                - generic [ref=f11e1350]: 29,99 €
+                - deletion [ref=f11e1352]: 49,99 €
+            - button [ref=f11e1353] [cursor=pointer]
+        - article [ref=f11e1356]:
+          - generic [ref=f11e1357]:
+            - generic [ref=f11e1358]:
+              - generic [ref=f11e1360]:
+                - img "Soldes" [ref=f11e1362]
+                - generic [ref=f11e1363]: "-40%"
+              - generic [ref=f11e1365]:
+                - link [ref=f11e1366] [cursor=pointer]:
+                  - /url: /beige_et_vert-chaussures_de_running_femme_gel_pulse_17-asics-p-1012C0~RDV/
+                  - img "Chaussures de running femme Gel-Pulse 17 Multicolore 1012C0 ASICS" [ref=f11e1367]
+                - link "Chaussures de running femme Gel-Pulse 17":
+                  - /url: /beige_et_vert-chaussures_de_running_femme_gel_pulse_17-asics-p-1012C0~RDV/
+            - generic [ref=f11e1368]:
+              - link "ASICS Chaussures de running femme Gel-Pulse 17 Beige et vert" [ref=f11e1369] [cursor=pointer]:
+                - /url: /beige_et_vert-chaussures_de_running_femme_gel_pulse_17-asics-p-1012C0~RDV/
+              - generic [ref=f11e1370]: 1 couleur
+              - generic [ref=f11e1372]:
+                - generic [ref=f11e1373]: 65,99 €
+                - deletion [ref=f11e1375]: 109,99 €
+            - button [ref=f11e1376] [cursor=pointer]
+        - article [ref=f11e1379]:
+          - generic [ref=f11e1380]:
+            - generic [ref=f11e1381]:
+              - generic [ref=f11e1383]:
+                - img "Soldes" [ref=f11e1385]
+                - generic [ref=f11e1386]: "-40%"
+              - generic [ref=f11e1387]:
+                - generic [ref=f11e1388]:
+                  - link [ref=f11e1389] [cursor=pointer]:
+                    - /url: /noir_et_rose-chaussures_de_running_femme_gel_excite_11-asics-p-1012B8DRD8/
+                    - img "Chaussures de running femme Gel-Excite 11 Multicolore 1012B8D ASICS" [ref=f11e1390]
+                  - link "Chaussures de running femme Gel-Excite 11":
+                    - /url: /noir_et_rose-chaussures_de_running_femme_gel_excite_11-asics-p-1012B8DRD8/
+                - navigation [ref=f11e1391]:
+                  - img "Chaussures de running femme Gel-Excite 11 Multicolore 1012B8D ASICS" [ref=f11e1394] [cursor=pointer]
+                  - img "Chaussures de running femme Gel-Excite 11 Multicolore 1012B8D ASICS" [ref=f11e1397] [cursor=pointer]
+                  - img "Chaussures de running femme Gel-Excite 11 Multicolore 1012B8D ASICS" [ref=f11e1400] [cursor=pointer]
+                  - img "Chaussures de running femme Gel-Excite 11 Multicolore 1012B8D ASICS" [ref=f11e1403] [cursor=pointer]
+                  - img "Chaussures de running femme Gel-Excite 11 Multicolore 1012B8D ASICS" [ref=f11e1406] [cursor=pointer]
+                  - generic [ref=f11e1407]: "+7"
+            - generic [ref=f11e1408]:
+              - link "ASICS Chaussures de running femme Gel-Excite 11 Noir et rose" [ref=f11e1409] [cursor=pointer]:
+                - /url: /noir_et_rose-chaussures_de_running_femme_gel_excite_11-asics-p-1012B8DRD8/
+              - generic [ref=f11e1410]:
+                - generic [ref=f11e1411]: 12 couleurs
+                - generic [ref=f11e1412]: "| 9 avis"
+              - generic [ref=f11e1425]:
+                - generic [ref=f11e1426]: 53,99 €
+                - deletion [ref=f11e1428]: 89,99 €
+            - button [ref=f11e1429] [cursor=pointer]
+        - article [ref=f11e1432]:
+          - generic [ref=f11e1433]:
+            - generic [ref=f11e1434]:
+              - generic [ref=f11e1436]:
+                - img "Soldes" [ref=f11e1438]
+                - generic [ref=f11e1439]: "-50%"
+              - generic [ref=f11e1440]:
+                - generic [ref=f11e1441]:
+                  - link [ref=f11e1442] [cursor=pointer]:
+                    - /url: /bleu-chaussures_de_running_homme_gel_yasura-asics-p-1011C0GRB8/
+                    - img "Chaussures de running homme Gel-Yasura Multicolore 1011C0G ASICS" [ref=f11e1443]
+                  - link "Chaussures de running homme Gel-Yasura":
+                    - /url: /bleu-chaussures_de_running_homme_gel_yasura-asics-p-1011C0GRB8/
+                - navigation [ref=f11e1444]:
+                  - img "Chaussures de running homme Gel-Yasura Multicolore 1011C0G ASICS" [ref=f11e1447] [cursor=pointer]
+                  - img "Chaussures de running homme Gel-Yasura Multicolore 1011C0G ASICS" [ref=f11e1450] [cursor=pointer]
+            - generic [ref=f11e1451]:
+              - link "ASICS Chaussures de running homme Gel-Yasura Bleu" [ref=f11e1452] [cursor=pointer]:
+                - /url: /bleu-chaussures_de_running_homme_gel_yasura-asics-p-1011C0GRB8/
+              - generic [ref=f11e1453]:
+                - generic [ref=f11e1454]: 2 couleurs
+                - generic [ref=f11e1455]: "| 2 avis"
+              - generic [ref=f11e1468]: 2 articles soldés achetés, le 3ème offert
+              - generic [ref=f11e1469]:
+                - generic [ref=f11e1470]: 69,99 €
+                - deletion [ref=f11e1472]: 139,99 €
+            - button [ref=f11e1473] [cursor=pointer]
+        - article [ref=f11e1476]:
+          - generic [ref=f11e1477]:
+            - generic [ref=f11e1478]:
+              - generic [ref=f11e1480]:
+                - img "Soldes" [ref=f11e1482]
+                - generic [ref=f11e1483]: "-50%"
+              - generic [ref=f11e1484]:
+                - generic [ref=f11e1485]:
+                  - link [ref=f11e1486] [cursor=pointer]:
+                    - /url: /beige_et_orange-chaussures_de_running_femme_gel_yasura-asics-p-1012B8JRB9/
+                    - img "Chaussures de running femme Gel-Yasura Multicolore 1012B8J ASICS" [ref=f11e1487]
+                  - link "Chaussures de running femme Gel-Yasura":
+                    - /url: /beige_et_orange-chaussures_de_running_femme_gel_yasura-asics-p-1012B8JRB9/
+                - navigation [ref=f11e1488]:
+                  - img "Chaussures de running femme Gel-Yasura Multicolore 1012B8J ASICS" [ref=f11e1491] [cursor=pointer]
+                  - img "Chaussures de running femme Gel-Yasura Multicolore 1012B8J ASICS" [ref=f11e1494] [cursor=pointer]
+            - generic [ref=f11e1495]:
+              - link "ASICS Chaussures de running femme Gel-Yasura Beige et orange" [ref=f11e1496] [cursor=pointer]:
+                - /url: /beige_et_orange-chaussures_de_running_femme_gel_yasura-asics-p-1012B8JRB9/
+              - generic [ref=f11e1497]:
+                - generic [ref=f11e1498]: 2 couleurs
+                - generic [ref=f11e1499]: "| 1 avis"
+              - generic [ref=f11e1513]: 2 articles soldés achetés, le 3ème offert
+              - generic [ref=f11e1514]:
+                - generic [ref=f11e1515]: 69,99 €
+                - deletion [ref=f11e1517]: 139,99 €
+            - button [ref=f11e1518] [cursor=pointer]
+        - article [ref=f11e1521]:
+          - generic [ref=f11e1522]:
+            - generic [ref=f11e1523]:
+              - generic [ref=f11e1525]:
+                - img "Soldes" [ref=f11e1527]
+                - generic [ref=f11e1528]: "-40%"
+              - generic [ref=f11e1529]:
+                - generic [ref=f11e1530]:
+                  - link [ref=f11e1531] [cursor=pointer]:
+                    - /url: /violet_et_vert-chaussures_de_running_femme_gel_excite_11-asics-p-1012B8DRDA/
+                    - img "Chaussures de running femme Gel-Excite 11 Multicolore 1012B8D ASICS" [ref=f11e1532]
+                  - link "Chaussures de running femme Gel-Excite 11":
+                    - /url: /violet_et_vert-chaussures_de_running_femme_gel_excite_11-asics-p-1012B8DRDA/
+                - navigation [ref=f11e1533]:
+                  - img "Chaussures de running femme Gel-Excite 11 Multicolore 1012B8D ASICS" [ref=f11e1536] [cursor=pointer]
+                  - img "Chaussures de running femme Gel-Excite 11 Multicolore 1012B8D ASICS" [ref=f11e1539] [cursor=pointer]
+                  - img "Chaussures de running femme Gel-Excite 11 Multicolore 1012B8D ASICS" [ref=f11e1542] [cursor=pointer]
+                  - img "Chaussures de running femme Gel-Excite 11 Multicolore 1012B8D ASICS" [ref=f11e1545] [cursor=pointer]
+                  - img "Chaussures de running femme Gel-Excite 11 Multicolore 1012B8D ASICS" [ref=f11e1548] [cursor=pointer]
+                  - generic [ref=f11e1549]: "+7"
+            - generic [ref=f11e1550]:
+              - link "ASICS Chaussures de running femme Gel-Excite 11 Violet et vert" [ref=f11e1551] [cursor=pointer]:
+                - /url: /violet_et_vert-chaussures_de_running_femme_gel_excite_11-asics-p-1012B8DRDA/
+              - generic [ref=f11e1552]: 12 couleurs
+              - generic [ref=f11e1554]:
+                - generic [ref=f11e1555]: 53,99 €
+                - deletion [ref=f11e1557]: 89,99 €
+            - button [ref=f11e1558] [cursor=pointer]
+        - article [ref=f11e1561]:
+          - generic [ref=f11e1562]:
+            - generic [ref=f11e1563]:
+              - generic [ref=f11e1565]:
+                - img "Soldes" [ref=f11e1567]
+                - generic [ref=f11e1568]: "-40%"
+              - generic [ref=f11e1569]:
+                - generic [ref=f11e1570]:
+                  - link [ref=f11e1571] [cursor=pointer]:
+                    - /url: /vert_et_blanc-chaussures_de_running_enfant_gel_noosa_tri_16_gs-asics-p-1014A37RE0/
+                    - img "Chaussures de running enfant Gel-Noosa Tri 16 GS Multicolore 1014A37 ASICS" [ref=f11e1572]
+                  - link "Chaussures de running enfant Gel-Noosa Tri 16 GS":
+                    - /url: /vert_et_blanc-chaussures_de_running_enfant_gel_noosa_tri_16_gs-asics-p-1014A37RE0/
+                - navigation [ref=f11e1573]:
+                  - img "Chaussures de running enfant Gel-Noosa Tri 16 GS Multicolore 1014A37 ASICS" [ref=f11e1576] [cursor=pointer]
+                  - img "Chaussures de running enfant Gel-Noosa Tri 16 GS Multicolore 1014A37 ASICS" [ref=f11e1579] [cursor=pointer]
+                  - img "Chaussures de running enfant Gel-Noosa Tri 16 GS Multicolore 1014A37 ASICS" [ref=f11e1582] [cursor=pointer]
+                  - img "Chaussures de running enfant Gel-Noosa Tri 16 GS Multicolore 1014A37 ASICS" [ref=f11e1585] [cursor=pointer]
+                  - img "Chaussures de running enfant Gel-Noosa Tri 16 GS Multicolore 1014A37 ASICS" [ref=f11e1588] [cursor=pointer]
+                  - generic [ref=f11e1589]: "+4"
+            - generic [ref=f11e1590]:
+              - link "ASICS Chaussures de running enfant Gel-Noosa Tri 16 GS Vert et blanc" [ref=f11e1591] [cursor=pointer]:
+                - /url: /vert_et_blanc-chaussures_de_running_enfant_gel_noosa_tri_16_gs-asics-p-1014A37RE0/
+              - generic [ref=f11e1592]: 9 couleurs
+              - generic [ref=f11e1594]: 2 articles soldés achetés, le 3ème offert
+              - generic [ref=f11e1595]:
+                - generic [ref=f11e1596]: 44,99 €
+                - deletion [ref=f11e1598]: 74,99 €
+            - button [ref=f11e1599] [cursor=pointer]
+      - navigation "Pagination" [ref=f11e1602]:
+        - button "Page suivante" [ref=f11e1603] [cursor=pointer]
+        - list [ref=f11e1605]:
+          - listitem [ref=f11e1606]:
+            - generic [ref=f11e1607]: Page précédente
+          - listitem [ref=f11e1608]:
+            - generic [ref=f11e1609]: Vous êtes sur la page
+            - text: "1"
+          - listitem [ref=f11e1610]:
+            - link "2" [ref=f11e1611] [cursor=pointer]:
+              - /url: https://www.intersport.fr/search/?text=superblast 3&page=1
+          - listitem [ref=f11e1612]:
+            - link "3" [ref=f11e1613] [cursor=pointer]:
+              - /url: https://www.intersport.fr/search/?text=superblast 3&page=2
+          - listitem [ref=f11e1614]: …
+          - listitem [ref=f11e1615]:
+            - link "9" [ref=f11e1616] [cursor=pointer]:
+              - /url: https://www.intersport.fr/search/?text=superblast 3&page=8
+          - listitem [ref=f11e1617]:
+            - link "Page suivante" [ref=f11e1618] [cursor=pointer]:
+              - /url: https://www.intersport.fr/search/?text=superblast 3&page=1
+  - dialog [ref=f11e1620]:
+    - generic [ref=f11e1622]:
+      - generic [ref=f11e1623]:
+        - generic [ref=f11e1624]:
+          - button [ref=f11e1625] [cursor=pointer]
+          - generic [ref=f11e1626]: Filtrer les produits
+        - region "Menu de sections réductibles" [ref=f11e1629]:
+          - listitem [ref=f11e1630]:
+            - button "Section Trier par" [expanded] [ref=f11e1631] [cursor=pointer]: Trier par
+            - region [ref=f11e1632]:
+              - group "Trier par" [ref=f11e1634]:
+                - list [ref=f11e1635]:
+                  - listitem [ref=f11e1636]:
+                    - checkbox "Meilleures ventes" [checked] [ref=f11e1638] [cursor=pointer]
+                  - listitem [ref=f11e1641]:
+                    - checkbox "Prix croissant" [ref=f11e1643] [cursor=pointer]
+                  - listitem [ref=f11e1646]:
+                    - checkbox "Prix décroissant" [ref=f11e1648] [cursor=pointer]
+          - listitem [ref=f11e1651]:
+            - button "Section Disponibilité en magasin" [expanded] [ref=f11e1652] [cursor=pointer]: Disponibilité en magasin
+            - region [ref=f11e1653]:
+              - button "Choisir un magasin pour voir la disponibilité" [ref=f11e1655] [cursor=pointer]
+          - listitem [ref=f11e1656]:
+            - button "Section Produits" [expanded] [ref=f11e1657] [cursor=pointer]: Produits
+            - region [ref=f11e1658]:
+              - list [ref=f11e1660]:
+                - listitem [ref=f11e1661]:
+                  - checkbox "Chaussures (162)" [ref=f11e1663] [cursor=pointer]:
+                    - link "Chaussures (162)":
+                      - /url: /search?q=superblast+3%3A%3ATypeProduit%3AChaussures
+                - listitem [ref=f11e1666]:
+                  - checkbox "Chaussettes (80)" [ref=f11e1668] [cursor=pointer]:
+                    - link "Chaussettes (80)":
+                      - /url: /search?q=superblast+3%3A%3ATypeProduit%3AChaussettes
+                - listitem [ref=f11e1671]:
+                  - checkbox "Sneakers (25)" [ref=f11e1673] [cursor=pointer]:
+                    - link "Sneakers (25)":
+                      - /url: /search?q=superblast+3%3A%3ATypeProduit%3ASneakers
+                - listitem [ref=f11e1676]:
+                  - checkbox "Casquette (24)" [ref=f11e1678] [cursor=pointer]:
+                    - link "Casquette (24)":
+                      - /url: /search?q=superblast+3%3A%3ATypeProduit%3ACasquette
+                - button "Afficher plus" [ref=f11e1681] [cursor=pointer]
+          - listitem [ref=f11e1682]:
+            - button "Section Genre" [expanded] [ref=f11e1683] [cursor=pointer]: Genre
+            - region [ref=f11e1684]:
+              - list [ref=f11e1686]:
+                - listitem [ref=f11e1687]:
+                  - checkbox "Homme (108)" [ref=f11e1689] [cursor=pointer]:
+                    - link "Homme (108)":
+                      - /url: /search?q=superblast+3%3A%3AGenreProduit%3A0B.1
+                - listitem [ref=f11e1692]:
+                  - checkbox "Garçon (99)" [ref=f11e1694] [cursor=pointer]:
+                    - link "Garçon (99)":
+                      - /url: /search?q=superblast+3%3A%3AGenreProduit%3A0B.4
+                - listitem [ref=f11e1697]:
+                  - checkbox "Femme (87)" [ref=f11e1699] [cursor=pointer]:
+                    - link "Femme (87)":
+                      - /url: /search?q=superblast+3%3A%3AGenreProduit%3A0B.2
+                - listitem [ref=f11e1702]:
+                  - checkbox "Adulte (34)" [ref=f11e1704] [cursor=pointer]:
+                    - link "Adulte (34)":
+                      - /url: /search?q=superblast+3%3A%3AGenreProduit%3A0B.6
+                - button "Afficher plus" [ref=f11e1707] [cursor=pointer]
+          - listitem [ref=f11e1708]:
+            - button "Section Marques" [expanded] [ref=f11e1709] [cursor=pointer]: Marques
+            - region [ref=f11e1710]:
+              - list [ref=f11e1712]:
+                - listitem [ref=f11e1713]:
+                  - checkbox "ASICS (345)" [ref=f11e1715] [cursor=pointer]:
+                    - link "ASICS (345)":
+                      - /url: /search?q=superblast+3%3A%3Abrand%3AMQ_O40
+          - listitem [ref=f11e1718]:
+            - button "Section Prix" [expanded] [ref=f11e1719] [cursor=pointer]: Prix
+            - region [ref=f11e1720]:
+              - generic [ref=f11e1722]:
+                - generic [ref=f11e1724]:
+                  - textbox "Prix minimum" [ref=f11e1725]: 6€
+                  - textbox "Prix maximum" [ref=f11e1727]: 200€
+                - generic [ref=f11e1728]:
+                  - generic [ref=f11e1730]:
+                    - generic [ref=f11e1735]: 6€
+                    - generic [ref=f11e1736]: 200€
+                  - textbox [ref=f11e1740]: 6;200
+          - listitem [ref=f11e1741]:
+            - button "Section Tailles de chaussures" [expanded] [ref=f11e1742] [cursor=pointer]: Tailles de chaussures
+            - region [ref=f11e1743]:
+              - generic [ref=f11e1745]:
+                - checkbox "39" [ref=f11e1746] [cursor=pointer]:
+                  - link "39":
+                    - /url: /search?q=superblast+3%3A%3AsizeShoes%3A39
+                - checkbox "37" [ref=f11e1747] [cursor=pointer]:
+                  - link "37":
+                    - /url: /search?q=superblast+3%3A%3AsizeShoes%3A37
+                - checkbox "38" [ref=f11e1748] [cursor=pointer]:
+                  - link "38":
+                    - /url: /search?q=superblast+3%3A%3AsizeShoes%3A38
+                - checkbox "40" [ref=f11e1749] [cursor=pointer]:
+                  - link "40":
+                    - /url: /search?q=superblast+3%3A%3AsizeShoes%3A40
+                - checkbox "39,5" [ref=f11e1750] [cursor=pointer]:
+                  - link "39,5":
+                    - /url: /search?q=superblast+3%3A%3AsizeShoes%3A39%2C5
+                - checkbox "37,5" [ref=f11e1751] [cursor=pointer]:
+                  - link "37,5":
+                    - /url: /search?q=superblast+3%3A%3AsizeShoes%3A37%2C5
+                - checkbox "36" [ref=f11e1752] [cursor=pointer]:
+                  - link "36":
+                    - /url: /search?q=superblast+3%3A%3AsizeShoes%3A36
+                - checkbox "41,5" [ref=f11e1753] [cursor=pointer]:
+                  - link "41,5":
+                    - /url: /search?q=superblast+3%3A%3AsizeShoes%3A41%2C5
+                - checkbox "40,5" [ref=f11e1754] [cursor=pointer]:
+                  - link "40,5":
+                    - /url: /search?q=superblast+3%3A%3AsizeShoes%3A40%2C5
+                - checkbox "42" [ref=f11e1755] [cursor=pointer]:
+                  - link "42":
+                    - /url: /search?q=superblast+3%3A%3AsizeShoes%3A42
+                - button "Afficher plus de tailles" [ref=f11e1756] [cursor=pointer]
+          - listitem [ref=f11e1757]:
+            - button "Section Tailles de vêtements" [expanded] [ref=f11e1758] [cursor=pointer]: Tailles de vêtements
+            - region [ref=f11e1759]:
+              - generic [ref=f11e1761]:
+                - checkbox "M" [ref=f11e1762] [cursor=pointer]:
+                  - link "M":
+                    - /url: /search?q=superblast+3%3A%3AsizeApparel%3AM
+                - checkbox "L" [ref=f11e1763] [cursor=pointer]:
+                  - link "L":
+                    - /url: /search?q=superblast+3%3A%3AsizeApparel%3AL
+                - checkbox "S" [ref=f11e1764] [cursor=pointer]:
+                  - link "S":
+                    - /url: /search?q=superblast+3%3A%3AsizeApparel%3AS
+                - checkbox "XL" [ref=f11e1765] [cursor=pointer]:
+                  - link "XL":
+                    - /url: /search?q=superblast+3%3A%3AsizeApparel%3AXL
+                - checkbox "TU" [ref=f11e1766] [cursor=pointer]:
+                  - link "TU":
+                    - /url: /search?q=superblast+3%3A%3AsizeApparel%3ATU
+                - checkbox "35-38" [ref=f11e1767] [cursor=pointer]:
+                  - link "35-38":
+                    - /url: /search?q=superblast+3%3A%3AsizeApparel%3A35-38
+                - checkbox "S/M" [ref=f11e1768] [cursor=pointer]:
+                  - link "S/M":
+                    - /url: /search?q=superblast+3%3A%3AsizeApparel%3AS%2FM
+                - checkbox "47-49" [ref=f11e1769] [cursor=pointer]:
+                  - link "47-49":
+                    - /url: /search?q=superblast+3%3A%3AsizeApparel%3A47-49
+                - checkbox "M/L" [ref=f11e1770] [cursor=pointer]:
+                  - link "M/L":
+                    - /url: /search?q=superblast+3%3A%3AsizeApparel%3AM%2FL
+                - checkbox "39-42" [ref=f11e1771] [cursor=pointer]:
+                  - link "39-42":
+                    - /url: /search?q=superblast+3%3A%3AsizeApparel%3A39-42
+                - button "Afficher plus de tailles" [ref=f11e1772] [cursor=pointer]
+          - listitem [ref=f11e1773]:
+            - button "Section Sports" [expanded] [ref=f11e1774] [cursor=pointer]: Sports
+            - region [ref=f11e1775]:
+              - list [ref=f11e1777]:
+                - listitem [ref=f11e1778]:
+                  - checkbox "running (196)" [ref=f11e1780] [cursor=pointer]:
+                    - link "running (196)":
+                      - /url: /search?q=superblast+3%3A%3ASportProduit%3A0A.13
+                - listitem [ref=f11e1783]:
+                  - checkbox "tennis (35)" [ref=f11e1785] [cursor=pointer]:
+                    - link "tennis (35)":
+                      - /url: /search?q=superblast+3%3A%3ASportProduit%3A0A.30
+                - listitem [ref=f11e1788]:
+                  - checkbox "trail (28)" [ref=f11e1790] [cursor=pointer]:
+                    - link "trail (28)":
+                      - /url: /search?q=superblast+3%3A%3ASportProduit%3A0A.20
+                - listitem [ref=f11e1793]:
+                  - checkbox "musculation (24)" [ref=f11e1795] [cursor=pointer]:
+                    - link "musculation (24)":
+                      - /url: /search?q=superblast+3%3A%3ASportProduit%3A0A.8
+                - button "Afficher plus" [ref=f11e1798] [cursor=pointer]
+      - button "Voir les 345 produits" [ref=f11e1800] [cursor=pointer]
+  - dialog [ref=f11e1801]:
+    - generic [ref=f11e1806]:
+      - generic [ref=f11e1807]:
+        - button "Fermer la sélection de magasin" [ref=f11e1808] [cursor=pointer]
+        - generic [ref=f11e1809]: Sélectionner un magasin
+      - generic [ref=f11e1810]:
+        - generic [ref=f11e1811]:
+          - generic [ref=f11e1812]:
+            - textbox "Rechercher un magasin par ville ou code postal" [ref=f11e1813]
+            - generic: Saisir une ville ou un code postal
+            - button "Rechercher les magasins" [ref=f11e1814] [cursor=pointer]
+          - text: i
+        - generic [ref=f11e1816]:
+          - text: i
+          - paragraph [ref=f11e1818]: Aucun résultat n'a été trouvé
+  - generic [ref=f11e1821]:
+    - generic [ref=f11e1822]:
+      - button [ref=f11e1823] [cursor=pointer]
+      - list [ref=f11e1826]
+    - generic [ref=f11e1827]: Traitement en cours ...
+    - generic [ref=f11e1836]:
+      - button "Ajouter au panier" [ref=f11e1837] [cursor=pointer]
+      - generic [ref=f11e1838] [cursor=pointer]: Voir le produit
+  - generic [ref=f11e1839]:
+    - complementary [ref=f11e1840]:
+      - generic [ref=f11e1843]:
+        - link [ref=f11e1845] [cursor=pointer]:
+          - /url: /livraison/
+          - paragraph [ref=f11e1849]: Livraison offerte
+          - paragraph [ref=f11e1850]: à partir de 59,99€ *
+        - link [ref=f11e1852] [cursor=pointer]:
+          - /url: /livraison/
+          - paragraph [ref=f11e1856]: Click & Collect
+          - paragraph [ref=f11e1857]: Retrait rapide en magasin
+        - link [ref=f11e1859] [cursor=pointer]:
+          - /url: /paiement/
+          - paragraph [ref=f11e1863]: Paiement
+          - paragraph [ref=f11e1864]: 100% sécurisé
+        - link [ref=f11e1866] [cursor=pointer]:
+          - /url: /retours-remboursement/
+          - paragraph [ref=f11e1870]: Echange et retour
+          - paragraph [ref=f11e1871]: Sous 100 jours *
+        - link [ref=f11e1873] [cursor=pointer]:
+          - /url: /faq/
+          - paragraph [ref=f11e1877]: Aide & contact
+          - paragraph [ref=f11e1878]: A votre service
+      - paragraph [ref=f11e1880]: "* Pour les membres de la Team INTERSPORT"
+    - complementary [ref=f11e1881]:
+      - generic [ref=f11e1885]:
+        - paragraph [ref=f11e1886]:
+          - text: 5€ de bienvenue
+          - generic [ref=f11e1887]:
+            - text: directement dans votre cagnotte
+            - superscript [ref=f11e1888]: "*"
+        - paragraph [ref=f11e1889]:
+          - text: 5€ cagnottés à chaque ACHAT
+          - superscript [ref=f11e1890]: "**"
+        - link "J'adhère gratuitement" [ref=f11e1891] [cursor=pointer]:
+          - /url: https://www.intersport.fr/fidelity/
+        - paragraph [ref=f11e1892]:
+          - superscript [ref=f11e1893]: "*"
+          - text: Voir les conditions du
+          - link "programme de fidélité INTERSPORT" [ref=f11e1894] [cursor=pointer]:
+            - /url: https://www.intersport.fr/cartefid/
+          - text: .
+        - paragraph [ref=f11e1895]:
+          - superscript [ref=f11e1896]: "**"
+          - text: Achat en magasin et sur
+          - link "intersport.fr" [ref=f11e1897] [cursor=pointer]:
+            - /url: https://www.intersport.fr/
+          - text: .
+      - link [ref=f11e1899] [cursor=pointer]:
+        - /url: https://www.blackstore.fr/?utm_medium=intersport&utm_source=intersport.fr&utm_campaign=footer
+    - contentinfo [ref=f11e1901]:
+      - generic [ref=f11e1902]:
+        - generic [ref=f11e1903]:
+          - generic [ref=f11e1904]:
+            - paragraph [ref=f11e1905]: Nos magasins
+            - paragraph [ref=f11e1906]:
+              - link "Voir la carte" [ref=f11e1907] [cursor=pointer]:
+                - /url: https://www.intersport.fr/store-finder/
+            - paragraph [ref=f11e1908]: Suivez-nous
+            - list [ref=f11e1909]:
+              - listitem [ref=f11e1910]:
+                - link "Compte Facebook d'Intersport" [ref=f11e1911] [cursor=pointer]:
+                  - /url: https://www.facebook.com/intersport.france/
+              - listitem [ref=f11e1913]:
+                - link "Compte Instagram d'Intersport" [ref=f11e1914] [cursor=pointer]:
+                  - /url: https://www.instagram.com/intersportfr/
+              - listitem [ref=f11e1916]:
+                - link "Compte Tiktok d'Intersport" [ref=f11e1917] [cursor=pointer]:
+                  - /url: https://www.tiktok.com/@intersportfr/
+              - listitem [ref=f11e1919]:
+                - link "Compte Youtube d'Intersport" [ref=f11e1920] [cursor=pointer]:
+                  - /url: https://www.youtube.com/@INTERSPORTFrance/
+              - listitem [ref=f11e1922]:
+                - link "Compte Twitter d'Intersport" [ref=f11e1923] [cursor=pointer]:
+                  - /url: https://x.com/intersport_fr/
+            - generic [ref=f11e1925]:
+              - paragraph [ref=f11e1926]: L'avis de nos clients
+              - generic "Note moyenne 4.2 sur 5 basée sur 76709 avis" [ref=f11e1927]:
+                - generic [ref=f11e1928]:
+                  - generic [ref=f11e1931]: "4.2"
+                  - text: sur
+                  - link [ref=f11e1932] [cursor=pointer]:
+                    - /url: https://trustville.fr/avis-clients/ca/3518/distribution/intersport/
+                    - text: 76709 avis
+          - region "Menu de sections réductibles" [ref=f11e1933]:
+            - generic [ref=f11e1934]:
+              - paragraph [ref=f11e1935]: À propos d'INTERSPORT
+              - list [ref=f11e1937]:
+                - listitem [ref=f11e1938]:
+                  - link "Qui sommes-nous ?" [ref=f11e1939] [cursor=pointer]:
+                    - /url: https://presse.intersport.fr/intersport-en-france/
+                - listitem [ref=f11e1940]:
+                  - link "Nos magasins" [ref=f11e1941] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/store-finder/
+                - listitem [ref=f11e1942]:
+                  - link "Presse et actualités" [ref=f11e1943] [cursor=pointer]:
+                    - /url: https://presse.intersport.fr/
+                - listitem [ref=f11e1944]:
+                  - link "Nos engagements" [ref=f11e1945] [cursor=pointer]:
+                    - /url: https://engages-sport.intersport.fr/
+                - listitem [ref=f11e1946]:
+                  - link "Fin de vie des produits" [ref=f11e1947] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/jouons-collectif/
+                - listitem [ref=f11e1948]:
+                  - link "Nos marques propres" [ref=f11e1949] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/nos-marques/
+                - listitem [ref=f11e1950]:
+                  - link "Toutes les marques" [ref=f11e1951] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/marques/
+                - listitem [ref=f11e1952]:
+                  - link "Nos partenariats" [ref=f11e1953] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/nos-partenariats/
+                - listitem [ref=f11e1954]:
+                  - link "Nous rejoindre" [ref=f11e1955] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/nous-rejoindre/
+                - listitem [ref=f11e1956]:
+                  - link "INTERSPORT International" [ref=f11e1957] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/intersport-international/
+                - listitem [ref=f11e1958]:
+                  - link "INTERSPORT Belgique" [ref=f11e1959] [cursor=pointer]:
+                    - /url: https://www.intersport.be/fr
+                - listitem [ref=f11e1960]:
+                  - link "INTERSPORT Portugal" [ref=f11e1961] [cursor=pointer]:
+                    - /url: https://www.intersport.pt/
+                - listitem [ref=f11e1962]:
+                  - link "Rapport de durabilité" [ref=f11e1963] [cursor=pointer]:
+                    - /url: https://engages-sport.intersport.fr/media/files/RAPPORT-DURABILITE-V.LONGUE-2025.pdf
+                - listitem [ref=f11e1964]:
+                  - link "Vélo direct usine" [ref=f11e1965] [cursor=pointer]:
+                    - /url: https://www.velodirectusine.com/
+          - region "Menu de sections réductibles" [ref=f11e1966]:
+            - generic [ref=f11e1967]:
+              - paragraph [ref=f11e1968]: Besoin d'aide
+              - list [ref=f11e1970]:
+                - listitem [ref=f11e1971]:
+                  - link "FAQ" [ref=f11e1972] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/faq/
+                - listitem [ref=f11e1973]:
+                  - link "Livraison" [ref=f11e1974] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/livraison/
+                - listitem [ref=f11e1975]:
+                  - link "Echange et retour" [ref=f11e1976] [cursor=pointer]:
+                    - /url: /retours-remboursement/
+                - listitem [ref=f11e1977]:
+                  - link "Guide des tailles" [ref=f11e1978] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/guide-des-tailles/
+                - listitem [ref=f11e1979]:
+                  - link "Nos Guides & Conseils" [ref=f11e1980] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/contenus/
+                - listitem [ref=f11e1981]:
+                  - link "Mon compte" [ref=f11e1982] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/login/
+                - listitem [ref=f11e1983]:
+                  - link "Rappels produits / Informations consommateurs" [ref=f11e1984] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/rappels-produits/
+                - listitem [ref=f11e1985]:
+                  - link "Notices et certificats Nakamura" [ref=f11e1986] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/marques/nakamura/notices-et-certificats-conformite/
+                - listitem [ref=f11e1987]:
+                  - link "Pièces détachées" [ref=f11e1988] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/pieces-detachees/
+                - listitem [ref=f11e1989]:
+                  - link "Nos tutoriels réparations" [ref=f11e1990] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/contenus/reparation/
+          - region "Menu de sections réductibles" [ref=f11e1991]:
+            - generic [ref=f11e1992]:
+              - paragraph [ref=f11e1993]: Nos services
+              - list [ref=f11e1995]:
+                - listitem [ref=f11e1996]:
+                  - link "Programme de fidelité" [ref=f11e1997] [cursor=pointer]:
+                    - /url: /cartefid/
+                - listitem [ref=f11e1998]:
+                  - link "Club partenaires" [ref=f11e1999] [cursor=pointer]:
+                    - /url: https://intersport-clubpartenaires.fr/?utm_source=crm&utm_medium=digital&utm_campaign=siteits&utm_content=footer
+                - listitem [ref=f11e2000]:
+                  - link "Carte cadeau" [ref=f11e2001] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/cartes-cadeaux/
+                - listitem [ref=f11e2002]:
+                  - link "Nos services en magasin" [ref=f11e2003] [cursor=pointer]:
+                    - /url: https://www.intersport.fr/services-en-magasins/
+                - listitem [ref=f11e2004]:
+                  - link "Location de ski" [ref=f11e2005] [cursor=pointer]:
+                    - /url: https://www.intersport-rent.fr/?utm_source=intersport.fr&utm_content=footer&utm_medium=partenaire&utm_campaign=intersportfr_fr_home
+                - listitem [ref=f11e2006]:
+                  - link "Clubs & collectivités" [ref=f11e2007] [cursor=pointer]:
+                    - /url: https://www.intersport-clubs.fr/
+                - listitem [ref=f11e2008]:
+                  - link "Découvrez Blackstore.fr" [ref=f11e2009] [cursor=pointer]:
+                    - /url: https://www.blackstore.fr/
+                - listitem [ref=f11e2010]
+        - region "Menu de sections réductibles" [ref=f11e2012]:
+          - list [ref=f11e2015]:
+            - listitem [ref=f11e2016]:
+              - link "Infos légales" [ref=f11e2017] [cursor=pointer]:
+                - /url: https://www.intersport.fr/infos-legales/
+            - listitem [ref=f11e2018]:
+              - link "CGV" [ref=f11e2019] [cursor=pointer]:
+                - /url: https://www.intersport.fr/cgv/
+            - listitem [ref=f11e2020]:
+              - link "CGV magasins" [ref=f11e2021] [cursor=pointer]:
+                - /url: https://www.intersport.fr/infos-legales/cgv-magasins//
+            - listitem [ref=f11e2022]:
+              - link "Mentions légales" [ref=f11e2023] [cursor=pointer]:
+                - /url: https://www.intersport.fr/mentions/
+            - listitem [ref=f11e2024]:
+              - link "Contact" [ref=f11e2025] [cursor=pointer]:
+                - /url: https://www.intersport.fr/contact/
+            - listitem [ref=f11e2026]:
+              - link "Confidentialité" [ref=f11e2027] [cursor=pointer]:
+                - /url: https://www.intersport.fr/politique-donnees/
+            - listitem [ref=f11e2028]:
+              - link "Cookies" [ref=f11e2029] [cursor=pointer]:
+                - /url: https://www.intersport.fr/politique-cookies/
+            - listitem [ref=f11e2030]:
+              - 'link "Accessibilité : partiellement conforme" [ref=f11e2031] [cursor=pointer]':
+                - /url: "https://www.intersport.fr/accessibilite/ "
+            - listitem [ref=f11e2032]:
+              - link "Paramétrer les cookies" [ref=f11e2033] [cursor=pointer]:
+                - /url: "#"
+  - status
+  - link:
+    - /url: "#"
+  - generic [ref=f11e2036]:
+    - generic [ref=f11e2037]:
+      - button "Close modal" [ref=f11e2038] [cursor=pointer]
+      - generic [ref=f11e2041]:
+        - img "Team intersport" [ref=f11e2043]
+        - generic [ref=f11e2044]: J'adhère à la team intersport et cagnotte immédiatement 5€**
+    - generic [ref=f11e2046]:
+      - generic [ref=f11e2051]:
+        - generic [ref=f11e2052]:
+          - text: Contactez-moi par
+          - strong [ref=f11e2053]: SMS
+          - text: pour recevoir
+          - strong [ref=f11e2054]: mes avantages fidélité
+          - generic [ref=f11e2055]: ma cagnotte, mes bons d’achat, mes exclusivités,...
+        - generic [ref=f11e2056]:
+          - radio "Oui" [ref=f11e2057] [cursor=pointer]
+          - radio "Non" [ref=f11e2058] [cursor=pointer]
+      - generic [ref=f11e2063]:
+        - generic [ref=f11e2064]:
+          - text: Envoyez-moi par
+          - strong [ref=f11e2065]: Email
+          - text: les meilleures offres d'
+          - strong [ref=f11e2066]: INTERSPORT
+          - generic [ref=f11e2067]: les promos sur les grandes marques, les avant-premières & offres privilèges, le club partenaires ...
+        - generic [ref=f11e2068]:
+          - radio "Oui" [ref=f11e2069] [cursor=pointer]
+          - radio "Non" [ref=f11e2070] [cursor=pointer]
+      - generic [ref=f11e2075]:
+        - generic [ref=f11e2076]:
+          - text: Pour recevoir un cadeau d'anniversaire pour les membres des
+          - strong [ref=f11e2077]: Teams Or et Argent
+        - generic [ref=f11e2078]:
+          - textbox "Date de naissance" [ref=f11e2079]:
+            - /placeholder: jj/mm/aaaa
+          - generic: Date de naissance
+      - generic [ref=f11e2080]:
+        - button "J'adhère" [ref=f11e2082] [cursor=pointer]
+        - generic [ref=f11e2084]:
+          - text: En cliquant sur "J'adhère", j'accepte les
+          - link "conditions générales du programme" [ref=f11e2085] [cursor=pointer]:
+            - /url: https://media.intersport.fr/is/content/intersportfr/pdf/cgv/CGV_programme_fidelite.pdf
+          - text: "*Champs obligatoires **Conditions et règlement du programme sur intersport.fr"
