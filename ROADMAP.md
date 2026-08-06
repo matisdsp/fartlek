@@ -55,6 +55,7 @@ The write path is dropped, permanently. Rationale in [`docs/DESIGN.md`](docs/DES
 
 ## v0.3 — Read-side depth & the quality programme
 
+- [x] **Gear** — `garmin_gear` (mileage vs the athlete's Garmin-set retirement limits, replacement verdict, 90-day rotation), the pair worn inlined in `garmin_activity`, a `gear` source in `garmin_raw`; `gear`/`activity_gear` tables, tiered sync with bounded background attribution *(promoted from Phase 4)*
 - [ ] Eval harness: ~30 multi-tool tasks across Claude Code / Desktop / Cursor
 - [ ] Token + calls-per-task regression gates
 - [ ] Transcript audits — every number the LLM re-derives is a missing server-side pre-computation

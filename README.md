@@ -18,6 +18,7 @@ Every other Garmin MCP server hands the LLM a filing cabinet of raw JSON — one
 | `garmin_activities` | Browse the log, get activity IDs | 1,300 |
 | `garmin_activity` | One session in depth: reps, fade, comparison to your most similar past session | 1,000–4,000 |
 | `garmin_athlete` | Reference card: zones, PRs, goal, data coverage | 600 |
+| `garmin_gear` | Shoe/bike mileage vs your Garmin-set retirement limits, and what you're actually rotating | 500 |
 | `garmin_set_profile` | Tell it your goal race / phase / availability (local only) | 200 |
 | `garmin_log` | Log RPE, wellness, illness/injury — the athlete outranks the sensors | 120 |
 | `garmin_sync` | Force refresh / deepen history backfill | 150 |
