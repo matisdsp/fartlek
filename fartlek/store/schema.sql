@@ -181,6 +181,36 @@ CREATE TABLE IF NOT EXISTS plan_calendar (
 );
 CREATE INDEX IF NOT EXISTS idx_plan_date ON plan_calendar(date);
 
+-- The athlete's gear locker (shoes, bikes) as Garmin holds it. `total_meters`
+-- and `total_activities` are Garmin's own odometer, authoritative because it
+-- counts activities older than this store's history window; `max_meters` is
+-- the retirement distance the athlete set in Garmin Connect (NULL => none set).
+CREATE TABLE IF NOT EXISTS gear (
+    uuid             TEXT PRIMARY KEY,
+    gear_pk          INTEGER,
+    type             TEXT NOT NULL,             -- 'shoes' | 'bike' | 'other'
+    name             TEXT NOT NULL,             -- athlete's label, else the make/model
+    make_model       TEXT,                      -- customMakeModel, disambiguates repeats
+    status           TEXT NOT NULL,             -- 'active' | 'retired'
+    date_begin       TEXT,                      -- YYYY-MM-DD, in service since
+    date_end         TEXT,
+    max_meters       REAL,                      -- athlete-set retirement threshold
+    total_meters     REAL,                      -- Garmin odometer (gear/stats)
+    total_activities INTEGER,
+    synced_at        TEXT NOT NULL
+);
+
+-- Which gear was worn on which session. Many-to-many: one session can carry
+-- shoes and a heart-rate strap, one pair covers hundreds of sessions. This is
+-- what makes per-shoe mileage locally verifiable and per-shoe comparison
+-- possible; Garmin's odometer alone cannot answer "which pair, which session".
+CREATE TABLE IF NOT EXISTS activity_gear (
+    activity_id INTEGER NOT NULL REFERENCES activities(activity_id),
+    gear_uuid   TEXT NOT NULL REFERENCES gear(uuid),
+    PRIMARY KEY (activity_id, gear_uuid)
+);
+CREATE INDEX IF NOT EXISTS idx_activity_gear_uuid ON activity_gear(gear_uuid);
+
 CREATE TABLE IF NOT EXISTS capability_map (
     key       TEXT PRIMARY KEY,                 -- e.g. 'activityTrainingLoad', 'training_readiness'
     available INTEGER NOT NULL,

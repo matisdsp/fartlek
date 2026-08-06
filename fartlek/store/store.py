@@ -273,6 +273,80 @@ class Store:
             "SELECT * FROM activity_digests WHERE activity_id = ?", (activity_id,)
         )
 
+    # --- gear ---
+    def upsert_gear(self, row: dict[str, Any]) -> None:
+        self._upsert("gear", row)
+
+    def get_gear(self, uuid: str) -> dict[str, Any] | None:
+        return self._one("SELECT * FROM gear WHERE uuid = ?", (uuid,))
+
+    def list_gear(self, include_retired: bool = False) -> list[dict[str, Any]]:
+        """The locker, most recently put in service first. Retired gear is
+        excluded unless asked for — it is history, not a rotation choice."""
+        where = "" if include_retired else "WHERE status != 'retired' "
+        return self._all(f"SELECT * FROM gear {where}ORDER BY date_begin DESC, name")
+
+    def replace_activity_gear(self, activity_id: int, gear_uuids: list[str]) -> None:
+        """Replace this session's gear links wholesale — a re-fetch is
+        authoritative, and the athlete can correct the pair after the fact."""
+        with self._conn:
+            self._conn.execute(
+                "DELETE FROM activity_gear WHERE activity_id = ?", (activity_id,)
+            )
+            self._conn.executemany(
+                "INSERT INTO activity_gear (activity_id, gear_uuid) VALUES (?, ?)",
+                [(activity_id, uuid) for uuid in gear_uuids],
+            )
+
+    def gear_for_activity(self, activity_id: int) -> list[dict[str, Any]]:
+        """Gear rows worn on this session (empty when none is linked)."""
+        return self._all(
+            "SELECT g.* FROM activity_gear ag JOIN gear g ON g.uuid = ag.gear_uuid "
+            "WHERE ag.activity_id = ? ORDER BY g.name",
+            (activity_id,),
+        )
+
+    def activities_missing_gear(
+        self, start_date: str, end_date: str, sport_like: str = "%"
+    ) -> list[dict[str, Any]]:
+        """Activities in the window with no gear link yet — the attribution
+        work list, newest first. Same shape as activities_missing_laps: the
+        list itself is the cursor, so a partial run just leaves a shorter one."""
+        return self._all(
+            "SELECT a.* FROM activities a "
+            "LEFT JOIN activity_gear ag ON ag.activity_id = a.activity_id "
+            "WHERE a.date >= ? AND a.date <= ? AND a.sport LIKE ? "
+            "AND ag.activity_id IS NULL "
+            "GROUP BY a.activity_id ORDER BY a.date DESC",
+            (start_date, end_date, sport_like),
+        )
+
+    def gear_usage(self, start_date: str, end_date: str) -> dict[str, dict[str, Any]]:
+        """Locally-attributed usage per gear uuid over the window: metres,
+        session count, newest session date. Distinct from gear.total_meters,
+        which is Garmin's all-time odometer — this is what the store can prove."""
+        rows = self._all(
+            "SELECT ag.gear_uuid AS uuid, "
+            "COALESCE(SUM(a.distance_m), 0) AS meters, "
+            "COUNT(*) AS sessions, MAX(a.date) AS last_used "
+            "FROM activity_gear ag JOIN activities a ON a.activity_id = ag.activity_id "
+            "WHERE a.date >= ? AND a.date <= ? GROUP BY ag.gear_uuid",
+            (start_date, end_date),
+        )
+        return {r["uuid"]: r for r in rows}
+
+    def gear_last_used(self) -> dict[str, str]:
+        """Newest linked session date per gear uuid, over the whole store."""
+        return {
+            r["uuid"]: r["last_used"]
+            for r in self._all(
+                "SELECT ag.gear_uuid AS uuid, MAX(a.date) AS last_used "
+                "FROM activity_gear ag JOIN activities a ON a.activity_id = ag.activity_id "
+                "GROUP BY ag.gear_uuid"
+            )
+            if r["last_used"]
+        }
+
     # --- pmc ---
     def replace_pmc(self, rows: list[dict[str, Any]]) -> None:
         """Full rewrite of the pmc table (recomputed from scratch each sync — cheap)."""

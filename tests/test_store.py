@@ -228,6 +228,93 @@ def test_activity_digest_roundtrip(store: Store):
     assert store.get_activity_digest(8) is None
 
 
+# --- gear --------------------------------------------------------------------
+
+
+def gear(uuid: str, name: str, **kw) -> dict:
+    row = {"uuid": uuid, "type": "shoes", "name": name, "status": "active", "synced_at": TS}
+    row.update(kw)
+    return row
+
+
+def test_gear_roundtrip_and_partial_upsert(store: Store):
+    store.upsert_gear(gear("u1", "Bondi 9 I", date_begin="2025-12-02", max_meters=1_000_000.0))
+    store.upsert_gear({"uuid": "u1", "total_meters": 918_000.0, "total_activities": 88})
+    row = store.get_gear("u1")
+    assert row["name"] == "Bondi 9 I"          # untouched by the partial upsert
+    assert row["total_meters"] == 918_000.0
+    assert store.get_gear("nope") is None
+
+
+def test_list_gear_hides_retired_unless_asked(store: Store):
+    store.upsert_gear(gear("u1", "Superblast 3", date_begin="2026-08-02"))
+    store.upsert_gear(gear("u2", "Arahi 7", date_begin="2025-11-01", status="retired"))
+    assert [g["uuid"] for g in store.list_gear()] == ["u1"]
+    # newest in service first
+    assert [g["uuid"] for g in store.list_gear(include_retired=True)] == ["u1", "u2"]
+
+
+def test_gear_unknown_column_raises(store: Store):
+    with pytest.raises(KeyError):
+        store.upsert_gear({"uuid": "u1", "colour": "blue"})
+
+
+def test_activity_gear_links_replace_wholesale(store: Store):
+    store.upsert_gear(gear("u1", "Superblast 3"))
+    store.upsert_gear(gear("u2", "Glycerin"))
+    store.upsert_activity(act(1, "2026-08-06"))
+    store.replace_activity_gear(1, ["u1", "u2"])
+    assert [g["uuid"] for g in store.gear_for_activity(1)] == ["u2", "u1"]  # by name
+    # the athlete corrected the pair after the fact — the re-fetch wins
+    store.replace_activity_gear(1, ["u2"])
+    assert [g["uuid"] for g in store.gear_for_activity(1)] == ["u2"]
+    assert store.gear_for_activity(999) == []
+
+
+def test_activities_missing_gear_is_the_work_list(store: Store):
+    store.upsert_gear(gear("u1", "Superblast 3"))
+    store.upsert_activity(act(1, "2026-08-04"))
+    store.upsert_activity(act(2, "2026-08-05"))
+    store.upsert_activity(act(3, "2026-08-06", sport="strength"))
+    store.replace_activity_gear(2, ["u1"])
+    pending = store.activities_missing_gear("2026-08-01", "2026-08-06")
+    assert [a["activity_id"] for a in pending] == [3, 1]  # newest first
+    runs = store.activities_missing_gear("2026-08-01", "2026-08-06", "%running%")
+    assert [a["activity_id"] for a in runs] == [1]
+
+
+def test_gear_usage_and_last_used(store: Store):
+    store.upsert_gear(gear("u1", "Superblast 3"))
+    store.upsert_gear(gear("u2", "Glycerin"))
+    store.upsert_activity(act(1, "2026-08-04", distance_m=25_000.0))
+    store.upsert_activity(act(2, "2026-08-06", distance_m=34_000.0))
+    store.upsert_activity(act(3, "2026-07-01", distance_m=10_000.0))
+    store.upsert_activity(act(4, "2026-08-05", sport="strength"))  # no distance
+    for aid in (1, 2, 3):
+        store.replace_activity_gear(aid, ["u1"])
+    store.replace_activity_gear(4, ["u2"])
+
+    usage = store.gear_usage("2026-08-01", "2026-08-31")
+    assert usage["u1"] == {"uuid": "u1", "meters": 59_000.0, "sessions": 2,
+                           "last_used": "2026-08-06"}
+    assert usage["u2"]["meters"] == 0  # a distanceless session still counts as one
+    assert usage["u2"]["sessions"] == 1
+    # window-scoped: July's session is out
+    assert store.gear_usage("2026-07-01", "2026-07-31")["u1"]["sessions"] == 1
+    # last_used spans the whole store, not the window
+    assert store.gear_last_used() == {"u1": "2026-08-06", "u2": "2026-08-05"}
+
+
+def test_gear_usage_ignores_links_to_deleted_gear(store: Store):
+    """A pair deleted in Garmin leaves dangling links; the join drops them."""
+    store.upsert_activity(act(1, "2026-08-06", distance_m=12_000.0))
+    with store._conn:
+        store._conn.execute(
+            "INSERT INTO activity_gear (activity_id, gear_uuid) VALUES (1, 'ghost')"
+        )
+    assert store.gear_for_activity(1) == []
+
+
 # --- pmc ---------------------------------------------------------------------
 
 
@@ -406,8 +493,9 @@ def test_export_csv_one_file_per_table(store: Store, tmp_path: Path):
     out = tmp_path / "export"
     paths = store.export_csv(out)
     expected = {"schema_meta", "days", "activities", "sleep_timeline", "activity_laps",
-                "activity_digests", "baselines", "pmc", "alerts", "wellness_log",
-                "athlete_profile", "plan_calendar", "capability_map", "sync_state"}
+                "activity_digests", "gear", "activity_gear", "baselines", "pmc",
+                "alerts", "wellness_log", "athlete_profile", "plan_calendar",
+                "capability_map", "sync_state"}
     assert {p.stem for p in paths} == expected
     assert all(p.exists() and p.parent == out for p in paths)
 
