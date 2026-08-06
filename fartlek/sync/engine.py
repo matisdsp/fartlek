@@ -25,7 +25,7 @@ import json
 import os
 import statistics
 import time
-from collections.abc import Callable
+from collections.abc import Callable, Iterable
 from datetime import UTC, date, datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -83,6 +83,13 @@ USERSTATS_DAILY_METRICS: dict[int, tuple[str, Any]] = {
 SPLITS_HISTORY_DAYS = 120   # §3.2 #12: 8-12 weeks of qualifying sessions
 SPLITS_PER_RUN = 40         # cap per invocation, so one call never runs long
 _SPLITS_SKIP_CAP = 500      # bound on the remembered "this one has no laps" list
+
+GEAR_HISTORY_DAYS = 180     # attribution window: matches the activity history
+GEAR_PER_RUN = 60           # activities attributed per backfill invocation
+_GEAR_SKIP_CAP = 500        # bound on the remembered "this one carries no gear" list
+# A session uploaded minutes ago may not carry its gear yet; only once it has
+# settled does "no gear" become a fact worth remembering rather than a race.
+_GEAR_SETTLE_DAYS = 7
 
 
 class RateLimiter:
@@ -688,6 +695,69 @@ def digest_laps(raw: dict[str, Any], activity_id: int) -> list[dict[str, Any]]:
     return [seen[k] for k in sorted(seen)]
 
 
+# Garmin's gearTypeName, normalized. Anything else ("Other", straps, pods)
+# lands in 'other' — it is still tracked, just never called a shoe.
+_GEAR_TYPES = {"shoes": "shoes", "bike": "bike"}
+
+
+def _gear_day(value: Any) -> str | None:
+    """'2025-11-01T00:00:00.0' → '2025-11-01'; None/'' → None."""
+    return str(value)[:10] if value else None
+
+
+def digest_gear(raw: dict[str, Any]) -> dict[str, Any] | None:
+    """One /gear-service filterGear entry → a `gear` row (None if it has no uuid).
+
+    Naming needs both fields. `displayName` is what the athlete typed and is
+    the only thing that separates two pairs of the same model ("Bondi 9 I" vs
+    "Bondi 9 II"); `customMakeModel` is what they actually are. Garmin leaves
+    displayName null on gear the athlete never renamed, so the label falls
+    back to the model and finally to the make — never to a bare uuid.
+
+    Odometer columns are deliberately absent: they come from the stats
+    endpoint, and a partial upsert must not blank them.
+    """
+    uuid = (raw or {}).get("uuid")
+    if not uuid:
+        return None
+    make_model = raw.get("customMakeModel") or None
+    label = raw.get("displayName") or make_model
+    if not label:
+        parts = [raw.get("gearMakeName"), raw.get("gearModelName")]
+        label = " ".join(p for p in parts if p) or "unnamed gear"
+    type_name = str(raw.get("gearTypeName") or "").strip().lower()
+    max_meters = raw.get("maximumMeters")
+    return {
+        "uuid": str(uuid),
+        "gear_pk": raw.get("gearPk"),
+        "type": _GEAR_TYPES.get(type_name, "other"),
+        "name": str(label),
+        "make_model": make_model,
+        "status": str(raw.get("gearStatusName") or "active").strip().lower(),
+        "date_begin": _gear_day(raw.get("dateBegin")),
+        "date_end": _gear_day(raw.get("dateEnd")),
+        # 0 means "no retirement distance set", which is not the same as 0 km.
+        "max_meters": float(max_meters) if max_meters else None,
+    }
+
+
+def digest_gear_stats(raw: Any, uuid: str) -> dict[str, Any] | None:
+    """One /gear-service/gear/stats payload → the odometer columns of a `gear`
+    row. `uuid` is the one that was asked for: the payload echoes it, but a
+    retired-gear shell may not, and a row keyed on the wrong uuid is worse
+    than no row."""
+    if not isinstance(raw, dict):
+        return None
+    total, count = raw.get("totalDistance"), raw.get("totalActivities")
+    if total is None and count is None:
+        return None
+    return {
+        "uuid": str(raw.get("uuid") or uuid),
+        "total_meters": float(total) if total is not None else None,
+        "total_activities": int(count) if count is not None else None,
+    }
+
+
 class SyncEngine:
     """Fetch-once → digest → store orchestrator. All methods synchronous.
 
@@ -795,6 +865,11 @@ class SyncEngine:
         row = dict(row)
         row["synced_at"] = self._now_iso()
         self.store.upsert_activity(row)
+
+    def _upsert_gear(self, row: dict[str, Any]) -> None:
+        row = dict(row)
+        row["synced_at"] = self._now_iso()
+        self.store.upsert_gear(row)
 
     def _store_sleep(self, raw: dict[str, Any], wake_date: str) -> None:
         row, intervals_json = digest_sleep(raw, wake_date)
@@ -904,6 +979,159 @@ class SyncEngine:
         """Userstats metricId=60 payload → days.resting_hr rows; returns count."""
         return self._store_userstats_range(payload, "resting_hr")
 
+    # --- gear ---
+
+    def _remember_profile_id(self, profile: Any) -> str | None:
+        """Persist Garmin's numeric userProfilePk from a social-profile payload.
+
+        The gear service keys on it, and it is NOT display_name (a GUID) — the
+        login flow keeps the name and drops the number, so it is captured here
+        from the probe tier 0 already makes rather than paid for again.
+        """
+        pid = profile.get("profileId") if isinstance(profile, dict) else None
+        if pid is None:
+            return None
+        self.store.set_sync_state("profile_id", str(pid))
+        return str(pid)
+
+    def _profile_id(self, errors: list[str]) -> str | None:
+        """Cached userProfilePk, refetched only if tier 0 never ran."""
+        cached = self.store.get_sync_state("profile_id")
+        if cached:
+            return cached
+        return self._remember_profile_id(
+            self._try_call("/userprofile-service/socialProfile", errors)
+        )
+
+    def _sync_gear_catalog(self, errors: list[str]) -> int:
+        """Refresh the locker in one call. An account with no gear on file is a
+        normal state, not a failure — it is recorded as an unavailable
+        capability so the tools can say so instead of showing an empty table."""
+        pid = self._profile_id(errors)
+        if pid is None:
+            self.store.set_capability("gear", False, "no profileId on the social profile")
+            return 0
+        payload = self._try_call(
+            "/gear-service/gear/filterGear", errors, userProfilePk=pid
+        )
+        if payload is None:
+            self.store.set_capability("gear", False, "gear service unreachable")
+            return 0
+        n = 0
+        for raw in payload or []:
+            row = digest_gear(raw) if isinstance(raw, dict) else None
+            if row is not None:
+                self._upsert_gear(row)
+                n += 1
+        self.store.set_capability("gear", bool(n), "" if n else "no gear on file")
+        return n
+
+    def _sync_gear_stats(self, uuids: Iterable[str], errors: list[str]) -> int:
+        """Garmin's own odometer, one call per item. Authoritative over anything
+        this store can sum: it counts sessions older than the history window."""
+        n = 0
+        for uuid in uuids:
+            payload = self._try_call(f"/gear-service/gear/stats/{uuid}", errors)
+            row = digest_gear_stats(payload, uuid)
+            if row is not None:
+                self._upsert_gear(row)
+                n += 1
+        return n
+
+    def _attribute_gear(
+        self, activity_ids: list[int], errors: list[str]
+    ) -> dict[str, Any]:
+        """Link each session to the gear worn, one call each.
+
+        The per-activity payload carries whole gear entries, so they are
+        upserted on the way through: gear the catalog call missed (deleted in
+        Connect but still attached to old sessions) still gets a name instead
+        of leaving a dangling link. Returns the ids that carry no gear so the
+        caller can decide whether that is settled enough to remember.
+        """
+        linked: list[int] = []
+        bare: list[int] = []
+        touched: set[str] = set()
+        for aid in activity_ids:
+            payload = self._try_call(
+                "/gear-service/gear/filterGear", errors, activityId=str(aid)
+            )
+            if payload is None:
+                continue
+            uuids: list[str] = []
+            for raw in payload or []:
+                row = digest_gear(raw) if isinstance(raw, dict) else None
+                if row is not None:
+                    self._upsert_gear(row)
+                    uuids.append(row["uuid"])
+            if uuids:
+                self.store.replace_activity_gear(aid, uuids)
+                linked.append(aid)
+                touched.update(uuids)
+            else:
+                bare.append(aid)
+        return {"linked": linked, "bare": bare, "uuids": touched}
+
+    def _gear_skip_list(self) -> list[int]:
+        raw = self.store.get_sync_state("gear_no_link")
+        return json.loads(raw) if raw else []
+
+    def backfill_gear(
+        self, days: int = GEAR_HISTORY_DAYS, limit: int = GEAR_PER_RUN
+    ) -> dict[str, Any]:
+        """Attribute gear to sessions in the window that have none yet.
+
+        One cheap call per session, newest first. Resumable by construction
+        like the splits backfill: the work list is "activities with no gear
+        link", so a partial run leaves a shorter one and there is no cursor to
+        corrupt. Sessions that genuinely carry no gear (manual entries, most
+        strength work) are remembered in sync_state['gear_no_link'] once they
+        are older than _GEAR_SETTLE_DAYS, so they cost one call ever — but a
+        session from this week is retried, because Garmin may not have attached
+        its default pair yet when we first asked.
+        """
+        return self._locked(lambda: self._backfill_gear(days, limit))
+
+    def _backfill_gear(self, days: int, limit: int) -> dict[str, Any]:
+        t = self._today()
+        start_calls = self._calls
+        start = (date.fromisoformat(t) - timedelta(days=days - 1)).isoformat()
+        settled_before = (
+            date.fromisoformat(t) - timedelta(days=_GEAR_SETTLE_DAYS)
+        ).isoformat()
+
+        skip = self._gear_skip_list()
+        skip_set = set(skip)
+        pending = [
+            a
+            for a in self.store.activities_missing_gear(start, t)
+            if a["activity_id"] not in skip_set
+        ]
+        errors: list[str] = []
+        batch = pending[:limit]
+        result = self._attribute_gear([int(a["activity_id"]) for a in batch], errors)
+
+        by_id = {int(a["activity_id"]): a for a in batch}
+        newly_skipped = [
+            aid
+            for aid in result["bare"]
+            if (by_id[aid].get("date") or t) < settled_before
+        ]
+        if newly_skipped:
+            skip.extend(newly_skipped)
+            self.store.set_sync_state(
+                "gear_no_link", json.dumps(skip[-_GEAR_SKIP_CAP:])
+            )
+        if result["uuids"]:
+            self._sync_gear_stats(sorted(result["uuids"]), errors)
+        return {
+            "calls": self._calls - start_calls,
+            "linked": len(result["linked"]),
+            "no_gear": len(result["bare"]),
+            "remaining": max(0, len(pending) - limit),
+            "errors": errors,
+        }
+
     # --- tiers ---
 
 
@@ -933,7 +1161,9 @@ class SyncEngine:
         name = self.display_name
         start_calls = self._calls
 
-        self._probe("profile", "/userprofile-service/socialProfile")
+        # The social profile is probed for its own sake, but it is also the
+        # only place userProfilePk appears — the gear service needs it.
+        self._remember_profile_id(self._probe("profile", "/userprofile-service/socialProfile"))
         settings = self._probe("user_settings", "/userprofile-service/userprofile/user-settings")
         # The watch already knows the athlete's weight; the weight-service
         # range endpoint is often empty (no manual scale entries), so seed
@@ -1026,12 +1256,18 @@ class SyncEngine:
         self._probe("goals", "/goal-service/goal/goals", status="active", start=0, limit=30)
         self._probe("devices", "/device-service/deviceregistration/devices")
 
+        # The gear locker itself is one call and rarely changes; the odometers
+        # (one call each) wait for tier 1, and the per-session attribution for
+        # the tier-2 backfill — neither belongs in the first-minute snapshot.
+        n_gear = self._sync_gear_catalog([])
+
         self.store.set_sync_state("last_sync", self._now_iso())
         self.recompute_derived()
         return {
             "calls": self._calls - start_calls,
             "activities": n_acts,
             "plan_entries": n_plan,
+            "gear": n_gear,
             "capabilities": self.store.get_capabilities(),
         }
 
@@ -1199,6 +1435,14 @@ class SyncEngine:
             metric="duration",
         )
 
+        # Gear odometers, one call per item. Cheap on any realistic locker and
+        # this is the number the retirement verdict rests on, so it is refreshed
+        # with the rest of the history rather than left at its cold-start value.
+        self._sync_gear_catalog(errors)
+        n_gear = self._sync_gear_stats(
+            [g["uuid"] for g in self.store.list_gear(include_retired=True)], errors
+        )
+
         self.store.set_sync_state("last_sync", self._now_iso())
         self.recompute_derived()
         return {
@@ -1206,6 +1450,7 @@ class SyncEngine:
             "activities": n_acts,
             "rhr_days": n_rhr,
             "weight_days": n_weight,
+            "gear": n_gear,
             "errors": errors,
         }
 
@@ -1219,10 +1464,32 @@ class SyncEngine:
         Per-activity splits are backfilled separately by backfill_splits():
         they are keyed by activity, not by date, so they resume on their own
         work list rather than on this date cursor.
+
+        Gear attribution rides along here (also keyed by activity) because
+        this is the tier that runs in the background after a cold start and
+        again on garmin_sync(backfill_days=…) — the only two moments where
+        one call per historical session is affordable.
         """
         return self._locked(lambda: self._tier2(backfill_days))
 
     def _tier2(self, backfill_days: int) -> dict[str, Any]:
+        """Sleep backfill (or gap heal) followed by one gear-attribution pass.
+
+        The sleep phase returns early down the heal path, so the gear pass sits
+        out here rather than inside it — otherwise a store whose sleep cursor
+        is already 'done' would never attribute anything.
+        """
+        start_calls = self._calls
+        result = dict(self._tier2_sleep(backfill_days))
+        gear = self._backfill_gear(GEAR_HISTORY_DAYS, GEAR_PER_RUN)
+        result["calls"] = self._calls - start_calls  # the sleep phase counted only its own
+        result["gear_linked"] = gear["linked"]
+        result["gear_remaining"] = gear["remaining"]
+        if gear["errors"]:
+            result.setdefault("errors", []).extend(gear["errors"])
+        return result
+
+    def _tier2_sleep(self, backfill_days: int) -> dict[str, Any]:
         t = self._today()
         start_calls = self._calls
         raw_cursor = self.store.get_sync_state("tier2_cursor")
@@ -1440,9 +1707,22 @@ class SyncEngine:
             self._upsert_activity(digest_activity(a))
         self._advance_activity_cursor(page)
 
+        # Gear: the locker every pass (one call, catches a pair added or
+        # retired in Connect), then attribution for the sessions this pass
+        # ingested and a fresh odometer for the gear they touched. A day with
+        # no new session costs exactly the one catalog call.
+        self._sync_gear_catalog(errors)
+        gear = self._attribute_gear([int(a["activityId"]) for a in new], errors)
+        self._sync_gear_stats(sorted(gear["uuids"]), errors)
+
         self.store.set_sync_state("last_sync", self._now_iso())
         self.recompute_derived()
-        return {"calls": self._calls - start_calls, "new_activities": len(new), "errors": errors}
+        return {
+            "calls": self._calls - start_calls,
+            "new_activities": len(new),
+            "gear_linked": len(gear["linked"]),
+            "errors": errors,
+        }
 
     # --- derived state ---
 

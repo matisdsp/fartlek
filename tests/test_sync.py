@@ -210,10 +210,66 @@ def bb_daily_entry(d: str, points_local: list[tuple[str, int]]) -> dict:
     }
 
 
+def gear_entry(uuid, display_name=None, model="Hoka Bondi 9", **over):
+    """Real filterGear shape: displayName is often null, customMakeModel carries
+    the model, and maximumMeters is the athlete-set retirement distance."""
+    p = {
+        "gearPk": 46846508,
+        "uuid": uuid,
+        "userProfilePk": 4242,
+        "gearMakeName": "Other",
+        "gearModelName": "Unknown Shoes",
+        "gearTypeName": "Shoes",
+        "gearStatusName": "active",
+        "displayName": display_name,
+        "customMakeModel": model,
+        "imageNameLarge": None,
+        "dateBegin": "2025-12-02T00:00:00.0",
+        "dateEnd": None,
+        "maximumMeters": 1000000.0,
+        "notified": False,
+    }
+    p.update(over)
+    return p
+
+
+# Which canned gear each canned activity was worn with; 102 carries none.
+GEAR_BY_ACTIVITY = {101: ["shoe-a"], 102: []}
+
+GEAR_CATALOG = [
+    gear_entry("shoe-a", display_name="Bondi 9 II"),
+    gear_entry("shoe-b", model="ASICS Superblast 3", dateBegin="2026-08-02T00:00:00.0"),
+]
+
+
+def gear_routes():
+    """filterGear answers two different questions depending on its params:
+    the whole locker for a userProfilePk, one session's gear for an activityId."""
+    by_uuid = {g["uuid"]: g for g in GEAR_CATALOG}
+
+    def filter_gear(path, params):
+        if "activityId" in params:
+            worn = GEAR_BY_ACTIVITY.get(int(params["activityId"]), [])
+            return [by_uuid[u] for u in worn]
+        return GEAR_CATALOG
+
+    return {
+        "/gear-service/gear/filterGear": filter_gear,
+        "/gear-service/gear/stats/": lambda path, params: {
+            "uuid": path.rsplit("/", 1)[-1],
+            "totalDistance": 514248.2,
+            "totalActivities": 51,
+        },
+    }
+
+
 def base_routes():
     """Every endpoint the engine can hit, with realistic canned payloads."""
     return {
-        "/userprofile-service/socialProfile": {"displayName": "athlete1", "fullName": "A"},
+        **gear_routes(),
+        "/userprofile-service/socialProfile": {
+            "displayName": "athlete1", "fullName": "A", "profileId": 4242,
+        },
         "/userprofile-service/userprofile/user-settings": {"userData": {"weight": 70000.0}},
         "/biometric-service/heartRateZones": [
             {"sport": "DEFAULT", "trainingMethod": "LACTATE_THRESHOLD",
@@ -565,9 +621,25 @@ def test_tier0_populates_store_and_capability_map(store, tmp_path):
     engine, fetch = make_engine(store, tmp_path, routes)
     result = engine.tier0()
 
-    assert result["calls"] == 16
+    assert result["calls"] == 17  # 16 + the one-call gear locker
     assert result["activities"] == 2
     assert result["plan_entries"] == 1  # next-month duplicate deduped
+    assert result["gear"] == 2
+
+    # Gear locker: the label falls back to the model when the athlete never
+    # renamed the pair, and userProfilePk is captured from the profile probe.
+    assert store.get_sync_state("profile_id") == "4242"
+    assert [(g["uuid"], g["name"]) for g in store.list_gear()] == [
+        ("shoe-b", "ASICS Superblast 3"),   # newest in service first
+        ("shoe-a", "Bondi 9 II"),
+    ]
+    shoe = store.get_gear("shoe-a")
+    assert shoe["type"] == "shoes" and shoe["status"] == "active"
+    assert shoe["make_model"] == "Hoka Bondi 9"
+    assert shoe["date_begin"] == "2025-12-02"      # timestamp trimmed to the day
+    assert shoe["max_meters"] == 1_000_000.0
+    # odometers are tier 1's job — tier 0 must not invent them
+    assert shoe["total_meters"] is None
 
     # HR zones persisted, RUNNING entry preferred over DEFAULT (176 vs 183)
     zones = store.get_hr_zones()
@@ -657,8 +729,14 @@ def test_tier1_pagination_terminates_on_short_page(store, tmp_path):
     assert store.get_activity(207) is not None
     # 2 pages + weight + 3 bb chunks + endurance + tolerance + stress
     # + 2 maxmet + progress + one userstats range call per daily wellness
-    # metric (incl. RHR).
-    assert result["calls"] == 12 + len(USERSTATS_DAILY_METRICS) + 1
+    # metric (incl. RHR) + gear: the social profile (tier 0 never ran here, so
+    # userProfilePk is not cached), the locker, and one odometer per item.
+    assert result["calls"] == (
+        12 + len(USERSTATS_DAILY_METRICS) + 1 + 2 + len(GEAR_CATALOG)
+    )
+    assert result["gear"] == len(GEAR_CATALOG)
+    assert store.get_gear("shoe-a")["total_meters"] == 514248.2
+    assert store.get_gear("shoe-a")["total_activities"] == 51
 
     # RHR range landed in days
     assert store.get_day("2026-07-18")["resting_hr"] == 46
@@ -851,9 +929,12 @@ def test_tier2_backfills_resumes_from_cursor_and_extends(store, tmp_path):
     assert len(store.get_sleep_timeline("2026-07-19", days_back=60)) == 10
     assert store.get_day("2026-07-12")["hrv_last_night"] == 52.0  # HRV rides in the payload
 
-    # Done + same depth: no calls at all.
+    # Done + same depth: no calls at all. The gear pass rides along but this
+    # store has no activities, so its work list is empty and it stays free.
     engine3, fetch3 = make_engine(store, tmp_path, sleep_routes())
-    assert engine3.tier2(backfill_days=10) == {"calls": 0, "nights": 0, "done": True}
+    assert engine3.tier2(backfill_days=10) == {
+        "calls": 0, "nights": 0, "done": True, "gear_linked": 0, "gear_remaining": 0,
+    }
     assert fetch3.calls == []
 
     # Deeper backfill extends from the previous end, never re-fetching.
