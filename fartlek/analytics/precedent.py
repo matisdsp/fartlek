@@ -100,8 +100,8 @@ def merge_episodes(*sources: list[str]) -> list[str]:
     """Merge episode dates from every source into distinct events.
 
     Essential, not tidying: on the maintainer's account the HRV series dipped
-    the day before the athlete logged an illness — one bout of
-    externally-caused illness, detected by sensor a day before it was reported. Counting it
+    the day before the athlete logged an illness — one externally-caused
+    episode, detected by sensor a day before it was reported. Counting it
     twice would double-weight a single event when trigger levels are computed.
     """
     days = sorted({d for src in sources for d in src if d})

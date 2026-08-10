@@ -153,9 +153,9 @@ def test_no_statement_claims_causation():
 # --- found on real data (2026-07-22) ---------------------------------------
 
 def test_episodes_from_different_sources_merge_into_one_event():
-    """The real case: HRV dipped 2026-04-18 and the athlete logged illness on
-    04-19 — one bout of externally-caused illness, sensed a day before it was reported.
-    Counting it twice double-weights a single event in the trigger levels."""
+    """The real case: the HRV series dipped the day before the athlete logged
+    an illness — sensed a day before it was reported. Counting it twice
+    double-weights a single event in the trigger levels."""
     hrv = ["2026-04-18"]
     logged = ["2026-04-19"]
     assert pr.merge_episodes(hrv, logged) == ["2026-04-18"]

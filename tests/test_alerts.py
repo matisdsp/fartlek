@@ -264,9 +264,9 @@ def test_isolated_short_night_does_not_alert_but_two_in_a_row_do():
 
 
 def test_certified_illness_episode_is_still_detected():
-    """Non-regression on a CERTIFIED positive: the athlete had externally-caused illness from
-    Sun (dates private), and on 04-20 five markers deviated at
-    once (HRV 38 vs 81, sleep 2.1h, sleep score 5, stress 46, RHR high).
+    """Non-regression on a CERTIFIED positive: a real multi-day illness episode
+    in the maintainer's history where five markers deviated at once
+    (HRV 38 vs 81, sleep 2.1h, sleep score 5, stress 46, RHR high).
 
     No amount of noise-reduction may silence this. It is the one day in six
     months of history we know for certain the system SHOULD shout about.

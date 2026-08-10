@@ -204,8 +204,7 @@ def test_precedent_line_appears_once_an_episode_exists(store):
 
 
 def test_external_episodes_are_excluded_from_precedent_levels(store):
-    """An episode noted EXTERNAL must not set load trigger levels — the
-    externally-caused illness case that produced false alarms on real data."""
+    """An episode noted EXTERNAL must not set load trigger levels — the    externally-caused illness case that produced false alarms on real data."""
     seed(store, nights=90)
     store.add_log({"date": "2026-06-01", "flag": "illness",
                    "note": "Illness. EXTERNAL cause — exclude from load levels.",
