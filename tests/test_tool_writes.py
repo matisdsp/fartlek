@@ -87,6 +87,20 @@ async def test_set_profile_field_subset(store):
     assert estimate_tokens(out) <= set_profile.CAP_TOKENS
 
 
+async def test_set_profile_sleep_need_override_write(store):
+    ctx = FakeContext(store)
+    out = await set_profile.run(ctx, sleep_need_override_h=7.0)
+    assert store.get_profile()["sleep_need_override_h"] == "7.0"
+    assert "sleep need override 7h" in out
+
+
+async def test_set_profile_sleep_need_override_bounds(store):
+    ctx = FakeContext(store)
+    out = await set_profile.run(ctx, sleep_need_override_h=2.0)
+    assert "3-14" in out
+    assert "sleep_need_override_h" not in store.get_profile()
+
+
 async def test_set_profile_goal_write_and_stamp(store):
     ctx = FakeContext(store)
     out = await set_profile.run(

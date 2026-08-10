@@ -66,6 +66,7 @@ from typing import Any
 
 from fartlek.analytics import baselines as baselines_mod
 from fartlek.analytics import pmc as pmc_mod
+from fartlek.analytics import sleep as sleep_mod
 
 WEIGHTS = {"hrv": 0.30, "sleep": 0.25, "form": 0.20, "rhr": 0.15, "body_battery": 0.10}
 
@@ -104,7 +105,8 @@ def marker_inputs(store: Any, date: str) -> dict[str, Any]:
     60d mean ± 0.5·mad_sd, n≥14) · hrv_roll7 · hrv_last_night ·
     hrv_last_night_z (vs 60d baseline) · hrv_90d_low (bool, needs ≥14 prior
     nights) · sleep_today (score) · sleep_base (28d baseline dict) ·
-    sleep_debt_h (Σ max(0, need|8 − duration) over last 14d) ·
+    sleep_debt_h (Σ max(0, need − duration) over last 14d; need = athlete
+    override | device | 8h default) ·
     sleep_duration_h · form (pmc.form_assessment dict|None) · rhr_dev
     (baselines.rhr_deviation dict) · bb_today · bb_base (30d) · bb_source
     ('wake'|'high') · easy_ceiling (int|None).
@@ -148,8 +150,14 @@ def marker_inputs(store: Any, date: str) -> dict[str, Any]:
     )
     durations = dict(store.get_series("sleep_duration_h", date, 14))
     needs = dict(store.get_series("sleep_need_h", date, 14))
+    need_override = sleep_mod.need_override_from_profile(store.get_profile())
     out["sleep_debt_h"] = round(
-        sum(max(0.0, needs.get(d, DEFAULT_SLEEP_NEED_H) - v) for d, v in durations.items()), 2
+        sum(
+            max(0.0, (need_override if need_override is not None
+                      else needs.get(d, DEFAULT_SLEEP_NEED_H)) - v)
+            for d, v in durations.items()
+        ),
+        2,
     )
     out["sleep_duration_h"] = day.get("sleep_duration_h")
 

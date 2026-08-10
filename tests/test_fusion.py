@@ -370,6 +370,13 @@ def test_marker_inputs_sleep_debt_defaults_need_to_8h(store):
     assert fusion.marker_inputs(store, TODAY)["sleep_debt_h"] == pytest.approx(14.0)
 
 
+def test_marker_inputs_sleep_debt_honors_athlete_override(store):
+    _seed(store, make_days(TODAY, 14, sleep_duration_h=6.5, sleep_need_h=9.0))
+    store.set_profile("sleep_need_override_h", "7.0")
+    # 14 × (7 − 6.5), not 14 × (9 − 6.5)
+    assert fusion.marker_inputs(store, TODAY)["sleep_debt_h"] == pytest.approx(7.0)
+
+
 def test_marker_inputs_bb_wake_fallback_to_high(store):
     _seed(store, make_days(TODAY, 15, body_battery_high=[80] * 15))
     inputs = fusion.marker_inputs(store, TODAY)

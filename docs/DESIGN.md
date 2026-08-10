@@ -452,9 +452,9 @@ This is the tool mirror of the `garmin://reference/*` resources, shipped **in th
 
 #### `garmin_set_profile` — budget ≤200 tokens · local write
 
-> "Set or update athlete context the watch can't know: goal race (date/distance/target time), current training phase, weekly availability, intensity-distribution preference, LT1 override. Stored locally only; grounds the plan/goal context used by other tools. Only provided fields change. Call when the user states or changes a goal, phase, or constraint. Injuries and illness belong to garmin_log, not here."
+> "Set or update athlete context the watch can't know: goal race (date/distance/target time), current training phase, weekly availability, intensity-distribution preference, LT1 and sleep-need overrides. Stored locally only; grounds the plan/goal context used by other tools. Only provided fields change. Call when the user states or changes a goal, phase, or constraint. Injuries and illness belong to garmin_log, not here."
 
-**Params (10, all optional):** `goal_race_date: str`, `goal_distance: Literal["5k","10k","half","marathon","custom"]`, `goal_custom_km: float`, `goal_time: str "H:MM:SS"`, `phase: Literal["base","build","peak","taper","recovery","none"]`, `phase_week: int`, `phase_total_weeks: int`, `availability_days: int (1–7)`, `tid_target: Literal["polarized","pyramidal","auto"]`, `lt1_hr_override: int`.
+**Params (11, all optional):** `goal_race_date: str`, `goal_distance: Literal["5k","10k","half","marathon","custom"]`, `goal_custom_km: float`, `goal_time: str "H:MM:SS"`, `phase: Literal["base","build","peak","taper","recovery","none"]`, `phase_week: int`, `phase_total_weeks: int`, `availability_days: int (1–7)`, `tid_target: Literal["polarized","pyramidal","auto"]`, `lt1_hr_override: int`, `sleep_need_override_h: float (3–14)`. The sleep-need override is the athlete-reported need in hours: when set it replaces the device's sleep-need estimate in every consumer (readiness fusion, sleep debt, and the brief/athlete/recovery/week renders), with provenance disclosed as `override` / `athlete override` — the sanctioned escape hatch when a device mis-estimates need.
 
 ```markdown
 Profile updated: phase Build (wk 2 of 6) · goal unchanged (Marathon 2026-09-20,

@@ -147,19 +147,40 @@ def sleep_regularity_index(
 
 # --- debt -------------------------------------------------------------------
 
+def need_override_from_profile(profile: dict[str, Any] | None) -> float | None:
+    """Athlete-set `sleep_need_override_h` from the profile, or None.
+
+    Profile values are stored as strings; a malformed value reads as no
+    override rather than crashing every sleep consumer.
+    """
+    raw = (profile or {}).get("sleep_need_override_h")
+    if raw is None:
+        return None
+    try:
+        return float(raw)
+    except (TypeError, ValueError):
+        return None
+
+
 def sleep_debt(
-    day_rows: list[dict[str, Any]], end_date: str, window: int = DEBT_WINDOW_DAYS
+    day_rows: list[dict[str, Any]], end_date: str, window: int = DEBT_WINDOW_DAYS,
+    need_override_h: float | None = None,
 ) -> dict[str, Any]:
     """Cumulative shortfall vs need over the window: sum(max(0, need - actual)).
 
     Surplus nights do NOT offset deficits — sleep debt does not net out, and
     treating it as a balance would let one 10h Sunday erase a hard week.
 
+    `need_override_h` is the athlete-reported need (profile
+    `sleep_need_override_h`); when set it replaces the device need for every
+    night — the athlete outranks the wearable's estimate of their own need.
+
     Returns {debt_h, nights, nights_short, avg_need_h, avg_actual_h,
-    need_source}. `need_source` is 'device' when Garmin reported a need for
-    every night, 'default' when the 8h fallback was used throughout, and
-    'mixed' otherwise — a threshold must never look personally derived when it
-    is a population default.
+    need_source}. `need_source` is 'override' when the athlete override is in
+    force, 'device' when Garmin reported a need for every night, 'default'
+    when the 8h fallback was used throughout, and 'mixed' otherwise — a
+    threshold must never look personally derived when it is a population
+    default.
     """
     end_d = date.fromisoformat(end_date)
     start_d = end_d - timedelta(days=window - 1)
@@ -176,11 +197,14 @@ def sleep_debt(
     short = 0
     needs, actuals, from_device = [], [], 0
     for r in rows:
-        need = r.get("sleep_need_h")
-        if need is None:
-            need = DEFAULT_SLEEP_NEED_H
+        if need_override_h is not None:
+            need = need_override_h
         else:
-            from_device += 1
+            need = r.get("sleep_need_h")
+            if need is None:
+                need = DEFAULT_SLEEP_NEED_H
+            else:
+                from_device += 1
         actual = float(r["sleep_duration_h"])
         gap = max(0.0, float(need) - actual)
         debt += gap
@@ -189,7 +213,9 @@ def sleep_debt(
         needs.append(float(need))
         actuals.append(actual)
 
-    if from_device == len(rows):
+    if need_override_h is not None:
+        source = "override"
+    elif from_device == len(rows):
         source = "device"
     elif from_device == 0:
         source = "default"

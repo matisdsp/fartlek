@@ -186,6 +186,22 @@ def test_need_source_is_disclosed():
     assert sl.sleep_debt(mixed, "2026-05-02")["need_source"] == "mixed"
 
 
+def test_athlete_override_replaces_device_need():
+    rows = [day("2026-05-01", actual=6.5, need=9.0),
+            day("2026-05-02", actual=6.5, need=9.0)]
+    res = sl.sleep_debt(rows, "2026-05-02", need_override_h=7.0)
+    assert res["debt_h"] == pytest.approx(1.0)      # 2 × (7 − 6.5), not 2 × (9 − 6.5)
+    assert res["avg_need_h"] == pytest.approx(7.0)
+    assert res["need_source"] == "override"
+
+
+def test_need_override_parses_profile_strings():
+    assert sl.need_override_from_profile({"sleep_need_override_h": "7.0"}) == 7.0
+    assert sl.need_override_from_profile({"sleep_need_override_h": "junk"}) is None
+    assert sl.need_override_from_profile({}) is None
+    assert sl.need_override_from_profile(None) is None
+
+
 def test_debt_window_excludes_older_nights():
     rows = [day("2026-04-01", actual=4.0), day("2026-05-02", actual=7.0)]
     res = sl.sleep_debt(rows, "2026-05-02", window=14)

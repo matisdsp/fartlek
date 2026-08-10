@@ -21,6 +21,7 @@ from typing import Any
 
 from fartlek.analytics import baselines, fusion
 from fartlek.analytics import pmc as pmc_engine
+from fartlek.analytics import sleep as sleep_engine
 from fartlek.render.renderer import Report, Row, Section, format_date, render
 
 CAP = 600
@@ -195,7 +196,11 @@ def _sleep_row(store: Any, d: str) -> Row | None:
     need = day.get("sleep_need_h")
     if dur is None and score is None:
         return None
-    need_val = need if need is not None else 8.0
+    override = sleep_engine.need_override_from_profile(store.get_profile())
+    if override is not None:
+        need_val = override
+    else:
+        need_val = need if need is not None else 8.0
     today_bits = []
     if dur is not None:
         today_bits.append(_fmt_hm(dur))
@@ -211,7 +216,9 @@ def _sleep_row(store: Any, d: str) -> Row | None:
     return Row(cells=[
         "Sleep",
         ", ".join(today_bits),
-        f"need {_fmt_hm(need_val)}" + ("" if need is not None else " (default)"),
+        f"need {_fmt_hm(need_val)}"
+        + (" (athlete override)" if override is not None
+           else "" if need is not None else " (default)"),
         delta,
         flag,
     ])

@@ -203,8 +203,8 @@ async def garmin_gear(
     description=(
         "Athlete context the watch cannot know: goal race (date; a distance, or a "
         "fixed-time event like 24h with a target distance), phase, weekly availability, "
-        "intensity preference, LT1 override. Local only; only provided fields change. "
-        "Injuries and illness go to garmin_log."
+        "intensity preference, LT1 and sleep-need overrides. Local only; only provided "
+        "fields change. Injuries and illness go to garmin_log."
     ),
 )
 async def garmin_set_profile(
@@ -225,6 +225,10 @@ async def garmin_set_profile(
     availability_days: Annotated[int | None, Field(ge=1, le=7)] = None,
     tid_target: Literal["polarized", "pyramidal", "auto"] | None = None,
     lt1_hr_override: int | None = None,
+    sleep_need_override_h: Annotated[
+        float | None,
+        Field(description="athlete-reported sleep need in hours; overrides the device estimate"),
+    ] = None,
 ) -> str:
     return await _guard(
         t_set_profile.run(
@@ -240,6 +244,7 @@ async def garmin_set_profile(
             availability_days=availability_days,
             tid_target=tid_target,
             lt1_hr_override=lt1_hr_override,
+            sleep_need_override_h=sleep_need_override_h,
         )
     )
 

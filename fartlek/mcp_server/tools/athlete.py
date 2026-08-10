@@ -19,6 +19,7 @@ from datetime import datetime, timedelta
 from typing import Any
 
 from fartlek.analytics import baselines as baselines_mod
+from fartlek.analytics import sleep as sleep_engine
 from fartlek.analytics.matcher import sport_family
 from fartlek.render.renderer import Report, Section, format_date, render
 
@@ -209,9 +210,13 @@ def _baselines_line(store: Any, today: str) -> str | None:
         pieces.append(f"HRV band {lo:.0f}–{hi:.0f}")
     # A 60d median, not the latest single night (E2-A): this line sits under a
     # "Baselines (60d)" header, so it must be a baseline, not a point value.
-    need = _baseline(store, "sleep_need_h", today, 60)
-    if need is not None:
-        pieces.append(f"sleep need {_fmt_hours(need['median'])}")
+    override = sleep_engine.need_override_from_profile(store.get_profile())
+    if override is not None:
+        pieces.append(f"sleep need {_fmt_hours(override)} (athlete override)")
+    else:
+        need = _baseline(store, "sleep_need_h", today, 60)
+        if need is not None:
+            pieces.append(f"sleep need {_fmt_hours(need['median'])}")
     bb = _baseline(store, "body_battery_wake", today, 60)
     if bb is not None:
         pieces.append(f"wake Body Battery {bb['median']:.0f}")

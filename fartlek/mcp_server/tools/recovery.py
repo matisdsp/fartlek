@@ -129,7 +129,10 @@ def _sleep_group(
                 for d in _dates(end, min(window, 90))]
     day_rows = [r for r in day_rows if r]
 
-    debt = sleep_engine.sleep_debt(day_rows, end, window=sleep_engine.DEBT_WINDOW_DAYS)
+    debt = sleep_engine.sleep_debt(
+        day_rows, end, window=sleep_engine.DEBT_WINDOW_DAYS,
+        need_override_h=sleep_engine.need_override_from_profile(store.get_profile()),
+    )
     if debt["debt_h"] is not None:
         source = "" if debt["need_source"] == "device" else f" ({debt['need_source']} need)"
         rows.append(Row([

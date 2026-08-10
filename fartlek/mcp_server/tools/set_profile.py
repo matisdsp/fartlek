@@ -70,6 +70,7 @@ async def run(
     availability_days: int | None = None,
     tid_target: str | None = None,
     lt1_hr_override: int | None = None,
+    sleep_need_override_h: float | None = None,
 ) -> str:
     await ctx.ensure_ready()
     banner = ctx.banner()
@@ -89,6 +90,7 @@ async def run(
             "availability_days": availability_days,
             "tid_target": tid_target,
             "lt1_hr_override": lt1_hr_override,
+            "sleep_need_override_h": sleep_need_override_h,
         }.items()
         if v is not None
     }
@@ -180,6 +182,13 @@ async def run(
             f"lt1_hr_override must be a plausible HR in bpm, 80-220 (got {lt1_hr_override}). "
             "Example: garmin_set_profile(lt1_hr_override=155)",
         )
+    if sleep_need_override_h is not None and not 3.0 <= sleep_need_override_h <= 14.0:
+        return _finish(
+            banner,
+            "sleep_need_override_h must be plausible hours of sleep, 3-14 "
+            f"(got {sleep_need_override_h:g}). "
+            "Example: garmin_set_profile(sleep_need_override_h=7.5)",
+        )
 
     # --- write only the provided fields, plus set-date stamps ---
     for key, value in provided.items():
@@ -212,6 +221,8 @@ async def run(
         bits.append(f"TID target {tid_target}")
     if "lt1_hr_override" in provided:
         bits.append(f"LT1 override {lt1_hr_override} bpm")
+    if "sleep_need_override_h" in provided:
+        bits.append(f"sleep need override {sleep_need_override_h:g}h")
     if not any(k in provided for k in _GOAL_KEYS) and (
         profile.get("goal_race_date") or profile.get("goal_distance")
     ):

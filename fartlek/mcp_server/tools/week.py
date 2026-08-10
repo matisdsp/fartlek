@@ -312,7 +312,10 @@ def _recovery(store: Any, start: _date, end: _date, today: _date) -> dict[str, A
                 out["concern_reason"] = f"RHR {_signed(delta)} vs 30d median"
 
     day_rows = [store.get_day(d) or {} for d in _dates(trail_s, 14)]
-    debt = sleep_engine.sleep_debt(day_rows, trail_s, window=14)
+    debt = sleep_engine.sleep_debt(
+        day_rows, trail_s, window=14,
+        need_override_h=sleep_engine.need_override_from_profile(store.get_profile()),
+    )
     if debt["debt_h"] is not None:
         rising = debt["debt_h"] > convergence.SLEEP_DEBT_H_14D
         out["lines"].append(
