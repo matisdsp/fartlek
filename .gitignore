@@ -49,3 +49,6 @@ htmlcov/
 
 # Personal race notes (not part of the project)
 personal-notes/
+
+# Personal athlete data (own private repo)
+athlete/
