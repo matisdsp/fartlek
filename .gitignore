@@ -48,4 +48,4 @@ htmlcov/
 *.sqlite3
 
 # Personal athlete data (own private repo)
-athlete/
+sitamoment/
