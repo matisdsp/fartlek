@@ -369,14 +369,17 @@ async def garmin_load(
     description=(
         "One week in session-level detail: load vs recent weeks, intensity distribution, a "
         "per-day session table with activity_ids, recovery summary, and plan compliance "
-        "where a plan exists. Call for 'how was my week' or a specific week. Multi-week "
-        "trajectory is garmin_load."
+        "where a plan exists. Call for 'how was my week' or a specific week. Volume covers "
+        "ALL sports unless `sport` is set — for 'how many km did I run this week' pass "
+        "sport='running' (treadmill and indoor included); load/ACWR/monotony stay "
+        "all-sport. Multi-week trajectory is garmin_load."
     ),
 )
 async def garmin_week(
     anchor_date: Annotated[str | None, Field(description="YYYY-MM-DD, its Mon-Sun week")] = None,
+    sport: Literal["running", "cycling", "swimming", "strength", "other"] | None = None,
 ) -> str:
-    return await _guard(t_week.run(_ctx, anchor_date=anchor_date))
+    return await _guard(t_week.run(_ctx, anchor_date=anchor_date, sport=sport))
 
 
 @mcp.tool(

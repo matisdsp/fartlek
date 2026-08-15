@@ -173,9 +173,9 @@ the distribution drift
 
 #### `garmin_week` — budget 900 / cap 1,200 tokens
 
-> "The coach's weekly review: one week in session-level detail. Call for 'how was my week', Sunday/Monday check-ins, or to see every session of a specific week with its activity_id. Returns load vs. recent weeks, intensity distribution, per-day session table, sleep/recovery summary, and plan compliance where a planned workout exists (Garmin calendar or enrolled Garmin Coach plan). For multi-week load trajectory use garmin_load; for fitness outcomes use garmin_fitness."
+> "The coach's weekly review: one week in session-level detail. Call for 'how was my week', Sunday/Monday check-ins, or to see every session of a specific week with its activity_id. Returns load vs. recent weeks, intensity distribution, per-day session table, sleep/recovery summary, and plan compliance where a planned workout exists (Garmin calendar or enrolled Garmin Coach plan). Volume covers ALL sports unless `sport` is set — for 'how many km did I run this week' pass sport='running' (treadmill and indoor included). For multi-week load trajectory use garmin_load; for fitness outcomes use garmin_fitness."
 
-**Params:** `anchor_date: str = today` (resolves to the Mon–Sun ISO week containing it; incomplete weeks disclosed).
+**Params:** `anchor_date: str = today` (resolves to the Mon–Sun ISO week containing it; incomplete weeks disclosed), `sport: str | None = None` (family filter, same values as garmin_activities; scopes volume, distribution and session rows — Load/Ramp/ACWR/Monotony and recovery read the all-sport `daily_load` aggregate and stay whole-body, disclosed in the report; a multi-sport week without the filter carries a per-family km breakdown in the Volume cell).
 
 ```markdown
 # Week — Mon 2026-07-14 → Sun 2026-07-20 (complete) · phase on file: none

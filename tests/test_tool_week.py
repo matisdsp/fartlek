@@ -266,6 +266,81 @@ def test_decoupling_note_from_stored_laps(store):
     assert "decoupling" in out and "splits-based" in out
 
 
+# --- sport filter -------------------------------------------------------------
+
+def seed_multisport_week(store):
+    """seed_week (3 runs 30.9 km + 1 strength) plus a treadmill run and a ride."""
+    seed_week(store)
+    seed_activity(store, 1005, "2026-07-15", sport="treadmill_running",
+                  name="Treadmill easy", distance_m=5000, duration_s=1800,
+                  avg_hr=125, load=20.0)
+    seed_activity(store, 1006, "2026-07-17", sport="cycling", name="Endurance ride",
+                  distance_m=30000, duration_s=3600, avg_hr=120, load=45.0)
+
+
+def test_unfiltered_volume_breaks_down_by_sport(store):
+    """A multi-sport week's Volume cell must disclose the per-family split, so
+    an all-sports 66 km can never be quoted as a running figure."""
+    seed_multisport_week(store)
+    out = run(FakeContext(store), anchor_date="2026-07-13")
+    line = next(ln for ln in out.splitlines() if ln.startswith("| Volume"))
+    assert "66 km" in line                      # 30.9 run + 5 treadmill + 30 ride
+    assert "run 36" in line and "ride 30" in line
+
+
+def test_single_distance_family_week_has_no_breakdown(store):
+    seed_week(store)  # runs + strength only — one family with distance
+    out = run(FakeContext(store), anchor_date="2026-07-13")
+    line = next(ln for ln in out.splitlines() if ln.startswith("| Volume"))
+    assert "run 31" not in line
+
+
+def test_sport_filter_scopes_volume_and_sessions(store):
+    seed_multisport_week(store)
+    out = run(FakeContext(store), anchor_date="2026-07-13", sport="running")
+    line = next(ln for ln in out.splitlines() if "Volume (running)" in ln)
+    assert "36 km" in line          # treadmill counted in, the 30 km ride out
+    assert "running only" in out    # title marker
+    assert "1005" in out            # treadmill session listed
+    assert "1006" not in out        # ride row hidden from the day table…
+    assert "1 ride" in out          # …but disclosed, not silently dropped
+    assert "all-sport" in out       # load/ACWR/monotony scope disclosed
+
+
+def test_sport_filter_keeps_load_rows_all_sport(store):
+    """daily_load has no per-sport split — the Load row must be identical with
+    and without the filter, and the report must say so."""
+    seed_multisport_week(store)
+    plain = run(FakeContext(store), anchor_date="2026-07-13")
+    filtered = run(FakeContext(store), anchor_date="2026-07-13", sport="running")
+    load_line = next(ln for ln in plain.splitlines() if ln.startswith("| Load (Garmin)"))
+    assert load_line in filtered
+
+
+def test_rest_days_judged_against_all_sports_under_filter(store):
+    """Fri 07-17 has only a ride: not a session row in the running view, but
+    not 'rest' either. Mon 07-13 has nothing at all and stays rest."""
+    seed_multisport_week(store)
+    out = run(FakeContext(store), anchor_date="2026-07-13", sport="running")
+    line = next(ln for ln in out.splitlines() if ": rest" in ln)
+    assert "Mon" in line and "Fri" not in line
+
+
+def test_sport_filter_empty_family_discloses_other_sports(store):
+    seed_multisport_week(store)
+    out = run(FakeContext(store), anchor_date="2026-07-13", sport="swimming")
+    assert "No swimming sessions" in out
+    assert "1 ride" in out
+    assert "VERDICT:" in out
+    assert estimate_tokens(out) <= week.CAP
+
+
+def test_invalid_sport_is_corrective(store):
+    out = run(FakeContext(store), sport="jogging")
+    assert "sport must be one of" in out
+    assert "garmin_week(sport='running')" in out
+
+
 # --- validation --------------------------------------------------------------
 
 def test_malformed_anchor_date_is_corrective(store):

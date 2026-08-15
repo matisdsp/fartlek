@@ -29,6 +29,15 @@ Design choices worth stating:
   WITHOUT zone_floors/lt1/lt2 and gets the whole-bucket containment fallback
   (Z1+Z2 easy, Z3 moderate, Z4+Z5 hard) — that approximation is disclosed in
   the section's method_note rather than silently presented as precise.
+- A sport filter scopes exactly what CAN be scoped: volume, distribution and
+  the session table (families via analytics.matcher, so running includes
+  treadmill/indoor/virtual runs). Load/Ramp/ACWR/Monotony and recovery read
+  all-sport aggregates (days.daily_load has no per-sport split) and stay
+  whole-body — the filtered report says so rather than silently mixing
+  scopes. Rest days are judged against all activities: a day with only a
+  ride is not "rest" in a running-filtered week. Without a filter, a
+  multi-sport week's Volume cell carries a per-family km breakdown so an
+  all-sports figure can never be quoted as a single-sport one.
 - The per-day "Note" column shows splits-based decoupling when the session
   qualifies as steady (analytics.efficiency, reusing its own qualifier) and
   a dash otherwise. Per-rep interval fade prose ("reps 5-6 faded -4%") is
@@ -49,7 +58,11 @@ from typing import Any
 from fartlek.analytics import baselines, convergence, efficiency, tid
 from fartlek.analytics import pmc as pmc_engine
 from fartlek.analytics import sleep as sleep_engine
-from fartlek.analytics.matcher import sport_family
+from fartlek.analytics.matcher import (
+    VALID_SPORT_FILTERS,
+    matches_sport,
+    sport_family,
+)
 from fartlek.mcp_server.tools import _zones
 from fartlek.render.renderer import Report, Row, Section, format_date, render
 
@@ -65,6 +78,14 @@ _DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 _TITLE = {
     "running": "Run", "cycling": "Ride", "swimming": "Swim",
     "strength": "Strength", "walking": "Walk", "hiking": "Hike",
+}
+_FAM_SHORT = {
+    "running": "run", "cycling": "ride", "swimming": "swim",
+    "strength": "strength", "walking": "walk", "hiking": "hike", "other": "other",
+}
+_FAM_PLURAL = {
+    "running": "runs", "cycling": "rides", "swimming": "swims",
+    "strength": "strength", "walking": "walks", "hiking": "hikes", "other": "other",
 }
 _WEEKDAYS = ("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
 
@@ -143,6 +164,45 @@ def _totals(acts: list[dict[str, Any]]) -> dict[str, float]:
     }
 
 
+def _family(a: dict[str, Any]) -> str:
+    return a.get("_family") or sport_family(a.get("sport") or "")
+
+
+def _in_sport(acts: list[dict[str, Any]], sport: str | None) -> list[dict[str, Any]]:
+    if sport is None:
+        return acts
+    return [a for a in acts if matches_sport(_family(a), sport)]
+
+
+def _volume_breakdown(acts: list[dict[str, Any]]) -> str | None:
+    """'run 55 · ride 30' — km per family, only when at least two families
+    contribute a rounded km, so an all-sports Volume figure can never be
+    mistaken for a single-sport one (the running+cycling week trap)."""
+    km: dict[str, float] = {}
+    for a in acts:
+        dist = a.get("distance_m") or 0.0
+        if dist > 0:
+            fam = _family(a)
+            km[fam] = km.get(fam, 0.0) + dist / 1000.0
+    parts = [(fam, v) for fam, v in km.items() if round(v) >= 1]
+    if len(parts) < 2:
+        return None
+    parts.sort(key=lambda p: -p[1])
+    return " · ".join(f"{_FAM_SHORT[fam]} {round(v)}" for fam, v in parts)
+
+
+def _count_by_family(acts: list[dict[str, Any]]) -> str:
+    """'1 ride, 2 strength' — count-descending, for disclosure lines."""
+    counts: dict[str, int] = {}
+    for a in acts:
+        fam = _family(a)
+        counts[fam] = counts.get(fam, 0) + 1
+    return ", ".join(
+        f"{counts[fam]} {(_FAM_PLURAL if counts[fam] > 1 else _FAM_SHORT)[fam]}"
+        for fam in sorted(counts, key=lambda f: (-counts[f], f))
+    )
+
+
 def _form_at(pmc_rows: list[dict[str, Any]], end_s: str) -> dict[str, Any]:
     row = next((r for r in pmc_rows if r["date"] == end_s), None)
     if row is None:
@@ -151,7 +211,9 @@ def _form_at(pmc_rows: list[dict[str, Any]], end_s: str) -> dict[str, Any]:
     return pmc_engine.form_assessment(row["ctl"], row["tsb"], ctl_series)
 
 
-def _load_rows(store: Any, start: _date, end: _date) -> tuple[list[Row], dict[str, Any]]:
+def _load_rows(
+    store: Any, start: _date, end: _date, sport: str | None = None
+) -> tuple[list[Row], dict[str, Any]]:
     end_s = end.isoformat()
     loads = _daily_loads(store, end_s, LOAD_WINDOW)
     loads_prev = loads[:-7]
@@ -176,11 +238,20 @@ def _load_rows(store: Any, start: _date, end: _date) -> tuple[list[Row], dict[st
     prev_wk_start = (start - timedelta(days=7)).isoformat()
     prev_acts = [a for a in hist_acts if a["date"] >= prev_wk_start]
     this_acts = store.list_activities(start.isoformat(), end_s)
-    this_tot, prev_tot, four_tot = _totals(this_acts), _totals(prev_acts), _totals(hist_acts)
+    # Volume is the only row a sport filter can scope: Load/Ramp/ACWR/Monotony
+    # read days.daily_load, an all-sport aggregate with no per-sport split.
+    this_tot = _totals(_in_sport(this_acts, sport))
+    prev_tot = _totals(_in_sport(prev_acts, sport))
+    four_tot = _totals(_in_sport(hist_acts, sport))
 
+    this_cell = f"{round(this_tot['dist_m'] / 1000)} km / {_fmt_hm(this_tot['dur_s'])}"
+    if sport is None:
+        breakdown = _volume_breakdown(this_acts)
+        if breakdown:
+            this_cell += f" ({breakdown})"
     rows = [Row([
-        "Volume",
-        f"{round(this_tot['dist_m'] / 1000)} km / {_fmt_hm(this_tot['dur_s'])}",
+        f"Volume ({sport})" if sport else "Volume",
+        this_cell,
         f"{round(prev_tot['dist_m'] / 1000)} km",
         f"{round(four_tot['dist_m'] / 1000 / 4)} km",
         "✓",
@@ -235,10 +306,12 @@ def _load_rows(store: Any, start: _date, end: _date) -> tuple[list[Row], dict[st
 # distribution (TID) — approximate until zone floors are persisted
 # ---------------------------------------------------------------------------
 
-def _distribution(store: Any, start: _date, end: _date) -> tuple[Section | None, dict[str, Any] | None]:
+def _distribution(
+    store: Any, start: _date, end: _date, sport: str | None = None
+) -> tuple[Section | None, dict[str, Any] | None]:
     end_s = end.isoformat()
     zk, tid_note = _zones.resolve(store, end_s)
-    week_acts = store.list_activities(start.isoformat(), end_s)
+    week_acts = _in_sport(store.list_activities(start.isoformat(), end_s), sport)
     week_dist = tid.distribution(week_acts, **zk)
     if week_dist["total"] <= 0:
         return None, None
@@ -246,7 +319,7 @@ def _distribution(store: Any, start: _date, end: _date) -> tuple[Section | None,
 
     norm_start = (start - timedelta(days=NORM_WINDOW_DAYS)).isoformat()
     norm_end = (start - timedelta(days=1)).isoformat()
-    norm_acts = store.list_activities(norm_start, norm_end)
+    norm_acts = _in_sport(store.list_activities(norm_start, norm_end), sport)
     norm_shares = tid.shares(tid.distribution(norm_acts, **zk))
 
     e, m, h = week_shares
@@ -467,8 +540,16 @@ def _verdict(load_info: dict[str, Any], drift: dict[str, Any] | None, recovery: 
 # entry point
 # ---------------------------------------------------------------------------
 
-async def run(ctx: Any, anchor_date: str | None = None) -> str:
+async def run(
+    ctx: Any, anchor_date: str | None = None, sport: str | None = None
+) -> str:
     today = ctx.today()
+    if sport is not None and sport not in VALID_SPORT_FILTERS:
+        return _with_banner(
+            ctx,
+            f"sport must be one of {', '.join(VALID_SPORT_FILTERS)} (got '{sport}'). "
+            f"Example: garmin_week(sport='running')",
+        )
     if anchor_date is not None:
         if not _DATE_RE.match(anchor_date):
             return _with_banner(
@@ -499,16 +580,17 @@ async def run(ctx: Any, anchor_date: str | None = None) -> str:
         completeness = "complete"
 
     phase = store.get_profile().get("phase") or "none"
+    scope_mark = f" · {sport} only" if sport else ""
     title = (f"Week {format_date(start.isoformat())} → {format_date(end.isoformat())} "
-             f"({completeness}) · phase on file: {phase}")
+             f"({completeness}){scope_mark} · phase on file: {phase}")
 
-    load_rows, load_info = _load_rows(store, start, end)
+    load_rows, load_info = _load_rows(store, start, end, sport)
     sections: list[Section] = [
         Section(title=None, header=["Load", "This wk", "Prev", "4-wk avg", "Flag"],
                 rows=load_rows, priority="primary")
     ]
 
-    dist_section, drift = _distribution(store, start, end)
+    dist_section, drift = _distribution(store, start, end, sport)
     if dist_section is not None:
         sections.append(dist_section)
 
@@ -524,15 +606,35 @@ async def run(ctx: Any, anchor_date: str | None = None) -> str:
     for a in acts:
         a["_family"] = sport_family(a["sport"])
     acts.sort(key=lambda a: (a["date"], a.get("start_local") or "", a["activity_id"]))
+    shown = _in_sport(acts, sport)
+    hidden = [a for a in acts if a not in shown]
 
-    if acts:
+    if sport is not None:
+        scope = f"Sport filter: volume, distribution and session rows are {sport} only"
+        if sport == "running":
+            scope += " (treadmill and indoor included)"
+        scope += "; Load, ACWR, monotony and recovery remain all-sport."
+        if hidden:
+            scope += f" Not shown: {_count_by_family(hidden)} — garmin_week() for all sports."
+        sections.append(Section(title=None, header=None, prose=scope, priority="secondary"))
+
+    if shown:
         sections.append(Section(
             title=None, header=["Day", "Session (id)", "Load", "Note"],
-            rows=_day_rows(store, acts), priority="primary",
+            rows=_day_rows(store, shown), priority="primary",
         ))
+        # Rest days are judged against ALL activities: a day with only a ride
+        # is not "rest" in a running-filtered week.
         rest_line = _rest_line(start, end, acts, today_d)
         if rest_line:
             sections.append(Section(title=None, header=None, prose=rest_line, priority="secondary"))
+    elif acts:
+        sections.append(Section(
+            title=None, header=None,
+            prose=(f"No {sport} sessions this week — {_count_by_family(acts)} "
+                   f"in other sports. garmin_week() for all sports."),
+            priority="primary",
+        ))
     else:
         sections.append(Section(
             title=None, header=None,
@@ -550,7 +652,7 @@ async def run(ctx: Any, anchor_date: str | None = None) -> str:
     watch = [a["message"] for a in store.active_alerts() if a["severity"] == "WATCH"]
 
     next_steps: list[str] = []
-    hardest = max(acts, key=lambda a: a.get("load") or 0.0) if acts else None
+    hardest = max(shown, key=lambda a: a.get("load") or 0.0) if shown else None
     if hardest is not None:
         next_steps.append(f"garmin_activity(activity_id={hardest['activity_id']}) for that session")
     next_steps.append("garmin_recovery(days=14) for the sleep/HRV trend")
