@@ -50,6 +50,10 @@ _FAMILY_BY_KEY = {
 }
 
 
+VALID_SPORT_FILTERS = ("running", "cycling", "swimming", "strength", "other")
+CORE_FAMILIES = frozenset({"running", "cycling", "swimming", "strength"})
+
+
 def sport_family(type_key: str) -> str:
     """Collapse Garmin typeKeys into families: running, cycling, swimming,
     strength, walking, hiking, other. `cycling_*` keys → cycling; unknown → 'other'."""
@@ -62,6 +66,15 @@ def sport_family(type_key: str) -> str:
     if key.startswith("cycling_"):
         return "cycling"
     return "other"
+
+
+def matches_sport(family: str, sport: str) -> bool:
+    """Whether a sport_family value falls under a VALID_SPORT_FILTERS filter —
+    'other' matches every family outside the four core ones (walking, hiking,
+    other)."""
+    if sport == "other":
+        return family not in CORE_FAMILIES
+    return family == sport
 
 
 def _planned_duration_s(entry: dict[str, Any]) -> float | None:

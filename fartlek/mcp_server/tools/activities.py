@@ -19,14 +19,15 @@ from datetime import date as _date
 from datetime import datetime, timedelta
 from typing import Any
 
-from fartlek.analytics.matcher import sport_family
+from fartlek.analytics.matcher import (
+    VALID_SPORT_FILTERS,
+    matches_sport,
+    sport_family,
+)
 from fartlek.render.renderer import Report, Row, Section, format_date, render
 
 CAP_TOKENS = 1300
 DEFAULT_WINDOW_DAYS = 14
-
-_VALID_SPORTS = ("running", "cycling", "swimming", "strength", "other")
-_CORE_FAMILIES = {"running", "cycling", "swimming", "strength"}
 
 _ROW_LABEL = {
     "running": "run", "cycling": "ride", "swimming": "swim",
@@ -80,12 +81,6 @@ def _valid_date(value: str) -> bool:
     return len(value) == 10
 
 
-def _matches(family: str, sport: str) -> bool:
-    if sport == "other":
-        return family not in _CORE_FAMILIES
-    return family == sport
-
-
 def _nearest(acts: list[dict[str, Any]], start: str, end: str) -> dict[str, Any]:
     """Activity whose date is closest to the [start, end] window."""
     s, e = _date.fromisoformat(start), _date.fromisoformat(end)
@@ -109,7 +104,7 @@ def _empty_window_error(
         return _with_banner(
             ctx, "No activities in the store yet. garmin_sync() fetches them from Garmin."
         )
-    in_family = [a for a in all_acts if sport is None or _matches(sport_family(a["sport"]), sport)]
+    in_family = [a for a in all_acts if sport is None or matches_sport(sport_family(a["sport"]), sport)]
     if sport is not None and not in_family:
         near = _nearest(all_acts, start, end)
         label = _ROW_LABEL[sport_family(near["sport"])]
@@ -192,10 +187,10 @@ async def run(
                 f"{name} must be YYYY-MM-DD (got '{value}'). Today is {format_date(today)}. "
                 f"Example: garmin_activities(start_date='{example_start}')",
             )
-    if sport is not None and sport not in _VALID_SPORTS:
+    if sport is not None and sport not in VALID_SPORT_FILTERS:
         return _with_banner(
             ctx,
-            f"sport must be one of {', '.join(_VALID_SPORTS)} (got '{sport}'). "
+            f"sport must be one of {', '.join(VALID_SPORT_FILTERS)} (got '{sport}'). "
             f"Example: garmin_activities(sport='running')",
         )
     if not 1 <= limit <= 30:
@@ -218,7 +213,7 @@ async def run(
     for a in acts:
         a["_family"] = sport_family(a["sport"])
     if sport is not None:
-        acts = [a for a in acts if _matches(a["_family"], sport)]
+        acts = [a for a in acts if matches_sport(a["_family"], sport)]
     if not acts:
         return _empty_window_error(ctx, start, end, sport)
 
