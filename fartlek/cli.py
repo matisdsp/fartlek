@@ -12,6 +12,7 @@ import shutil
 import sys
 from collections.abc import Iterator
 from contextlib import contextmanager
+from datetime import date
 from pathlib import Path
 
 from garminconnect import (
@@ -190,13 +191,40 @@ def cmd_accounts(_args: argparse.Namespace) -> int:
     return 0
 
 
+def _span_days(since: str | None, today: date | None = None) -> int | None:
+    """`--since YYYY-MM-DD` → a day count the sync steps all understand.
+
+    Every backfill in the engine is parameterised by a *depth in days*, not by
+    a start date, and the conventions differ by one day between them (tier 1
+    and tier 2 subtract the count from today, `backfill_splits` counts today
+    in). Returning `(today - since).days + 1` satisfies the strictest of them,
+    so `since` is always covered — the extra day the looser callers pick up is
+    a harmless superset, never a short window.
+    """
+    if not since:
+        return None
+    try:
+        start = date.fromisoformat(since)
+    except ValueError:
+        raise SystemExit(f"--since: expected YYYY-MM-DD, got {since!r}") from None
+    span = ((today or date.today()) - start).days + 1
+    if span < 1:
+        raise SystemExit(f"--since: {since} is in the future")
+    return span
+
+
 def cmd_sync(args: argparse.Namespace) -> int:
     from fartlek.health.adapters.garmin_connect import GarminConnectAdapter
     from fartlek.health.exceptions import GarminAuthError
     from fartlek.paths import account_dir, store_path
     from fartlek.store import Store
-    from fartlek.sync.engine import SyncEngine, activity_history_days
+    from fartlek.sync.engine import (
+        SPLITS_HISTORY_DAYS,
+        SyncEngine,
+        activity_history_days,
+    )
 
+    span = _span_days(getattr(args, "since", None))
     adapter = GarminConnectAdapter(tokenstore=default_tokenstore())
     try:
         client = adapter.connect_sync()
@@ -224,12 +252,16 @@ def cmd_sync(args: argparse.Namespace) -> int:
 
         if not _report("tier0 (snapshot)", engine.tier0()):
             return 1
-        if not _report(f"tier1 ({activity_history_days()}d history)", engine.tier1()):
+        window = max(span or 0, activity_history_days())
+        if not _report(f"tier1 ({window}d history)", engine.tier1(history_days=span)):
             return 1
         # Per-lap splits: capped per run and self-healing — the work list is
         # "activities with no stored laps", so in steady state this costs one
         # call for the session just ingested, and nothing at all once caught up.
-        splits = engine.backfill_splits()
+        # The window stays at the spec's 8-12 weeks (§3.2 #12) unless --since
+        # asks for more: laps are one call each, so depth here is opt-in, and
+        # a shallow --since must never shrink it below the spec.
+        splits = engine.backfill_splits(days=max(span or 0, SPLITS_HISTORY_DAYS))
         if not _report("splits backfill", splits):
             return 1
         left = splits["remaining"]
@@ -239,23 +271,26 @@ def cmd_sync(args: argparse.Namespace) -> int:
         # from tier 2, i.e. only with --nights, which made the re-check window
         # unusable in practice: correcting a pair in Connect had no effect
         # unless the athlete happened to ask for a sleep backfill afterwards.
-        gear = engine.backfill_gear()
+        gear = engine.backfill_gear(days=span)
         if not _report("gear backfill", gear):
             return 1
         left = gear["remaining"]
         tail = f", {left} left — re-run to continue" if left else ""
         print(f"  · {gear['linked']} sessions attributed{tail}")
-        if args.nights:
+        # --since is a floor date for the whole pass, so it implies the nightly
+        # tier as well; --nights stays the way to ask for depth in nights only.
+        nights = max(span or 0, args.nights)
+        if nights:
             if not _report(
-                f"tier2 ({args.nights} nights backfill)",
-                engine.tier2(backfill_days=args.nights),
+                f"tier2 ({nights} nights backfill)",
+                engine.tier2(backfill_days=nights),
             ):
                 return 1
             # Wellness gap-fills: one call per missing date, capped per run, so
             # a long history drains over several invocations.
             for label, res in (
-                ("hrv", engine.backfill_hrv(days=args.nights)),
-                ("daily summary", engine.backfill_daily_summary(days=args.nights)),
+                ("hrv", engine.backfill_hrv(days=nights)),
+                ("daily summary", engine.backfill_daily_summary(days=nights)),
             ):
                 if not _report(f"{label} backfill", res):
                     return 1
@@ -327,6 +362,14 @@ def main() -> None:
     sub.add_parser("accounts", help="list local accounts").set_defaults(func=cmd_accounts)
     p_sync = sub.add_parser("sync", help="fetch Garmin data into the local store (tier 0 + 1)")
     p_sync.add_argument("--nights", type=int, default=0, help="also backfill N nights of sleep/HRV (tier 2)")
+    p_sync.add_argument(
+        "--since",
+        metavar="YYYY-MM-DD",
+        help="floor date for the whole pass: activities, wellness, laps, gear "
+        "and nights are all backfilled down to this date (never shallower "
+        "than the configured defaults). Costs one call per missing item, so "
+        "expect several runs before a deep window is fully drained.",
+    )
     p_sync.set_defaults(func=cmd_sync)
     p_export = sub.add_parser("export", help="export the local store (SQLite copy + CSV per table)")
     p_export.add_argument("out", nargs="?", help="output directory (default: ./fartlek-export)")
