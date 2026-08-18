@@ -175,6 +175,7 @@ Two open questions died with it: DESIGN §7 Q5 (elicitation/`requiresUserInterac
 
 **Fixed along the way** (each could have produced false advice without raising an error):
 - **D1/D6**: 7 daily scalars had only 1 day of history (the daily summary is only fetched for today) → backfill via `userstats-service` (1 range call per metric, see `USERSTATS_DAILY_METRICS`). Also fixes rows frozen by a mid-day sync.
+- **D9** (2026-08-18): three wellness families only accrued *forward* — HRV came from `/hrv-service/hrv/{today}` alone, the daily-summary-only columns (`max_hr`, `max_stress`, `spo2_avg`) were D6's residue and froze mid-day, and body battery walked a hard-coded 90d that ignored a widened history window. Fixed with `backfill_hrv()` / `backfill_daily_summary()` (capped, resumable, no cursor — the `backfill_splits` pattern) run as their own steps of `fartlek sync --nights N`, plus a tier-1 re-ask of **yesterday** that thaws the frozen row. **Trap**: that re-ask must stay *before* tier 1's range calls — userstats owns the 9 metrics it serves and has to land last.
 - **D8**: HR zones and weight fetched by tier0 but never persisted → now stored; the 3 TID tools pro-rate via `_zones.resolve()`.
 - **D4**: the spec's "steady session" qualifier only captured 21 sessions out of 201 → **amendment §3.2 #12**: pace bands become the primary measurement.
 - **D5**: `digest_laps` treated lap index 0 as absent (`or` on a falsy integer).
