@@ -528,3 +528,20 @@ def test_migration_adds_new_days_columns_to_a_preexisting_db(tmp_path):
     # reopening is idempotent (no duplicate-column error)
     with Store(db) as s:
         assert "endurance_score" in {r["name"] for r in s._conn.execute("PRAGMA table_info(days)")}
+
+
+# --- dates_missing_metric (wellness backfill work list) ----------------------
+
+def test_dates_missing_metric_walks_the_calendar_not_the_rows(tmp_path):
+    s = Store(tmp_path / "s.db")
+    s.upsert_day({"date": "2026-07-01", "hrv_last_night": 60.0, "synced_at": TS})
+    s.upsert_day({"date": "2026-07-03", "steps": 100, "synced_at": TS})  # hrv NULL
+    # 07-02 has no row at all; 07-04 neither.
+    got = s.dates_missing_metric("hrv_last_night", "2026-07-01", "2026-07-04")
+    assert got == ["2026-07-04", "2026-07-03", "2026-07-02"]  # newest first
+
+
+def test_dates_missing_metric_rejects_unknown_column(tmp_path):
+    s = Store(tmp_path / "s.db")
+    with pytest.raises(KeyError):
+        s.dates_missing_metric("hrv_last_night; DROP TABLE days", "2026-07-01", "2026-07-02")

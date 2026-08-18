@@ -252,6 +252,30 @@ class Store:
             (start_date, end_date, sport_like),
         )
 
+    def dates_missing_metric(
+        self, metric: str, start_date: str, end_date: str
+    ) -> list[str]:
+        """Calendar dates in the window whose `days.<metric>` is NULL — the
+        work list for the day-by-day wellness backfills, newest first.
+
+        Walks the calendar rather than the stored rows, so a date with no
+        `days` row at all is reported as missing too (a gap the daily-summary
+        backfill is precisely there to close). `metric` is validated against
+        the real column list, never interpolated blindly.
+        """
+        if metric not in self._columns["days"]:
+            raise KeyError(f"unknown days column: {metric}")
+        rows = self._all(
+            "WITH RECURSIVE cal(d) AS ("
+            "  SELECT ? UNION ALL SELECT date(d, '+1 day') FROM cal WHERE d < ?"
+            ") "
+            "SELECT cal.d AS date FROM cal "
+            "LEFT JOIN days ON days.date = cal.d "
+            f'WHERE days."{metric}" IS NULL ORDER BY cal.d DESC',
+            (start_date, end_date),
+        )
+        return [r["date"] for r in rows]
+
     def activities_missing_laps(
         self, start_date: str, end_date: str, sport_like: str = "%"
     ) -> list[dict[str, Any]]:
