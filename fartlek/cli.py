@@ -195,7 +195,7 @@ def cmd_sync(args: argparse.Namespace) -> int:
     from fartlek.health.exceptions import GarminAuthError
     from fartlek.paths import account_dir, store_path
     from fartlek.store import Store
-    from fartlek.sync.engine import SyncEngine
+    from fartlek.sync.engine import SyncEngine, activity_history_days
 
     adapter = GarminConnectAdapter(tokenstore=default_tokenstore())
     try:
@@ -224,12 +224,25 @@ def cmd_sync(args: argparse.Namespace) -> int:
 
         if not _report("tier0 (snapshot)", engine.tier0()):
             return 1
-        if not _report("tier1 (180d history)", engine.tier1()):
+        if not _report(f"tier1 ({activity_history_days()}d history)", engine.tier1()):
             return 1
-        if args.nights and not _report(
-            f"tier2 ({args.nights} nights backfill)", engine.tier2(backfill_days=args.nights)
-        ):
-            return 1
+        if args.nights:
+            if not _report(
+                f"tier2 ({args.nights} nights backfill)",
+                engine.tier2(backfill_days=args.nights),
+            ):
+                return 1
+            # Wellness gap-fills: one call per missing date, capped per run, so
+            # a long history drains over several invocations.
+            for label, res in (
+                ("hrv", engine.backfill_hrv(days=args.nights)),
+                ("daily summary", engine.backfill_daily_summary(days=args.nights)),
+            ):
+                if not _report(f"{label} backfill", res):
+                    return 1
+                left = res["remaining"]
+                tail = f", {left} left — re-run to continue" if left else ""
+                print(f"  · {res['filled']} days filled{tail}")
         pmc = store.get_pmc(end_date=engine._today(), days=1)
         if pmc:
             p = pmc[-1]

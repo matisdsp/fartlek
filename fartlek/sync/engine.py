@@ -1318,6 +1318,23 @@ class SyncEngine:
                 break
             start += self.page_limit
 
+        # Yesterday's daily summary, re-asked once per sync. Tier 0 writes
+        # today's row mid-day, so max_hr/max_stress/spo2_avg froze at the max
+        # *so far* and nothing ever revisited a settled date. One call heals
+        # the previous day for good.
+        #
+        # It runs BEFORE the range calls below on purpose: those are the
+        # authoritative multi-day sources for the columns they cover, so they
+        # must land last and win. What survives from here is precisely the set
+        # no range endpoint serves — max_hr, max_stress, spo2_avg,
+        # body_battery_wake.
+        yesterday = (today_d - timedelta(days=1)).isoformat()
+        raw_yday = self._try_call(
+            f"/usersummary-service/usersummary/daily/{name}", errors, calendarDate=yesterday
+        )
+        if raw_yday:
+            self._upsert_day(digest_daily_summary(raw_yday, yesterday))
+
         # RHR range via userstats metricId=60, capability fallback recorded.
         try:
             payload = self._call(
@@ -1654,12 +1671,13 @@ class SyncEngine:
 
         These have no range endpoint: userstats covers the nine metrics in
         USERSTATS_DAILY_METRICS and no more, so the rest came from the daily
-        summary — fetched for TODAY only. Two consequences this heals: dates
-        without a sync never got them at all, and a row written mid-day froze
-        at its mid-day value, so `max_hr` recorded the max *so far* rather than
-        the day's. Re-asking a settled date replaces both.
+        summary — fetched for TODAY only, which left every day without a sync
+        blank for good.
 
-        Work list is "dates where max_hr is NULL", newest first, capped.
+        Work list is "dates where max_hr is NULL", newest first, capped,
+        resumable by construction. The companion defect — a row written mid-day
+        freezing at its mid-day value — is healed daily by tier 1 re-asking
+        yesterday, not here: this walks gaps, it does not revisit filled rows.
         """
         return self._locked(lambda: self._backfill_daily_summary(days, limit))
 
@@ -1671,12 +1689,9 @@ class SyncEngine:
         start = (date.fromisoformat(t) - timedelta(days=window)).isoformat()
         yesterday = (date.fromisoformat(t) - timedelta(days=1)).isoformat()
 
-        # Only settled days: today's summary is tier 0's job and would freeze
-        # again anyway. Yesterday leads the list unconditionally — it is the
-        # one date whose stored row is most likely a frozen mid-day value.
+        # Only settled days: today's summary is tier 0's job, and a row written
+        # for today would freeze at its mid-day value anyway.
         pending = self.store.dates_missing_metric("max_hr", start, yesterday)
-        if yesterday not in pending:
-            pending.insert(0, yesterday)
         errors: list[str] = []
         done = filled = 0
 

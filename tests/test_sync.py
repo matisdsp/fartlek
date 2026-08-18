@@ -728,14 +728,15 @@ def test_tier1_pagination_terminates_on_short_page(store, tmp_path):
     assert [kw["start"] for _, kw in searches] == [0, 5]  # stopped after short page
     assert result["activities"] == 8
     assert store.get_activity(207) is not None
-    # 2 pages + weight + one bb chunk per 30d of history + endurance
+    # 2 pages + yesterday's daily summary + weight + one bb chunk per 30d of
+    # history + endurance
     # + tolerance + stress + 2 maxmet + progress + one userstats range call per
     # daily wellness metric (incl. RHR) + gear: the social profile (tier 0
     # never ran here, so userProfilePk is not cached), the locker, and one
     # odometer per item.
     bb_chunks = -(-activity_history_days() // BODY_BATTERY_CHUNK_DAYS)
     assert result["calls"] == (
-        9 + bb_chunks + len(USERSTATS_DAILY_METRICS) + 1 + 2 + len(GEAR_CATALOG)
+        10 + bb_chunks + len(USERSTATS_DAILY_METRICS) + 1 + 2 + len(GEAR_CATALOG)
     )
     assert result["gear"] == len(GEAR_CATALOG)
     assert store.get_gear("shoe-a")["total_meters"] == 514248.2
@@ -757,7 +758,7 @@ def test_tier1_derives_body_battery_wake_when_sleep_end_already_known(store, tmp
     """D7: once a date's sleep_end_ts is on file (from an earlier sleep sync),
     tier1's body-battery chunk backfill derives the missing wake value from
     the sparse timeline instead of leaving it stuck at 1 day of history."""
-    d = "2026-07-19"
+    d = "2026-07-17"   # not yesterday: tier1 refreshes that one from Garmin
     store.upsert_day(
         {"date": d, "sleep_end_ts": f"{d}T07:52:49", "synced_at": "2026-01-01T00:00:00"}
     )
@@ -774,7 +775,7 @@ def test_tier1_derives_body_battery_wake_when_sleep_end_already_known(store, tmp
 def test_tier1_never_overwrites_a_real_body_battery_wake_value(store, tmp_path):
     """A derived value must never clobber Garmin's own scalar (e.g. one that
     landed via today's daily summary)."""
-    d = "2026-07-19"
+    d = "2026-07-17"   # not yesterday: tier1 refreshes that one from Garmin
     store.upsert_day({
         "date": d, "sleep_end_ts": f"{d}T07:52:49", "body_battery_wake": 55,
         "synced_at": "2026-01-01T00:00:00",
@@ -791,7 +792,7 @@ def test_tier1_never_overwrites_a_real_body_battery_wake_value(store, tmp_path):
 def test_tier1_leaves_body_battery_wake_null_without_a_known_sleep_end(store, tmp_path):
     """Fabricate nothing: sleep hasn't synced for this date yet, so no proxy
     is guessed — a later tier1 run (once sleep lands) will pick it up."""
-    d = "2026-07-19"
+    d = "2026-07-17"   # not yesterday: tier1 refreshes that one from Garmin
     routes = base_routes()
     routes["/wellness-service/wellness/bodyBattery/reports/daily"] = [
         bb_daily_entry(d, [("07:50:00", 76)])
@@ -852,9 +853,13 @@ def test_tier1_survives_a_metric_the_account_does_not_serve(store, tmp_path):
     result = engine.tier1()
 
     assert result["errors"]
-    day = store.get_day("2026-07-19")
+    day = store.get_day("2026-07-18")
     assert day["steps"] is None          # the one that failed
-    assert day["avg_stress"] == 25       # the others still landed
+    assert day["avg_stress"] == 30       # the others still landed
+    # Yesterday is the one date the daily-summary heal also covers, so it keeps
+    # a value for the dead metric — a legitimate single-date fallback, not a
+    # fabrication: the range's other dates stay empty.
+    assert store.get_day("2026-07-19")["steps"] == 9000
 
 
 def test_tier1_rhr_capability_fallback_recorded(store, tmp_path):
@@ -1186,12 +1191,33 @@ def test_backfill_hrv_survives_a_dead_date(store, tmp_path):
     assert result["dates"] == 3 and result["filled"] == 2 and result["errors"]
 
 
-def test_backfill_daily_summary_heals_the_frozen_mid_day_row(store, tmp_path):
-    """Yesterday is re-asked even though max_hr is already set: the stored
-    value is the max *so far* captured by a mid-day sync, not the day's."""
-    for row in make_days(TODAY, 3):
+def test_tier1_reasks_yesterday_and_thaws_the_frozen_mid_day_row(store, tmp_path):
+    """Tier 0 writes today's row mid-day, so max_hr held the max *so far*.
+    Nothing revisited it, so the frozen value outlived the day forever."""
+    store.upsert_day({"date": "2026-07-19", "max_hr": 110, "max_stress": 40,
+                      "synced_at": "2026-01-01T00:00:00"})
+    routes = base_routes()
+    routes["/activitylist-service/activities/search/activities"] = lambda p, kw: []
+    engine, fetch = make_engine(store, tmp_path, routes)
+    engine.tier1()
+
+    asked = [kw.get("calendarDate") for _, kw in
+             fetch.paths("/usersummary-service/usersummary/daily/")]
+    assert asked == ["2026-07-19"]                         # yesterday, once
+    day = store.get_day("2026-07-19")
+    assert day["max_hr"] == 150 and day["max_stress"] == 80  # settled values win
+    assert day["spo2_avg"] == 96.0
+    # The range calls still own the columns they cover: the summary's steps
+    # (9000) must not survive over userstats' 15000.
+    assert day["steps"] == 15000
+
+
+def test_backfill_daily_summary_only_walks_gaps(store, tmp_path):
+    """Pure gap-fill: a date that already has max_hr is never re-asked (the
+    freeze is tier 1's job), and today is left to tier 0."""
+    for row in make_days(TODAY, 4):
         store.upsert_day(row)
-    store.upsert_day({"date": "2026-07-19", "max_hr": 110,
+    store.upsert_day({"date": "2026-07-18", "max_hr": 133,
                       "synced_at": "2026-01-01T00:00:00"})
     engine, fetch = make_engine(store, tmp_path, {
         "/usersummary-service/usersummary/daily/": daily_summary_payload(),
@@ -1199,14 +1225,12 @@ def test_backfill_daily_summary_heals_the_frozen_mid_day_row(store, tmp_path):
 
     result = engine.backfill_daily_summary(days=3)
 
-    dates = [kw["calendarDate"] for _, kw in
+    asked = [kw["calendarDate"] for _, kw in
              fetch.paths("/usersummary-service/usersummary/daily/")]
-    assert dates[0] == "2026-07-19"           # yesterday leads unconditionally
-    assert TODAY not in dates                 # today is tier 0's job
-    assert store.get_day("2026-07-19")["max_hr"] == 150   # frozen 110 replaced
-    assert store.get_day("2026-07-19")["spo2_avg"] == 96.0
-    assert result["filled"] == len(dates)
-
+    assert asked == ["2026-07-19", "2026-07-17"]   # newest first, 07-18 kept, not today
+    assert store.get_day("2026-07-18")["max_hr"] == 133
+    assert store.get_day("2026-07-19")["max_hr"] == 150
+    assert result["filled"] == 2 and result["remaining"] == 0
 
 def test_backfill_daily_summary_window_defaults_to_activity_history(store, tmp_path, monkeypatch):
     monkeypatch.setenv("FARTLEK_ACTIVITY_HISTORY_DAYS", "40")
