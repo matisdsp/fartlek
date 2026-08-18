@@ -345,6 +345,25 @@ class Store:
             (start_date, end_date, sport_like),
         )
 
+    def activities_with_gear(
+        self, start_date: str, end_date: str, sport_like: str = "%"
+    ) -> list[dict[str, Any]]:
+        """Activities in the window that DO have a gear link — the re-check
+        work list, newest first.
+
+        The mirror of activities_missing_gear, and needed because Garmin
+        attaches the default pair at upload: the first answer is precisely the
+        one the athlete is most likely to correct afterwards. Absence-only work
+        lists never revisit it, so a corrected pair never reached the store.
+        """
+        return self._all(
+            "SELECT a.* FROM activities a "
+            "JOIN activity_gear ag ON ag.activity_id = a.activity_id "
+            "WHERE a.date >= ? AND a.date <= ? AND a.sport LIKE ? "
+            "GROUP BY a.activity_id ORDER BY a.date DESC",
+            (start_date, end_date, sport_like),
+        )
+
     def gear_usage(self, start_date: str, end_date: str) -> dict[str, dict[str, Any]]:
         """Locally-attributed usage per gear uuid over the window: metres,
         session count, newest session date. Distinct from gear.total_meters,

@@ -98,6 +98,12 @@ _GEAR_SKIP_CAP = 500        # bound on the remembered "this one carries no gear"
 # A session uploaded minutes ago may not carry its gear yet; only once it has
 # settled does "no gear" become a fact worth remembering rather than a race.
 _GEAR_SETTLE_DAYS = 7
+# The same window, applied to the opposite case: Garmin attaches the DEFAULT
+# pair at upload, so the first answer is precisely the one the athlete corrects
+# afterwards. An absence-only work list never revisits a session that already
+# has a link, so the correction never reached the store — the rotation then
+# credited kilometres to the wrong shoe for good.
+_GEAR_RECHECK_DAYS = 7
 
 
 class RateLimiter:
@@ -1114,6 +1120,17 @@ class SyncEngine:
             a
             for a in self.store.activities_missing_gear(start, t)
             if a["activity_id"] not in skip_set
+        ]
+        # Then the recent sessions that already have a link: still inside the
+        # window where the athlete edits the pair in Connect. Newest-first
+        # order is preserved by appending, since these are all newer than most
+        # of the missing-gear tail but must not starve it.
+        recheck_from = (date.fromisoformat(t) - timedelta(days=_GEAR_RECHECK_DAYS - 1)).isoformat()
+        known = {a["activity_id"] for a in pending}
+        pending += [
+            a
+            for a in self.store.activities_with_gear(recheck_from, t)
+            if a["activity_id"] not in known
         ]
         errors: list[str] = []
         batch = pending[:limit]

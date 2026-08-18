@@ -127,11 +127,16 @@ def test_backfill_upserts_gear_the_catalog_never_returned(store: Store, tmp_path
     assert [g["uuid"] for g in store.gear_for_activity(1)] == ["ghost"]
 
 
-def test_backfill_skips_sessions_already_linked(store: Store, tmp_path: Path):
-    store.upsert_activity(act_row(1))
-    store.upsert_gear({"uuid": "shoe-a", "type": "shoes", "name": "x",
+def _linked(store, aid, uuid, date):
+    store.upsert_activity(act_row(aid, date=date))
+    store.upsert_gear({"uuid": uuid, "type": "shoes", "name": "x",
                        "status": "active", "synced_at": TS})
-    store.replace_activity_gear(1, ["shoe-a"])
+    store.replace_activity_gear(aid, [uuid])
+
+
+def test_backfill_skips_a_settled_session_already_linked(store: Store, tmp_path: Path):
+    """Outside the re-check window the link is taken as final."""
+    _linked(store, 1, "shoe-a", "2026-07-01")
     engine, fetch = make_engine(store, tmp_path, gear_routes_for({1: ["shoe-a"]}))
 
     res = engine.backfill_gear(days=30)
@@ -139,9 +144,36 @@ def test_backfill_skips_sessions_already_linked(store: Store, tmp_path: Path):
     assert res["linked"] == 0 and fetch.calls == []
 
 
+def test_backfill_rechecks_a_recent_link_and_picks_up_a_correction(
+    store: Store, tmp_path: Path
+):
+    """Garmin attaches the DEFAULT pair at upload, so the athlete corrects it
+    in Connect hours later. An absence-only work list never revisited the
+    session, and the rotation credited the kilometres to the wrong shoe."""
+    _linked(store, 1, "shoe-a", TODAY)          # what Garmin said at upload
+    engine, _ = make_engine(store, tmp_path, gear_routes_for({1: ["shoe-b"]}))
+
+    res = engine.backfill_gear(days=30)
+
+    assert res["linked"] == 1
+    assert [g["uuid"] for g in store.gear_for_activity(1)] == ["shoe-b"]
+
+
+def test_backfill_recheck_leaves_a_settled_link_alone(store: Store, tmp_path: Path):
+    """The window is 7 days: an older session is never re-asked, so a pair
+    retired and detached in Connect does not rewrite last month's history."""
+    _linked(store, 1, "shoe-a", "2026-07-05")
+    engine, fetch = make_engine(store, tmp_path, gear_routes_for({1: ["shoe-b"]}))
+
+    engine.backfill_gear(days=30)
+
+    assert [g["uuid"] for g in store.gear_for_activity(1)] == ["shoe-a"]
+    assert fetch.calls == []
+
+
 def test_backfill_is_resumable_through_its_work_list(store: Store, tmp_path: Path):
     for aid in (1, 2, 3):
-        store.upsert_activity(act_row(aid, date=f"2026-07-{15 + aid}"))
+        store.upsert_activity(act_row(aid, date=f"2026-07-{0 + aid:02d}"))
     worn = {1: ["shoe-a"], 2: ["shoe-a"], 3: ["shoe-b"]}
 
     engine, _ = make_engine(store, tmp_path, gear_routes_for(worn))
@@ -279,7 +311,7 @@ def test_daily_catchup_chips_away_at_the_work_list(store: Store, tmp_path: Path)
     """A warm store never reaches tier 2 on its own, so the background refresh
     is what keeps attribution moving — bounded, and free once it is done."""
     for aid in range(1, 4):
-        store.upsert_activity(act_row(aid, date=f"2026-07-{15 + aid}"))
+        store.upsert_activity(act_row(aid, date=f"2026-07-{0 + aid:02d}"))
     routes = gear_routes_for({1: ["shoe-a"], 2: ["shoe-a"], 3: ["shoe-b"]})
     # no new sessions on the wire: isolate the catch-up from incremental's own
     # attribution of what it just ingested
