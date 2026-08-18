@@ -15,6 +15,7 @@ from conftest import make_days
 
 from fartlek.sync.engine import (
     ACTIVITY_HISTORY_DAYS,
+    BODY_BATTERY_CHUNK_DAYS,
     USERSTATS_DAILY_METRICS,
     RateLimiter,
     SyncEngine,
@@ -727,12 +728,14 @@ def test_tier1_pagination_terminates_on_short_page(store, tmp_path):
     assert [kw["start"] for _, kw in searches] == [0, 5]  # stopped after short page
     assert result["activities"] == 8
     assert store.get_activity(207) is not None
-    # 2 pages + weight + 3 bb chunks + endurance + tolerance + stress
-    # + 2 maxmet + progress + one userstats range call per daily wellness
-    # metric (incl. RHR) + gear: the social profile (tier 0 never ran here, so
-    # userProfilePk is not cached), the locker, and one odometer per item.
+    # 2 pages + weight + one bb chunk per 30d of history + endurance
+    # + tolerance + stress + 2 maxmet + progress + one userstats range call per
+    # daily wellness metric (incl. RHR) + gear: the social profile (tier 0
+    # never ran here, so userProfilePk is not cached), the locker, and one
+    # odometer per item.
+    bb_chunks = -(-activity_history_days() // BODY_BATTERY_CHUNK_DAYS)
     assert result["calls"] == (
-        12 + len(USERSTATS_DAILY_METRICS) + 1 + 2 + len(GEAR_CATALOG)
+        9 + bb_chunks + len(USERSTATS_DAILY_METRICS) + 1 + 2 + len(GEAR_CATALOG)
     )
     assert result["gear"] == len(GEAR_CATALOG)
     assert store.get_gear("shoe-a")["total_meters"] == 514248.2
@@ -1131,3 +1134,97 @@ def test_recompute_derived_end_to_end(store, tmp_path):
         store.upsert_day({"date": d, "resting_hr": 47, "synced_at": now})
     engine.recompute_derived()
     assert store.active_alerts() == []
+
+
+# --- day-by-day wellness backfills (HRV, daily summary) ----------------------
+
+def test_backfill_hrv_fills_only_the_missing_dates_newest_first(store, tmp_path):
+    # 07-17 already has HRV; 07-18 and 07-19 do not. Today (07-20) is tier 0's.
+    for row in make_days(TODAY, 4):
+        store.upsert_day(row)
+    store.upsert_day({"date": "2026-07-17", "hrv_last_night": 61.0,
+                      "synced_at": "2026-01-01T00:00:00"})
+    engine, fetch = make_engine(store, tmp_path, {"/hrv-service/hrv/": hrv_payload()})
+
+    result = engine.backfill_hrv(days=3)   # window = 07-17..07-19
+
+    asked = [p.rsplit("/", 1)[1] for p, _ in fetch.paths("/hrv-service/hrv/")]
+    assert asked == ["2026-07-19", "2026-07-18"]  # newest first, 07-17 skipped, not today
+    assert result["filled"] == 2 and result["remaining"] == 0
+    assert store.get_day("2026-07-19")["hrv_last_night"] == 52
+    assert store.get_day("2026-07-19")["hrv_status"] == "BALANCED"
+    assert store.get_day("2026-07-17")["hrv_last_night"] == 61.0  # untouched
+
+
+def test_backfill_hrv_is_capped_and_resumable(store, tmp_path):
+    for row in make_days(TODAY, 10):
+        store.upsert_day(row)
+    engine, fetch = make_engine(store, tmp_path, {"/hrv-service/hrv/": hrv_payload()})
+
+    first = engine.backfill_hrv(days=9, limit=3)
+    assert first["filled"] == 3 and first["remaining"] == 6
+    # No cursor: the second run simply sees a shorter work list.
+    second = engine.backfill_hrv(days=9, limit=3)
+    assert second["filled"] == 3 and second["remaining"] == 3
+    asked = {p.rsplit("/", 1)[1] for p, _ in fetch.paths("/hrv-service/hrv/")}
+    assert len(asked) == 6  # no date fetched twice
+
+
+def test_backfill_hrv_survives_a_dead_date(store, tmp_path):
+    for row in make_days(TODAY, 3):
+        store.upsert_day(row)
+    calls = {"n": 0}
+
+    def flaky(path, params):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            raise RuntimeError("500")
+        return hrv_payload()
+
+    engine, _ = make_engine(store, tmp_path, {"/hrv-service/hrv/": flaky})
+    result = engine.backfill_hrv(days=3)
+    assert result["dates"] == 3 and result["filled"] == 2 and result["errors"]
+
+
+def test_backfill_daily_summary_heals_the_frozen_mid_day_row(store, tmp_path):
+    """Yesterday is re-asked even though max_hr is already set: the stored
+    value is the max *so far* captured by a mid-day sync, not the day's."""
+    for row in make_days(TODAY, 3):
+        store.upsert_day(row)
+    store.upsert_day({"date": "2026-07-19", "max_hr": 110,
+                      "synced_at": "2026-01-01T00:00:00"})
+    engine, fetch = make_engine(store, tmp_path, {
+        "/usersummary-service/usersummary/daily/": daily_summary_payload(),
+    })
+
+    result = engine.backfill_daily_summary(days=3)
+
+    dates = [kw["calendarDate"] for _, kw in
+             fetch.paths("/usersummary-service/usersummary/daily/")]
+    assert dates[0] == "2026-07-19"           # yesterday leads unconditionally
+    assert TODAY not in dates                 # today is tier 0's job
+    assert store.get_day("2026-07-19")["max_hr"] == 150   # frozen 110 replaced
+    assert store.get_day("2026-07-19")["spo2_avg"] == 96.0
+    assert result["filled"] == len(dates)
+
+
+def test_backfill_daily_summary_window_defaults_to_activity_history(store, tmp_path, monkeypatch):
+    monkeypatch.setenv("FARTLEK_ACTIVITY_HISTORY_DAYS", "40")
+    engine, fetch = make_engine(store, tmp_path, {
+        "/usersummary-service/usersummary/daily/": daily_summary_payload(),
+    })
+    engine.backfill_daily_summary(limit=500)
+    dates = sorted(kw["calendarDate"] for _, kw in
+                   fetch.paths("/usersummary-service/usersummary/daily/"))
+    assert dates[0] == "2026-06-10"   # today - 40d
+    assert dates[-1] == "2026-07-19"  # yesterday
+
+
+def test_body_battery_chunks_follow_the_history_window(store, tmp_path, monkeypatch):
+    monkeypatch.setenv("FARTLEK_ACTIVITY_HISTORY_DAYS", "180")
+    engine, fetch = make_engine(store, tmp_path, base_routes())
+    engine.tier1()
+    chunks = fetch.paths("/wellness-service/wellness/bodyBattery/reports/daily")
+    assert len(chunks) == 6  # ceil(180 / 30), not the old hard-coded 3
+    starts = sorted(kw["startDate"] for _, kw in chunks)
+    assert starts[0] == "2026-01-22"  # reaches the far edge of the window

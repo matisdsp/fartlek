@@ -80,6 +80,14 @@ USERSTATS_DAILY_METRICS: dict[int, tuple[str, Any]] = {
     52: ("intensity_vig_min", int),
 }
 
+BODY_BATTERY_CHUNK_DAYS = 30  # the bodyBattery report endpoint's max window
+
+# Day-by-day wellness backfills (one call per missing date, so both are capped
+# per invocation and resumable by construction — the work list is "dates where
+# the column is still NULL", there is no cursor to corrupt).
+HRV_PER_RUN = 60
+DAILY_SUMMARY_PER_RUN = 60
+
 SPLITS_HISTORY_DAYS = 120   # §3.2 #12: 8-12 weeks of qualifying sessions
 SPLITS_PER_RUN = 40         # cap per invocation, so one call never runs long
 _SPLITS_SKIP_CAP = 500      # bound on the remembered "this one has no laps" list
@@ -1351,14 +1359,19 @@ class SyncEngine:
         except Exception as exc:
             self.store.set_capability("weight_range", False, f"{type(exc).__name__}: {exc}")
 
-        # Body battery, 90d back in 30d chunks (30d is the endpoint's max
-        # window — a 60d call errors "requested date range is too big").
+        # Body battery, the whole history window in 30d chunks (30d is the
+        # endpoint's max — a 60d call errors "requested date range is too
+        # big"). The chunk count follows activity_history_days() rather than a
+        # fixed 3: with the window widened for a long-cycle athlete, a hard 90d
+        # left body_battery_high/low permanently blank over the extra months
+        # even though the endpoint answers for them.
         # High/low come from digest_body_battery_day; the wake value (D7) is
         # separately backfilled by _maybe_derive_body_battery_wake, since it
         # needs each date's sleep_end_ts, not just this payload.
-        for chunk in range(3):
-            chunk_end = today_d - timedelta(days=30 * chunk)
-            chunk_start = chunk_end - timedelta(days=29)
+        n_chunks = -(-activity_history_days() // BODY_BATTERY_CHUNK_DAYS)  # ceil
+        for chunk in range(n_chunks):
+            chunk_end = today_d - timedelta(days=BODY_BATTERY_CHUNK_DAYS * chunk)
+            chunk_start = chunk_end - timedelta(days=BODY_BATTERY_CHUNK_DAYS - 1)
             payload = self._try_call(
                 "/wellness-service/wellness/bodyBattery/reports/daily",
                 errors,
@@ -1582,6 +1595,114 @@ class SyncEngine:
             self.store.set_sync_state("last_sync", self._now_iso())
             self.recompute_derived()
         return {"calls": self._calls - start_calls, "nights": nights, "done": d > yesterday}
+
+    def backfill_hrv(
+        self, days: int | None = None, limit: int = HRV_PER_RUN
+    ) -> dict[str, Any]:
+        """Fill days.hrv_last_night / _weekly_avg / _status for past dates.
+
+        The steady-state path only ever asks /hrv-service/hrv/{today}, so HRV
+        accrued forward one sync at a time and every day without a sync stayed
+        blank for good. The endpoint answers for old dates just as happily —
+        it is the caller that never asked. (The overnight *series* is dropped
+        by Garmin after ~140 days, but hrvSummary, which is all these three
+        columns need, survives.)
+
+        One call per missing date, newest first, capped per run. Resumable by
+        construction: the work list is "dates where hrv_last_night is NULL".
+        """
+        return self._locked(lambda: self._backfill_hrv(days, limit))
+
+    def _backfill_hrv(self, days: int | None, limit: int) -> dict[str, Any]:
+        t = self._today()
+        start_calls = self._calls
+        window = days if days is not None else activity_history_days()
+        start = (date.fromisoformat(t) - timedelta(days=window)).isoformat()
+
+        # Yesterday is the newest night worth asking for: today's HRV lands
+        # only once the watch has synced the night, and tier 0 covers it.
+        end = (date.fromisoformat(t) - timedelta(days=1)).isoformat()
+        pending = self.store.dates_missing_metric("hrv_last_night", start, end)
+        errors: list[str] = []
+        done = filled = 0
+
+        for ds in pending[:limit]:
+            raw = self._try_call(f"/hrv-service/hrv/{ds}", errors)
+            done += 1
+            if raw is None:
+                continue
+            row = digest_hrv(raw, ds)
+            if len(row) > 1:  # more than just {"date": ...}
+                self._upsert_day(row)
+                filled += 1
+
+        if filled:
+            self.store.set_sync_state("last_sync", self._now_iso())
+        return {
+            "calls": self._calls - start_calls,
+            "dates": done,
+            "filled": filled,
+            "remaining": max(0, len(pending) - limit),
+            "errors": errors,
+        }
+
+    def backfill_daily_summary(
+        self, days: int | None = None, limit: int = DAILY_SUMMARY_PER_RUN
+    ) -> dict[str, Any]:
+        """Fill the daily-summary-only columns (max_hr, max_stress, spo2_avg,
+        body_battery_wake…) for past dates.
+
+        These have no range endpoint: userstats covers the nine metrics in
+        USERSTATS_DAILY_METRICS and no more, so the rest came from the daily
+        summary — fetched for TODAY only. Two consequences this heals: dates
+        without a sync never got them at all, and a row written mid-day froze
+        at its mid-day value, so `max_hr` recorded the max *so far* rather than
+        the day's. Re-asking a settled date replaces both.
+
+        Work list is "dates where max_hr is NULL", newest first, capped.
+        """
+        return self._locked(lambda: self._backfill_daily_summary(days, limit))
+
+    def _backfill_daily_summary(self, days: int | None, limit: int) -> dict[str, Any]:
+        t = self._today()
+        name = self.display_name
+        start_calls = self._calls
+        window = days if days is not None else activity_history_days()
+        start = (date.fromisoformat(t) - timedelta(days=window)).isoformat()
+        yesterday = (date.fromisoformat(t) - timedelta(days=1)).isoformat()
+
+        # Only settled days: today's summary is tier 0's job and would freeze
+        # again anyway. Yesterday leads the list unconditionally — it is the
+        # one date whose stored row is most likely a frozen mid-day value.
+        pending = self.store.dates_missing_metric("max_hr", start, yesterday)
+        if yesterday not in pending:
+            pending.insert(0, yesterday)
+        errors: list[str] = []
+        done = filled = 0
+
+        for ds in pending[:limit]:
+            raw = self._try_call(
+                f"/usersummary-service/usersummary/daily/{name}",
+                errors,
+                calendarDate=ds,
+            )
+            done += 1
+            if raw is None:
+                continue
+            row = digest_daily_summary(raw, ds)
+            if len(row) > 1:
+                self._upsert_day(row)
+                filled += 1
+
+        if filled:
+            self.store.set_sync_state("last_sync", self._now_iso())
+        return {
+            "calls": self._calls - start_calls,
+            "dates": done,
+            "filled": filled,
+            "remaining": max(0, len(pending) - limit),
+            "errors": errors,
+        }
 
     def backfill_splits(
         self,
