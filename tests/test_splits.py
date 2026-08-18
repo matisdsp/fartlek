@@ -234,3 +234,44 @@ def test_backfill_window_excludes_older_activities(store: Store, tmp_path: Path)
 
     assert engine.backfill_splits(days=30)["activities"] == 0
     assert fetch.calls == []
+
+
+def test_daily_catchup_fetches_laps_for_what_incremental_just_ingested(
+    store: Store, tmp_path: Path
+):
+    """incremental() stores a new activity but never its laps, and nothing
+    else did either — so on the MCP deployment activity_laps only ever grew
+    when someone ran a backfill by hand. The background refresh closes it."""
+    from test_sync import base_routes
+
+    routes = base_routes()
+    routes["/activity-service/activity/"] = {"lapDTOs": [lap(0), lap(1), lap(2)]}
+    engine, fetch = make_engine(store, tmp_path, routes)
+
+    res = engine.daily_catchup()
+
+    assert res["new_activities"] == 2          # ingested by incremental
+    assert res["laps_stored"] == 6             # ...and their laps, same pass
+    assert len(store.get_activity_laps(101)) == 3
+    assert len(fetch.paths("/activity-service/activity/")) == 2
+
+    # Self-limiting: nothing left to do, nothing spent.
+    engine2, fetch2 = make_engine(store, tmp_path, routes)
+    again = engine2.daily_catchup()
+    assert again["laps_stored"] == 0
+    assert fetch2.paths("/activity-service/activity/") == []
+
+
+def test_daily_catchup_splits_pass_is_capped(store: Store, tmp_path: Path):
+    from test_sync import base_routes
+
+    for aid in range(200, 210):
+        store.upsert_activity(act_row(aid, date=TODAY))
+    routes = base_routes()
+    routes["/activitylist-service/activities/search/activities"] = []
+    routes["/activity-service/activity/"] = {"lapDTOs": [lap(0)]}
+    engine, _ = make_engine(store, tmp_path, routes)
+    engine.SPLITS_CATCHUP_PER_RUN = 4
+
+    res = engine.daily_catchup()
+    assert res["laps_stored"] == 4 and res["splits_remaining"] == 6

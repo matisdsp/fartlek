@@ -1867,26 +1867,56 @@ class SyncEngine:
             "errors": errors,
         }
 
+    # Background-refresh caps: smaller than the foreground ones, because this
+    # runs on a thread nobody is waiting for and gets another go in 6 hours.
     GEAR_CATCHUP_PER_RUN = 20
+    SPLITS_CATCHUP_PER_RUN = 10
+    HRV_CATCHUP_PER_RUN = 20
+    SUMMARY_CATCHUP_PER_RUN = 20
 
     def daily_catchup(self) -> dict[str, Any]:
-        """incremental() plus a bounded gear-attribution pass.
+        """incremental() plus the bounded per-item passes it cannot do inline.
 
-        What the BACKGROUND refresh runs, never the inline paths. Attribution
-        is one call per historical session, so a fresh install would otherwise
-        show a 90-day rotation resting on the handful of sessions synced since
-        install until someone happened to call garmin_sync(backfill_days=…) —
-        tier 2 is the only other place it runs, and a warm store never reaches
-        it on its own. Self-limiting: the work list empties and the pass costs
+        What the BACKGROUND refresh runs, never the inline paths. Each of these
+        costs one call per historical item, so a fresh install would otherwise
+        rest on the handful of items synced since install until someone
+        happened to call garmin_sync(backfill_days=…) — tier 2 is the only
+        other place they run, and a warm store never reaches it on its own.
+        All four are self-limiting: the work list empties and the pass costs
         nothing thereafter.
+
+        Splits matter most here. `incremental()` ingests a new activity but
+        never fetches its laps, and nothing else did either, so `activity_laps`
+        only ever grew when someone ran a backfill by hand — leaving the
+        pace-band and EF analyses (§3.2 #12) reading whatever happened to be
+        there.
         """
         result = dict(self.incremental())
+
+        def _add(stats: dict[str, Any]) -> None:
+            result["calls"] = int(result.get("calls") or 0) + int(stats.get("calls") or 0)
+            if stats.get("errors"):
+                result.setdefault("errors", []).extend(stats["errors"])
+
         gear = self.backfill_gear(limit=self.GEAR_CATCHUP_PER_RUN)
-        result["calls"] = int(result.get("calls") or 0) + int(gear.get("calls") or 0)
+        _add(gear)
         result["gear_linked"] = int(result.get("gear_linked") or 0) + gear["linked"]
         result["gear_remaining"] = gear["remaining"]
-        if gear["errors"]:
-            result.setdefault("errors", []).extend(gear["errors"])
+
+        splits = self.backfill_splits(limit=self.SPLITS_CATCHUP_PER_RUN)
+        _add(splits)
+        result["laps_stored"] = splits["laps"]
+        result["splits_remaining"] = splits["remaining"]
+
+        hrv = self.backfill_hrv(limit=self.HRV_CATCHUP_PER_RUN)
+        _add(hrv)
+        result["hrv_filled"] = hrv["filled"]
+        result["hrv_remaining"] = hrv["remaining"]
+
+        summary = self.backfill_daily_summary(limit=self.SUMMARY_CATCHUP_PER_RUN)
+        _add(summary)
+        result["summary_filled"] = summary["filled"]
+        result["summary_remaining"] = summary["remaining"]
         return result
 
     # --- derived state ---
