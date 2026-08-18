@@ -107,7 +107,27 @@ _GEAR_SETTLE_DAYS = 7
 # afterwards. An absence-only work list never revisits a session that already
 # has a link, so the correction never reached the store — the rotation then
 # credited kilometres to the wrong shoe for good.
-_GEAR_RECHECK_DAYS = 7
+GEAR_RECHECK_DAYS = 7
+GEAR_RECHECK_BOUNDS = (0, 90)  # 0 disables the re-check; 90 is a season of edits
+
+
+def gear_recheck_days() -> int:
+    """How long a gear link stays open to correction (default 7).
+
+    Overridable via FARTLEK_GEAR_RECHECK_DAYS because the deadline it imposes
+    is a human one: it is the grace period the athlete has to fix a pair in
+    Connect after a session. Someone who tidies their rotation monthly wants
+    30; someone who never edits wants 0 and saves the calls. Clamped to
+    [0, 90]; a non-integer value falls back to the default rather than
+    failing the sync.
+    """
+    raw = os.environ.get("FARTLEK_GEAR_RECHECK_DAYS")
+    if raw is None:
+        return GEAR_RECHECK_DAYS
+    try:
+        return max(GEAR_RECHECK_BOUNDS[0], min(GEAR_RECHECK_BOUNDS[1], int(raw)))
+    except ValueError:
+        return GEAR_RECHECK_DAYS
 
 
 class RateLimiter:
@@ -1130,13 +1150,17 @@ class SyncEngine:
         # window where the athlete edits the pair in Connect. Newest-first
         # order is preserved by appending, since these are all newer than most
         # of the missing-gear tail but must not starve it.
-        recheck_from = (date.fromisoformat(t) - timedelta(days=_GEAR_RECHECK_DAYS - 1)).isoformat()
-        known = {a["activity_id"] for a in pending}
-        pending += [
-            a
-            for a in self.store.activities_with_gear(recheck_from, t)
-            if a["activity_id"] not in known
-        ]
+        recheck = gear_recheck_days()
+        if recheck > 0:
+            recheck_from = (
+                date.fromisoformat(t) - timedelta(days=recheck - 1)
+            ).isoformat()
+            known = {a["activity_id"] for a in pending}
+            pending += [
+                a
+                for a in self.store.activities_with_gear(recheck_from, t)
+                if a["activity_id"] not in known
+            ]
         errors: list[str] = []
         batch = pending[:limit]
         result = self._attribute_gear([int(a["activity_id"]) for a in batch], errors)

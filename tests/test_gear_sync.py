@@ -13,7 +13,13 @@ import pytest
 from test_sync import GEAR_CATALOG, TODAY, base_routes, gear_entry, make_engine
 
 from fartlek.store import Store
-from fartlek.sync.engine import digest_gear, digest_gear_stats
+from fartlek.sync.engine import (
+    GEAR_RECHECK_BOUNDS,
+    GEAR_RECHECK_DAYS,
+    digest_gear,
+    digest_gear_stats,
+    gear_recheck_days,
+)
 
 TS = "2026-07-20T08:00:00"
 
@@ -360,3 +366,33 @@ def test_gear_window_never_shrinks_below_the_configured_history(
     engine, _ = make_engine(store, tmp_path, gear_routes_for({1: ["shoe-a"]}))
 
     assert engine.backfill_gear(days=30)["linked"] == 1   # 30 does not win over 365
+
+
+def test_gear_recheck_window_is_overridable(store: Store, tmp_path: Path, monkeypatch):
+    """The deadline is a human one — the grace period to fix a pair in Connect
+    — so it has to be tunable without touching the code."""
+    monkeypatch.setenv("FARTLEK_GEAR_RECHECK_DAYS", "30")
+    _linked(store, 1, "shoe-a", "2026-07-01")          # 19 days back: outside 7, inside 30
+    engine, _ = make_engine(store, tmp_path, gear_routes_for({1: ["shoe-b"]}))
+
+    engine.backfill_gear(days=60)
+
+    assert [g["uuid"] for g in store.gear_for_activity(1)] == ["shoe-b"]
+
+
+def test_gear_recheck_can_be_disabled(store: Store, tmp_path: Path, monkeypatch):
+    monkeypatch.setenv("FARTLEK_GEAR_RECHECK_DAYS", "0")
+    _linked(store, 1, "shoe-a", TODAY)
+    engine, fetch = make_engine(store, tmp_path, gear_routes_for({1: ["shoe-b"]}))
+
+    engine.backfill_gear(days=30)
+
+    assert [g["uuid"] for g in store.gear_for_activity(1)] == ["shoe-a"]
+    assert fetch.calls == []
+
+
+def test_gear_recheck_bad_value_falls_back_to_the_default(monkeypatch):
+    monkeypatch.setenv("FARTLEK_GEAR_RECHECK_DAYS", "soon")
+    assert gear_recheck_days() == GEAR_RECHECK_DAYS
+    monkeypatch.setenv("FARTLEK_GEAR_RECHECK_DAYS", "999")
+    assert gear_recheck_days() == GEAR_RECHECK_BOUNDS[1]

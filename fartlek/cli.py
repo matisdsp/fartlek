@@ -235,6 +235,16 @@ def cmd_sync(args: argparse.Namespace) -> int:
         left = splits["remaining"]
         tail = f", {left} left — re-run to continue" if left else ""
         print(f"  · {splits['activities']} activities, {splits['laps']} laps{tail}")
+        # Gear attribution + the re-check of recent links. It used to run only
+        # from tier 2, i.e. only with --nights, which made the re-check window
+        # unusable in practice: correcting a pair in Connect had no effect
+        # unless the athlete happened to ask for a sleep backfill afterwards.
+        gear = engine.backfill_gear()
+        if not _report("gear backfill", gear):
+            return 1
+        left = gear["remaining"]
+        tail = f", {left} left — re-run to continue" if left else ""
+        print(f"  · {gear['linked']} sessions attributed{tail}")
         if args.nights:
             if not _report(
                 f"tier2 ({args.nights} nights backfill)",
