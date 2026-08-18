@@ -92,7 +92,11 @@ SPLITS_HISTORY_DAYS = 120   # §3.2 #12: 8-12 weeks of qualifying sessions
 SPLITS_PER_RUN = 40         # cap per invocation, so one call never runs long
 _SPLITS_SKIP_CAP = 500      # bound on the remembered "this one has no laps" list
 
-GEAR_HISTORY_DAYS = 180     # attribution window: matches the activity history
+# Attribution window: follows the activity history rather than a fixed 180,
+# which is what its old comment already claimed. Once the history became
+# configurable, a widened window ingested sessions that the gear pass could
+# never reach — they sat in `activities` with no link for good, and the
+# rotation under-counted the shoes worn for them.
 GEAR_PER_RUN = 60           # activities attributed per backfill invocation
 _GEAR_SKIP_CAP = 500        # bound on the remembered "this one carries no gear" list
 # A session uploaded minutes ago may not carry its gear yet; only once it has
@@ -1091,7 +1095,7 @@ class SyncEngine:
         return json.loads(raw) if raw else []
 
     def backfill_gear(
-        self, days: int = GEAR_HISTORY_DAYS, limit: int = GEAR_PER_RUN
+        self, days: int | None = None, limit: int = GEAR_PER_RUN
     ) -> dict[str, Any]:
         """Attribute gear to sessions in the window that have none yet.
 
@@ -1106,10 +1110,11 @@ class SyncEngine:
         """
         return self._locked(lambda: self._backfill_gear(days, limit))
 
-    def _backfill_gear(self, days: int, limit: int) -> dict[str, Any]:
+    def _backfill_gear(self, days: int | None, limit: int) -> dict[str, Any]:
         t = self._today()
         start_calls = self._calls
-        start = (date.fromisoformat(t) - timedelta(days=days - 1)).isoformat()
+        window = max(days or 0, activity_history_days())
+        start = (date.fromisoformat(t) - timedelta(days=window - 1)).isoformat()
         settled_before = (
             date.fromisoformat(t) - timedelta(days=_GEAR_SETTLE_DAYS)
         ).isoformat()
@@ -1535,7 +1540,7 @@ class SyncEngine:
         """
         start_calls = self._calls
         result = dict(self._tier2_sleep(backfill_days))
-        gear = self._backfill_gear(GEAR_HISTORY_DAYS, GEAR_PER_RUN)
+        gear = self._backfill_gear(backfill_days, GEAR_PER_RUN)
         result["calls"] = self._calls - start_calls  # the sleep phase counted only its own
         result["gear_linked"] = gear["linked"]
         result["gear_remaining"] = gear["remaining"]

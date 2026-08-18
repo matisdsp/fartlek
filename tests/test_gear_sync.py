@@ -336,3 +336,27 @@ def test_daily_catchup_still_does_the_incremental_work(store: Store, tmp_path: P
     res = engine.daily_catchup()
     assert res["new_activities"] == 2
     assert store.get_day(TODAY)["steps"] == 9000
+
+
+def test_gear_window_follows_the_activity_history(store: Store, tmp_path: Path, monkeypatch):
+    """A widened history ingests sessions the 180d attribution window could
+    never reach: they sat in `activities` with no link for good, and the
+    rotation under-counted the shoes worn for them."""
+    monkeypatch.setenv("FARTLEK_ACTIVITY_HISTORY_DAYS", "365")
+    store.upsert_activity(act_row(1, date="2025-09-01"))   # ~10 months back
+    engine, _ = make_engine(store, tmp_path, gear_routes_for({1: ["shoe-a"]}))
+
+    res = engine.backfill_gear()
+
+    assert res["linked"] == 1
+    assert [g["uuid"] for g in store.gear_for_activity(1)] == ["shoe-a"]
+
+
+def test_gear_window_never_shrinks_below_the_configured_history(
+    store: Store, tmp_path: Path, monkeypatch
+):
+    monkeypatch.setenv("FARTLEK_ACTIVITY_HISTORY_DAYS", "365")
+    store.upsert_activity(act_row(1, date="2025-09-01"))
+    engine, _ = make_engine(store, tmp_path, gear_routes_for({1: ["shoe-a"]}))
+
+    assert engine.backfill_gear(days=30)["linked"] == 1   # 30 does not win over 365
