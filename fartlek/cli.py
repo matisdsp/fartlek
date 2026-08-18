@@ -226,6 +226,15 @@ def cmd_sync(args: argparse.Namespace) -> int:
             return 1
         if not _report(f"tier1 ({activity_history_days()}d history)", engine.tier1()):
             return 1
+        # Per-lap splits: capped per run and self-healing — the work list is
+        # "activities with no stored laps", so in steady state this costs one
+        # call for the session just ingested, and nothing at all once caught up.
+        splits = engine.backfill_splits()
+        if not _report("splits backfill", splits):
+            return 1
+        left = splits["remaining"]
+        tail = f", {left} left — re-run to continue" if left else ""
+        print(f"  · {splits['activities']} activities, {splits['laps']} laps{tail}")
         if args.nights:
             if not _report(
                 f"tier2 ({args.nights} nights backfill)",

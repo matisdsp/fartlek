@@ -199,15 +199,43 @@ class ToolContext:
         return await asyncio.to_thread(engine._call, path, **params)
 
     async def run_sync(self, backfill_days: int = 0) -> dict[str, Any]:
-        """garmin_sync tool: inline incremental(), plus tier2(backfill_days)
-        when requested. Returns the merged stats dict (calls summed)."""
+        """garmin_sync tool: inline incremental(), plus the full history pass
+        when backfill_days is requested. Returns the merged stats dict (calls
+        summed).
+
+        A depth request runs tier1 over the same window as well, not tier2
+        alone: tier2 walks nights, while the ranges that fill activities,
+        userstats scalars, weight and body battery all live in tier1. Without
+        it garmin_sync(backfill_days=N) deepened sleep and left every other
+        column at whatever depth the last CLI sync happened to reach. The
+        wellness gap-fills and the splits pass follow for the same reason —
+        each is capped per run and costs nothing once caught up.
+        """
         engine = self._engine
         assert engine is not None, "ensure_ready() first"
         merged = dict(await asyncio.to_thread(engine.incremental))
-        if backfill_days > 0:
-            t2 = await asyncio.to_thread(engine.tier2, backfill_days)
-            merged["calls"] = int(merged.get("calls") or 0) + int(t2.get("calls") or 0)
-            for k, v in t2.items():
-                if k != "calls":
+        if backfill_days <= 0:
+            return merged
+
+        def _merge(stats: dict[str, Any], *, keys: dict[str, str] | None = None) -> None:
+            merged["calls"] = int(merged.get("calls") or 0) + int(stats.get("calls") or 0)
+            for k, v in stats.items():
+                if k == "calls":
+                    continue
+                if k == "errors":
+                    merged.setdefault("errors", []).extend(v or [])
+                elif keys is None:
                     merged[k] = v
+                elif k in keys:
+                    merged[keys[k]] = v
+
+        _merge(await asyncio.to_thread(engine.tier1, backfill_days),
+               keys={"activities": "history_activities"})
+        _merge(await asyncio.to_thread(engine.tier2, backfill_days))
+        _merge(await asyncio.to_thread(engine.backfill_hrv, backfill_days),
+               keys={"filled": "hrv_filled", "remaining": "hrv_remaining"})
+        _merge(await asyncio.to_thread(engine.backfill_daily_summary, backfill_days),
+               keys={"filled": "summary_filled", "remaining": "summary_remaining"})
+        _merge(await asyncio.to_thread(engine.backfill_splits),
+               keys={"laps": "laps_stored"})
         return merged

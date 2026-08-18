@@ -1279,18 +1279,25 @@ class SyncEngine:
             "capabilities": self.store.get_capabilities(),
         }
 
-    def tier1(self) -> dict[str, Any]:
-        """History warmup: 180d activities (paginated), RHR range (userstats
-        fallback-probed), weight range, body battery chunked, weekly stress,
-        maxmet, progress summary."""
-        return self._locked(self._tier1)
+    def tier1(self, history_days: int | None = None) -> dict[str, Any]:
+        """History warmup: activities over the history window (paginated), RHR
+        range (userstats fallback-probed), yesterday's daily summary, weight
+        range, body battery chunked, weekly stress, maxmet, progress summary.
 
-    def _tier1(self) -> dict[str, Any]:
+        `history_days` widens the window for this call only, never below the
+        configured `activity_history_days()` — a caller asking for depth (the
+        MCP tool's backfill_days) must not silently shrink the history the
+        athlete configured.
+        """
+        return self._locked(lambda: self._tier1(history_days))
+
+    def _tier1(self, history_days: int | None = None) -> dict[str, Any]:
         t = self._today()
         name = self.display_name
         start_calls = self._calls
         today_d = date.fromisoformat(t)
-        history_start = (today_d - timedelta(days=activity_history_days())).isoformat()
+        window = max(history_days or 0, activity_history_days())
+        history_start = (today_d - timedelta(days=window)).isoformat()
         errors: list[str] = []
 
         # Activities-by-date, paginated until a short page or the start date.
@@ -1385,7 +1392,7 @@ class SyncEngine:
         # High/low come from digest_body_battery_day; the wake value (D7) is
         # separately backfilled by _maybe_derive_body_battery_wake, since it
         # needs each date's sleep_end_ts, not just this payload.
-        n_chunks = -(-activity_history_days() // BODY_BATTERY_CHUNK_DAYS)  # ceil
+        n_chunks = -(-window // BODY_BATTERY_CHUNK_DAYS)  # ceil
         for chunk in range(n_chunks):
             chunk_end = today_d - timedelta(days=BODY_BATTERY_CHUNK_DAYS * chunk)
             chunk_start = chunk_end - timedelta(days=BODY_BATTERY_CHUNK_DAYS - 1)

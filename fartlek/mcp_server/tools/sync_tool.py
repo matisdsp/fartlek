@@ -79,7 +79,21 @@ async def run(ctx, backfill_days: int = 0) -> str:
     if backfill_days > 0:
         nights = int(stats.get("nights", 0))
         night_bit = f"{nights} nights backfilled"
-        if stats.get("done") is False:
+        healed = int(stats.get("hrv_filled", 0)) + int(stats.get("summary_filled", 0))
+        if healed:
+            night_bit += f", {healed} wellness gaps filled"
+        laps = int(stats.get("laps_stored", 0))
+        if laps:
+            night_bit += f", {laps} laps"
+        # "more remain" covers every capped pass, not just sleep: each is
+        # resumable, and the same call continues all of them.
+        more = (
+            stats.get("done") is False
+            or stats.get("hrv_remaining")
+            or stats.get("summary_remaining")
+            or stats.get("remaining")
+        )
+        if more:
             night_bit += f" (more remain — garmin_sync(backfill_days={backfill_days}) to continue)"
         bits.append(night_bit)
     errors = stats.get("errors") or []

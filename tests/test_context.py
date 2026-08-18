@@ -52,9 +52,22 @@ class FakeEngine:
         self.calls.append("tier0")
         return {"calls": 17}
 
-    def tier1(self):
-        self.calls.append("tier1")
-        return {"calls": 12}
+    def tier1(self, history_days=None):
+        self.calls.append(("tier1", history_days) if history_days else "tier1")
+        return {"calls": 12, "activities": 8}
+
+    def backfill_hrv(self, days=None, limit=60):
+        self.calls.append(("backfill_hrv", days))
+        return {"calls": 4, "dates": 4, "filled": 3, "remaining": 1, "errors": []}
+
+    def backfill_daily_summary(self, days=None, limit=60):
+        self.calls.append(("backfill_daily_summary", days))
+        return {"calls": 2, "dates": 2, "filled": 2, "remaining": 0, "errors": []}
+
+    def backfill_splits(self, days=120, limit=40, sport_like="%running%"):
+        self.calls.append("backfill_splits")
+        return {"calls": 1, "activities": 1, "laps": 9, "no_laps": 0,
+                "remaining": 0, "errors": []}
 
     def tier2(self, backfill_days=60):
         self.calls.append(("tier2", backfill_days))
@@ -223,7 +236,25 @@ async def test_run_sync_incremental_only(ctx, tmp_path):
 async def test_run_sync_with_backfill_merges_stats(ctx, tmp_path):
     _ready_ctx(ctx, tmp_path)
     stats = await ctx.run_sync(backfill_days=30)
-    assert ctx._engine.calls == ["incremental", ("tier2", 30)]
-    assert stats["calls"] == 5  # 3 + 2, summed
+    # A depth request runs the whole history pass, not tier2 alone: the ranges
+    # that fill activities, scalars, weight and body battery live in tier1.
+    assert ctx._engine.calls == [
+        "incremental", ("tier1", 30), ("tier2", 30),
+        ("backfill_hrv", 30), ("backfill_daily_summary", 30), "backfill_splits",
+    ]
+    assert stats["calls"] == 3 + 12 + 2 + 4 + 2 + 1
     assert stats["nights"] == 5 and stats["done"] is True
-    assert stats["new_activities"] == 1
+    assert stats["new_activities"] == 1          # incremental's, not tier1's
+    assert stats["history_activities"] == 8      # tier1's, renamed not clobbered
+    assert stats["hrv_filled"] == 3 and stats["hrv_remaining"] == 1
+    assert stats["summary_filled"] == 2
+    assert stats["laps_stored"] == 9
+
+
+@pytest.mark.asyncio
+async def test_run_sync_without_backfill_stays_incremental(ctx, tmp_path):
+    """The cheap path must not grow: no backfill_days, no history pass."""
+    _ready_ctx(ctx, tmp_path)
+    stats = await ctx.run_sync()
+    assert ctx._engine.calls == ["incremental"]
+    assert stats["calls"] == 3

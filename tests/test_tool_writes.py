@@ -332,6 +332,39 @@ async def test_sync_backfill_reports_nights_and_resume(store):
     assert estimate_tokens(out) <= sync_tool.CAP_TOKENS
 
 
+async def test_sync_backfill_reports_the_whole_history_pass(store):
+    """A depth request now runs tier1, the wellness gap-fills and splits too —
+    the report has to say so, and still fit the 150-token cap."""
+    store.set_sync_state("last_sync", "2026-07-20T07:41:00")
+    ctx = FakeContext(
+        store,
+        sync_stats={"calls": 96, "new_activities": 2, "nights": 45, "done": True,
+                    "hrv_filled": 12, "hrv_remaining": 0,
+                    "summary_filled": 30, "summary_remaining": 0,
+                    "laps_stored": 84, "remaining": 0, "errors": []},
+    )
+    out = await sync_tool.run(ctx, backfill_days=278)
+    assert "45 nights backfilled" in out
+    assert "42 wellness gaps filled" in out    # 12 hrv + 30 daily summary
+    assert "84 laps" in out
+    assert "more remain" not in out            # everything drained
+    assert estimate_tokens(out) <= sync_tool.CAP_TOKENS
+
+
+async def test_sync_backfill_resumes_on_any_capped_pass(store):
+    """Sleep is done but the HRV gap-fill hit its cap: the resume hint must
+    still fire, otherwise the remaining dates are silently dropped."""
+    store.set_sync_state("last_sync", "2026-07-20T07:41:00")
+    ctx = FakeContext(
+        store,
+        sync_stats={"calls": 70, "new_activities": 0, "nights": 0, "done": True,
+                    "hrv_filled": 60, "hrv_remaining": 55, "errors": []},
+    )
+    out = await sync_tool.run(ctx, backfill_days=278)
+    assert "more remain" in out and "garmin_sync(backfill_days=278)" in out
+    assert estimate_tokens(out) <= sync_tool.CAP_TOKENS
+
+
 async def test_sync_suppresses_and_joins_the_background_refresher(store):
     """A concurrent background incremental() would ingest the new activities
     first, leaving the foreground pass to report '0 new' on a store that just
