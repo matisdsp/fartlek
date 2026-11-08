@@ -1,0 +1,126 @@
+"""garmin_sync — forced refresh / historical backfill (cap 150).
+
+Delegates the fetch to ctx.run_sync(backfill_days) (inline incremental(),
+plus tier2(backfill_days) when requested — the engine's sync.lock guards
+concurrency). Runs with the background refresher suppressed and joined first,
+so the counts it reports are its own. Reports freshness before/after
+(sync_state['last_sync']),
+calls made, new activities, nights backfilled, and passes the engine's
+"skipped: another sync holds the lock" state through. Short plain string,
+banner-prefixed when an alert is active.
+
+Stats keys read tolerantly from the merged dict: calls, new_activities,
+nights, done, errors, skipped/reason.
+
+From a Garmin export (ctx.source_kind "export" or "store") nothing is fetched
+from Garmin: the tool re-reads the file, or says that a new import is needed.
+"""
+from __future__ import annotations
+
+from datetime import datetime
+
+from fartlek.render.renderer import estimate_tokens, format_date
+
+CAP_TOKENS = 150
+
+
+def _finish(banner: str | None, body: str, cap: int = CAP_TOKENS) -> str:
+    text = f"{banner}\n\n{body}" if banner else body
+    if estimate_tokens(text) > cap:
+        text = text[: int(cap * 3.2) - 2].rstrip() + " …"
+    return text
+
+
+def _fmt_ts(iso: str | None) -> str | None:
+    """'2026-07-20T07:41:23' → 'Mon 2026-07-20 07:41'."""
+    if not iso:
+        return None
+    try:
+        dt = datetime.fromisoformat(iso)
+    except ValueError:
+        return iso
+    return f"{format_date(dt.date().isoformat())} {dt.strftime('%H:%M')}"
+
+
+async def run(ctx, backfill_days: int = 0) -> str:
+    # No background refresh, and wait out any thread already in flight: this
+    # tool syncs in the foreground, so it must own every row it reports. Let a
+    # background incremental() run concurrently and it ingests the new
+    # activities first, leaving the foreground pass to report "0 new" on a
+    # store that just grew — the freshness line then reads as a failed sync.
+    await ctx.ensure_ready(background_refresh=False)
+    await ctx.join_background()
+    banner = ctx.banner()
+
+    if backfill_days < 0:
+        return _finish(
+            banner,
+            f"backfill_days must be ≥0 (got {backfill_days}). "
+            "Example: garmin_sync(backfill_days=60)",
+        )
+
+    kind = getattr(ctx, "source_kind", "connect")
+    if kind == "store":
+        return _finish(
+            banner,
+            "Nothing to refresh: the Garmin export this data came from is no longer on disk. "
+            "Import a new export with `fartlek import <export.zip>`.",
+        )
+
+    before = ctx.store.get_sync_state("last_sync")
+    stats = await ctx.run_sync(backfill_days)
+
+    if kind == "export":
+        count = len(ctx.store.list_activities("1970-01-01", ctx.today()))
+        errors = stats.get("errors") or []
+        tail = f" {len(errors)} read errors (non-fatal)." if errors else ""
+        return _finish(
+            banner,
+            f"Re-read the Garmin export: data through {ctx.today()}, {count} "
+            f"{'activity' if count == 1 else 'activities'} in the store. Nothing is fetched "
+            "from Garmin, so nothing newer can appear. For later data, request a new export "
+            f"and run `fartlek import <export.zip>`.{tail}",
+        )
+
+    if stats.get("skipped"):
+        last = _fmt_ts(before) or "never"
+        return _finish(
+            banner,
+            "Sync skipped: another sync in progress — data unchanged "
+            f"(last sync {last}). Retry in a minute.",
+        )
+
+    after = ctx.store.get_sync_state("last_sync")
+    calls = int(stats.get("calls", 0))
+    new_acts = int(stats.get("new_activities", 0))
+
+    bits = [
+        f"last sync {_fmt_ts(before) or 'never'} → {_fmt_ts(after) or 'unknown'}",
+        f"{calls} calls",
+        f"{new_acts} new " + ("activity" if new_acts == 1 else "activities"),
+    ]
+    if backfill_days > 0:
+        nights = int(stats.get("nights", 0))
+        night_bit = f"{nights} nights backfilled"
+        healed = int(stats.get("hrv_filled", 0)) + int(stats.get("summary_filled", 0))
+        if healed:
+            night_bit += f", {healed} wellness gaps filled"
+        laps = int(stats.get("laps_stored", 0))
+        if laps:
+            night_bit += f", {laps} laps"
+        # "more remain" covers every capped pass, not just sleep: each is
+        # resumable, and the same call continues all of them.
+        more = (
+            stats.get("done") is False
+            or stats.get("hrv_remaining")
+            or stats.get("summary_remaining")
+            or stats.get("remaining")
+        )
+        if more:
+            night_bit += f" (more remain — garmin_sync(backfill_days={backfill_days}) to continue)"
+        bits.append(night_bit)
+    errors = stats.get("errors") or []
+    if errors:
+        bits.append(f"{len(errors)} endpoint errors (non-fatal)")
+
+    return _finish(banner, "Synced: " + " · ".join(bits) + ".")

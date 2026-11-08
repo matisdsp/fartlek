@@ -1,0 +1,547 @@
+"""Store unit tests — hermetic, tmp_path stores only."""
+from __future__ import annotations
+
+import csv
+import sqlite3
+import stat
+from pathlib import Path
+
+import pytest
+from conftest import make_days
+
+from fartlek.store import Store
+
+TS = "2026-01-01T00:00:00"
+
+
+def act(activity_id: int, date: str, **kw) -> dict:
+    row = {"activity_id": activity_id, "date": date, "sport": "running", "synced_at": TS}
+    row.update(kw)
+    return row
+
+
+# --- lifecycle ---------------------------------------------------------------
+
+
+def test_parent_dir_created_0700(tmp_path: Path):
+    with Store(tmp_path / "acct" / "sub" / "store.db") as s:
+        s.set_sync_state("k", "v")
+    parent = tmp_path / "acct" / "sub"
+    assert parent.is_dir()
+    assert stat.S_IMODE(parent.stat().st_mode) == 0o700
+
+
+def test_existing_parent_permissions_untouched(tmp_path: Path):
+    before = stat.S_IMODE(tmp_path.stat().st_mode)
+    with Store(tmp_path / "store.db"):
+        pass
+    assert stat.S_IMODE(tmp_path.stat().st_mode) == before
+
+
+def test_context_manager_closes(tmp_path: Path):
+    with Store(tmp_path / "store.db") as s:
+        assert isinstance(s, Store)
+    with pytest.raises(sqlite3.ProgrammingError):
+        s.get_day("2026-01-01")
+
+
+def test_persistence_across_reopen(tmp_path: Path):
+    path = tmp_path / "store.db"
+    with Store(path) as s:
+        s.upsert_day({"date": "2026-07-01", "steps": 1234, "synced_at": TS})
+    with Store(path) as s:
+        assert s.get_day("2026-07-01")["steps"] == 1234
+
+
+def test_wal_and_busy_timeout(store: Store):
+    assert store._conn.execute("PRAGMA journal_mode").fetchone()["journal_mode"] == "wal"
+    assert store._conn.execute("PRAGMA busy_timeout").fetchone()["timeout"] == 5000
+
+
+# --- days --------------------------------------------------------------------
+
+
+def test_day_roundtrip(store: Store):
+    store.upsert_day(
+        {
+            "date": "2026-07-10",
+            "steps": 9000,
+            "resting_hr": 47,
+            "hrv_last_night": 55.5,
+            "hrv_status": "BALANCED",
+            "sleep_duration_h": 7.4,
+            "synced_at": TS,
+        }
+    )
+    row = store.get_day("2026-07-10")
+    assert row["steps"] == 9000
+    assert row["hrv_last_night"] == 55.5
+    assert row["hrv_status"] == "BALANCED"
+    assert row["sleep_score"] is None  # missing keys stay NULL
+    assert row["daily_load"] == 0  # schema default
+
+
+def test_day_missing_returns_none(store: Store):
+    assert store.get_day("1999-01-01") is None
+
+
+def test_partial_upsert_does_not_clobber(store: Store):
+    store.upsert_day({"date": "2026-07-10", "steps": 9000, "resting_hr": 47, "synced_at": TS})
+    store.upsert_day({"date": "2026-07-10", "steps": 10000})
+    row = store.get_day("2026-07-10")
+    assert row["steps"] == 10000
+    assert row["resting_hr"] == 47  # untouched
+    assert row["synced_at"] == TS
+
+
+def test_upsert_unknown_key_raises(store: Store):
+    with pytest.raises(KeyError):
+        store.upsert_day({"date": "2026-07-10", "bogus_col": 1, "synced_at": TS})
+    with pytest.raises(KeyError):
+        store.upsert_activity(act(1, "2026-07-10", nonsense=True))
+    assert store.get_day("2026-07-10") is None  # nothing written
+
+
+def test_upsert_day_requires_date(store: Store):
+    with pytest.raises(KeyError):
+        store.upsert_day({"steps": 1, "synced_at": TS})
+
+
+# --- get_series --------------------------------------------------------------
+
+
+def test_get_series_ascending_skips_nulls(store: Store):
+    for row in make_days("2026-07-10", 5, hrv_last_night=[50.0, None, 60.0, None, 70.0]):
+        store.upsert_day(row)
+    series = store.get_series("hrv_last_night", "2026-07-10", 5)
+    assert series == [("2026-07-06", 50.0), ("2026-07-08", 60.0), ("2026-07-10", 70.0)]
+    assert all(isinstance(v, float) for _, v in series)
+
+
+def test_get_series_window_bounds(store: Store):
+    for row in make_days("2026-07-10", 5, steps=[1, 2, 3, 4, 5]):
+        store.upsert_day(row)
+    series = store.get_series("steps", "2026-07-10", 2)
+    assert series == [("2026-07-09", 4.0), ("2026-07-10", 5.0)]
+    # end_date beyond stored data → only what exists in-window
+    assert store.get_series("steps", "2026-07-11", 2) == [("2026-07-10", 5.0)]
+
+
+def test_get_series_unknown_metric_raises(store: Store):
+    with pytest.raises(KeyError):
+        store.get_series("not_a_column", "2026-07-10", 7)
+
+
+# --- recompute_daily_loads ---------------------------------------------------
+
+
+def test_recompute_daily_loads(store: Store):
+    for row in make_days("2026-07-03", 3):
+        store.upsert_day(row)
+    # day 1: two loaded activities, one with RPE
+    store.upsert_activity(act(1, "2026-07-01", load=50.0, rpe=5, duration_s=1800.0))
+    store.upsert_activity(act(2, "2026-07-01", load=30.0))
+    # day 2: rest day (no activities)
+    # day 3: activity with no load but an RPE
+    store.upsert_activity(act(3, "2026-07-03", rpe=7, duration_s=3600.0))
+    store.recompute_daily_loads()
+
+    d1 = store.get_day("2026-07-01")
+    assert d1["daily_load"] == 80.0
+    assert d1["srpe_load"] == pytest.approx(5 * 30.0)  # only the RPE'd activity
+    d2 = store.get_day("2026-07-02")
+    assert d2["daily_load"] == 0
+    assert d2["srpe_load"] is None  # no RPE'd activities → NULL, not 0
+    d3 = store.get_day("2026-07-03")
+    assert d3["daily_load"] == 0  # SUM of NULL loads coalesces to 0
+    assert d3["srpe_load"] == pytest.approx(7 * 60.0)
+
+
+def test_recompute_overwrites_stale_values(store: Store):
+    store.upsert_day({"date": "2026-07-01", "daily_load": 999.0, "srpe_load": 999.0, "synced_at": TS})
+    store.recompute_daily_loads()
+    row = store.get_day("2026-07-01")
+    assert row["daily_load"] == 0
+    assert row["srpe_load"] is None
+
+
+# --- activities --------------------------------------------------------------
+
+
+def test_activity_roundtrip_and_partial_upsert(store: Store):
+    store.upsert_activity(
+        act(101, "2026-07-05", name="Daily", duration_s=2400.0, avg_hr=155, load=88.5,
+            hr_z3_s=1200.0, extra_json='{"k":1}')
+    )
+    row = store.get_activity(101)
+    assert row["name"] == "Daily"
+    assert row["load"] == 88.5
+    assert row["load_source"] == "garmin"  # schema default
+    store.upsert_activity({"activity_id": 101, "rpe": 6, "rpe_source": "athlete"})
+    row = store.get_activity(101)
+    assert row["rpe"] == 6
+    assert row["load"] == 88.5  # untouched
+    assert store.get_activity(999) is None
+
+
+def test_list_activities_range_and_order(store: Store):
+    store.upsert_activity(act(3, "2026-07-03"))
+    store.upsert_activity(act(1, "2026-07-01"))
+    store.upsert_activity(act(2, "2026-07-02"))
+    store.upsert_activity(act(9, "2026-07-09"))  # outside range
+    rows = store.list_activities("2026-07-01", "2026-07-03")
+    assert [r["activity_id"] for r in rows] == [1, 2, 3]
+
+
+def test_activities_missing_load(store: Store):
+    store.upsert_activity(act(1, "2026-07-01", load=50.0))
+    store.upsert_activity(act(2, "2026-07-02"))
+    store.upsert_activity(act(3, "2026-07-03"))
+    assert [r["activity_id"] for r in store.activities_missing_load()] == [2, 3]
+
+
+# --- sleep timeline / digests ------------------------------------------------
+
+
+def test_sleep_timeline_roundtrip_and_window(store: Store):
+    for d in ("2026-07-01", "2026-07-05", "2026-07-10"):
+        store.upsert_sleep_timeline(d, f'[["deep","{d}T00:00","{d}T01:00"]]')
+    store.upsert_sleep_timeline("2026-07-10", '[["rem","x","y"]]')  # overwrite
+    rows = store.get_sleep_timeline("2026-07-10", days_back=7)
+    assert [r["date"] for r in rows] == ["2026-07-05", "2026-07-10"]  # 07-01 outside window
+    assert rows[1]["intervals_json"] == '[["rem","x","y"]]'
+
+
+def test_activity_digest_roundtrip(store: Store):
+    store.upsert_activity(act(7, "2026-07-01"))
+    store.upsert_activity_digest(
+        {"activity_id": 7, "kind": "steady", "method": "splits", "ef": 1.42,
+         "decoupling": 0.03, "computed_at": TS}
+    )
+    row = store.get_activity_digest(7)
+    assert row["kind"] == "steady"
+    assert row["ef"] == 1.42
+    assert row["hot"] == 0  # schema default
+    store.upsert_activity_digest({"activity_id": 7, "kind": "long", "method": "stream",
+                                  "computed_at": TS})
+    assert store.get_activity_digest(7)["kind"] == "long"
+    assert store.get_activity_digest(8) is None
+
+
+# --- gear --------------------------------------------------------------------
+
+
+def gear(uuid: str, name: str, **kw) -> dict:
+    row = {"uuid": uuid, "type": "shoes", "name": name, "status": "active", "synced_at": TS}
+    row.update(kw)
+    return row
+
+
+def test_gear_roundtrip_and_partial_upsert(store: Store):
+    store.upsert_gear(gear("u1", "Cruiser 9 I", date_begin="2025-12-02", max_meters=1_000_000.0))
+    store.upsert_gear({"uuid": "u1", "total_meters": 918_000.0, "total_activities": 88})
+    row = store.get_gear("u1")
+    assert row["name"] == "Cruiser 9 I"          # untouched by the partial upsert
+    assert row["total_meters"] == 918_000.0
+    assert store.get_gear("nope") is None
+
+
+def test_list_gear_hides_retired_unless_asked(store: Store):
+    store.upsert_gear(gear("u1", "Racer 3", date_begin="2026-08-02"))
+    store.upsert_gear(gear("u2", "Arahi 7", date_begin="2025-11-01", status="retired"))
+    assert [g["uuid"] for g in store.list_gear()] == ["u1"]
+    # newest in service first
+    assert [g["uuid"] for g in store.list_gear(include_retired=True)] == ["u1", "u2"]
+
+
+def test_gear_unknown_column_raises(store: Store):
+    with pytest.raises(KeyError):
+        store.upsert_gear({"uuid": "u1", "colour": "blue"})
+
+
+def test_activity_gear_links_replace_wholesale(store: Store):
+    store.upsert_gear(gear("u1", "Racer 3"))
+    store.upsert_gear(gear("u2", "Daily"))
+    store.upsert_activity(act(1, "2026-08-06"))
+    store.replace_activity_gear(1, ["u1", "u2"])
+    assert [g["uuid"] for g in store.gear_for_activity(1)] == ["u2", "u1"]  # by name
+    # the athlete corrected the pair after the fact — the re-fetch wins
+    store.replace_activity_gear(1, ["u2"])
+    assert [g["uuid"] for g in store.gear_for_activity(1)] == ["u2"]
+    assert store.gear_for_activity(999) == []
+
+
+def test_activities_missing_gear_is_the_work_list(store: Store):
+    store.upsert_gear(gear("u1", "Racer 3"))
+    store.upsert_activity(act(1, "2026-08-04"))
+    store.upsert_activity(act(2, "2026-08-05"))
+    store.upsert_activity(act(3, "2026-08-06", sport="strength"))
+    store.replace_activity_gear(2, ["u1"])
+    pending = store.activities_missing_gear("2026-08-01", "2026-08-06")
+    assert [a["activity_id"] for a in pending] == [3, 1]  # newest first
+    runs = store.activities_missing_gear("2026-08-01", "2026-08-06", "%running%")
+    assert [a["activity_id"] for a in runs] == [1]
+
+
+def test_gear_usage_and_last_used(store: Store):
+    store.upsert_gear(gear("u1", "Racer 3"))
+    store.upsert_gear(gear("u2", "Daily"))
+    store.upsert_activity(act(1, "2026-08-04", distance_m=25_000.0))
+    store.upsert_activity(act(2, "2026-08-06", distance_m=34_000.0))
+    store.upsert_activity(act(3, "2026-07-01", distance_m=10_000.0))
+    store.upsert_activity(act(4, "2026-08-05", sport="strength"))  # no distance
+    for aid in (1, 2, 3):
+        store.replace_activity_gear(aid, ["u1"])
+    store.replace_activity_gear(4, ["u2"])
+
+    usage = store.gear_usage("2026-08-01", "2026-08-31")
+    assert usage["u1"] == {"uuid": "u1", "meters": 59_000.0, "sessions": 2,
+                           "last_used": "2026-08-06"}
+    assert usage["u2"]["meters"] == 0  # a distanceless session still counts as one
+    assert usage["u2"]["sessions"] == 1
+    # window-scoped: July's session is out
+    assert store.gear_usage("2026-07-01", "2026-07-31")["u1"]["sessions"] == 1
+    # last_used spans the whole store, not the window
+    assert store.gear_last_used() == {"u1": "2026-08-06", "u2": "2026-08-05"}
+
+
+def test_gear_usage_ignores_links_to_deleted_gear(store: Store):
+    """A pair deleted in Garmin leaves dangling links; the join drops them."""
+    store.upsert_activity(act(1, "2026-08-06", distance_m=12_000.0))
+    with store._conn:
+        store._conn.execute(
+            "INSERT INTO activity_gear (activity_id, gear_uuid) VALUES (1, 'ghost')"
+        )
+    assert store.gear_for_activity(1) == []
+
+
+# --- pmc ---------------------------------------------------------------------
+
+
+def test_replace_pmc_full_rewrite(store: Store):
+    store.replace_pmc(
+        [{"date": "2026-07-01", "load": 50.0, "ctl": 40.0, "atl": 45.0, "tsb": -5.0}]
+    )
+    new = [
+        {"date": "2026-07-02", "load": 0.0, "ctl": 39.0, "atl": 39.5, "tsb": -5.0},
+        {"date": "2026-07-03", "load": 80.0, "ctl": 40.0, "atl": 45.0, "tsb": -0.5},
+    ]
+    store.replace_pmc(new)
+    rows = store.get_pmc("2026-07-03", 30)
+    assert [r["date"] for r in rows] == ["2026-07-02", "2026-07-03"]  # old row gone
+    assert rows[1]["tsb"] == -0.5
+
+
+def test_get_pmc_window(store: Store):
+    store.replace_pmc(
+        [{"date": f"2026-07-{d:02d}", "load": 1.0, "ctl": 1.0, "atl": 1.0, "tsb": 0.0}
+         for d in range(1, 6)]
+    )
+    rows = store.get_pmc("2026-07-05", 2)
+    assert [r["date"] for r in rows] == ["2026-07-04", "2026-07-05"]
+
+
+def test_replace_pmc_unknown_key_raises(store: Store):
+    with pytest.raises(KeyError):
+        store.replace_pmc([{"date": "2026-07-01", "load": 1.0, "ctl": 1.0, "atl": 1.0,
+                            "tsb": 0.0, "bogus": 9}])
+
+
+# --- baselines ---------------------------------------------------------------
+
+
+def test_baselines_roundtrip_and_update(store: Store):
+    store.upsert_baselines(
+        [{"metric": "resting_hr", "date": "2026-07-10", "window": 28, "mean": 47.1,
+          "median": 47.0, "mad_sd": 1.5, "n": 28},
+         {"metric": "resting_hr", "date": "2026-07-10", "window": 7, "mean": 48.0, "n": 7}]
+    )
+    row = store.get_baseline("resting_hr", "2026-07-10", 28)
+    assert row["mean"] == 47.1
+    assert row["n"] == 28
+    store.upsert_baselines(
+        [{"metric": "resting_hr", "date": "2026-07-10", "window": 28, "mean": 46.0, "n": 28}]
+    )
+    row = store.get_baseline("resting_hr", "2026-07-10", 28)
+    assert row["mean"] == 46.0
+    assert row["median"] == 47.0  # partial upsert kept it
+    assert store.get_baseline("resting_hr", "2026-07-10", 60) is None
+
+
+# --- alerts ------------------------------------------------------------------
+
+
+def test_active_alerts_ordering(store: Store):
+    store.upsert_alert("2026-07-01", "hrv", "WATCH", "w")
+    store.upsert_alert("2026-07-02", "rhr", "RED", "r-old")
+    store.upsert_alert("2026-07-04", "monotony", "AMBER", "a")
+    store.upsert_alert("2026-07-05", "ramp", "RED", "r-new")
+    rows = store.active_alerts()
+    assert [(r["metric"], r["severity"]) for r in rows] == [
+        ("ramp", "RED"), ("rhr", "RED"), ("monotony", "AMBER"), ("hrv", "WATCH")
+    ]
+
+
+def test_upsert_alert_one_active_row_per_metric(store: Store):
+    store.upsert_alert("2026-07-01", "hrv", "WATCH", "first")
+    store.upsert_alert("2026-07-03", "hrv", "AMBER", "worse")
+    rows = store.active_alerts()
+    assert len(rows) == 1
+    assert rows[0]["severity"] == "AMBER"
+    assert rows[0]["message"] == "worse"
+    assert rows[0]["date"] == "2026-07-01"  # first trip date preserved
+
+
+def test_resolve_alert_and_reopen(store: Store):
+    store.upsert_alert("2026-07-01", "hrv", "AMBER", "m")
+    store.resolve_alert("hrv", "2026-07-04")
+    assert store.active_alerts() == []
+    # a new trip after resolution inserts a fresh row
+    store.upsert_alert("2026-07-06", "hrv", "RED", "again")
+    rows = store.active_alerts()
+    assert len(rows) == 1
+    assert rows[0]["date"] == "2026-07-06"
+    assert rows[0]["resolved"] == 0
+
+
+def test_resolve_alert_noop_when_absent(store: Store):
+    store.resolve_alert("nope", "2026-07-04")  # must not raise
+    assert store.active_alerts() == []
+
+
+# --- wellness log ------------------------------------------------------------
+
+
+def test_wellness_log_roundtrip(store: Store):
+    id1 = store.add_log({"date": "2026-07-01", "rpe": 6, "activity_id": 101, "created_at": TS})
+    id2 = store.add_log({"date": "2026-07-01", "flag": "illness", "note": "sore throat",
+                         "created_at": TS})
+    store.add_log({"date": "2026-07-02", "fatigue": 5, "created_at": TS})
+    assert isinstance(id1, int) and id2 > id1
+    rows = store.logs_for("2026-07-01")
+    assert [r["id"] for r in rows] == [id1, id2]
+    assert rows[0]["rpe"] == 6
+    assert rows[1]["flag"] == "illness"
+    with pytest.raises(KeyError):
+        store.add_log({"date": "2026-07-01", "bogus": 1, "created_at": TS})
+
+
+def test_unresolved_injuries(store: Store):
+    i1 = store.add_log({"date": "2026-07-01", "flag": "injury", "note": "knee", "created_at": TS})
+    store.add_log({"date": "2026-07-02", "flag": "injury", "resolved": 1, "created_at": TS})
+    store.add_log({"date": "2026-07-03", "flag": "illness", "created_at": TS})
+    rows = store.unresolved_injuries()
+    assert [r["id"] for r in rows] == [i1]
+    assert rows[0]["note"] == "knee"
+
+
+# --- profile / plan / capabilities / sync state ------------------------------
+
+
+def test_profile_set_get_overwrite(store: Store):
+    assert store.get_profile() == {}
+    store.set_profile("goal_race_date", "2026-10-11")
+    store.set_profile("phase", "base")
+    store.set_profile("phase", "build")
+    assert store.get_profile() == {"goal_race_date": "2026-10-11", "phase": "build"}
+
+
+def test_plan_entry_insert_update_and_match(store: Store):
+    pid = store.upsert_plan_entry({"date": "2026-07-21", "sport": "running",
+                                   "name": "Tempo 40min", "source": "calendar"})
+    assert isinstance(pid, int)
+    pid2 = store.upsert_plan_entry({"id": pid, "name": "Tempo 45min"})
+    assert pid2 == pid
+    rows = store.plan_entries("2026-07-20", "2026-07-22")
+    assert len(rows) == 1
+    assert rows[0]["name"] == "Tempo 45min"
+    assert rows[0]["source"] == "calendar"  # partial update kept it
+    assert rows[0]["matched_activity_id"] is None
+
+    store.set_plan_match(pid, 555, "heuristic")
+    row = store.plan_entries("2026-07-21", "2026-07-21")[0]
+    assert (row["matched_activity_id"], row["match_method"]) == (555, "heuristic")
+    store.set_plan_match(pid, None, None)  # unmatch
+    row = store.plan_entries("2026-07-21", "2026-07-21")[0]
+    assert row["matched_activity_id"] is None and row["match_method"] is None
+
+
+def test_capabilities_roundtrip(store: Store):
+    store.set_capability("activityTrainingLoad", True, "present on sampled activities")
+    store.set_capability("training_readiness", False)
+    store.set_capability("training_readiness", True, "appeared after device sync")
+    caps = store.get_capabilities()
+    assert caps["activityTrainingLoad"]["available"] is True
+    assert caps["training_readiness"]["available"] is True
+    assert caps["training_readiness"]["detail"] == "appeared after device sync"
+    assert caps["training_readiness"]["probed_at"]
+
+
+def test_sync_state_roundtrip(store: Store):
+    assert store.get_sync_state("last_sync") is None
+    store.set_sync_state("last_sync", "2026-07-19T08:00:00")
+    store.set_sync_state("last_sync", "2026-07-20T08:00:00")
+    assert store.get_sync_state("last_sync") == "2026-07-20T08:00:00"
+
+
+# --- export ------------------------------------------------------------------
+
+
+def test_export_csv_one_file_per_table(store: Store, tmp_path: Path):
+    store.upsert_day({"date": "2026-07-01", "steps": 9000, "synced_at": TS})
+    store.upsert_activity(act(1, "2026-07-01", load=50.0))
+    out = tmp_path / "export"
+    paths = store.export_csv(out)
+    expected = {"schema_meta", "days", "activities", "sleep_timeline", "activity_laps",
+                "activity_digests", "gear", "activity_gear", "baselines", "pmc",
+                "alerts", "wellness_log", "athlete_profile", "plan_calendar",
+                "capability_map", "sync_state"}
+    assert {p.stem for p in paths} == expected
+    assert all(p.exists() and p.parent == out for p in paths)
+
+    with (out / "days.csv").open(newline="") as f:
+        rows = list(csv.reader(f))
+    assert rows[0][:2] == ["date", "steps"]
+    assert rows[1][0] == "2026-07-01"
+    assert rows[1][1] == "9000"
+    # empty table still gets a header-only CSV
+    with (out / "pmc.csv").open(newline="") as f:
+        rows = list(csv.reader(f))
+    assert rows == [["date", "load", "ctl", "atl", "tsb"]]
+
+
+def test_migration_adds_new_days_columns_to_a_preexisting_db(tmp_path):
+    """`CREATE TABLE IF NOT EXISTS` won't add columns to an old account's days
+    table, so Store's ALTER-TABLE migration backfills them on open."""
+    db = tmp_path / "old.db"
+    con = sqlite3.connect(db)
+    con.execute("CREATE TABLE days (date TEXT PRIMARY KEY, "
+                "daily_load REAL NOT NULL DEFAULT 0, synced_at TEXT NOT NULL)")
+    con.commit()
+    con.close()
+    with Store(db) as s:
+        cols = {r["name"] for r in s._conn.execute("PRAGMA table_info(days)")}
+        assert {"endurance_score", "running_tolerance_pct"} <= cols
+        # and the migrated columns are usable end to end
+        s.upsert_day({"date": "2026-07-20", "endurance_score": 5000.0, "synced_at": TS})
+        assert dict(s.get_series("endurance_score", "2026-07-20", 7))["2026-07-20"] == 5000.0
+    # reopening is idempotent (no duplicate-column error)
+    with Store(db) as s:
+        assert "endurance_score" in {r["name"] for r in s._conn.execute("PRAGMA table_info(days)")}
+
+
+# --- dates_missing_metric (wellness backfill work list) ----------------------
+
+def test_dates_missing_metric_walks_the_calendar_not_the_rows(tmp_path):
+    s = Store(tmp_path / "s.db")
+    s.upsert_day({"date": "2026-07-01", "hrv_last_night": 60.0, "synced_at": TS})
+    s.upsert_day({"date": "2026-07-03", "steps": 100, "synced_at": TS})  # hrv NULL
+    # 07-02 has no row at all; 07-04 neither.
+    got = s.dates_missing_metric("hrv_last_night", "2026-07-01", "2026-07-04")
+    assert got == ["2026-07-04", "2026-07-03", "2026-07-02"]  # newest first
+
+
+def test_dates_missing_metric_rejects_unknown_column(tmp_path):
+    s = Store(tmp_path / "s.db")
+    with pytest.raises(KeyError):
+        s.dates_missing_metric("hrv_last_night; DROP TABLE days", "2026-07-01", "2026-07-02")

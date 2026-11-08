@@ -1,0 +1,447 @@
+"""`fartlek` CLI: import, auth, sync, doctor, accounts, export, reset.
+
+The only place Garmin credentials are ever typed is `fartlek auth`; they are
+never persisted. Everything else reads the tokens it stores.
+"""
+from __future__ import annotations
+
+import argparse
+import getpass
+import logging
+import shutil
+import sys
+from collections.abc import Iterator
+from contextlib import contextmanager
+from datetime import date
+from pathlib import Path
+
+from fartlek.paths import default_tokenstore, fartlek_home
+
+try:
+    from garminconnect import (
+        Garmin,
+        GarminConnectAuthenticationError,
+        GarminConnectConnectionError,
+        GarminConnectTooManyRequestsError,
+    )
+except ImportError:
+    Garmin = None
+    GarminConnectAuthenticationError = GarminConnectConnectionError = Exception
+    GarminConnectTooManyRequestsError = Exception
+
+_NEEDS_CONNECT = (
+    "This command connects to your Garmin account, which needs the optional extra `connect` "
+    "(in a source checkout: uv sync --extra connect). Read the README first: Garmin's terms "
+    "of use do not allow this kind of access. `fartlek import <export.zip>` needs neither."
+)
+
+
+def _connect_available() -> bool:
+    if Garmin is None:
+        print(_NEEDS_CONNECT, file=sys.stderr)
+        return False
+    return True
+
+
+def _token_file(tokenstore: Path) -> Path:
+    return tokenstore if tokenstore.suffix == ".json" else tokenstore / "garmin_tokens.json"
+
+
+_NEEDS_TTY = (
+    "This command asks a question and stdin is not a terminal. Run it directly in "
+    "a shell — not through a pipe, a CI job or an agent's command runner. "
+    "(`fartlek auth --replace` and `fartlek reset --yes` skip the confirmation, but "
+    "auth still needs a terminal for the password and MFA code.)"
+)
+
+
+def _ask(prompt: str, *, secret: bool = False) -> str:
+    """input()/getpass() that fails with a usable message instead of a traceback
+    when stdin is not a terminal (piped, CI, agent shell)."""
+    try:
+        return (getpass.getpass(prompt) if secret else input(prompt)).strip()
+    except EOFError:
+        print(f"\n{_NEEDS_TTY}", file=sys.stderr)
+        raise SystemExit(1) from None
+    except KeyboardInterrupt:
+        print("\nAborted.", file=sys.stderr)
+        raise SystemExit(1) from None
+
+
+def _prompt_mfa() -> str:
+    return _ask("MFA code (check your email/authenticator app): ")
+
+
+class _LoginProgress(logging.Handler):
+    """Turn garminconnect's per-strategy warnings into one human line each.
+
+    The library tries five login strategies in turn and logs a warning for each
+    one that fails. Unfiltered, a first-time user reads `mobile+cffi returned
+    429: Mobile login returned 429 — IP rate limited by Garmin` and concludes
+    the login crashed — while it is in fact still running, and usually about to
+    succeed on a later strategy. The CLI is a human surface: it reports that a
+    method was refused and that another is being tried, and keeps the strategy
+    names for the log level nobody reads.
+    """
+
+    def __init__(self) -> None:
+        super().__init__(level=logging.WARNING)
+        self.refused = 0
+
+    def emit(self, record: logging.LogRecord) -> None:
+        message = record.getMessage()
+        if "429" in message:
+            reason = "rate-limited by Garmin"
+        elif "failed" in message or "rejected" in message:
+            reason = "refused"
+        else:
+            return
+        self.refused += 1
+        # stdout, like the prompts around it: progress is not an error, and
+        # splitting the streams scrambles the order as soon as output is piped.
+        print(f"  · sign-in method {self.refused} {reason} — trying another…", flush=True)
+
+
+@contextmanager
+def _curated_login_output() -> Iterator[None]:
+    """Route garminconnect's log lines through _LoginProgress for the duration
+    of a login, then put the logger back exactly as it was."""
+    logger = logging.getLogger("garminconnect")
+    handler = _LoginProgress()
+    propagate, level = logger.propagate, logger.level
+    logger.propagate = False  # keep the raw record off the root handler
+    logger.setLevel(logging.WARNING)
+    logger.addHandler(handler)
+    try:
+        yield
+    finally:
+        logger.removeHandler(handler)
+        logger.propagate, logger.level = propagate, level
+
+
+_DIRECT_WARNING = (
+    "Direct connection, not the default. It reads the endpoints of the Garmin Connect apps with\n"
+    "your credentials. Garmin's terms of use do not allow this, and Garmin can suspend accounts\n"
+    "for automated access. `fartlek import <export.zip>` needs none of this. If an export was\n"
+    "imported too, set FARTLEK_SOURCE=connect for the server to use this connection.\n"
+)
+
+
+def cmd_auth(args: argparse.Namespace) -> int:
+    if not _connect_available():
+        return 1
+    print(_DIRECT_WARNING)
+    tokenstore = default_tokenstore()
+    token_file = _token_file(tokenstore)
+    print("Garmin Connect login")
+    print(f"Tokens will be stored at {token_file}\n")
+
+    # The library resumes silently from an existing tokenstore, which would
+    # ignore the credentials typed below — make replacement explicit instead.
+    if token_file.exists():
+        if getattr(args, "replace", False):
+            print("Replacing existing tokens (--replace).")
+        else:
+            answer = _ask("Existing tokens found. Replace with a new login? [y/N] ").lower()
+            if answer not in ("y", "yes"):
+                print("Keeping existing tokens. Nothing to do.")
+                return 0
+        token_file.unlink()
+
+    email = _ask("Garmin email: ")
+    password = _ask("Garmin password: ", secret=True)
+    if not email or not password:
+        print("Email and password are required.", file=sys.stderr)
+        return 1
+
+    client = Garmin(email=email, password=password, prompt_mfa=_prompt_mfa)
+    print("\nSigning in — Garmin has several sign-in methods and this can take a minute.")
+    try:
+        with _curated_login_output():
+            client.login(tokenstore=str(tokenstore))
+    except GarminConnectTooManyRequestsError:
+        print(
+            "\nGarmin is rate-limiting login attempts from this network — every "
+            "sign-in method was refused. Wait about fifteen minutes and retry; "
+            "retrying sooner extends the block.",
+            file=sys.stderr,
+        )
+        return 1
+    except GarminConnectAuthenticationError as exc:
+        print(f"\nAuthentication failed: {exc}", file=sys.stderr)
+        return 1
+    except GarminConnectConnectionError as exc:
+        print(f"\nCould not reach Garmin: {exc}", file=sys.stderr)
+        return 1
+
+    who = client.display_name or email
+    print(f"\n✓ Logged in as {who}")
+    print(f"✓ Tokens saved to {token_file}")
+    print("\nYou're set — the MCP server will reuse these tokens automatically.")
+    return 0
+
+
+def cmd_doctor(_args: argparse.Namespace) -> int:
+    ok = True
+    tokenstore = default_tokenstore()
+    token_file = _token_file(tokenstore)
+
+    if token_file.exists():
+        print(f"✓ tokens present at {token_file}")
+        try:
+            client = Garmin()
+            with _curated_login_output():
+                client.login(tokenstore=str(tokenstore))
+            print(f"✓ Garmin session OK (logged in as {client.display_name})")
+        except Exception as exc:  # noqa: BLE001 — doctor reports, never crashes
+            print(f"✗ Garmin session failed: {exc}")
+            print("  → run `fartlek auth`")
+            ok = False
+    else:
+        print(f"✗ no tokens at {token_file} — run `fartlek auth`")
+        ok = False
+
+    stores = sorted(fartlek_home().glob("*/store.db"))
+    if stores:
+        for s in stores:
+            print(f"✓ store: {s.parent.name} ({s.stat().st_size // 1024} KB)")
+    else:
+        print("· no local store yet (created at first sync)")
+    return 0 if ok else 1
+
+
+def cmd_accounts(_args: argparse.Namespace) -> int:
+    stores = sorted(fartlek_home().glob("*/store.db"))
+    if not stores:
+        print("No accounts yet — run `fartlek auth` then a first sync.")
+        return 0
+    for s in stores:
+        print(s.parent.name)
+    return 0
+
+
+def _span_days(since: str | None, today: date | None = None) -> int | None:
+    """`--since YYYY-MM-DD` → a day count the sync steps all understand.
+
+    Every backfill in the engine is parameterised by a *depth in days*, not by
+    a start date, and the conventions differ by one day between them (tier 1
+    and tier 2 subtract the count from today, `backfill_splits` counts today
+    in). Returning `(today - since).days + 1` satisfies the strictest of them,
+    so `since` is always covered — the extra day the looser callers pick up is
+    a harmless superset, never a short window.
+    """
+    if not since:
+        return None
+    try:
+        start = date.fromisoformat(since)
+    except ValueError:
+        raise SystemExit(f"--since: expected YYYY-MM-DD, got {since!r}") from None
+    span = ((today or date.today()) - start).days + 1
+    if span < 1:
+        raise SystemExit(f"--since: {since} is in the future")
+    return span
+
+
+def cmd_sync(args: argparse.Namespace) -> int:
+    if not _connect_available():
+        return 1
+    from fartlek.health.adapters.garmin_connect import GarminConnectAdapter
+    from fartlek.health.exceptions import GarminAuthError
+    from fartlek.paths import account_dir, store_path
+    from fartlek.store import Store
+    from fartlek.sync.engine import (
+        SPLITS_HISTORY_DAYS,
+        SyncEngine,
+        activity_history_days,
+    )
+
+    span = _span_days(getattr(args, "since", None))
+    adapter = GarminConnectAdapter(tokenstore=default_tokenstore())
+    try:
+        client = adapter.connect_sync()
+    except GarminAuthError as exc:
+        print(exc, file=sys.stderr)
+        return 1
+    name = client.display_name or "default"
+    print(f"Syncing account {name} → {store_path(name)}")
+
+    with Store(store_path(name)) as store:
+        engine = SyncEngine(
+            store,
+            lambda path, **p: adapter.fetch_sync(client, path, **p),
+            name,
+            account_dir(name),
+        )
+        def _report(tier_name: str, result: dict) -> bool:
+            if result.get("skipped"):
+                print(f"✗ {tier_name}: {result['reason']}")
+                return False
+            print(f"✓ {tier_name}: {result.get('calls', '?')} calls")
+            for err in result.get("errors") or []:
+                print(f"  ⚠ {err}", file=sys.stderr)
+            return True
+
+        if not _report("tier0 (snapshot)", engine.tier0()):
+            return 1
+        window = max(span or 0, activity_history_days())
+        if not _report(f"tier1 ({window}d history)", engine.tier1(history_days=span)):
+            return 1
+        # Per-lap splits: capped per run and self-healing — the work list is
+        # "activities with no stored laps", so in steady state this costs one
+        # call for the session just ingested, and nothing at all once caught up.
+        # The window stays at the default 8-12 weeks unless --since
+        # asks for more: laps are one call each, so depth here is opt-in, and
+        # a shallow --since must never shrink it below that.
+        splits = engine.backfill_splits(days=max(span or 0, SPLITS_HISTORY_DAYS))
+        if not _report("splits backfill", splits):
+            return 1
+        left = splits["remaining"]
+        tail = f", {left} left — re-run to continue" if left else ""
+        print(f"  · {splits['activities']} activities, {splits['laps']} laps{tail}")
+        # Gear attribution + the re-check of recent links. It used to run only
+        # from tier 2, i.e. only with --nights, which made the re-check window
+        # unusable in practice: correcting a pair in Connect had no effect
+        # unless the athlete happened to ask for a sleep backfill afterwards.
+        gear = engine.backfill_gear(days=span)
+        if not _report("gear backfill", gear):
+            return 1
+        left = gear["remaining"]
+        tail = f", {left} left — re-run to continue" if left else ""
+        print(f"  · {gear['linked']} sessions attributed{tail}")
+        # --since is a floor date for the whole pass, so it implies the nightly
+        # tier as well; --nights stays the way to ask for depth in nights only.
+        nights = max(span or 0, args.nights)
+        if nights:
+            if not _report(
+                f"tier2 ({nights} nights backfill)",
+                engine.tier2(backfill_days=nights),
+            ):
+                return 1
+            # Wellness gap-fills: one call per missing date, capped per run, so
+            # a long history drains over several invocations.
+            for label, res in (
+                ("hrv", engine.backfill_hrv(days=nights)),
+                ("daily summary", engine.backfill_daily_summary(days=nights)),
+            ):
+                if not _report(f"{label} backfill", res):
+                    return 1
+                left = res["remaining"]
+                tail = f", {left} left — re-run to continue" if left else ""
+                print(f"  · {res['filled']} days filled{tail}")
+        pmc = store.get_pmc(end_date=engine._today(), days=1)
+        if pmc:
+            p = pmc[-1]
+            print(f"✓ PMC today: CTL {p['ctl']:.1f} · ATL {p['atl']:.1f} · TSB {p['tsb']:.1f}")
+    print("Done.")
+    return 0
+
+
+def cmd_import(args: argparse.Namespace) -> int:
+    from fartlek.sync.export_import import DEFAULT_DAYS, import_export
+
+    days = _span_days(args.since) or DEFAULT_DAYS
+    print(f"Reading {args.path}")
+
+    def report(name: str, result: dict) -> None:
+        print(f"✓ {name}" if not result.get("skipped") else f"✗ {name}: {result.get('reason')}")
+        for err in result.get("errors") or []:
+            print(f"  ⚠ {err}", file=sys.stderr)
+
+    try:
+        export, _ = import_export(args.path, days=days, report=report)
+    except (FileNotFoundError, ValueError) as exc:
+        print(exc, file=sys.stderr)
+        return 1
+    print(f"Done. Data through {export.last_date}, account {export.display_name}.")
+    return 0
+
+
+def cmd_export(args: argparse.Namespace) -> int:
+    from fartlek.store import Store
+
+    stores = sorted(fartlek_home().glob("*/store.db"))
+    if not stores:
+        print("No local store yet — run `fartlek sync` first.", file=sys.stderr)
+        return 1
+    import sqlite3
+
+    out = Path(args.out or "fartlek-export")
+    for db in stores:
+        target = out / db.parent.name
+        target.mkdir(parents=True, exist_ok=True)
+        with Store(db) as s:
+            written = s.export_csv(target)
+        # sqlite backup API, not a file copy: a live WAL would make the
+        # copied .db stale or torn while another process writes.
+        src = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
+        dst = sqlite3.connect(target / "store.db")
+        with dst:
+            src.backup(dst)
+        src.close()
+        dst.close()
+        print(f"✓ {db.parent.name}: store.db + {len(written)} CSV files → {target}")
+    return 0
+
+
+def cmd_reset(args: argparse.Namespace) -> int:
+    home = fartlek_home()
+    if not home.exists():
+        print("Nothing to reset.")
+        return 0
+    if not getattr(args, "yes", False):
+        answer = _ask(f"Delete ALL Fartlek tokens and local data under {home}? [y/N] ").lower()
+        if answer not in ("y", "yes"):
+            print("Aborted.")
+            return 0
+    shutil.rmtree(home)
+    print(f"✓ removed {home}")
+    return 0
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        prog="fartlek",
+        description="Fartlek — a coach's morning report from your Garmin data, for any LLM via MCP.",
+    )
+    sub = parser.add_subparsers(
+        dest="command", required=True, metavar="{import,accounts,export,reset}"
+    )
+    p_auth = sub.add_parser("auth")
+    p_auth.add_argument(
+        "--replace", action="store_true", help="replace existing tokens without asking"
+    )
+    p_auth.set_defaults(func=cmd_auth)
+    sub.add_parser("doctor").set_defaults(func=cmd_doctor)
+    sub.add_parser("accounts", help="list local accounts").set_defaults(func=cmd_accounts)
+    p_import = sub.add_parser(
+        "import", help="fill the local store from a Garmin account export (a .zip, or its folder)"
+    )
+    p_import.add_argument("path", type=Path, help="the export you downloaded from Garmin")
+    p_import.add_argument(
+        "--since", metavar="YYYY-MM-DD", help="how far back to read (default: one year)"
+    )
+    p_import.set_defaults(func=cmd_import)
+    p_sync = sub.add_parser("sync")
+    p_sync.add_argument("--nights", type=int, default=0, help="also backfill N nights of sleep/HRV (tier 2)")
+    p_sync.add_argument(
+        "--since",
+        metavar="YYYY-MM-DD",
+        help="floor date for the whole pass: activities, wellness, laps, gear "
+        "and nights are all backfilled down to this date (never shallower "
+        "than the configured defaults). Costs one call per missing item, so "
+        "expect several runs before a deep window is fully drained.",
+    )
+    p_sync.set_defaults(func=cmd_sync)
+    p_export = sub.add_parser("export", help="export the local store (SQLite copy + CSV per table)")
+    p_export.add_argument("out", nargs="?", help="output directory (default: ./fartlek-export)")
+    p_export.set_defaults(func=cmd_export)
+    p_reset = sub.add_parser("reset", help="wipe all local tokens and data (asks confirmation)")
+    p_reset.add_argument("-y", "--yes", action="store_true", help="skip the confirmation prompt")
+    p_reset.set_defaults(func=cmd_reset)
+
+    args = parser.parse_args()
+    sys.exit(args.func(args))
+
+
+if __name__ == "__main__":
+    main()
